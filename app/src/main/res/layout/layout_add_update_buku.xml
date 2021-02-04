@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:showIn="@layout/activity_add_book_activiity">
+
+
+    <EditText
+        android:id="@+id/edt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Judul Buku" />
+
+    <EditText
+        android:id="@+id/edt_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/edt_title"
+        android:hint="Deskripsi" />
+
+    <EditText
+        android:id="@+id/edt_sinopsis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/edt_description"
+        android:hint="Sinopsis" />
+
+    <TextView
+        android:id="@+id/txtKetersediaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ketersediaan"
+        android:layout_below="@+id/edt_sinopsis" />
+
+    <TextView
+        android:id="@+id/txtYaTidak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignTop="@+id/swtKetersediaan"
+        android:layout_alignBottom="@+id/swtKetersediaan"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@+id/swtKetersediaan"
+        android:text="Ya" />
+
+    <Switch
+        android:id="@+id/swtKetersediaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/edt_sinopsis" />
+
+    <ImageView
+        android:id="@+id/imgUpload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/txtKetersediaan" />
+
+    <TextView
+        android:id="@+id/txtUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgUpload"
+        android:layout_toEndOf="@+id/imgUpload"
+        android:layout_marginStart="32dp"
+        android:text="Foto Buku" />
+
+    <Button
+        android:id="@+id/btn_choose_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtUpload"
+        android:layout_alignStart="@+id/txtUpload"
+        android:layout_marginTop="16dp"
+        android:text="Pilih Gambar" />
+
+    <Button
+        android:id="@+id/btn_simpan"
+        android:layout_below="@+id/imgUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Simpan" />
+</merge>
