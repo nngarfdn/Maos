@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334879101308",
+    "project_id": "maos-79ddb",
+    "storage_bucket": "maos-79ddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334879101308:android:9db01bda48f2afe38d94f9",
+        "android_client_info": {
+          "package_name": "com.presidev.maos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334879101308-k1ao5sf1iamhrm9h7rffn1it8epbrf4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCP8mnVPlLFekEnS9VWiHE114704slIDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334879101308-k1ao5sf1iamhrm9h7rffn1it8epbrf4v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
