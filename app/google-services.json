@@ -14,6 +14,46 @@
       },
       "oauth_client": [
         {
+          "client_id": "334879101308-dkup8silgm4bb96n1kuq3ib151hiegov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "b529f1c2465b95817d6592d90b68d5fbf6e576e9"
+          }
+        },
+        {
+          "client_id": "334879101308-dqdvus5m5b5i04p5h59igidjeqcg5pv9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "e40a5e938d8c6c99c243adbbccbf4724560f06b1"
+          }
+        },
+        {
+          "client_id": "334879101308-i9belhvcpoom6fp7jr7f0bhhdd3b4jpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "a34c6d1641a86062990afa55fecaff7c4b40fe84"
+          }
+        },
+        {
+          "client_id": "334879101308-itls80qiktqmh478j7qs0kinsujf6l14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "400ece0d6cd0c758666d0676874981eb87a08436"
+          }
+        },
+        {
+          "client_id": "334879101308-jblhkbq9pckrphj51neqrajom3vcmoi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "0cd1693bb8dc0e4539541241b320b0b2869373bc"
+          }
+        },
+        {
           "client_id": "334879101308-k1ao5sf1iamhrm9h7rffn1it8epbrf4v.apps.googleusercontent.com",
           "client_type": 3
         }

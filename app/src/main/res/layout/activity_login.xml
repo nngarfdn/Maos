@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.view.LoginActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edt_email_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/edt_password_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kata sandi"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/btn_email_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Masuk"/>
+
+    <Button
+        android:id="@+id/btn_google_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Masuk/Daftar dengan Google"/>
+
+    <Button
+        android:id="@+id/btn_reset_password_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lupa kata sandi"/>
+
+    <Button
+        android:id="@+id/btn_register_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daftar"/>
+</LinearLayout>

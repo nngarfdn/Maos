@@ -7,13 +7,13 @@ import com.presidev.maos.R
 import com.presidev.maos.mitra.model.Book
 import com.presidev.maos.mitra.view.viewmodel.BookViewModel
 
-class AddBookActiviity : AppCompatActivity() {
+class AddBookActivity : AppCompatActivity() {
 
     private lateinit var bookViewModel: BookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_book_activiity)
+        setContentView(R.layout.activity_add_book_activity)
 
         bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
 

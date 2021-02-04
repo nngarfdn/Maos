@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
-    tools:context=".mitra.view.AddBookActiviity">
+    tools:context=".mitra.view.AddBookActivity">
 
     <include layout="@layout/layout_add_update_buku" />
 </RelativeLayout>

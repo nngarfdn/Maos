@@ -13,7 +13,7 @@ class KatalogMitraActivity : AppCompatActivity() {
 
         val fab : FloatingActionButton = findViewById(R.id.floatingActionButton)
         fab.setOnClickListener {
-            val intent = Intent(this, AddBookActiviity::class.java)
+            val intent = Intent(this, AddBookActivity::class.java)
             startActivity(intent)
         }
 
