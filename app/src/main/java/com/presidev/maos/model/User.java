@@ -1,17 +1,16 @@
-package com.presidev.maos.login.model;
-
-import com.google.firebase.firestore.Exclude;
+package com.presidev.maos.model;
 
 public class User {
     private final String id;
     private final String name;
     private final String email;
-    private boolean isNew = false;
+    private final String level;
 
-    public User(String id, String name, String email) {
+    public User(String id, String name, String email, String level) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.level = level;
     }
 
     public String getId() {
@@ -26,12 +25,7 @@ public class User {
         return email;
     }
 
-    @Exclude
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(boolean aNew) {
-        isNew = aNew;
+    public String getLevel(){
+        return level;
     }
 }

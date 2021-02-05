@@ -7,13 +7,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.AuthCredential;
-import com.presidev.maos.login.model.User;
+import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.login.repository.AuthRepository;
 
 public class AuthViewModel extends AndroidViewModel {
     private final AuthRepository authRepository;
 
-    private final LiveData<User> userLiveData;
+    private final LiveData<FirebaseUser> userLiveData;
 
     public AuthViewModel (@NonNull Application application){
        super(application);
@@ -21,7 +21,7 @@ public class AuthViewModel extends AndroidViewModel {
         userLiveData = authRepository.getUserLiveData();
     }
 
-    public LiveData<User> getUserLiveData(){
+    public LiveData<FirebaseUser> getUserLiveData(){
         return userLiveData;
     }
 
@@ -29,8 +29,8 @@ public class AuthViewModel extends AndroidViewModel {
         authRepository.authWithGoogle(authCredential);
     }
 
-    public void registerWithEmail(String name, String email, String password){
-        authRepository.registerWithEmail(name, email, password);
+    public void registerWithEmail(String name, String email, String password, String level){
+        authRepository.registerWithEmail(name, email, password, level);
     }
 
     public void loginWithEmail(String email, String password){
@@ -39,5 +39,9 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void sendPasswordReset(String email){
         authRepository.sendPasswordReset(email);
+    }
+
+    public void logout(){
+        authRepository.logout();
     }
 }

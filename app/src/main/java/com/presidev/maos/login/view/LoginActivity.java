@@ -27,6 +27,9 @@ import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 
+import static com.presidev.maos.login.view.RegisterActivity.EXTRA_LEVEL;
+import static com.presidev.maos.utils.Constants.LEVEL_PENGGUNA;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = getClass().getSimpleName();
     private static final int RC_SIGN_IN = 9001;
@@ -51,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        authViewModel.getUserLiveData().observe(this, user -> {
+        authViewModel.getUserLiveData().observe(this, firebaseUser -> {
             loadingDialog.dismiss();
             launchMain();
         });
@@ -91,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btn_register_login:
                 Intent intentRegister = new Intent(this,RegisterActivity.class);
+                intentRegister.putExtra(EXTRA_LEVEL, LEVEL_PENGGUNA);
                 startActivity(intentRegister);
                 break;
         }

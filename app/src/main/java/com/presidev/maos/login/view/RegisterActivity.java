@@ -22,11 +22,14 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
+    public static final String EXTRA_LEVEL = "extra_level";
 
     private AuthViewModel authViewModel;
     private LoadingDialog loadingDialog;
 
     private EditText edtName, edtEmail, edtPassword, edtPasswordConfirmation;
+
+    private String userLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         btnEmail.setOnClickListener(this);
         btnGoogle.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_LEVEL)){
+            userLevel = intent.getStringExtra(EXTRA_LEVEL);
+            Log.d(getClass().getSimpleName(), "User level: " + userLevel);
+        }
+        Log.d(getClass().getSimpleName(), "User level: " + userLevel);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -70,8 +80,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, "createAccount: " + email);
 
         loadingDialog.show();
-        authViewModel.registerWithEmail(name, email, password);
-        authViewModel.getUserLiveData().observe(this, user -> {
+        authViewModel.registerWithEmail(name, email, password, userLevel);
+        authViewModel.getUserLiveData().observe(this, firebaseUser -> {
             loadingDialog.dismiss();
             launchMain();
         });
