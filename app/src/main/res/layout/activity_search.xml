@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".search.view.SearchActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_mitra_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Cari mitra di sini"/>
+
+    <Button
+        android:id="@+id/btn_mitra_filter_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter mitra"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_mitra_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_book_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Cari buku di sini"/>
+
+    <Button
+        android:id="@+id/btn_book_filter_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter buku"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_book_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

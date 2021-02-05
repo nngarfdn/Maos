@@ -15,8 +15,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.presidev.maos.R;
-import com.presidev.maos.model.User;
-import com.presidev.maos.preference.UserPreference;
+import com.presidev.maos.login.model.Account;
+import com.presidev.maos.login.preference.UserPreference;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.LEVEL_PENGGUNA;
@@ -28,7 +28,7 @@ public class AuthRepository {
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    private final CollectionReference usersReference = database.collection("users");
+    private final CollectionReference usersReference = database.collection("accounts");
     private final UserPreference userPreference;
 
     private final MutableLiveData<FirebaseUser> userLiveData = new MutableLiveData<>();
@@ -56,13 +56,13 @@ public class AuthRepository {
                     String email = firebaseUser.getEmail();
                     if (task.getResult().getAdditionalUserInfo().isNewUser()){
                         // Hanya pengguna yang bisa mendaftar via Google
-                        User user = new User(id, name, email, LEVEL_PENGGUNA);
-                        userPreference.setData(user);
-                        setDefaultAccountSettings(user);
+                        Account account = new Account(id, name, email, LEVEL_PENGGUNA);
+                        userPreference.setData(account);
+                        setDefaultAccountSettings(account);
                     } else {
                         getUserLevel(id, level -> {
-                            User user = new User(id, name, email, level);
-                            userPreference.setData(user);
+                            Account account = new Account(id, name, email, level);
+                            userPreference.setData(account);
                         });
                     }
                 }
@@ -95,9 +95,9 @@ public class AuthRepository {
                     userLiveData.postValue(firebaseUser);
 
                     String id = firebaseUser.getUid();
-                    User user = new User(id, name, email, level);
-                    userPreference.setData(user);
-                    setDefaultAccountSettings(user);
+                    Account account = new Account(id, name, email, level);
+                    userPreference.setData(account);
+                    setDefaultAccountSettings(account);
                 }
             } else {
                 showToast(application.getApplicationContext(), "Email sudah terdaftar");
@@ -117,8 +117,8 @@ public class AuthRepository {
                     String id = firebaseUser.getUid();
                     String name = firebaseUser.getDisplayName();
                     getUserLevel(id, level -> {
-                        User user = new User(id, name, email, level);
-                        userPreference.setData(user);
+                        Account account = new Account(id, name, email, level);
+                        userPreference.setData(account);
                     });
                 }
             } else {
@@ -139,9 +139,9 @@ public class AuthRepository {
         });
     }
 
-    private void setDefaultAccountSettings(User newUser){
-        DocumentReference uidReference = usersReference.document(newUser.getId());
-        uidReference.set(newUser).addOnCompleteListener(task -> {
+    private void setDefaultAccountSettings(Account newAccount){
+        DocumentReference uidReference = usersReference.document(newAccount.getId());
+        uidReference.set(newAccount).addOnCompleteListener(task -> {
             if (task.isSuccessful()) Log.d(TAG, "setDefaultAccountSettings: success");
             else Log.w(TAG, "sendPasswordReset: failure", task.getException());
         });

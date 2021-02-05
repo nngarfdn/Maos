@@ -20,9 +20,10 @@ import com.presidev.maos.login.viewmodel.AuthViewModel;
 
 import java.util.regex.Pattern;
 
+import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
-    public static final String EXTRA_LEVEL = "extra_level";
 
     private AuthViewModel authViewModel;
     private LoadingDialog loadingDialog;
@@ -54,9 +55,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_LEVEL)){
             userLevel = intent.getStringExtra(EXTRA_LEVEL);
-            Log.d(getClass().getSimpleName(), "User level: " + userLevel);
+            Log.d(getClass().getSimpleName(), "Account level: " + userLevel);
         }
-        Log.d(getClass().getSimpleName(), "User level: " + userLevel);
+        Log.d(getClass().getSimpleName(), "Account level: " + userLevel);
     }
 
     @SuppressLint("NonConstantResourceId")

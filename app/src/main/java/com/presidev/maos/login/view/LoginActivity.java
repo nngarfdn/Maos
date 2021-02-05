@@ -27,7 +27,7 @@ import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 
-import static com.presidev.maos.login.view.RegisterActivity.EXTRA_LEVEL;
+import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_PENGGUNA;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{

@@ -1,10 +1,10 @@
-package com.presidev.maos.preference;
+package com.presidev.maos.login.preference;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.presidev.maos.model.User;
+import com.presidev.maos.login.model.Account;
 
 public class UserPreference {
     private final SharedPreferences sharedPreferences;
@@ -22,21 +22,16 @@ public class UserPreference {
         editor = sharedPreferences.edit();
     }
 
-    public void setData(User user){
-        editor.putString(ID, user.getId());
-        editor.putString(NAME, user.getName());
-        editor.putString(EMAIL, user.getEmail());
-        editor.putString(LEVEL, user.getLevel());
+    public void setData(Account account){
+        editor.putString(ID, account.getId());
+        editor.putString(NAME, account.getName());
+        editor.putString(EMAIL, account.getEmail());
+        editor.putString(LEVEL, account.getLevel());
         editor.apply();
     }
 
     public void resetData(){
         editor.clear().apply();
-    }
-
-    public void setName(String name){
-        editor.putString(NAME, name);
-        editor.apply();
     }
 
     public String getId(){

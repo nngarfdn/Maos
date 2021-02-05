@@ -1,31 +1,39 @@
 package com.presidev.maos.model;
 
 public class User {
-    private final String id;
-    private final String name;
-    private final String email;
-    private final String level;
+    private String id;
+    private String name;
+    private String idCard;
 
-    public User(String id, String name, String email, String level) {
+    public User(){}
+
+    public User(String id, String name, String idCard) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.level = level;
+        this.idCard = idCard;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLevel(){
-        return level;
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }
