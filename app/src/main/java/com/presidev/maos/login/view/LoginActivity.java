@@ -2,6 +2,7 @@ package com.presidev.maos.login.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,19 +21,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.presidev.maos.MainActivity;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
-
-import static com.presidev.maos.utils.AppUtils.showToast;
+import com.presidev.maos.login.viewmodel.AuthViewModel;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = getClass().getSimpleName();
     private static final int RC_SIGN_IN = 9001;
 
-    private FirebaseAuth firebaseAuth;
+    private AuthViewModel authViewModel;
     private GoogleSignInClient googleSignInClient;
     private LoadingDialog loadingDialog;
 
@@ -43,14 +42,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize
-        loadingDialog = new LoadingDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
+        loadingDialog = new LoadingDialog(this, true);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.getUserLiveData().observe(this, user -> {
+            loadingDialog.dismiss();
+            launchMain();
+        });
 
         // Initialize view
         edtEmail = findViewById(R.id.edt_email_login);
@@ -76,7 +80,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btn_google_login:
-                loginWithGoogle();
+                Intent intentGoogle = googleSignInClient.getSignInIntent();
+                startActivityForResult(intentGoogle, RC_SIGN_IN);
                 break;
 
             case R.id.btn_reset_password_login:
@@ -95,73 +100,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        // Result returned from launching the intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
+                // Google sign in was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                if (account != null) authWithGoogle(account);
             } catch (ApiException e){
-                // Google Sign In failed or user press back button
                 Log.w(TAG, "Google sign in failed", e);
-                //showSnackbar(getActivity().findViewById(R.id.activity_login), "Email gagal diautentikasi.");
             }
         }
     }
 
-    private void loginWithGoogle(){
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account){
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+    private void authWithGoogle(GoogleSignInAccount account){
+        Log.d(TAG, "authWithGoogle: " + account.getId());
         loadingDialog.show();
 
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        firebaseAuth.signInWithCredential(authCredential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()){
-                        // Sign in success, update UI with the signed-in user's informationZ
-                        Log.d(TAG, "signInWithCredential: success");
-
-                        // Jika pengguna baru/email baru saja terdaftar
-                        if (task.getResult().getAdditionalUserInfo().isNewUser()){
-                            Log.d(TAG, "register with Google account: success");
-                        }
-
-                        launchMain();
-                    } else {
-                        // If sign in fails, display a message to the user
-                        Log.w(TAG, "signInWithCredential: failure", task.getException());
-                        showToast(getApplicationContext(), "Email gagal diautentikasi.");
-                    }
-
-                    loadingDialog.dismiss();
-                });
+        authViewModel.authWithGoogle(authCredential);
     }
 
     private void loginWithEmail(String email, String password){
         if (!validateForm(email, password)) return;
-        Log.d(TAG, "signIn: " + email);
 
+        Log.d(TAG, "loginWithEmail: " + email);
         loadingDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()){
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail: success");
-                        launchMain();
-                    } else {
-                        // If sign in fails, display a message to the user
-                        Log.w(TAG, "signInWithEmail: failure", task.getException());
-                        showToast(getApplicationContext(),  "Kata sandi salah.");
-                    }
+        authViewModel.loginWithEmail(email, password);
+    }
 
-                    loadingDialog.dismiss();
-                });
+    private void launchMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private boolean validateForm(String email, String password){
@@ -178,11 +150,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         return valid;
-    }
-
-    private void launchMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);  // Clear all previous activities
-        startActivity(intent);
     }
 }

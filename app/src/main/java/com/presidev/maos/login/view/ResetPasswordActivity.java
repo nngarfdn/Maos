@@ -1,22 +1,20 @@
 package com.presidev.maos.login.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.presidev.maos.R;
-
-import static com.presidev.maos.utils.AppUtils.showToast;
+import com.presidev.maos.login.viewmodel.AuthViewModel;
 
 public class ResetPasswordActivity extends AppCompatActivity {
-    private final String TAG = getClass().getSimpleName();
-    private FirebaseAuth firebaseAuth;
+    private AuthViewModel authViewModel;
+
     private EditText edtEmail;
 
     @Override
@@ -24,7 +22,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         edtEmail = findViewById(R.id.edt_email_rp);
         Button btnSend = findViewById(R.id.btn_email_rp);
@@ -34,18 +32,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void sendResetPassword(String email){
         if (!validateForm(email)) return;
-
-        firebaseAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
-                        Log.d(TAG, "Email sent.");
-                        showToast(getApplicationContext(), "Permintaan setel ulang kata sandi telah dikirim ke email.");
-                        finish();
-                    } else {
-                        Log.d(TAG, "Email sent failed.");
-                        showToast(getApplicationContext(), "Email belum terdaftar.");
-                    }
-                });
+        authViewModel.sendPasswordReset(email);
     }
 
     private boolean validateForm(String email){

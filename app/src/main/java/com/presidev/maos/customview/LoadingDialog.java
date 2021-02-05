@@ -11,11 +11,11 @@ public class LoadingDialog {
     private final AlertDialog dialog;
 
     @SuppressLint("InflateParams")
-    public LoadingDialog(Activity activity){
+    public LoadingDialog(Activity activity, boolean isCancelable){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_loading, null));
-        builder.setCancelable(false);
+        builder.setCancelable(isCancelable);
         dialog = builder.create();
     }
 

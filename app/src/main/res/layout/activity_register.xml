@@ -41,4 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Daftar"/>
+
+    <Button
+        android:id="@+id/btn_google_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daftar dengan Google"/>
 </LinearLayout>

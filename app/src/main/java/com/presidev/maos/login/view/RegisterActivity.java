@@ -1,30 +1,29 @@
 package com.presidev.maos.login.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.presidev.maos.MainActivity;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
+import com.presidev.maos.login.viewmodel.AuthViewModel;
 
 import java.util.regex.Pattern;
 
-import static com.presidev.maos.utils.AppUtils.showToast;
-
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
 
-    private FirebaseAuth firebaseAuth;
+    private AuthViewModel authViewModel;
     private LoadingDialog loadingDialog;
 
     private EditText edtName, edtEmail, edtPassword, edtPasswordConfirmation;
@@ -34,9 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initalize
-        loadingDialog = new LoadingDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
+        loadingDialog = new LoadingDialog(this, true);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         // Initialize view
         edtName = findViewById(R.id.edt_name_register);
@@ -44,9 +42,27 @@ public class RegisterActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edt_password_register);
         edtPasswordConfirmation = findViewById(R.id.edt_password_confirmation_register);
 
-        Button btnRegister = findViewById(R.id.btn_email_register);
-        btnRegister.setOnClickListener(view -> registerWithEmail(edtName.getText().toString(),
-                edtEmail.getText().toString(), edtPassword.getText().toString(), edtPasswordConfirmation.getText().toString()));
+        Button btnEmail = findViewById(R.id.btn_email_register);
+        Button btnGoogle = findViewById(R.id.btn_google_register);
+
+        btnEmail.setOnClickListener(this);
+        btnGoogle.setOnClickListener(this);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_email_register:
+                registerWithEmail(edtName.getText().toString(),
+                        edtEmail.getText().toString(),
+                        edtPassword.getText().toString(),
+                        edtPasswordConfirmation.getText().toString());
+                break;
+
+            case R.id.btn_google_register:
+                break;
+        }
     }
 
     private void registerWithEmail(String name, String email, String password, String passwordConfirmation){
@@ -54,28 +70,17 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d(TAG, "createAccount: " + email);
 
         loadingDialog.show();
+        authViewModel.registerWithEmail(name, email, password);
+        authViewModel.getUserLiveData().observe(this, user -> {
+            loadingDialog.dismiss();
+            launchMain();
+        });
+    }
 
-        // Start create user with email
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()){
-                        // Profile updates
-                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(name)
-                                .build();
-                        firebaseUser.updateProfile(profileUpdates)
-                                .addOnCompleteListener(task1 -> Log.d(TAG, "User profile updated."));
-
-                        Log.d(TAG, "createUserWithEmail: success");
-                        launchMain();
-                    } else {
-                        // If sign in fails, display a message to the user
-                        Log.w(TAG, "createUserWithEmail: failure", task.getException());
-                        showToast(getApplicationContext(), "Email sudah terdaftar.");
-                    }
-                    loadingDialog.dismiss();
-                });
+    private void launchMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private boolean validateForm(String name, String email, String password, String konfirm){
@@ -102,11 +107,5 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return valid;
-    }
-
-    private void launchMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);  // Clear all previous activities
-        startActivity(intent);
     }
 }
