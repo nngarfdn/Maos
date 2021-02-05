@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:padding="32dp"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".mitra.view.KatalogMitraActivity">
+    tools:context=".mitramanagement.view.KatalogMitraActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bookcatalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

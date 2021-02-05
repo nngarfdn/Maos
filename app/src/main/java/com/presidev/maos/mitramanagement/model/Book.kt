@@ -1,6 +1,10 @@
-package com.presidev.maos.mitra.model
+package com.presidev.maos.mitramanagement.model
 
-data class Book(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Book (
         var bookId: String? = "",
         var mitraId: String? = "",
         var title : String? = "",
@@ -8,4 +12,4 @@ data class Book(
         var photo : String? = "",
         var description : String? = "",
         var sinopsis : String? = ""
-)
+) : Parcelable

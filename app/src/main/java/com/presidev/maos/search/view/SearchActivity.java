@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.presidev.maos.R;
-import com.presidev.maos.mitra.model.Book;
+import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.model.Mitra;
 import com.presidev.maos.search.model.BookFilter;
 import com.presidev.maos.search.model.MitraFilter;

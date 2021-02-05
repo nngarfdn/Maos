@@ -10,15 +10,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.presidev.maos.login.preference.UserPreference;
 import com.presidev.maos.login.view.LoginActivity;
 import com.presidev.maos.login.view.RegisterActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
-import com.presidev.maos.mitra.view.KatalogMitraActivity;
-import com.presidev.maos.login.preference.UserPreference;
-import com.presidev.maos.search.view.SearchActivity;
+import com.presidev.maos.mitramanagement.view.KatalogMitraActivity;
+import com.presidev.maos.utils.Constants;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
-import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegisterMitra.setOnClickListener(v -> {
             if (firebaseUser == null){
                 Intent intent = new Intent(this, RegisterActivity.class);
-                intent.putExtra(EXTRA_LEVEL, LEVEL_MITRA);
+                intent.putExtra(Constants.EXTRA_LEVEL, LEVEL_MITRA);
                 startActivity(intent);
             } else showToast(this, "Kamu sudah masuk");
         });
@@ -72,12 +71,6 @@ public class MainActivity extends AppCompatActivity {
         btnLevel.setOnClickListener(view -> {
             UserPreference userPreference = new UserPreference(this);
             showToast(this, userPreference.getEmail() + ": " + userPreference.getLevel());
-        });
-
-        Button btnSearch = findViewById(R.id.btn_search_main);
-        btnSearch.setOnClickListener(view -> {
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivity(intent);
         });
     }
 }

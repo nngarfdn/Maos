@@ -8,7 +8,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.presidev.maos.mitra.model.Book;
+import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.search.model.BookFilter;
 import com.presidev.maos.model.Mitra;
 import com.presidev.maos.search.model.MitraFilter;
