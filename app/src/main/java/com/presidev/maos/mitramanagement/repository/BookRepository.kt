@@ -8,7 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -65,6 +67,7 @@ class BookRepository {
     fun insert(book: Book) {
         val ref = database.collection("book").document()
         book.bookId = ref.id
+//        book.dateCreated = Timestamp.now().toString()
         ref.set(hashMapBook(book))
                 .addOnCompleteListener { task: Task<Void?> ->
                     if (task.isSuccessful) Log.d(TAG, "Document was added") else
@@ -76,7 +79,7 @@ class BookRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Book>()
         db.collection("book")
-//                .orderBy("title")
+                .orderBy("dateCreated" , Query.Direction.DESCENDING )
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -129,7 +132,9 @@ class BookRepository {
         document["ketersediaan"] = book.ketersediaan
         document["photo"] = book.photo
         document["description"] = book.description
-        document["sinopsis"] = book.sinopsis
+        document["dateCreated"] = book.dateCreated
+        document["waCount"] = book.waCount
+        document["penulis"] = book.penulis
 
         return document
     }

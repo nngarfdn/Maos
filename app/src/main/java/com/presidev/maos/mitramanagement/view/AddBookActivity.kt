@@ -1,6 +1,5 @@
 package com.presidev.maos.mitramanagement.view
 
-import com.presidev.maos.mitramanagement.view.BookViewModel
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,7 +15,7 @@ import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.showToast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
-import java.time.LocalTime.now
+import java.sql.Timestamp
 import java.util.*
 
 class AddBookActivity : AppCompatActivity() {
@@ -54,12 +53,12 @@ class AddBookActivity : AppCompatActivity() {
         btn_simpan.setOnClickListener {
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
-            val sinopsis = edt_sinopsis.text.toString()
+            val penulis = edt_penulis.text.toString()
             val switchState = swtKetersediaan.isChecked()
 //            loadingDialog.show()
 
 
-            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
+            if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty()){
                 showToast(applicationContext, "Pastikan semua data lengkap")
             }
 
@@ -84,12 +83,12 @@ class AddBookActivity : AppCompatActivity() {
                         val id = firebaseUser?.uid
                         val judul = edt_title.text.toString()
                         val deskripsi = edt_description.text.toString()
-                        val sinopsis = edt_sinopsis.text.toString()
+                        val penulis = edt_penulis.text.toString()
                         val switchState = swtKetersediaan.isChecked()
                         val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
-                            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty() || fileName.isEmpty()) {
+                            if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty() || fileName.isEmpty()) {
                                 AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
                             } else {
                                 book.photo = imageUrl
@@ -97,7 +96,8 @@ class AddBookActivity : AppCompatActivity() {
                                 book.title = judul
                                 book.ketersediaan = switchState
                                 book.description = deskripsi
-                                book.sinopsis = sinopsis
+                                book.penulis = penulis
+                                book.dateCreated = Timestamp(System.currentTimeMillis()).toString()
                                 bookViewModel.insert(book)
                                 val intentResult = Intent()
 //                intentResult.putExtra(EXTRA_PAYMENT, payment)

@@ -10,6 +10,8 @@ data class Book (
         var title : String? = "",
         var ketersediaan : Boolean? = true,
         var photo : String? = "",
+        var penulis : String? = "",
         var description : String? = "",
-        var sinopsis : String? = ""
+        var dateCreated : String? = "",
+        var waCount : Int? = 0
 ) : Parcelable

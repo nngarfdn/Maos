@@ -38,7 +38,7 @@ class EditBookActivity : AppCompatActivity() {
 
         edt_title.setText(book?.title)
         edt_description.setText(book?.description)
-        edt_sinopsis.setText(book?.sinopsis)
+        edt_penulis.setText(book?.penulis)
         swtKetersediaan.isChecked = book?.ketersediaan!!
 
         Picasso.get()
@@ -58,7 +58,7 @@ class EditBookActivity : AppCompatActivity() {
             val id = book.bookId
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
-            val sinopsis = edt_sinopsis.text.toString()
+            val sinopsis = edt_penulis.text.toString()
             val switchState = swtKetersediaan.isChecked()
 
             book.bookId = id
@@ -66,7 +66,7 @@ class EditBookActivity : AppCompatActivity() {
             book.title = judul
             book.ketersediaan = switchState
             book.description = deskripsi
-            book.sinopsis = sinopsis
+            book.penulis = sinopsis
 
             if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
                 AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
@@ -109,12 +109,12 @@ class EditBookActivity : AppCompatActivity() {
                         val id = book.bookId
                         val judul = edt_title.text.toString()
                         val deskripsi = edt_description.text.toString()
-                        val sinopsis = edt_sinopsis.text.toString()
+                        val penulis = edt_penulis.text.toString()
                         val switchState = swtKetersediaan.isChecked()
                         val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
-                            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty() || fileName.isEmpty()){
+                            if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty() || fileName.isEmpty()){
                                 AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
                             }else {
                                 book.photo = imageUrl
@@ -123,7 +123,7 @@ class EditBookActivity : AppCompatActivity() {
                                 book.title = judul
                                 book.ketersediaan = switchState
                                 book.description = deskripsi
-                                book.sinopsis = sinopsis
+                                book.penulis = penulis
                                 bookViewModel.update(book)
                                 val intentResult = Intent()
 //                intentResult.putExtra(EXTRA_PAYMENT, payment)

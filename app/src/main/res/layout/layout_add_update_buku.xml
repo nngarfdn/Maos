@@ -11,20 +11,21 @@
         android:hint="Judul Buku" />
 
     <EditText
-        android:id="@+id/edt_description"
+        android:id="@+id/edt_penulis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/edt_title"
-        android:hint="Deskripsi" />
+        android:hint="Penulis" />
 
     <EditText
-        android:id="@+id/edt_sinopsis"
+        android:id="@+id/edt_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/edt_description"
-        android:hint="Sinopsis" />
+        android:layout_below="@+id/edt_penulis"
+        android:hint="Deskripsi" />
+
 
     <TextView
         android:id="@+id/txtKetersediaan"
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ketersediaan"
-        android:layout_below="@+id/edt_sinopsis" />
+        android:layout_below="@+id/edt_description" />
 
     <TextView
         android:id="@+id/txtYaTidak"
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/edt_sinopsis" />
+        android:layout_below="@id/edt_description" />
 
     <ImageView
         android:id="@+id/imgUpload"
