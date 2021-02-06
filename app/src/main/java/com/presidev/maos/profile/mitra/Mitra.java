@@ -1,4 +1,4 @@
-package com.presidev.maos.model;
+package com.presidev.maos.profile.mitra;
 
 import android.os.Parcel;
 import android.os.Parcelable;

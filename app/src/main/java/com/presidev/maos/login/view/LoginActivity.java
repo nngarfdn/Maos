@@ -28,7 +28,7 @@ import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
-import static com.presidev.maos.utils.Constants.LEVEL_PENGGUNA;
+import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = getClass().getSimpleName();
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btn_register_login:
                 Intent intentRegister = new Intent(this,RegisterActivity.class);
-                intentRegister.putExtra(EXTRA_LEVEL, LEVEL_PENGGUNA);
+                intentRegister.putExtra(EXTRA_LEVEL, LEVEL_USER);
                 startActivity(intentRegister);
                 break;
         }

@@ -15,6 +15,7 @@ import com.presidev.maos.login.view.LoginActivity;
 import com.presidev.maos.login.view.RegisterActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.mitramanagement.view.KatalogMitraActivity;
+import com.presidev.maos.search.view.SearchActivity;
 import com.presidev.maos.utils.Constants;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
@@ -72,5 +73,12 @@ public class MainActivity extends AppCompatActivity {
             UserPreference userPreference = new UserPreference(this);
             showToast(this, userPreference.getEmail() + ": " + userPreference.getLevel());
         });
+
+        Button btnSearch = findViewById(R.id.btn_search_main);
+        btnSearch.setOnClickListener(view -> {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

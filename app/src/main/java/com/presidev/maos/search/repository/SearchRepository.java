@@ -10,7 +10,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.search.model.BookFilter;
-import com.presidev.maos.model.Mitra;
+import com.presidev.maos.profile.mitra.Mitra;
 import com.presidev.maos.search.model.MitraFilter;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class SearchRepository {
 
         if (filter.isOnlyAvailable()) query = query.whereEqualTo("ketersediaan", true);
 
-        query.orderBy("ketersediaan").orderBy("title").get().addOnCompleteListener(task -> {
+        query.orderBy("title").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 ArrayList<Book> listBook = new ArrayList<>();
                 QuerySnapshot querySnapshot = task.getResult();

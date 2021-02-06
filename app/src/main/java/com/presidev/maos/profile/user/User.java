@@ -1,4 +1,4 @@
-package com.presidev.maos.model;
+package com.presidev.maos.profile.user;
 
 public class User {
     private String id;

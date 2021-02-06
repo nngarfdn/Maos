@@ -17,16 +17,20 @@ import com.presidev.maos.MainActivity;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
+import com.presidev.maos.profile.mitra.Mitra;
+import com.presidev.maos.profile.mitra.MitraViewModel;
 
 import java.util.regex.Pattern;
 
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
+import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
 
     private AuthViewModel authViewModel;
     private LoadingDialog loadingDialog;
+    private MitraViewModel mitraViewModel;
 
     private EditText edtName, edtEmail, edtPassword, edtPasswordConfirmation;
 
@@ -83,6 +87,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         loadingDialog.show();
         authViewModel.registerWithEmail(name, email, password, userLevel);
         authViewModel.getUserLiveData().observe(this, firebaseUser -> {
+            if (userLevel.equals(LEVEL_MITRA)){
+                Mitra mitra = new Mitra();
+                mitra.setId(firebaseUser.getUid());
+                mitra.setName(name);
+
+                mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
+                mitraViewModel.insert(mitra);
+            }
+
             loadingDialog.dismiss();
             launchMain();
         });

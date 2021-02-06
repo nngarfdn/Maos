@@ -19,7 +19,7 @@ import com.presidev.maos.login.model.Account;
 import com.presidev.maos.login.preference.UserPreference;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
-import static com.presidev.maos.utils.Constants.LEVEL_PENGGUNA;
+import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
 public class AuthRepository {
     private final String TAG = getClass().getSimpleName();
@@ -56,7 +56,7 @@ public class AuthRepository {
                     String email = firebaseUser.getEmail();
                     if (task.getResult().getAdditionalUserInfo().isNewUser()){
                         // Hanya pengguna yang bisa mendaftar via Google
-                        Account account = new Account(id, name, email, LEVEL_PENGGUNA);
+                        Account account = new Account(id, name, email, LEVEL_USER);
                         userPreference.setData(account);
                         setDefaultAccountSettings(account);
                     } else {
