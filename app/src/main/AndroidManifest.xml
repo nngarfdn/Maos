@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".profile.user.UpdateUserProfileActivity"></activity>
+        <activity android:name=".App"></activity>
+        <activity android:name=".profile.user.UpdateUserProfileActivity" />
         <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />
         <activity android:name=".profile.user.UserProfileActivity" />
         <activity android:name=".profile.mitra.MitraProfileActivity" />

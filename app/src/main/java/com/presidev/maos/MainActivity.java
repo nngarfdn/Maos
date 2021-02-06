@@ -93,5 +93,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, UserProfileActivity.class);
             startActivity(intent);
         });
+
+        Button btnAppMain = findViewById(R.id.btn_app);
+        btnAppMain.setOnClickListener(view -> {
+            Intent intent = new Intent(this, App.class);
+            startActivity(intent);
+        });
     }
 }
