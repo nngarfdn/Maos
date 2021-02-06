@@ -1,4 +1,4 @@
-package com.presidev.maos.profile.mitra;
+package com.presidev.maos.profile.user;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,17 +19,17 @@ import java.util.Map;
 import static com.presidev.maos.utils.ImageUtils.convertUriToByteArray;
 import static com.presidev.maos.utils.ImageUtils.getCompressedByteArray;
 
-public class MitraRepository {
+public class UserRepository {
     private final String TAG = getClass().getSimpleName();
 
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public final CollectionReference reference = database.collection("mitra");
+    public final CollectionReference reference = database.collection("users");
 
-    private final MutableLiveData<Mitra> mitraLiveData = new MutableLiveData<>();
-    public MutableLiveData<Mitra> getMitraLiveData(){
-        return mitraLiveData;
+    private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
+    public MutableLiveData<User> getUserLiveData(){
+        return userLiveData;
     }
 
     public void query(String userId){
@@ -37,28 +37,28 @@ public class MitraRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        Mitra mitra = task.getResult().toObject(Mitra.class);
-                        mitraLiveData.postValue(mitra);
-                        Log.d(TAG, "query: " + mitra.getName());
+                        User user = task.getResult().toObject(User.class);
+                        userLiveData.postValue(user);
+                        Log.d(TAG, "query: " + user.getName());
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });
     }
 
-    public void insert(Mitra mitra){
+    public void insert(User user){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference.document(userId)
-                .set(mitra)
+                .set(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) Log.d(TAG, "Document was added");
                     else Log.w(TAG, "Error adding document", task.getException());
                 });
     }
 
-    public void update(Mitra mitra){
+    public void update(User user){
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference.document(userId)
-                .update((Map<String, Object>) mitra)
+                .update((Map<String, Object>) user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) Log.d(TAG, "Document was updated");
                     else Log.w(TAG, "Error updating document", task.getException());

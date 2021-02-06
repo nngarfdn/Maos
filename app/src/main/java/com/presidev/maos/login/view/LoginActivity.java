@@ -21,11 +21,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.presidev.maos.MainActivity;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
+import com.presidev.maos.profile.user.User;
+import com.presidev.maos.profile.user.UserViewModel;
 
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_USER;
@@ -123,6 +127,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         authViewModel.authWithGoogle(authCredential);
+        authViewModel.getIsNewAccount().observe(this, isNewAccount -> {
+            if (isNewAccount){
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                User user = new User();
+                user.setId(firebaseUser.getUid());
+                user.setName(firebaseUser.getDisplayName());
+                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                userViewModel.insert(user);
+            }
+        });
     }
 
     private void loginWithEmail(String email, String password){

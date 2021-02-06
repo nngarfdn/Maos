@@ -19,18 +19,20 @@ import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.profile.mitra.Mitra;
 import com.presidev.maos.profile.mitra.MitraViewModel;
+import com.presidev.maos.profile.user.User;
+import com.presidev.maos.profile.user.UserViewModel;
 
 import java.util.regex.Pattern;
 
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
+import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
 
     private AuthViewModel authViewModel;
     private LoadingDialog loadingDialog;
-    private MitraViewModel mitraViewModel;
 
     private EditText edtName, edtEmail, edtPassword, edtPasswordConfirmation;
 
@@ -87,13 +89,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         loadingDialog.show();
         authViewModel.registerWithEmail(name, email, password, userLevel);
         authViewModel.getUserLiveData().observe(this, firebaseUser -> {
+            // Insert to database
             if (userLevel.equals(LEVEL_MITRA)){
                 Mitra mitra = new Mitra();
                 mitra.setId(firebaseUser.getUid());
                 mitra.setName(name);
-
-                mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
+                MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
                 mitraViewModel.insert(mitra);
+            } else if (userLevel.equals(LEVEL_USER)){
+                User user = new User();
+                user.setId(firebaseUser.getUid());
+                user.setName(name);
+                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                userViewModel.insert(user);
             }
 
             loadingDialog.dismiss();

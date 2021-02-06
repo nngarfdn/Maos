@@ -14,15 +14,21 @@ public class AuthViewModel extends AndroidViewModel {
     private final AuthRepository authRepository;
 
     private final LiveData<FirebaseUser> userLiveData;
+    private final LiveData<Boolean> isNewAccount;
 
     public AuthViewModel (@NonNull Application application){
        super(application);
        authRepository = new AuthRepository(application);
-        userLiveData = authRepository.getUserLiveData();
+       userLiveData = authRepository.getUserLiveData();
+       isNewAccount = authRepository.getIsNewAccount();
     }
 
     public LiveData<FirebaseUser> getUserLiveData(){
         return userLiveData;
+    }
+
+    public LiveData<Boolean> getIsNewAccount(){
+        return isNewAccount;
     }
 
     public void authWithGoogle(AuthCredential authCredential){

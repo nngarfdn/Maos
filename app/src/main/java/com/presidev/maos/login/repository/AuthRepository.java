@@ -32,9 +32,13 @@ public class AuthRepository {
     private final UserPreference userPreference;
 
     private final MutableLiveData<FirebaseUser> userLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isNewAccount = new MutableLiveData<>();
 
     public MutableLiveData<FirebaseUser> getUserLiveData() {
         return userLiveData;
+    }
+    public MutableLiveData<Boolean> getIsNewAccount() {
+        return isNewAccount;
     }
 
     public AuthRepository(Application application){
@@ -51,11 +55,14 @@ public class AuthRepository {
                 if (firebaseUser != null){
                     userLiveData.postValue(firebaseUser);
 
+                    boolean isNewAccount = task.getResult().getAdditionalUserInfo().isNewUser();
+                    this.isNewAccount.postValue(isNewAccount);
+
                     String id = firebaseUser.getUid();
                     String name = firebaseUser.getDisplayName();
                     String email = firebaseUser.getEmail();
-                    if (task.getResult().getAdditionalUserInfo().isNewUser()){
-                        // Hanya pengguna yang bisa mendaftar via Google
+                    if (isNewAccount){
+                        // Hanya level user yang bisa mendaftar via Google
                         Account account = new Account(id, name, email, LEVEL_USER);
                         userPreference.setData(account);
                         setDefaultAccountSettings(account);
@@ -93,6 +100,7 @@ public class AuthRepository {
                     });
 
                     userLiveData.postValue(firebaseUser);
+                    isNewAccount.postValue(true);
 
                     String id = firebaseUser.getUid();
                     Account account = new Account(id, name, email, level);
@@ -113,6 +121,7 @@ public class AuthRepository {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null){
                     userLiveData.postValue(firebaseUser);
+                    isNewAccount.postValue(false);
 
                     String id = firebaseUser.getUid();
                     String name = firebaseUser.getDisplayName();
@@ -170,6 +179,7 @@ public class AuthRepository {
         userPreference.resetData();
 
         userLiveData.postValue(firebaseAuth.getCurrentUser());
+        isNewAccount.postValue(false);
     }
 
     private interface OnGetUserLevel{

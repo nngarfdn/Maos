@@ -1,4 +1,4 @@
-package com.presidev.maos.profile.mitra;
+package com.presidev.maos.profile.user;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,23 +9,23 @@ import androidx.lifecycle.ViewModel;
 import com.google.firebase.firestore.CollectionReference;
 import com.presidev.maos.callback.OnImageUploadCallback;
 
-public class MitraViewModel extends ViewModel {
-    private final MitraRepository repository = new MitraRepository();
+public class UserViewModel extends ViewModel {
+    private final UserRepository repository = new UserRepository();
 
-    public LiveData<Mitra> getMitraLiveData(){
-        return repository.getMitraLiveData();
+    public LiveData<User> getUserLiveData(){
+        return repository.getUserLiveData();
     }
 
     public void query(String userId){
         repository.query(userId);
     }
 
-    public void insert(Mitra mitra){
-        repository.insert(mitra);
+    public void insert(User user){
+        repository.insert(user);
     }
 
-    public void update(Mitra mitra){
-        repository.update(mitra);
+    public void update(User user){
+        repository.update(user);
     }
 
     public void update(String image){
