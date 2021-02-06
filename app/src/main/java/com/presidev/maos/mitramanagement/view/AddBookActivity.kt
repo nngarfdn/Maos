@@ -1,5 +1,6 @@
 package com.presidev.maos.mitramanagement.view
 
+import com.presidev.maos.mitramanagement.view.BookViewModel
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.type.DateTime
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.showToast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
@@ -50,35 +52,18 @@ class AddBookActivity : AppCompatActivity() {
 
 
         btn_simpan.setOnClickListener {
-
-            val book = Book()
-            val id = firebaseUser?.uid
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
             val sinopsis = edt_sinopsis.text.toString()
             val switchState = swtKetersediaan.isChecked()
-            showToast(applicationContext, "Mengunggah foto...")
 //            loadingDialog.show()
 
-            val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
 
-            bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
-                book.photo = imageUrl
-                book.mitraId = id
-                book.title = judul
-                book.ketersediaan = switchState
-                book.description = deskripsi
-                book.sinopsis = sinopsis
-                bookViewModel.insert(book)
-                val intentResult = Intent()
-//                intentResult.putExtra(EXTRA_PAYMENT, payment)
-                setResult(RC_ADD_PAYMENT, intentResult)
-//                loadingDialog.dismiss()
-                showToast(applicationContext, "Berhasil")
-                finish()
+            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
+                showToast(applicationContext, "Pastikan semua data lengkap")
             }
-        }
 
+        }
 
     }
 
@@ -94,10 +79,39 @@ class AddBookActivity : AppCompatActivity() {
                             .centerCrop()
                             .placeholder(R.mipmap.ic_launcher)
                             .into(imgUpload)
-                    btn_simpan.setEnabled(true)
+                    btn_simpan.setOnClickListener {
+                        val book = Book()
+                        val id = firebaseUser?.uid
+                        val judul = edt_title.text.toString()
+                        val deskripsi = edt_description.text.toString()
+                        val sinopsis = edt_sinopsis.text.toString()
+                        val switchState = swtKetersediaan.isChecked()
+                        val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
+
+                        bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
+                            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty() || fileName.isEmpty()) {
+                                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+                            } else {
+                                book.photo = imageUrl
+                                book.mitraId = id
+                                book.title = judul
+                                book.ketersediaan = switchState
+                                book.description = deskripsi
+                                book.sinopsis = sinopsis
+                                bookViewModel.insert(book)
+                                val intentResult = Intent()
+//                intentResult.putExtra(EXTRA_PAYMENT, payment)
+                                setResult(RC_ADD_PAYMENT, intentResult)
+//                loadingDialog.dismiss()
+                                AppUtils.showToast(applicationContext, "Berhasil")
+                                finish()
+                            }
+
+                        }
+                    }
                 }
             }
         }
-    }
 
+    }
 }

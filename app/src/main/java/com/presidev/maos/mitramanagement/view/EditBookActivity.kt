@@ -4,11 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_edit_book.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
 import java.util.*
 
@@ -52,56 +54,43 @@ class EditBookActivity : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(intent, "Unggah bukti pembayaran"), RC_PAYMENT_IMAGE)
         }
 
+        btn_simpan.setOnClickListener {
+            val id = book.bookId
+            val judul = edt_title.text.toString()
+            val deskripsi = edt_description.text.toString()
+            val sinopsis = edt_sinopsis.text.toString()
+            val switchState = swtKetersediaan.isChecked()
 
-//        btn_simpan.setOnClickListener {
-//
-//            val id = book.bookId
-//            val judul = edt_title.text.toString()
-//            val deskripsi = edt_description.text.toString()
-//            val sinopsis = edt_sinopsis.text.toString()
-//            val switchState = swtKetersediaan.isChecked()
-//
-//            bookViewModel.update(book)
-//            val intentResult = Intent()
-////                intentResult.putExtra(EXTRA_PAYMENT, payment)
-//            setResult(RC_ADD_PAYMENT, intentResult)
-////                loadingDialog.dismiss()
-//            AppUtils.showToast(applicationContext, "Berhasil")
-//            finish()
-//
-//            AppUtils.showToast(applicationContext, "Tunggu Sebentar...")
-////            loadingDialog.show()
-//
-//            val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
-//
-//            if (fileName != book.photo) {
-//            bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
-//                book.photo = imageUrl
-//                book.mitraId = id
-//                book.title = judul
-//                book.ketersediaan = switchState
-//                book.description = deskripsi
-//                book.sinopsis = sinopsis
-//                bookViewModel.update(book)
-//                val intentResult = Intent()
-////                intentResult.putExtra(EXTRA_PAYMENT, payment)
-//                setResult(RC_ADD_PAYMENT, intentResult)
-////                loadingDialog.dismiss()
-//                AppUtils.showToast(applicationContext, "Berhasil")
-//                finish()
-//            } }else {
-//                book.mitraId = id
-//                book.title = judul
-//                book.ketersediaan = switchState
-//                book.description = deskripsi
-//                book.sinopsis = sinopsis
-//                bookViewModel.update(book)
-//                AppUtils.showToast(applicationContext, "Berhasil")
-//                finish()
-//            }
-//        }
+            book.bookId = id
+            book.mitraId = book.mitraId
+            book.title = judul
+            book.ketersediaan = switchState
+            book.description = deskripsi
+            book.sinopsis = sinopsis
+
+            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
+                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+            }else {
+                bookViewModel.update(book)
+                AppUtils.showToast(applicationContext, "Berhasil")
+                finish()
+            }
+
+        }
+
+        btn_delete.setOnClickListener {
+            AlertDialog.Builder(this)
+                    .setTitle("Hapus laporan")
+                    .setMessage("Apakah kamu yakin ingin menghapus?")
+                    .setNegativeButton("Tidak", null)
+                    .setPositiveButton("Ya") { _, _ ->
+                        book.bookId?.let { it1 -> bookViewModel.delete(it1) }
+                        finish()
+                    }.create().show()
+        }
+
+
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -115,7 +104,38 @@ class EditBookActivity : AppCompatActivity() {
                             .centerCrop()
                             .placeholder(R.mipmap.ic_launcher)
                             .into(imgUpload)
-                    btn_simpan.setEnabled(true)
+
+                    btn_simpan.setOnClickListener {
+                        val id = book.bookId
+                        val judul = edt_title.text.toString()
+                        val deskripsi = edt_description.text.toString()
+                        val sinopsis = edt_sinopsis.text.toString()
+                        val switchState = swtKetersediaan.isChecked()
+                        val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
+
+                        bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
+                            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty() || fileName.isEmpty()){
+                                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+                            }else {
+                                book.photo = imageUrl
+                                book.bookId = id
+                                book.mitraId = book.mitraId
+                                book.title = judul
+                                book.ketersediaan = switchState
+                                book.description = deskripsi
+                                book.sinopsis = sinopsis
+                                bookViewModel.update(book)
+                                val intentResult = Intent()
+//                intentResult.putExtra(EXTRA_PAYMENT, payment)
+                                setResult(RC_ADD_PAYMENT, intentResult)
+//                loadingDialog.dismiss()
+                                AppUtils.showToast(applicationContext, "Berhasil")
+                                finish()
+                            }
+
+                    }
+
+                    }
                 }
             }
         }
