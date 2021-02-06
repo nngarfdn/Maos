@@ -17,7 +17,7 @@
         android:id="@+id/cb_on_available_bf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hanya buku yang bisa dipinjam"/>
+        android:text="Hanya stok yang tersedia"/>
 
     <Button
         android:id="@+id/btn_apply_bf"

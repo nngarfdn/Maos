@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.presidev.maos">
 
@@ -14,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".search.view.SearchActivity"/>
+        <activity android:name=".profile.user.UpdateUserProfileActivity"></activity>
+        <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />
+        <activity android:name=".profile.user.UserProfileActivity" />
+        <activity android:name=".profile.mitra.MitraProfileActivity" />
+        <activity android:name=".search.view.SearchActivity" />
         <activity android:name=".welcome.view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,8 +29,9 @@
         <activity android:name=".login.view.RegisterActivity" />
         <activity android:name=".login.view.LoginActivity" />
         <activity android:name=".mitramanagement.view.AddBookActivity" />
-        <activity android:name=".mitramanagement.view.EditBookActivity"/>
+        <activity android:name=".mitramanagement.view.EditBookActivity" />
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
     </application>
+
 </manifest>

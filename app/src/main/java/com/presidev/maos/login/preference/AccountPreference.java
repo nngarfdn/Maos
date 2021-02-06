@@ -6,25 +6,23 @@ import android.content.SharedPreferences;
 
 import com.presidev.maos.login.model.Account;
 
-public class UserPreference {
+public class AccountPreference {
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
 
-    private static final String PREFERENCE_NAME = "user_preference";
+    private static final String PREFERENCE_NAME = "account_preference";
     private static final String ID = "id";
-    private static final String NAME = "name";
     private static final String EMAIL = "email";
     private static final String LEVEL = "level";
 
     @SuppressLint("CommitPrefEdits")
-    public UserPreference(Context context){
+    public AccountPreference(Context context){
         sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
     public void setData(Account account){
         editor.putString(ID, account.getId());
-        editor.putString(NAME, account.getName());
         editor.putString(EMAIL, account.getEmail());
         editor.putString(LEVEL, account.getLevel());
         editor.apply();
@@ -36,10 +34,6 @@ public class UserPreference {
 
     public String getId(){
         return sharedPreferences.getString(ID, null);
-    }
-
-    public String getName(){
-        return sharedPreferences.getString(NAME, null);
     }
 
     public String getEmail(){

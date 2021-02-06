@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.user.UserProfileActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/img_photo_up"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@color/black"/>
+
+    <TextView
+        android:id="@+id/tv_name_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama"/>
+
+    <TextView
+        android:id="@+id/tv_email_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"/>
+
+    <TextView
+        android:id="@+id/tv_address_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alamat lengkap"/>
+
+    <Button
+        android:id="@+id/btn_update_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit profil"/>
+</LinearLayout>

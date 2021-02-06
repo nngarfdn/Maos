@@ -7,6 +7,7 @@ public class Mitra implements Parcelable {
     private String id;
     private String logo;
     private String name;
+    private String email;
     private String description;
     private String whatsApp;
     private String address;
@@ -19,10 +20,11 @@ public class Mitra implements Parcelable {
 
     public Mitra() {}
 
-    public Mitra(String id, String logo, String name, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota) {
+    public Mitra(String id, String logo, String name, String email, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota) {
         this.id = id;
         this.logo = logo;
         this.name = name;
+        this.email = email;
         this.description = description;
         this.whatsApp = whatsApp;
         this.address = address;
@@ -38,6 +40,7 @@ public class Mitra implements Parcelable {
         id = in.readString();
         logo = in.readString();
         name = in.readString();
+        email = in.readString();
         description = in.readString();
         whatsApp = in.readString();
         address = in.readString();
@@ -54,6 +57,7 @@ public class Mitra implements Parcelable {
         dest.writeString(id);
         dest.writeString(logo);
         dest.writeString(name);
+        dest.writeString(email);
         dest.writeString(description);
         dest.writeString(whatsApp);
         dest.writeString(address);
@@ -104,6 +108,14 @@ public class Mitra implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDescription() {

@@ -93,13 +93,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (userLevel.equals(LEVEL_MITRA)){
                 Mitra mitra = new Mitra();
                 mitra.setId(firebaseUser.getUid());
-                mitra.setName(name);
+                mitra.setName(name);;
+                mitra.setEmail(firebaseUser.getEmail());
+                mitra.setLogo(firebaseUser.getPhotoUrl().toString());
                 MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
                 mitraViewModel.insert(mitra);
             } else if (userLevel.equals(LEVEL_USER)){
                 User user = new User();
                 user.setId(firebaseUser.getUid());
                 user.setName(name);
+                user.setEmail(firebaseUser.getEmail());
+                user.setPhoto(firebaseUser.getPhotoUrl().toString());
                 UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
                 userViewModel.insert(user);
             }

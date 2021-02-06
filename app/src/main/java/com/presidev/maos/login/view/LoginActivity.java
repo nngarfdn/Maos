@@ -133,6 +133,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 User user = new User();
                 user.setId(firebaseUser.getUid());
                 user.setName(firebaseUser.getDisplayName());
+                user.setEmail(firebaseUser.getEmail());
+                user.setPhoto(firebaseUser.getPhotoUrl().toString());
                 UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
                 userViewModel.insert(user);
             }

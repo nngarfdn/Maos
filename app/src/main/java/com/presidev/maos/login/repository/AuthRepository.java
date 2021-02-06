@@ -16,7 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.presidev.maos.R;
 import com.presidev.maos.login.model.Account;
-import com.presidev.maos.login.preference.UserPreference;
+import com.presidev.maos.login.preference.AccountPreference;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.LEVEL_USER;
@@ -29,7 +29,7 @@ public class AuthRepository {
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     private final CollectionReference usersReference = database.collection("accounts");
-    private final UserPreference userPreference;
+    private final AccountPreference accountPreference;
 
     private final MutableLiveData<FirebaseUser> userLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isNewAccount = new MutableLiveData<>();
@@ -43,7 +43,7 @@ public class AuthRepository {
 
     public AuthRepository(Application application){
         this.application = application;
-        userPreference = new UserPreference(application.getApplicationContext());
+        accountPreference = new AccountPreference(application.getApplicationContext());
     }
 
     public void authWithGoogle(AuthCredential authCredential){
@@ -59,17 +59,16 @@ public class AuthRepository {
                     this.isNewAccount.postValue(isNewAccount);
 
                     String id = firebaseUser.getUid();
-                    String name = firebaseUser.getDisplayName();
                     String email = firebaseUser.getEmail();
                     if (isNewAccount){
                         // Hanya level user yang bisa mendaftar via Google
-                        Account account = new Account(id, name, email, LEVEL_USER);
-                        userPreference.setData(account);
+                        Account account = new Account(id, email, LEVEL_USER);
+                        accountPreference.setData(account);
                         setDefaultAccountSettings(account);
                     } else {
                         getUserLevel(id, level -> {
-                            Account account = new Account(id, name, email, level);
-                            userPreference.setData(account);
+                            Account account = new Account(id, email, level);
+                            accountPreference.setData(account);
                         });
                     }
                 }
@@ -103,8 +102,8 @@ public class AuthRepository {
                     isNewAccount.postValue(true);
 
                     String id = firebaseUser.getUid();
-                    Account account = new Account(id, name, email, level);
-                    userPreference.setData(account);
+                    Account account = new Account(id, email, level);
+                    accountPreference.setData(account);
                     setDefaultAccountSettings(account);
                 }
             } else {
@@ -124,10 +123,9 @@ public class AuthRepository {
                     isNewAccount.postValue(false);
 
                     String id = firebaseUser.getUid();
-                    String name = firebaseUser.getDisplayName();
                     getUserLevel(id, level -> {
-                        Account account = new Account(id, name, email, level);
-                        userPreference.setData(account);
+                        Account account = new Account(id, email, level);
+                        accountPreference.setData(account);
                     });
                 }
             } else {
@@ -175,8 +173,8 @@ public class AuthRepository {
         GoogleSignIn.getClient(application, gso).signOut();
         firebaseAuth.signOut();
 
-        UserPreference userPreference = new UserPreference(application);
-        userPreference.resetData();
+        AccountPreference accountPreference = new AccountPreference(application);
+        accountPreference.resetData();
 
         userLiveData.postValue(firebaseAuth.getCurrentUser());
         isNewAccount.postValue(false);
