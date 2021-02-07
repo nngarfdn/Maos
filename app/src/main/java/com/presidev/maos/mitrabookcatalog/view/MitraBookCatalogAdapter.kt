@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.presidev.maos.R
+import com.presidev.maos.bookdetail.BookDetailActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookAdapter
 import com.presidev.maos.mitramanagement.view.EditBookActivity
@@ -39,9 +40,9 @@ class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapt
 
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "${list[position].title}", Toast.LENGTH_SHORT).show()
-//            val intent = Intent(holder.itemView.context, EditBookActivity::class.java)
-//            intent.putExtra(EditBookActivity.EXTRA_BOOK, list[position])
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, BookDetailActivity::class.java)
+            intent.putExtra(BookDetailActivity.EXTRA_BOOK, list[position])
+            holder.itemView.context.startActivity(intent)
         }
     }
 }
