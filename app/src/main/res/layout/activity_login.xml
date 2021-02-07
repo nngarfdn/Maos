@@ -32,7 +32,7 @@
         android:id="@+id/btn_google_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masuk dengan Google"/>
+        android:text="Masuk/Daftar dengan Google"/>
 
     <Button
         android:id="@+id/btn_reset_password_login"

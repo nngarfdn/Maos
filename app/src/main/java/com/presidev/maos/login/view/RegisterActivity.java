@@ -52,10 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edtPasswordConfirmation = findViewById(R.id.edt_password_confirmation_register);
 
         Button btnEmail = findViewById(R.id.btn_email_register);
-        Button btnGoogle = findViewById(R.id.btn_google_register);
-
         btnEmail.setOnClickListener(this);
-        btnGoogle.setOnClickListener(this);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_LEVEL)){
@@ -68,16 +65,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_email_register:
-                registerWithEmail(edtName.getText().toString(),
-                        edtEmail.getText().toString(),
-                        edtPassword.getText().toString(),
-                        edtPasswordConfirmation.getText().toString());
-                break;
-
-            case R.id.btn_google_register:
-                break;
+        if (view.getId() == R.id.btn_email_register) {
+            registerWithEmail(edtName.getText().toString(),
+                    edtEmail.getText().toString(),
+                    edtPassword.getText().toString(),
+                    edtPasswordConfirmation.getText().toString());
         }
     }
 
@@ -94,7 +86,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 mitra.setId(firebaseUser.getUid());
                 mitra.setName(name);
                 mitra.setEmail(firebaseUser.getEmail());
-                mitra.setLogo(firebaseUser.getPhotoUrl().toString());
                 MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
                 mitraViewModel.insert(mitra);
             } else if (userLevel.equals(LEVEL_USER)){
@@ -102,7 +93,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 user.setId(firebaseUser.getUid());
                 user.setName(name);
                 user.setEmail(firebaseUser.getEmail());
-                user.setPhoto(firebaseUser.getPhotoUrl().toString());
                 UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
                 userViewModel.insert(user);
             }

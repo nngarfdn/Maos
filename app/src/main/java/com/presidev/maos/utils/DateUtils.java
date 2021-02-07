@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.presidev.maos.utils.AppUtils.locale;
@@ -31,6 +32,38 @@ public class DateUtils {
             if (isSimple) month = month.substring(0,3);
             return arrayDate[2] + " " + month + " " + arrayDate[0];
         } else return "-1";
+    }
+
+    public static String addDay(String oldDate, int numberOfDays){
+        if (isValidDateFormat(oldDate)){
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dateFormat.parse(oldDate));
+                calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
+                return dateFormat.format(calendar.getTime());
+            } catch (ParseException e){
+                e.printStackTrace();
+            }
+        }
+        return "-1";
+    }
+
+    public static int differenceOfDates(String newerDate, String olderDate){
+        if (isValidDateFormat(newerDate) && isValidDateFormat(olderDate)){
+            try{
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+                Date finalDate = dateFormat.parse(newerDate);
+                Date currentDate = dateFormat.parse(olderDate);
+
+                // Bagi 100rb karena aslinya long
+                double difference = (double) ((finalDate.getTime()-currentDate.getTime())/100000); // Jika ingin absolut -> Math.abs()
+                return (int) ((difference / (24*60*60*1000))*100000);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+        }
+        return -1;
     }
 
     // Konversi tanggal ke array

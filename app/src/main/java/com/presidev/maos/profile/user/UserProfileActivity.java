@@ -14,11 +14,10 @@ import android.widget.TextView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
-import com.presidev.maos.subscribe.MembershipIntroActivity;
+import com.presidev.maos.subscribe.view.MembershipIntroActivity;
 import com.presidev.maos.welcome.view.SplashActivity;
 
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
-import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.EXTRA_USER;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -86,7 +85,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                         .setNegativeButton("Tidak", null)
                         .setPositiveButton("Ya", (dialogInterface, i) -> {
                             authViewModel.sendPasswordReset(user.getEmail());
-                            showToast(this, "Tautan ganti kata sandi berhasil dikirim ke " + user.getEmail());
                         }).create().show();
                 break;
 

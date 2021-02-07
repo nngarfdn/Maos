@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".subscribe.view.AddMemberCardActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Akun pengguna"/>
+
+    <EditText
+        android:id="@+id/edt_user_email_amc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email pengguna"
+        android:inputType="textEmailAddress"/>
+
+    <Button
+        android:id="@+id/btn_user_validation_amc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Validasi pengguna"/>
+
+    <TextView
+        android:id="@+id/tv_user_validation_amc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasil validasi pengguna"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Akun mitra"/>
+
+    <EditText
+        android:id="@+id/edt_mitra_email_amc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email mitra"
+        android:inputType="textEmailAddress"/>
+
+    <Button
+        android:id="@+id/btn_mitra_validation_amc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Validasi mitra"/>
+
+    <TextView
+        android:id="@+id/tv_mitra_validation_amc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasil validasi mitra"/>
+
+    <Button
+        android:id="@+id/btn_add_amc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah kartu member"/>
+</LinearLayout>

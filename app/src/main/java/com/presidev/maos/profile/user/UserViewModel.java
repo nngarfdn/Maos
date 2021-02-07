@@ -20,6 +20,10 @@ public class UserViewModel extends ViewModel {
         repository.query(userId);
     }
 
+    public void queryByEmail(String email){
+        repository.queryByEmail(email);
+    }
+
     public void insert(User user){
         repository.insert(user);
     }

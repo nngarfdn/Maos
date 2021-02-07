@@ -1,4 +1,4 @@
-package com.presidev.maos.subscribe;
+package com.presidev.maos.subscribe.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,8 +19,6 @@ import com.presidev.maos.dashboard.view.DashboardMitraAdapter;
 import com.presidev.maos.profile.mitra.Mitra;
 import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
-
-import java.util.ArrayList;
 
 public class SelectMitraFragment extends BottomSheetDialogFragment {
     private DashboardMitraAdapter adapter;

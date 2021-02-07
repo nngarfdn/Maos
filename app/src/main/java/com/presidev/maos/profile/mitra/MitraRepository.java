@@ -40,7 +40,23 @@ public class MitraRepository {
                     if (task.isSuccessful()){
                         Mitra mitra = task.getResult().toObject(Mitra.class);
                         mitraLiveData.postValue(mitra);
-                        Log.d(TAG, "query: " + mitra.getName());
+                        if (mitra != null) Log.d(TAG, "query: " + mitra.getName());
+                        Log.d(TAG, "Document was queried");
+                    } else Log.w(TAG, "Error querying document", task.getException());
+                });
+    }
+
+    public void queryByEmail(String email){
+        reference.whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        Mitra mitra = null;
+                        if (task.getResult().getDocuments().size() > 0){
+                            mitra = task.getResult().getDocuments().get(0).toObject(Mitra.class);
+                            Log.d(TAG, "query: " + mitra.getName());
+                        }
+                        mitraLiveData.postValue(mitra);
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });

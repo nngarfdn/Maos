@@ -1,4 +1,4 @@
-package com.presidev.maos.subscribe;
+package com.presidev.maos.subscribe.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -20,6 +20,10 @@ public class MitraViewModel extends ViewModel {
         repository.query(userId);
     }
 
+    public void queryByEmail(String email){
+        repository.queryByEmail(email);
+    }
+
     public void insert(Mitra mitra){
         repository.insert(mitra);
     }

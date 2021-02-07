@@ -1,4 +1,4 @@
-package com.presidev.maos.subscribe;
+package com.presidev.maos.subscribe.model;
 
 public class MemberCard {
     private String id;
@@ -6,6 +6,8 @@ public class MemberCard {
     private String idMitra;
     private String startDate;
     private String expDate;
+
+    public MemberCard() {}
 
     public MemberCard(String id, String idUser, String idMitra, String startDate, String expDate) {
         this.id = id;

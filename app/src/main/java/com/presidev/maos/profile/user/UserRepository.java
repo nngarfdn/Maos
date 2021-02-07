@@ -40,7 +40,23 @@ public class UserRepository {
                     if (task.isSuccessful()){
                         User user = task.getResult().toObject(User.class);
                         userLiveData.postValue(user);
-                        Log.d(TAG, "query: " + user.getName());
+                        if (user != null) Log.d(TAG, "query: " + user.getName());
+                        Log.d(TAG, "Document was queried");
+                    } else Log.w(TAG, "Error querying document", task.getException());
+                });
+    }
+
+    public void queryByEmail(String email){
+        reference.whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        User user = null;
+                        if (task.getResult().getDocuments().size() > 0){
+                            user = task.getResult().getDocuments().get(0).toObject(User.class);
+                            Log.d(TAG, "query: " + user.getName());
+                        }
+                        userLiveData.postValue(user);
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });

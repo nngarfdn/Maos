@@ -12,16 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.view.LoginActivity;
-import com.presidev.maos.login.view.RegisterActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.mitramanagement.view.KatalogMitraActivity;
 import com.presidev.maos.profile.mitra.MitraProfileActivity;
 import com.presidev.maos.profile.user.UserProfileActivity;
 import com.presidev.maos.search.view.SearchActivity;
-import com.presidev.maos.utils.Constants;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
-import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
 
 public class MainActivity extends AppCompatActivity {
     private AuthViewModel authViewModel;
@@ -52,13 +49,10 @@ public class MainActivity extends AppCompatActivity {
             } else showToast(this, "Kamu sudah masuk");
         });
 
-        Button btnRegisterMitra = findViewById(R.id.btn_register_mitra_main);
-        btnRegisterMitra.setOnClickListener(v -> {
-            if (firebaseUser == null){
-                Intent intent = new Intent(this, RegisterActivity.class);
-                intent.putExtra(Constants.EXTRA_LEVEL, LEVEL_MITRA);
-                startActivity(intent);
-            } else showToast(this, "Kamu sudah masuk");
+        Button btnDeveloper = findViewById(R.id.btn_developer_main);
+        btnDeveloper.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DeveloperActivity.class);
+            startActivity(intent);
         });
 
         Button btnLogout = findViewById(R.id.btn_logout_main);

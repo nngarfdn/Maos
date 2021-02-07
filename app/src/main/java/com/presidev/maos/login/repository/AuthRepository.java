@@ -138,7 +138,7 @@ public class AuthRepository {
     public void sendPasswordReset(String email){
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                showToast(application.getApplicationContext(), "Permintaan setel ulang kata sandi telah dikirim ke email");
+                showToast(application.getApplicationContext(), "Permintaan ganti kata sandi telah dikirim ke email");
             } else {
                 showToast(application.getApplicationContext(), "Email belum terdaftar");
                 Log.w(TAG, "sendPasswordReset: failure", task.getException());

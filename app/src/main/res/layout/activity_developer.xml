@@ -4,28 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".subscribe.view.MembershipIntroActivity"
+    tools:context=".DeveloperActivity"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <Button
+        android:id="@+id/btn_add_member_card_dev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ayo jadi member!"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tentang"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Keuntungan"/>
+        android:text="Tambah member"/>
 
     <Button
-        android:id="@+id/btn_register_mi"
+        android:id="@+id/btn_register_mitra_dev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Daftar sekarang"/>
+        android:text="Buat akun mitra"/>
 </LinearLayout>

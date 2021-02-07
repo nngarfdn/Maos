@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 user.setId(firebaseUser.getUid());
                 user.setName(firebaseUser.getDisplayName());
                 user.setEmail(firebaseUser.getEmail());
-                user.setPhoto(firebaseUser.getPhotoUrl().toString());
+                user.setPhoto(getPhotoUrl(firebaseUser));
                 UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
                 userViewModel.insert(user);
             }
@@ -169,5 +169,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         return valid;
+    }
+
+    private String getPhotoUrl(FirebaseUser firebaseUser){
+        String photoUrl = firebaseUser.getPhotoUrl().toString();
+        if (photoUrl != null) return photoUrl;
+        else return "default";
     }
 }
