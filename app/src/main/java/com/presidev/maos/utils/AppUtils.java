@@ -37,4 +37,8 @@ public class AppUtils {
                 .error(R.drawable.ic_no_profile_pic)
                 .into(imageView);
     }
+
+    public static String setFullAddress(String address, String province, String regency, String district){
+        return address + ", " + district + ", " + regency + ", " + province;
+    }
 }

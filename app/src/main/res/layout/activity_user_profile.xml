@@ -37,4 +37,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Edit profil"/>
+
+    <Button
+        android:id="@+id/btn_subscribe_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Berlangganan"/>
+
+    <Button
+        android:id="@+id/btn_reset_password_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ganti kata sandi"/>
+
+    <Button
+        android:id="@+id/btn_about_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tentang aplikasi"/>
+
+    <Button
+        android:id="@+id/btn_logout_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Keluar akun"/>
 </LinearLayout>
