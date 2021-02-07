@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".App"/>
+        <activity android:name=".App"></activity>
         <activity android:name=".profile.user.UpdateUserProfileActivity" />
         <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />
         <activity android:name=".profile.user.UserProfileActivity" />
@@ -31,6 +31,7 @@
         <activity android:name=".login.view.LoginActivity" />
         <activity android:name=".mitramanagement.view.AddBookActivity" />
         <activity android:name=".mitramanagement.view.EditBookActivity" />
+        <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity"/>
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
         <activity android:name=".MainActivity" />
     </application>

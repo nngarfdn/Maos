@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
+import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookAdapter
 import com.presidev.maos.mitramanagement.view.EditBookActivity
@@ -38,7 +39,10 @@ class DashboardMitraAdapter(private val list: List<Mitra>) : RecyclerView.Adapte
         alamatMitra.setText(list[position].address)
 
         holder.itemView.setOnClickListener {
-
+            val c = holder.itemView.context
+            val intent = Intent(c, MitraBookCatalogActivity::class.java)
+            intent.putExtra(MitraBookCatalogActivity.EXTRA_MITRA, list[position])
+            c.startActivity(intent)
         }
     }
 }

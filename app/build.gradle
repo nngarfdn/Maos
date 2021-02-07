@@ -73,6 +73,9 @@ dependencies {
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
     implementation 'com.github.naz013:smooth-bottom-bar:1.0.2'
     implementation "androidx.dynamicanimation:dynamicanimation:1.0.0"
+
+    //rounded image
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
 repositories {
     mavenCentral()
