@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -93,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (userLevel.equals(LEVEL_MITRA)){
                 Mitra mitra = new Mitra();
                 mitra.setId(firebaseUser.getUid());
-                mitra.setName(name);;
+                mitra.setName(name);
                 mitra.setEmail(firebaseUser.getEmail());
                 mitra.setLogo(firebaseUser.getPhotoUrl().toString());
                 MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
@@ -122,17 +121,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private boolean validateForm(String name, String email, String password, String konfirm){
         boolean valid = true;
 
-        if (TextUtils.isEmpty(name)){
+        if (name.isEmpty()){
             edtName.setError("Masukkan nama lengkap");
             valid = false;
         }
 
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             edtEmail.setError("Masukkan email yang valid");
             valid = false;
         }
 
-        if (TextUtils.isEmpty(password) || !Pattern.compile("^(?=.*\\d).{8,}$").matcher(password).matches()) {
+        if (password.isEmpty() || !Pattern.compile("^(?=.*\\d).{8,}$").matcher(password).matches()) {
             edtPassword.setError("Masukkan kata sandi minimal 8 karakter dengan kombinasi huruf dan angka");
             valid = false;
         }

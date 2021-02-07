@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +37,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private boolean validateForm(String email){
         boolean valid = true;
 
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             edtEmail.setError("Masukkan email yang valid");
             valid = false;
         }

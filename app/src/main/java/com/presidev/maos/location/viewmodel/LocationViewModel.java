@@ -7,10 +7,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.presidev.maos.location.model.Location;
+import com.presidev.maos.location.response.Attributes;
 import com.presidev.maos.location.response.Districts;
 import com.presidev.maos.location.response.Provinces;
 import com.presidev.maos.location.response.Regencies;
 import com.presidev.maos.location.rest.ApiClient;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,28 +25,35 @@ public class LocationViewModel extends ViewModel {
 
     private final ApiClient client = new ApiClient();
 
-    private final MutableLiveData<Provinces> provincesLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Regencies> regenciesLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Districts> districtsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Location>> provincesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Location>> regenciesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Location>> districtsLiveData = new MutableLiveData<>();
 
-    public LiveData<Provinces> getProvinces(){
+    public LiveData<ArrayList<Location>> getProvinces(){
         return provincesLiveData;
     }
-    public LiveData<Regencies> getRegencies(){
+    public LiveData<ArrayList<Location>> getRegencies(){
         return regenciesLiveData;
     }
-    public LiveData<Districts> getDistricts(){
+    public LiveData<ArrayList<Location>> getDistricts(){
         return districtsLiveData;
     }
 
-    public void loadProvinces(){
-        final Provinces[] itemFound = {new Provinces()};
+    public void queryProvinces(){
         client.getService().getProvinces().enqueue(new Callback<Provinces>() {
             @Override
             public void onResponse(@NonNull Call<Provinces> call, @NonNull Response<Provinces> response) {
                 try {
-                    if (response.isSuccessful()) itemFound[0] = response.body();
-                    provincesLiveData.postValue(itemFound[0]);
+                    if (response.isSuccessful()){
+                        ArrayList<Location> provinceList = new ArrayList<>();
+                        Provinces result = response.body();
+                        for (Attributes attributes : result.getProvinces()){
+                            if (attributes.getId() == 31) provinceList.add(new Location(attributes.getId(), "DKI Jakarta"));
+                            else if (attributes.getId() == 34) provinceList.add(new Location(attributes.getId(), "DI Yogyakarta"));
+                            else provinceList.add(new Location(attributes.getId(), attributes.getName()));
+                        }
+                        provincesLiveData.postValue(provinceList);
+                    }
                 } catch (Exception e){
                     Log.d(TAG, "Exception: " + e.getMessage());
                 }
@@ -55,14 +66,19 @@ public class LocationViewModel extends ViewModel {
         });
     }
 
-    public void loadRegencies(int idProvince){
-        final Regencies[] itemFound = {new Regencies()};
+    public void queryRegencies(int idProvince){
         client.getService().getRegencies(idProvince).enqueue(new Callback<Regencies>() {
             @Override
             public void onResponse(@NonNull Call<Regencies> call, @NonNull Response<Regencies> response) {
                 try {
-                    if (response.isSuccessful()) itemFound[0] = response.body();
-                    regenciesLiveData.postValue(itemFound[0]);
+                    if (response.isSuccessful()){
+                        ArrayList<Location> regencyList = new ArrayList<>();
+                        Regencies result = response.body();
+                        for (Attributes attributes : result.getRegencies()){
+                            regencyList.add(new Location(attributes.getId(), attributes.getName()));
+                        }
+                        regenciesLiveData.postValue(regencyList);
+                    }
                 } catch (Exception e){
                     Log.d(TAG, "Exception: " + e.getMessage());
                 }
@@ -75,14 +91,19 @@ public class LocationViewModel extends ViewModel {
         });
     }
 
-    public void loadDistricts(int idRegency){
-        final Districts[] itemFound = {new Districts()};
+    public void queryDistricts(int idRegency){
         client.getService().getDistricts(idRegency).enqueue(new Callback<Districts>() {
             @Override
             public void onResponse(@NonNull Call<Districts> call, @NonNull Response<Districts> response) {
                 try {
-                    if (response.isSuccessful()) itemFound[0] = response.body();
-                    districtsLiveData.postValue(itemFound[0]);
+                    if (response.isSuccessful()){
+                        ArrayList<Location> districtList = new ArrayList<>();
+                        Districts result = response.body();
+                        for (Attributes attributes : result.getDistricts()){
+                            districtList.add(new Location(attributes.getId(), attributes.getName()));
+                        }
+                        districtsLiveData.postValue(districtList);
+                    }
                 } catch (Exception e){
                     Log.d(TAG, "Exception: " + e.getMessage());
                 }

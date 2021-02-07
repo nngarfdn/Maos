@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.Spinner;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.presidev.maos.R;
 import com.presidev.maos.location.model.Location;
-import com.presidev.maos.location.response.Attributes;
 import com.presidev.maos.location.viewmodel.LocationViewModel;
 import com.presidev.maos.search.model.MitraFilter;
 
@@ -40,8 +38,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     private CheckBox cbProvinces, cbRegencies, cbDistricts, cbOnlyCOD, cbOnlyKirimLuarKota;
     private Spinner spProvinces, spRegencies, spDistricts;
 
-    private ArrayList<Location> provinceList, regencyList, districtList;
-
+    private ArrayList<Location> provinceList, regencyList;
     public MitraFilterFragment() {}
 
     @Override
@@ -91,7 +88,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
             cbOnlyKirimLuarKota.setChecked(filter.isOnlyKirimLuarKota());
 
             locationViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(LocationViewModel.class);
-            locationViewModel.loadProvinces();
+            locationViewModel.queryProvinces();
         }
 
         setLocationViewModelGetData();
@@ -119,21 +116,23 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         switch (adapterView.getId()){
             case R.id.sp_provinces_mf:
                 btnApply.setEnabled(false);
-                int idProvince = provinceList.get(i).getId();
-                locationViewModel.loadRegencies(idProvince);
+                int idProvince = provinceList.get(position).getId();
+                spRegencies.setAdapter(null);
+                locationViewModel.queryRegencies(idProvince);
                 break;
 
             case R.id.sp_regencies_mf:
-                int idRegency = regencyList.get(i).getId();
-                locationViewModel.loadDistricts(idRegency);
+                int idRegency = regencyList.get(position).getId();
+                spDistricts.setAdapter(null);
+                locationViewModel.queryDistricts(idRegency);
                 break;
 
             case R.id.sp_districts_mf:
-                //int idDistrict = districtList.get(i).getId();
+                //int idDistrict = districtList.get(position).getId();
                 break;
         }
     }
@@ -167,49 +166,33 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     }
 
     private void setLocationViewModelGetData() {
-        locationViewModel.getProvinces().observe(getViewLifecycleOwner(), provinces -> {
-            if (provinces != null){
-                provinceList = new ArrayList<>();
-                List<String> itemList = new ArrayList<>();
-                for (Attributes attributes : provinces.getProvinces()){ // Fix nama provinsi
-                    if (attributes.getId() == 31) provinceList.add(new Location(attributes.getId(), "DKI Jakarta"));
-                    else if (attributes.getId() == 34) provinceList.add(new Location(attributes.getId(), "DI Yogyakarta"));
-                    else provinceList.add(new Location(attributes.getId(), attributes.getName()));
-                }
-                for (Location location : provinceList) itemList.add(location.getName());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, itemList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spProvinces.setAdapter(adapter);
-                if (!TextUtils.isEmpty(filter.getProvince())) spProvinces.setSelection(adapter.getPosition(filter.getProvince()));
-            }
+        locationViewModel.getProvinces().observe(getViewLifecycleOwner(), result -> {
+            provinceList = result;
+            ArrayAdapter<String> adapter = getArrayAdapter(result);
+            spProvinces.setAdapter(adapter);
+            spProvinces.setSelection(adapter.getPosition(filter.getProvince()));
         });
 
-        locationViewModel.getRegencies().observe(getViewLifecycleOwner(), regencies -> {
-            if (regencies != null){
-                regencyList = new ArrayList<>();
-                List<String> itemList = new ArrayList<>();
-                for (Attributes attributes : regencies.getRegencies()) regencyList.add(new Location(attributes.getId(), attributes.getName()));
-                for (Location location : regencyList) itemList.add(location.getName());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, itemList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spRegencies.setAdapter(adapter);
-                if (!TextUtils.isEmpty(filter.getRegency())) spRegencies.setSelection(adapter.getPosition(filter.getRegency()));
-            }
+        locationViewModel.getRegencies().observe(getViewLifecycleOwner(), result -> {
+            regencyList = result;
+            ArrayAdapter<String> adapter = getArrayAdapter(result);
+            spRegencies.setAdapter(adapter);
+            spRegencies.setSelection(adapter.getPosition(filter.getRegency()));
         });
 
-        locationViewModel.getDistricts().observe(getViewLifecycleOwner(), districts -> {
-            if (districts != null){
-                districtList = new ArrayList<>();
-                List<String> itemList = new ArrayList<>();
-                for (Attributes attributes : districts.getDistricts()) districtList.add(new Location(attributes.getId(), attributes.getName()));
-                for (Location location : districtList) itemList.add(location.getName());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, itemList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spDistricts.setAdapter(adapter);
-                if (!TextUtils.isEmpty(filter.getDistrict())) spDistricts.setSelection(adapter.getPosition(filter.getDistrict()));
-                btnApply.setEnabled(true);
-            }
+        locationViewModel.getDistricts().observe(getViewLifecycleOwner(), result -> {
+            //districtList = result;
+            ArrayAdapter<String> adapter = getArrayAdapter(result);
+            spDistricts.setAdapter(adapter);
+            spDistricts.setSelection(adapter.getPosition(filter.getDistrict()));
+            btnApply.setEnabled(true);
         });
+    }
+
+    private ArrayAdapter<String> getArrayAdapter(ArrayList<Location> locationList){
+        List<String> itemList = new ArrayList<>();
+        for (Location location : locationList) itemList.add(location.getName());
+        return new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, itemList);
     }
 
     @Override

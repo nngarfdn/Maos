@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -159,12 +158,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean validateForm(String email, String password){
         boolean valid = true;
 
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             edtEmail.setError("Masukkan email yang valid");
             valid = false;
         }
 
-        if (TextUtils.isEmpty(password)) {
+        if (password.isEmpty()) {
             edtPassword.setError("Masukkan kata sandi");
             valid = false;
         }
