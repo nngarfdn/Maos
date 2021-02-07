@@ -28,10 +28,6 @@ public class MitraViewModel extends ViewModel {
         repository.update(mitra);
     }
 
-    public void update(String image){
-        repository.update(image);
-    }
-
     public CollectionReference getReference(){
         return repository.reference;
     }

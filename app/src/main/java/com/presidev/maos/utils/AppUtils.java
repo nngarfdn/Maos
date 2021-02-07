@@ -22,6 +22,14 @@ public class AppUtils {
         return (editText.getText().toString().trim()).replaceAll("\\s+", " ");
     }
 
+    public static void loadImageFromUrl(ImageView imageView, String url){
+        Picasso.get()
+                .load(url)
+                .placeholder(R.color.gray)
+                .error(R.color.gray)
+                .into(imageView);
+    }
+
     public static void loadProfilePicFromUrl(ImageView imageView, String url){
         Picasso.get()
                 .load(url)

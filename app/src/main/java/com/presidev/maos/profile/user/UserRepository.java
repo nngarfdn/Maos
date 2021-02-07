@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -14,8 +13,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.presidev.maos.callback.OnImageUploadCallback;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
 import static com.presidev.maos.utils.ImageUtils.convertUriToByteArray;
 import static com.presidev.maos.utils.ImageUtils.getCompressedByteArray;
 
@@ -46,8 +47,7 @@ public class UserRepository {
     }
 
     public void insert(User user){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        reference.document(userId)
+        reference.document(user.getId())
                 .set(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) Log.d(TAG, "Document was added");
@@ -56,33 +56,22 @@ public class UserRepository {
     }
 
     public void update(User user){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        reference.document(userId)
-                .update((Map<String, Object>) user)
+        reference.document(user.getId())
+                .update(objectToHashMap(user))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) Log.d(TAG, "Document was updated");
                     else Log.w(TAG, "Error updating document", task.getException());
                 });
     }
 
-    public void update(String image){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        reference.document(userId)
-                .update("logo", image)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) Log.d(TAG, "Image was updated");
-                    else Log.w(TAG, "Error updating image", task.getException());
-                });
-    }
-
     public void uploadImage(Context context, Uri uri, String folderName, String fileName, OnImageUploadCallback callback){
         byte[] image = convertUriToByteArray(context, uri);
-        image = getCompressedByteArray(image, true); // Jika foto profil, perkecil ukuran
+        image = getCompressedByteArray(image, folderName.equals(FOLDER_PROFILE)); // Jika foto profil, perkecil ukuran
 
         StorageReference reference = storage.getReference().child(folderName + "/" + fileName);
         UploadTask uploadTask = reference.putBytes(image);
-        uploadTask.addOnSuccessListener(taskSnapshot -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
-            callback.onSuccess(uri1.toString());
+        uploadTask.addOnSuccessListener(taskSnapshot -> reference.getDownloadUrl().addOnSuccessListener(uriResult -> {
+            callback.onSuccess(uriResult.toString());
             Log.d(TAG, "Image was uploaded");
         })).addOnFailureListener(e -> Log.w(TAG, "Error uploading image", e));
     }
@@ -91,5 +80,19 @@ public class UserRepository {
         storage.getReferenceFromUrl(imageUrl).delete()
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Image was deleted"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting image", e));
+    }
+
+    private Map<String, Object> objectToHashMap(User user){
+        Map<String, Object> document = new HashMap<>();
+        document.put("id", user.getId());
+        document.put("photo", user.getPhoto());
+        document.put("name", user.getName());
+        document.put("email", user.getEmail());
+        document.put("idCard", user.getId());
+        document.put("address", user.getAddress());
+        document.put("province", user.getProvince());
+        document.put("regency", user.getRegency());
+        document.put("district", user.getDistrict());
+        return document;
     }
 }

@@ -28,10 +28,6 @@ public class UserViewModel extends ViewModel {
         repository.update(user);
     }
 
-    public void update(String image){
-        repository.update(image);
-    }
-
     public CollectionReference getReference(){
         return repository.reference;
     }

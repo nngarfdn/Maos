@@ -4,8 +4,8 @@ public interface Constants {
     String LEVEL_USER = "user";
     String LEVEL_MITRA = "mitra";
 
-    String FOLDER_MITRA_PROFILE = "profile/mitra";
-    String FOLDER_USER_PROFILE = "profile/user";
+    String FOLDER_PROFILE = "profile";
+    String FOLDER_ID_CARD = "idCard";
 
     String EXTRA_LEVEL = "extra_level";
     String EXTRA_MITRA_FILTER = "extra_mitra_filter";

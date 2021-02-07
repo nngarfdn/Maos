@@ -12,7 +12,7 @@
         android:id="@+id/img_logo_mp"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:src="@color/black"/>
+        android:src="@drawable/ic_no_profile_pic"/>
 
     <TextView
         android:id="@+id/tv_name_mp"
