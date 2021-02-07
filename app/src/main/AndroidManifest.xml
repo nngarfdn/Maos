@@ -35,6 +35,7 @@
         <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity"/>
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
         <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>
