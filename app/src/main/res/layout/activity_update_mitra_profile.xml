@@ -16,7 +16,7 @@
             android:id="@+id/img_logo_ump"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@color/black"/>
+            android:src="@drawable/ic_no_profile_pic"/>
 
         <Button
             android:id="@+id/btn_logo_ump"
@@ -53,14 +53,14 @@
             android:inputType="textCapSentences"/>
 
         <Spinner
-            android:id="@+id/sp_regencies_ump"
+            android:id="@+id/sp_provinces_ump"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:spinnerMode="dialog"/>
 
         <Spinner
-            android:id="@+id/sp_provinces_ump"
+            android:id="@+id/sp_regencies_ump"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"

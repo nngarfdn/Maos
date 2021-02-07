@@ -39,6 +39,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     private Spinner spProvinces, spRegencies, spDistricts;
 
     private ArrayList<Location> provinceList, regencyList;
+
     public MitraFilterFragment() {}
 
     @Override
@@ -120,14 +121,17 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
         switch (adapterView.getId()){
             case R.id.sp_provinces_mf:
                 btnApply.setEnabled(false);
-                int idProvince = provinceList.get(position).getId();
                 spRegencies.setAdapter(null);
+                spDistricts.setAdapter(null);
+
+                int idProvince = provinceList.get(position).getId();
                 locationViewModel.queryRegencies(idProvince);
                 break;
 
             case R.id.sp_regencies_mf:
-                int idRegency = regencyList.get(position).getId();
                 spDistricts.setAdapter(null);
+
+                int idRegency = regencyList.get(position).getId();
                 locationViewModel.queryDistricts(idRegency);
                 break;
 
