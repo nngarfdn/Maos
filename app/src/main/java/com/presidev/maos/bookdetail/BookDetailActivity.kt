@@ -67,6 +67,8 @@ class BookDetailActivity : AppCompatActivity() {
             // TODO: use dominant color
         } }
 
+
+
         if (book.ketersediaan == true){
             txt_ketersediaan.text = "Tersedia"
             txt_ketersediaan.setTextColor(ContextCompat.getColor(this, R.color.green))
