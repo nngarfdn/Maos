@@ -77,10 +77,8 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
         btnApply = view.findViewById(R.id.btn_apply_mf);
         btnApply.setOnClickListener(this);
 
-        btnApply.setEnabled(false);
-
         Bundle bundle = getArguments();
-        if (bundle != null && !bundle.isEmpty()){
+        if (bundle.containsKey(EXTRA_MITRA_FILTER)){
             filter = bundle.getParcelable(EXTRA_MITRA_FILTER);
             cbProvinces.setChecked(filter.isByProvince());
             cbRegencies.setChecked(filter.isByRegency());
@@ -129,6 +127,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
                 break;
 
             case R.id.sp_regencies_mf:
+                btnApply.setEnabled(false);
                 spDistricts.setAdapter(null);
 
                 int idRegency = regencyList.get(position).getId();

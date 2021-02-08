@@ -63,7 +63,6 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         btnLogo.setOnClickListener(this);
         btnBanner.setOnClickListener(this);
         btnSave.setOnClickListener(this);
-        btnSave.setEnabled(false);
 
         cbCOD = findViewById(R.id.cb_cod_ump);
         cbKirimLuarKota = findViewById(R.id.cb_kirim_luar_kota_ump);
@@ -206,6 +205,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                 break;
 
             case R.id.sp_regencies_ump:
+                btnSave.setEnabled(false);
                 spDistricts.setAdapter(null);
 
                 int idRegency = regencyList.get(position).getId();

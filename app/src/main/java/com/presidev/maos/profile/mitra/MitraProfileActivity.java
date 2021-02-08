@@ -16,7 +16,7 @@ import com.presidev.maos.R;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.welcome.view.SplashActivity;
 
-import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
+import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 
@@ -54,7 +54,7 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
         mitraViewModel.getMitraLiveData().observe(this, mitra -> {
             this.mitra = mitra;
             loadProfilePicFromUrl(imgLogo, mitra.getLogo());
-            loadImageFromUrl(imgBanner, mitra.getBanner());
+            loadBlurImageFromUrl(this, imgBanner, mitra.getBanner());
             tvName.setText(mitra.getName());
             tvEmail.setText(mitra.getEmail());
             tvAddress.setText(mitra.getAddress());
@@ -83,9 +83,8 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
                         .setTitle("Ganti kata sandi")
                         .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
                         .setNegativeButton("Tidak", null)
-                        .setPositiveButton("Ya", (dialogInterface, i) -> {
-                            authViewModel.sendPasswordReset(mitra.getEmail());
-                        }).create().show();
+                        .setPositiveButton("Ya", (dialogInterface, i) ->
+                                authViewModel.sendPasswordReset(mitra.getEmail())).create().show();
                 break;
 
             case R.id.btn_about_mp:

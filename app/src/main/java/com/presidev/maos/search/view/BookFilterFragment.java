@@ -47,7 +47,7 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
         });
 
         Bundle bundle = getArguments();
-        if (bundle != null && !bundle.isEmpty()){
+        if (bundle.containsKey(EXTRA_BOOK_FILTER)){
             filter = bundle.getParcelable(EXTRA_BOOK_FILTER);
             cbOnlyAvailable.setChecked(filter.isOnlyAvailable());
         }

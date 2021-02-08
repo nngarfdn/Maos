@@ -33,6 +33,11 @@
         android:layout_height="wrap_content"
         android:text="Alamat lengkap"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_member_card_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/btn_update_up"
         android:layout_width="match_parent"

@@ -65,7 +65,6 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         btnPhoto.setOnClickListener(this);
         btnIdCard.setOnClickListener(this);
         btnSave.setOnClickListener(this);
-        btnSave.setEnabled(false);
 
         imgPhoto = findViewById(R.id.img_photo_uup);
         imgIdCard = findViewById(R.id.img_id_card_uup);
@@ -191,6 +190,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                 break;
 
             case R.id.sp_regencies_uup:
+                btnSave.setEnabled(false);
                 spDistricts.setAdapter(null);
 
                 int idRegency = regencyList.get(position).getId();

@@ -2,6 +2,8 @@ package com.presidev.maos.profile.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
+import com.presidev.maos.subscribe.adapter.MemberCardAdapter;
 import com.presidev.maos.subscribe.view.MembershipIntroActivity;
+import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel;
 import com.presidev.maos.welcome.view.SplashActivity;
 
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
@@ -23,6 +27,7 @@ import static com.presidev.maos.utils.Constants.EXTRA_USER;
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AuthViewModel authViewModel;
+    private MemberCardAdapter adapter;
     private User user;
 
     private ImageView imgPhoto;
@@ -32,6 +37,12 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        RecyclerView rvMemberCard = findViewById(R.id.rv_member_card_up);
+        rvMemberCard.setHasFixedSize(true);
+        rvMemberCard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapter = new MemberCardAdapter(this);
+        rvMemberCard.setAdapter(adapter);
 
         Button btnUpdate = findViewById(R.id.btn_update_up);
         Button btnSubscribe = findViewById(R.id.btn_subscribe_up);
@@ -49,6 +60,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         tvEmail = findViewById(R.id.tv_email_up);
         tvAddress = findViewById(R.id.tv_address_up);
 
+        MemberCardViewModel memberCardViewModel = new ViewModelProvider(this).get(MemberCardViewModel.class);
+        memberCardViewModel.getMemberCardListLiveData().observe(this, result -> adapter.setData(result));
+
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(this, user -> {
             this.user = user;
@@ -56,6 +70,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             tvName.setText(user.getName());
             tvEmail.setText(user.getEmail());
             tvAddress.setText(user.getAddress());
+            memberCardViewModel.queryByUserId(user.getId());
         });
         userViewModel.query("C6EOiwB3MqfMYRDECIvgQMYK6SF2");
 
@@ -83,9 +98,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                         .setTitle("Ganti kata sandi")
                         .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
                         .setNegativeButton("Tidak", null)
-                        .setPositiveButton("Ya", (dialogInterface, i) -> {
-                            authViewModel.sendPasswordReset(user.getEmail());
-                        }).create().show();
+                        .setPositiveButton("Ya", (dialogInterface, i) ->
+                                authViewModel.sendPasswordReset(user.getEmail())).create().show();
                 break;
 
             case R.id.btn_about_up:

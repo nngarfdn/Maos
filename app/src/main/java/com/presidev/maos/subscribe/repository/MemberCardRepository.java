@@ -45,12 +45,13 @@ public class MemberCardRepository {
     }
 
     public void queryByUserId(String userId){
-        reference.whereEqualTo("userId", userId).whereLessThanOrEqualTo("expDate", getCurrentDate())
+        reference.whereEqualTo("userId", userId).whereGreaterThanOrEqualTo("expDate", getCurrentDate())
                 .orderBy("expDate", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         ArrayList<MemberCard> result = new ArrayList<>();
+                        Log.d(TAG, "Size result: " + task.getResult().size());
                         for (DocumentSnapshot document : task.getResult()){
                             MemberCard memberCard = document.toObject(MemberCard.class);
                             result.add(memberCard);
@@ -63,7 +64,7 @@ public class MemberCardRepository {
     }
 
     public void queryByMitraId(String mitraId){
-        reference.whereEqualTo("mitraId", mitraId).whereLessThanOrEqualTo("expDate", getCurrentDate())
+        reference.whereEqualTo("mitraId", mitraId).whereGreaterThanOrEqualTo("expDate", getCurrentDate())
                 .orderBy("expDate", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(task -> {

@@ -2,17 +2,17 @@ package com.presidev.maos.subscribe.model;
 
 public class MemberCard {
     private String id;
-    private String idUser;
-    private String idMitra;
+    private String userId;
+    private String mitraId;
     private String startDate;
     private String expDate;
 
     public MemberCard() {}
 
-    public MemberCard(String id, String idUser, String idMitra, String startDate, String expDate) {
+    public MemberCard(String id, String userId, String mitraId, String startDate, String expDate) {
         this.id = id;
-        this.idUser = idUser;
-        this.idMitra = idMitra;
+        this.userId = userId;
+        this.mitraId = mitraId;
         this.startDate = startDate;
         this.expDate = expDate;
     }
@@ -25,20 +25,20 @@ public class MemberCard {
         this.id = id;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getIdMitra() {
-        return idMitra;
+    public String getMitraId() {
+        return mitraId;
     }
 
-    public void setIdMitra(String idMitra) {
-        this.idMitra = idMitra;
+    public void setMitraId(String mitraId) {
+        this.mitraId = mitraId;
     }
 
     public String getStartDate() {
