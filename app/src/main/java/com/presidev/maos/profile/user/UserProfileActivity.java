@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
-import com.presidev.maos.subscribe.adapter.MemberCardAdapter;
 import com.presidev.maos.subscribe.view.MembershipIntroActivity;
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel;
 import com.presidev.maos.welcome.view.SplashActivity;

@@ -11,9 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
 import com.presidev.maos.R;
 import com.presidev.maos.search.model.BookFilter;
 
@@ -23,7 +24,7 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
     private BookFilter filter;
     private BookFilterListener listener;
 
-    private CheckBox cbOnlyAvailable;
+    private Chip chipOnlyAvailable;
 
     public BookFilterFragment() {}
 
@@ -36,21 +37,22 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cbOnlyAvailable = view.findViewById(R.id.cb_on_available_bf);
+        chipOnlyAvailable = view.findViewById(R.id.chip_only_available_bf);
 
         Button btnApply = view.findViewById(R.id.btn_apply_bf);
-        btnApply.setOnClickListener(v -> {
-            filter.setOnlyAvailable(cbOnlyAvailable.isChecked());
-
-            listener.receiveData(filter);
-            dismiss();
-        });
+        TextView tvReset = view.findViewById(R.id.tv_reset_bf);
+        btnApply.setOnClickListener(this);
+        tvReset.setOnClickListener(this);
 
         Bundle bundle = getArguments();
         if (bundle.containsKey(EXTRA_BOOK_FILTER)){
             filter = bundle.getParcelable(EXTRA_BOOK_FILTER);
-            cbOnlyAvailable.setChecked(filter.isOnlyAvailable());
+            setView(filter);
         }
+    }
+
+    private void setView(BookFilter filter) {
+        chipOnlyAvailable.setChecked(filter.isOnlyAvailable());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -58,9 +60,14 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_apply_bf:
-                filter.setOnlyAvailable(cbOnlyAvailable.isChecked());
+                filter.setOnlyAvailable(chipOnlyAvailable.isChecked());
                 listener.receiveData(filter);
                 dismiss();
+                break;
+
+            case R.id.tv_reset_bf:
+                filter = new BookFilter();
+                setView(filter);
                 break;
         }
     }

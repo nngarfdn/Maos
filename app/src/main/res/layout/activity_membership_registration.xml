@@ -70,16 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Alamat lengkap"
-        android:inputType="none"
-        android:editable="false"/>
-
-    <TextView
-        android:id="@+id/tv_address_mr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ganti alamat"
-        android:clickable="true"
-        android:focusable="true" />
+        android:inputType="textCapWords"/>
 
     <Button
         android:id="@+id/btn_submit_mr"

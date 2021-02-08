@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.material.chip.Chip;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.location.model.Location;
@@ -43,7 +43,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
     private MitraViewModel mitraViewModel;
 
     private Button btnSave;
-    private CheckBox cbCOD, cbKirimLuarKota;
+    private Chip chipCOD, chipKirimLuarKota;
     private ImageView imgLogo, imgBanner;
     private EditText edtName, edtDescription, edtWhatsApp, edtAddress, edtRules;
     private Spinner spProvinces, spRegencies, spDistricts;
@@ -64,8 +64,8 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         btnBanner.setOnClickListener(this);
         btnSave.setOnClickListener(this);
 
-        cbCOD = findViewById(R.id.cb_cod_ump);
-        cbKirimLuarKota = findViewById(R.id.cb_kirim_luar_kota_ump);
+        chipCOD = findViewById(R.id.chip_cod_ump);
+        chipKirimLuarKota = findViewById(R.id.chip_kirim_luar_kota_ump);
         imgLogo = findViewById(R.id.img_logo_ump);
         imgBanner = findViewById(R.id.img_banner_ump);
         edtName = findViewById(R.id.edt_name_ump);
@@ -84,8 +84,8 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_MITRA)){
             mitra = intent.getParcelableExtra(EXTRA_MITRA);
-            cbCOD.setChecked(mitra.isCOD());
-            cbKirimLuarKota.setChecked(mitra.isKirimLuarKota());
+            chipCOD.setChecked(mitra.isCOD());
+            chipKirimLuarKota.setChecked(mitra.isKirimLuarKota());
             loadProfilePicFromUrl(imgLogo, mitra.getLogo());
             loadImageFromUrl(imgBanner, mitra.getBanner());
             edtName.setText(mitra.getName());
@@ -93,8 +93,8 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
             edtWhatsApp.setText(mitra.getWhatsApp());
             edtAddress.setText(mitra.getAddress());
             edtRules.setText(mitra.getRules());
-            cbCOD.setChecked(mitra.isCOD());
-            cbKirimLuarKota.setChecked(mitra.isKirimLuarKota());
+            chipCOD.setChecked(mitra.isCOD());
+            chipKirimLuarKota.setChecked(mitra.isKirimLuarKota());
         }
 
         mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
@@ -146,8 +146,8 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                 mitra.setProvince(spProvinces.getSelectedItem().toString());
                 mitra.setRegency(spRegencies.getSelectedItem().toString());
                 mitra.setDistrict(spDistricts.getSelectedItem().toString());
-                mitra.setCOD(cbCOD.isChecked());
-                mitra.setKirimLuarKota(cbKirimLuarKota.isChecked());
+                mitra.setCOD(chipCOD.isChecked());
+                mitra.setKirimLuarKota(chipKirimLuarKota.isChecked());
 
                 mitraViewModel.update(mitra);
                 onBackPressed();

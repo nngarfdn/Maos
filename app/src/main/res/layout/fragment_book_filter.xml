@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.view.BookFilterFragment"
     android:orientation="vertical"
     android:padding="16dp">
@@ -13,11 +13,32 @@
         android:layout_height="wrap_content"
         android:text="Filter"/>
 
-    <CheckBox
-        android:id="@+id/cb_on_available_bf"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_reset_bf"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hanya stok yang tersedia"/>
+        android:text="Setel ulang"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ketersediaan stok"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:chipSpacingHorizontal="8dp"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_only_available_bf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stok tersedia" />
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/btn_apply_bf"

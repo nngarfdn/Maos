@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".DeveloperActivity"/>
+        <activity android:name=".profile.mitra.MemberListActivity"/>
+        <activity android:name=".DeveloperActivity" />
         <activity android:name=".subscribe.view.AddMemberCardActivity" />
         <activity android:name=".subscribe.view.MembershipIntroActivity" />
         <activity android:name=".subscribe.view.MembershipRegistrationActivity" />
-        <activity android:name=".borrowbook.PeminjamanActivity"/>
+        <activity android:name=".borrowbook.PeminjamanActivity" />
         <activity android:name=".App" />
         <activity android:name=".profile.user.UpdateUserProfileActivity" />
         <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />

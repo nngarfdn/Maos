@@ -76,6 +76,8 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.btn_subscriber_mp:
+                Intent intentMemberList = new Intent(this, MemberListActivity.class);
+                startActivity(intentMemberList);
                 break;
 
             case R.id.btn_reset_password_mp:

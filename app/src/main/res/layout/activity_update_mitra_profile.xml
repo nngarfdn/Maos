@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".profile.mitra.UpdateMitraProfileActivity">
 
     <LinearLayout
@@ -94,17 +94,31 @@
             android:hint="Peraturan peminjaman"
             android:inputType="textCapSentences"/>
 
-        <CheckBox
-            android:id="@+id/cb_cod_ump"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bisa COD"/>
+            android:text="Pengantaran buku"/>
 
-        <CheckBox
-            android:id="@+id/cb_kirim_luar_kota_ump"
-            android:layout_width="match_parent"
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bisa kirim luar kota"/>
+            app:chipSpacingHorizontal="8dp"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cod_ump"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sistem COD" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_kirim_luar_kota_ump"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengiriman luar kota" />
+        </com.google.android.material.chip.ChipGroup>
 
         <Button
             android:id="@+id/btn_save_ump"

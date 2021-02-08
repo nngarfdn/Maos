@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.view.MitraFilterFragment"
     android:orientation="vertical"
     android:padding="16dp">
@@ -14,15 +14,45 @@
         android:text="Filter"/>
 
     <TextView
+        android:id="@+id/tv_reset_mf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setel ulang"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lokasi"/>
 
-    <CheckBox
-        android:id="@+id/cb_provinces_mf"
-        android:layout_width="match_parent"
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Provinsi"/>
+        app:chipSpacingHorizontal="8dp"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_provinces_mf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Provinsi" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_regencies_mf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kabupaten" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_districts_mf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kecamatan" />
+    </com.google.android.material.chip.ChipGroup>
 
     <Spinner
         android:id="@+id/sp_provinces_mf"
@@ -31,24 +61,12 @@
         android:minHeight="48dp"
         android:spinnerMode="dialog"/>
 
-    <CheckBox
-        android:id="@+id/cb_regencies_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kabupaten"/>
-
     <Spinner
         android:id="@+id/sp_regencies_mf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:spinnerMode="dialog"/>
-
-    <CheckBox
-        android:id="@+id/cb_districts_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kecamatan"/>
 
     <Spinner
         android:id="@+id/sp_districts_mf"
@@ -62,17 +80,26 @@
         android:layout_height="wrap_content"
         android:text="Pengantaran buku"/>
 
-    <CheckBox
-        android:id="@+id/cb_only_cod_mf"
-        android:layout_width="match_parent"
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bisa COD"/>
+        app:chipSpacingHorizontal="8dp"
+        app:singleLine="true">
 
-    <CheckBox
-        android:id="@+id/cb_only_kirim_luar_kota_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bisa kirim luar kota"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_only_cod_mf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sistem COD" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_only_kirim_luar_kota_mf"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pengiriman luar kota" />
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/btn_apply_mf"

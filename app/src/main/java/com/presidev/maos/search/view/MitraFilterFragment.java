@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
 import com.presidev.maos.R;
 import com.presidev.maos.location.model.Location;
 import com.presidev.maos.location.viewmodel.LocationViewModel;
@@ -35,7 +37,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     private MitraFilterListener listener;
 
     private Button btnApply;
-    private CheckBox cbProvinces, cbRegencies, cbDistricts, cbOnlyCOD, cbOnlyKirimLuarKota;
+    private Chip chipProvinces, chipRegencies, chipDistricts, chipOnlyCOD, chipOnlyKirimLuarKota;
     private Spinner spProvinces, spRegencies, spDistricts;
 
     private ArrayList<Location> provinceList, regencyList;
@@ -51,46 +53,52 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cbProvinces = view.findViewById(R.id.cb_provinces_mf);
-        cbRegencies = view.findViewById(R.id.cb_regencies_mf);
-        cbDistricts = view.findViewById(R.id.cb_districts_mf);
+        chipProvinces = view.findViewById(R.id.chip_provinces_mf);
+        chipRegencies = view.findViewById(R.id.chip_regencies_mf);
+        chipDistricts = view.findViewById(R.id.chip_districts_mf);
         spProvinces = view.findViewById(R.id.sp_provinces_mf);
         spRegencies = view.findViewById(R.id.sp_regencies_mf);
         spDistricts = view.findViewById(R.id.sp_districts_mf);
-        cbOnlyCOD = view.findViewById(R.id.cb_only_cod_mf);
-        cbOnlyKirimLuarKota = view.findViewById(R.id.cb_only_kirim_luar_kota_mf);
+        chipOnlyCOD = view.findViewById(R.id.chip_only_cod_mf);
+        chipOnlyKirimLuarKota = view.findViewById(R.id.chip_only_kirim_luar_kota_mf);
 
-        cbProvinces.setEnabled(true);
-        cbRegencies.setEnabled(false);
-        cbDistricts.setEnabled(false);
+        chipProvinces.setEnabled(true);
+        chipRegencies.setEnabled(false);
+        chipDistricts.setEnabled(false);
         spProvinces.setEnabled(false);
         spRegencies.setEnabled(false);
         spDistricts.setEnabled(false);
 
-        cbProvinces.setOnCheckedChangeListener(this);
-        cbRegencies.setOnCheckedChangeListener(this);
-        cbDistricts.setOnCheckedChangeListener(this);
+        chipProvinces.setOnCheckedChangeListener(this);
+        chipRegencies.setOnCheckedChangeListener(this);
+        chipDistricts.setOnCheckedChangeListener(this);
         spProvinces.setOnItemSelectedListener(this);
         spRegencies.setOnItemSelectedListener(this);
         spDistricts.setOnItemSelectedListener(this);
 
         btnApply = view.findViewById(R.id.btn_apply_mf);
+        TextView tvReset = view.findViewById(R.id.tv_reset_mf);
         btnApply.setOnClickListener(this);
+        tvReset.setOnClickListener(this);
 
         Bundle bundle = getArguments();
         if (bundle.containsKey(EXTRA_MITRA_FILTER)){
             filter = bundle.getParcelable(EXTRA_MITRA_FILTER);
-            cbProvinces.setChecked(filter.isByProvince());
-            cbRegencies.setChecked(filter.isByRegency());
-            cbDistricts.setChecked(filter.isByDistrict());
-            cbOnlyCOD.setChecked(filter.isOnlyCOD());
-            cbOnlyKirimLuarKota.setChecked(filter.isOnlyKirimLuarKota());
+            setView(filter);
 
             locationViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(LocationViewModel.class);
             locationViewModel.queryProvinces();
         }
 
         setLocationViewModelGetData();
+    }
+
+    private void setView(MitraFilter filter) {
+        chipProvinces.setChecked(filter.isByProvince());
+        chipRegencies.setChecked(filter.isByRegency());
+        chipDistricts.setChecked(filter.isByDistrict());
+        chipOnlyCOD.setChecked(filter.isOnlyCOD());
+        chipOnlyKirimLuarKota.setChecked(filter.isOnlyKirimLuarKota());
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -101,14 +109,19 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
                 filter.setProvince(spProvinces.getSelectedItem().toString());
                 filter.setRegency(spRegencies.getSelectedItem().toString());
                 filter.setDistrict(spDistricts.getSelectedItem().toString());
-                filter.setByProvince(cbProvinces.isChecked());
-                filter.setByRegency(cbRegencies.isChecked());
-                filter.setByDistrict(cbDistricts.isChecked());
-                filter.setOnlyCOD(cbOnlyCOD.isChecked());
-                filter.setOnlyKirimLuarKota(cbOnlyKirimLuarKota.isChecked());
+                filter.setByProvince(chipProvinces.isChecked());
+                filter.setByRegency(chipRegencies.isChecked());
+                filter.setByDistrict(chipDistricts.isChecked());
+                filter.setOnlyCOD(chipOnlyCOD.isChecked());
+                filter.setOnlyKirimLuarKota(chipOnlyKirimLuarKota.isChecked());
 
                 listener.receiveData(filter);
                 dismiss();
+                break;
+
+            case R.id.tv_reset_mf:
+                filter = new MitraFilter();
+                setView(filter);
                 break;
         }
     }
@@ -147,22 +160,22 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         switch (compoundButton.getId()){
-            case R.id.cb_provinces_mf:
+            case R.id.chip_provinces_mf:
                 spProvinces.setEnabled(isChecked);
-                cbRegencies.setEnabled(isChecked);
+                chipRegencies.setEnabled(isChecked);
                 if (!isChecked){
-                    cbRegencies.setChecked(false);
-                    cbDistricts.setChecked(false);
+                    chipRegencies.setChecked(false);
+                    chipDistricts.setChecked(false);
                 }
                 break;
 
-            case R.id.cb_regencies_mf:
+            case R.id.chip_regencies_mf:
                 spRegencies.setEnabled(isChecked);
-                cbDistricts.setEnabled(isChecked);
-                if (!isChecked) cbDistricts.setChecked(false);
+                chipDistricts.setEnabled(isChecked);
+                if (!isChecked) chipDistricts.setChecked(false);
                 break;
 
-            case R.id.cb_districts_mf:
+            case R.id.chip_districts_mf:
                 spDistricts.setEnabled(isChecked);
                 break;
         }

@@ -1,4 +1,4 @@
-package com.presidev.maos.subscribe.adapter;
+package com.presidev.maos.profile.user;
 
 import android.content.Intent;
 import android.util.Log;
@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
+import static com.presidev.maos.utils.DateUtils.getFullDate;
 
 public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.ViewHolder> {
     private final ArrayList<MemberCard> memberCardList = new ArrayList<>();
@@ -88,7 +89,7 @@ public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.Vi
             });
 
             tvId.setText(memberCard.getId());
-            tvExpDate.setText(memberCard.getExpDate());
+            tvExpDate.setText(getFullDate(memberCard.getExpDate(), true));
 
             itemView.setOnClickListener(view -> {
                 if (mitra == null) return;
