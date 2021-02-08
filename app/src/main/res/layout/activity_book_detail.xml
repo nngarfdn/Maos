@@ -33,61 +33,62 @@
                     android:id="@+id/img_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:layout_marginStart="8dp"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+                    android:layout_marginStart="8dp"
+                    android:paddingTop="16dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+
                 <TextView
                     android:id="@+id/txt_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Detail Buku"
-                    android:textSize="16dp"
-                    android:paddingTop="16dp"
                     android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="16dp"
+                    android:text="Detail Buku"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal"/>
-<!--                android:shadowColor="#000000"-->
-<!--                android:shadowDx="1.5"-->
-<!--                android:shadowDy="1.3"-->
-<!--                android:shadowRadius="1.6"-->
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <!--                android:shadowColor="#000000"-->
+                <!--                android:shadowDx="1.5"-->
+                <!--                android:shadowDy="1.3"-->
+                <!--                android:shadowRadius="1.6"-->
                 <ImageView
                     android:id="@+id/img_book_detail"
                     android:layout_width="120dp"
                     android:layout_height="200dp"
-                    android:fitsSystemWindows="true"
-                    android:layout_marginVertical="12dp"
-                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/txt_detail"
+                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
+                    android:layout_marginVertical="12dp"
+                    android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/examplebook"
                     app:layout_collapseMode="parallax" />
 
                 <TextView
-                    android:layout_marginTop="8dp"
                     android:id="@+id/txt_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Judul Buku"
-                    android:textSize="12dp"
                     android:layout_below="@+id/img_book_detail"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="Judul Buku"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:gravity="center_horizontal"/>
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_penulis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Penulis Buku"
-                    android:textSize="10dp"
                     android:layout_below="@+id/txt_title"
                     android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:text="Penulis Buku"
                     android:textColor="@android:color/white"
-                    android:gravity="center_horizontal"/>
+                    android:textSize="10dp" />
 
 
             </RelativeLayout>
@@ -98,12 +99,12 @@
                 android:layout_height="0dp"
                 android:background="@color/white"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar" >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-<!--                <TextView-->
-<!--                    android:text=""-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"/>-->
+                <!--                <TextView-->
+                <!--                    android:text=""-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"/>-->
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -112,16 +113,74 @@
 
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_book_detail">
 
-        <TextView
-            android:id="@+id/txt_desc_book"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_ketersediaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tersedia"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:id="@+id/txt_tentang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tentang Buku"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_below="@id/txt_ketersediaan"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txt_desc_book"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txt_tentang"
+                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="@dimen/text_margin"
+                android:text="@string/large_text" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_peminjaman"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bg_button_primary"
+                android:layout_below="@+id/txt_desc_book"
+                android:text="Peminjaman"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/img_bookmark"
+                />
+
+            <ImageView
+                android:id="@+id/img_bookmark"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/txt_desc_book"
+                android:src="@drawable/ic_bookmark_outline"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_alignParentStart="true"/>
+
+        </RelativeLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
