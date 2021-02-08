@@ -10,7 +10,7 @@ import java.util.Date;
 import static com.presidev.maos.utils.AppUtils.locale;
 
 public class DateUtils {
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_FORMAT = "yyyy/MM/dd";
     public static final String TIME_FORMAT = "HH:mm";
 
     public static String getCurrentDate(){
@@ -69,7 +69,7 @@ public class DateUtils {
     // Konversi tanggal ke array
     public static int[] getArrayDate(String date){
         if (isValidDateFormat(date)){
-            String[] stringArrayDate = date.split("-");
+            String[] stringArrayDate = date.split("/");
             int[] integerArrayDate = new int[3];
             for (int i = 0; i < 3; i++) integerArrayDate[i] = Integer.parseInt(stringArrayDate[i]);
             // Karena bulan di mulai dari 0, jadi dikurangi 1
