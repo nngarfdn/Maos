@@ -9,6 +9,7 @@ import com.presidev.maos.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
@@ -51,5 +52,15 @@ public class AppUtils {
 
     public static String setFullAddress(String address, String province, String regency, String district){
         return address + ", " + district + ", " + regency + ", " + province;
+    }
+
+    public static String createMemberCardId(String mitraId, String userId){
+        return String.valueOf(UUID.nameUUIDFromBytes((mitraId + userId).getBytes()))
+                .replace("-", "").toUpperCase().substring(16, 32);
+    }
+
+    public static String showMemberCardId(String id){
+        return id.substring(0, 4) + " " + id.substring(4, 8) + " " +
+                id.substring(8, 12) + " " + id.substring(12, 16);
     }
 }

@@ -22,6 +22,7 @@ import com.presidev.maos.profile.user.UserViewModel;
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel;
 import com.presidev.maos.subscribe.model.MemberCard;
 
+import static com.presidev.maos.utils.AppUtils.createMemberCardId;
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.DateUtils.addDay;
@@ -133,7 +134,7 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
                 }
 
                 memberCard = new MemberCard(
-                        mitra.getId() + "-" + user.getId(),
+                        createMemberCardId(mitra.getId(), user.getId()),
                         user.getId(),
                         mitra.getId(),
                         getCurrentDate(),

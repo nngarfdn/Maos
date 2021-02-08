@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
+import static com.presidev.maos.utils.AppUtils.showMemberCardId;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 import static com.presidev.maos.utils.DateUtils.getFullDate;
 
@@ -88,7 +89,7 @@ public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.Vi
                 }
             });
 
-            tvId.setText(memberCard.getId());
+            tvId.setText(showMemberCardId(memberCard.getId()));
             tvExpDate.setText(getFullDate(memberCard.getExpDate(), true));
 
             itemView.setOnClickListener(view -> {
