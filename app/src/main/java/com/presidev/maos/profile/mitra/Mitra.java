@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Mitra implements Parcelable {
     private String id;
     private String logo;
+    private String banner;
     private String name;
     private String email;
     private String description;
@@ -20,9 +21,10 @@ public class Mitra implements Parcelable {
 
     public Mitra() {}
 
-    public Mitra(String id, String logo, String name, String email, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota) {
+    public Mitra(String id, String logo, String banner, String name, String email, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota) {
         this.id = id;
         this.logo = logo;
+        this.banner = banner;
         this.name = name;
         this.email = email;
         this.description = description;
@@ -39,6 +41,7 @@ public class Mitra implements Parcelable {
     protected Mitra(Parcel in) {
         id = in.readString();
         logo = in.readString();
+        banner = in.readString();
         name = in.readString();
         email = in.readString();
         description = in.readString();
@@ -56,6 +59,7 @@ public class Mitra implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(logo);
+        dest.writeString(banner);
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(description);
@@ -100,6 +104,14 @@ public class Mitra implements Parcelable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     public String getName() {

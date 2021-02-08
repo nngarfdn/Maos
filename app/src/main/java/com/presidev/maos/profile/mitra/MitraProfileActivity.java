@@ -16,6 +16,7 @@ import com.presidev.maos.R;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.welcome.view.SplashActivity;
 
+import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 
@@ -24,7 +25,7 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
     private AuthViewModel authViewModel;
     private Mitra mitra;
 
-    private ImageView imgLogo;
+    private ImageView imgLogo, imgBanner;
     private TextView tvName, tvEmail, tvAddress;
 
     @Override
@@ -44,6 +45,7 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
         btnLogout.setOnClickListener(this);
 
         imgLogo = findViewById(R.id.img_logo_mp);
+        imgBanner = findViewById(R.id.img_banner_mp);
         tvName = findViewById(R.id.tv_name_mp);
         tvEmail = findViewById(R.id.tv_email_mp);
         tvAddress = findViewById(R.id.tv_address_mp);
@@ -52,6 +54,7 @@ public class MitraProfileActivity extends AppCompatActivity implements View.OnCl
         mitraViewModel.getMitraLiveData().observe(this, mitra -> {
             this.mitra = mitra;
             loadProfilePicFromUrl(imgLogo, mitra.getLogo());
+            loadImageFromUrl(imgBanner, mitra.getBanner());
             tvName.setText(mitra.getName());
             tvEmail.setText(mitra.getEmail());
             tvAddress.setText(mitra.getAddress());

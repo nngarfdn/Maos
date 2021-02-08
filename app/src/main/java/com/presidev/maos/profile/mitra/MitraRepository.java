@@ -102,6 +102,7 @@ public class MitraRepository {
         Map<String, Object> document = new HashMap<>();
         document.put("id", mitra.getId());
         document.put("logo", mitra.getLogo());
+        document.put("banner", mitra.getBanner());
         document.put("name", mitra.getName());
         document.put("email", mitra.getEmail());
         document.put("description", mitra.getDescription());

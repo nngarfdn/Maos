@@ -8,11 +8,12 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_photo_up"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:src="@drawable/ic_no_profile_pic"/>
+        android:src="@drawable/ic_no_profile_pic"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_name_up"

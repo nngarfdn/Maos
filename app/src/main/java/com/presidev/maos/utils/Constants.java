@@ -6,6 +6,7 @@ public interface Constants {
 
     String FOLDER_PROFILE = "profile";
     String FOLDER_ID_CARD = "idCard";
+    String FOLDER_BANNER = "banner";
 
     String EXTRA_LEVEL = "extra_level";
     String EXTRA_MITRA_FILTER = "extra_mitra_filter";

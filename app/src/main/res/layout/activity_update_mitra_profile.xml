@@ -12,17 +12,31 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_logo_ump"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/ic_no_profile_pic"/>
+            android:src="@drawable/ic_no_profile_pic"
+            android:scaleType="centerCrop"/>
 
         <Button
             android:id="@+id/btn_logo_ump"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ganti logo"/>
+
+        <ImageView
+            android:id="@+id/img_banner_ump"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@color/gray"
+            android:scaleType="centerCrop"/>
+
+        <Button
+            android:id="@+id/btn_banner_ump"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ganti latar belakang"/>
 
         <EditText
             android:id="@+id/edt_name_ump"

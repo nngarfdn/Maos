@@ -104,7 +104,7 @@ public class UserRepository {
         document.put("photo", user.getPhoto());
         document.put("name", user.getName());
         document.put("email", user.getEmail());
-        document.put("idCard", user.getId());
+        document.put("idCard", user.getIdCard());
         document.put("address", user.getAddress());
         document.put("province", user.getProvince());
         document.put("regency", user.getRegency());

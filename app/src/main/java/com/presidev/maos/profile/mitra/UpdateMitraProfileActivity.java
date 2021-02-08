@@ -27,12 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.presidev.maos.utils.AppUtils.getFixText;
+import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
+import static com.presidev.maos.utils.Constants.FOLDER_BANNER;
 import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
 
 public class UpdateMitraProfileActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final int RC_PROFILE_IMAGE = 100;
+    private static final int RC_BANNER_IMAGE = 300;
 
     private LoadingDialog loadingDialog;
     private LocationViewModel locationViewModel;
@@ -41,7 +44,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
 
     private Button btnSave;
     private CheckBox cbCOD, cbKirimLuarKota;
-    private ImageView imgLogo;
+    private ImageView imgLogo, imgBanner;
     private EditText edtName, edtDescription, edtWhatsApp, edtAddress, edtRules;
     private Spinner spProvinces, spRegencies, spDistricts;
 
@@ -55,15 +58,17 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         loadingDialog = new LoadingDialog(this, false);
 
         Button btnLogo = findViewById(R.id.btn_logo_ump);
+        Button btnBanner = findViewById(R.id.btn_banner_ump);
         btnSave = findViewById(R.id.btn_save_ump);
         btnLogo.setOnClickListener(this);
-        btnLogo.setOnClickListener(this);
+        btnBanner.setOnClickListener(this);
         btnSave.setOnClickListener(this);
         btnSave.setEnabled(false);
 
         cbCOD = findViewById(R.id.cb_cod_ump);
         cbKirimLuarKota = findViewById(R.id.cb_kirim_luar_kota_ump);
         imgLogo = findViewById(R.id.img_logo_ump);
+        imgBanner = findViewById(R.id.img_banner_ump);
         edtName = findViewById(R.id.edt_name_ump);
         edtDescription = findViewById(R.id.edt_description_ump);
         edtWhatsApp = findViewById(R.id.edt_whatsapp_ump);
@@ -83,6 +88,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
             cbCOD.setChecked(mitra.isCOD());
             cbKirimLuarKota.setChecked(mitra.isKirimLuarKota());
             loadProfilePicFromUrl(imgLogo, mitra.getLogo());
+            loadImageFromUrl(imgBanner, mitra.getBanner());
             edtName.setText(mitra.getName());
             edtDescription.setText(mitra.getDescription());
             edtWhatsApp.setText(mitra.getWhatsApp());
@@ -107,6 +113,12 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "Pilih foto profil"), RC_PROFILE_IMAGE);
+                break;
+
+            case R.id.btn_banner_ump:
+                Intent intentBanner = new Intent(Intent.ACTION_PICK);
+                intentBanner.setType("image/*");
+                startActivityForResult(Intent.createChooser(intentBanner, "Pilih latar belakang"), RC_BANNER_IMAGE);
                 break;
 
             case R.id.btn_save_ump:
@@ -152,12 +164,27 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                 if (data != null) if (data.getData() != null){
                     loadingDialog.show();
 
-                    Uri uriProfileImage = data.getData();
-                    loadProfilePicFromUrl(imgLogo, uriProfileImage.toString());
+                    Uri uriImage = data.getData();
+                    loadProfilePicFromUrl(imgLogo, uriImage.toString());
 
                     String fileName = mitra.getId() + ".jpeg";
-                    mitraViewModel.uploadImage(this, uriProfileImage, FOLDER_PROFILE, fileName, imageUrl -> {
+                    mitraViewModel.uploadImage(this, uriImage, FOLDER_PROFILE, fileName, imageUrl -> {
                         mitra.setLogo(imageUrl);
+                        loadingDialog.dismiss();
+                    });
+                }
+            }
+        } else if (requestCode == RC_BANNER_IMAGE){
+            if (resultCode == Activity.RESULT_OK){
+                if (data != null) if (data.getData() != null){
+                    loadingDialog.show();
+
+                    Uri uriImage = data.getData();
+                    loadImageFromUrl(imgBanner, uriImage.toString());
+
+                    String fileName = mitra.getId() + ".jpeg";
+                    mitraViewModel.uploadImage(this, uriImage, FOLDER_BANNER, fileName, imageUrl -> {
+                        mitra.setBanner(imageUrl);
                         loadingDialog.dismiss();
                     });
                 }
