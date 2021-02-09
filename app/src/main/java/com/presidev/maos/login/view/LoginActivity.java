@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -30,6 +31,7 @@ import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.profile.user.User;
 import com.presidev.maos.profile.user.UserViewModel;
 
+import static com.presidev.maos.utils.AppUtils.hideStatusBar;
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideStatusBar(this, getSupportActionBar());
         setContentView(R.layout.activity_login);
 
         loadingDialog = new LoadingDialog(this, true);
@@ -68,13 +71,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button btnLogin = findViewById(R.id.btn_email_login);
         Button btnGoogle = findViewById(R.id.btn_google_login);
-        Button btnResetPassword = findViewById(R.id.btn_reset_password_login);
-        Button btnRegister = findViewById(R.id.btn_register_login);
+        TextView tvResetPassword = findViewById(R.id.tv_reset_password_login);
+        TextView tvRegister = findViewById(R.id.tv_register_login);
 
         btnLogin.setOnClickListener(this);
         btnGoogle.setOnClickListener(this);
-        btnResetPassword.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
+        tvResetPassword.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -90,12 +93,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(intentGoogle, RC_SIGN_IN);
                 break;
 
-            case R.id.btn_reset_password_login:
+            case R.id.tv_reset_password_login:
                 Intent intent = new Intent(this,ResetPasswordActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.btn_register_login:
+            case R.id.tv_register_login:
                 Intent intentRegister = new Intent(this,RegisterActivity.class);
                 intentRegister.putExtra(EXTRA_LEVEL, LEVEL_USER);
                 startActivity(intentRegister);

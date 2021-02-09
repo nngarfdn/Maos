@@ -2,4 +2,10 @@
 <resources>
     <dimen name="app_bar_height">350dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="font_sm">12sp</dimen>
+    <dimen name="font_nm">14sp</dimen>
+    <dimen name="font_md">18sp</dimen>
+    <dimen name="font_lg">24sp</dimen>
+    <dimen name="font_xl">32sp</dimen>
 </resources>
