@@ -169,7 +169,8 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
                 android:layout_below="@+id/rv_newbookcatalog"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"/>
 
 

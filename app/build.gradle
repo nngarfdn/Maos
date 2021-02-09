@@ -90,6 +90,8 @@ dependencies {
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
     // If you want to use the GPU Filters
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 }
 repositories {
     mavenCentral()
