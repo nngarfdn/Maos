@@ -17,6 +17,7 @@ import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.utils.AppUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_book_detail.*
+import kotlinx.android.synthetic.main.layout_add_update_buku.*
 
 
 class BookDetailActivity : AppCompatActivity() {
@@ -46,12 +47,7 @@ class BookDetailActivity : AppCompatActivity() {
 
         val imageView  = findViewById<ImageView>(R.id.img_book_detail)
 
-        Picasso.get()
-                .load(book.photo)
-                .resize(120, 200) // resizes the image to these dimensions (in pixel)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(imageView)
+        AppUtils.loadImageFromUrl(imageView, book?.photo)
 
         var bitmap = (imageView.drawable as BitmapDrawable).bitmap
 

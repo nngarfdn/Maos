@@ -14,7 +14,10 @@ import com.presidev.maos.bookdetail.BookDetailActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookAdapter
 import com.presidev.maos.mitramanagement.view.EditBookActivity
+import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 
 class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapter<MitraBookCatalogAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -28,12 +31,7 @@ class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapt
 
         val image : RoundedImageView = holder.itemView.findViewById(R.id.img_book_catalog)
         val title : TextView = holder.itemView.findViewById(R.id.txt_book_title)
-        Picasso.get()
-                .load(list[position].photo)
-                .resize(120, 200) // resizes the image to these dimensions (in pixel)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(image)
+        loadImageFromUrl(image, list[position].photo)
 
         image.setCornerRadius(16F)
         title.setText(list[position].title)

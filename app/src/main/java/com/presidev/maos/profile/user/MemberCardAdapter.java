@@ -1,6 +1,7 @@
 package com.presidev.maos.profile.user;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,9 +75,16 @@ public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.Vi
             super(view);
             imgBanner = view.findViewById(R.id.img_banner_mc);
             imgMitra = view.findViewById(R.id.img_mitra_mc);
+            TextView tvHeader = view.findViewById(R.id.tv_header_mc);
             tvId = view.findViewById(R.id.tv_id_mc);
             tvMitra = view.findViewById(R.id.tv_mitra_mc);
             tvExpDate = view.findViewById(R.id.tv_exp_date_mc);
+
+            Typeface typeface = ResourcesCompat.getFont(view.getContext(), R.font.mont_medium);
+            tvHeader.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.mont_semibold));
+            tvId.setTypeface(typeface);
+            tvMitra.setTypeface(typeface);
+            tvExpDate.setTypeface(typeface);
         }
 
         public void bind(MemberCard memberCard) {

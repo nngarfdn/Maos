@@ -64,7 +64,7 @@
             android:id="@+id/img_id_card_uup"
             android:layout_width="180dp"
             android:layout_height="120dp"
-            android:src="@color/gray"
+            android:src="@drawable/ic_no_pic"
             android:scaleType="centerCrop"/>
 
         <Button

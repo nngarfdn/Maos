@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.squareup.picasso.Picasso
 
 class BookAdapter (private val list: List<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
@@ -23,12 +25,7 @@ class BookAdapter (private val list: List<Book>) : RecyclerView.Adapter<BookAdap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val image : ImageView = holder.itemView.findViewById(R.id.imgBookAdapter)
-        Picasso.get()
-                .load(list[position].photo)
-                .resize(150, 200) // resizes the image to these dimensions (in pixel)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(image)
+        loadImageFromUrl(image, list[position].photo)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditBookActivity::class.java)

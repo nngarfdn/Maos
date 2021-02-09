@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_book.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
@@ -41,12 +42,7 @@ class EditBookActivity : AppCompatActivity() {
         edt_penulis.setText(book?.penulis)
         swtKetersediaan.isChecked = book?.ketersediaan!!
 
-        Picasso.get()
-                .load(book?.photo)
-                .resize(100, 100) // resizes the image to these dimensions (in pixel)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(imgUpload)
+        loadImageFromUrl(imgUpload, book?.photo)
 
         btn_choose_image.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -98,12 +94,7 @@ class EditBookActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (data != null) if (data.data != null) {
                     uriPaymentImage = data.data
-                    Picasso.get()
-                            .load(uriPaymentImage.toString())
-                            .resize(100, 100) // resizes the image to these dimensions (in pixel)
-                            .centerCrop()
-                            .placeholder(R.mipmap.ic_launcher)
-                            .into(imgUpload)
+                    loadImageFromUrl(imgUpload, uriPaymentImage.toString())
 
                     btn_simpan.setOnClickListener {
                         val id = book.bookId

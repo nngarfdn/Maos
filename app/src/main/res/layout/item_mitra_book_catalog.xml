@@ -20,6 +20,7 @@
             android:layout_height="150dp"
             android:layout_margin="10dp"
             android:src="@drawable/examplebook"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:id="@+id/txt_book_title"

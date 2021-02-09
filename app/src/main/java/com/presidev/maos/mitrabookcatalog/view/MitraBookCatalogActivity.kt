@@ -1,25 +1,18 @@
 package com.presidev.maos.mitrabookcatalog.view
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jackandphantom.blurimage.BlurImage
 import com.presidev.maos.R
 import com.presidev.maos.profile.mitra.Mitra
+import com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl
+import com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class MitraBookCatalogActivity : AppCompatActivity() {
@@ -38,24 +31,11 @@ class MitraBookCatalogActivity : AppCompatActivity() {
         val intent = intent?.extras
         mitra = intent?.getParcelable<Mitra>(EXTRA_MITRA)!!
 
-        Picasso.get()
-                .load(mitra.logo)
-                .resize(50, 50) // resizes the image to these dimensions (in pixel)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(img_book_catalog)
+        loadProfilePicFromUrl(img_book_catalog, mitra.logo)
 
         img_book_catalog.setCornerRadius(16F)
 
-        Picasso.get()
-                .load(mitra.banner)
-                .fit()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .transform(BlurTransformation(this, 25, 1))
-                .into(img_cover)
-
-
+        loadBlurImageFromUrl(this, img_cover, mitra.banner)
 
         txt_mitra_name.setText(mitra.name)
         txt_mitra_description.setText(mitra.description)

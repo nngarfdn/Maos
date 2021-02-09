@@ -17,6 +17,8 @@ import java.util.List;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
+import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
+
 public class SliderAdapter extends
         SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 
@@ -56,12 +58,7 @@ public class SliderAdapter extends
 //        viewHolder.textViewDescription.setText(sliderItem.getDescription());
         viewHolder.textViewDescription.setTextSize(16);
         viewHolder.textViewDescription.setTextColor(Color.WHITE);
-        Picasso.get()
-                .load(sliderItem.getImageUrl())
-                .fit()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(viewHolder.imageViewBackground);
+        loadImageFromUrl(viewHolder.imageViewBackground, sliderItem.getImageUrl());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,7 +29,7 @@
             android:id="@+id/img_banner_ump"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@color/gray"
+            android:src="@drawable/ic_no_pic"
             android:scaleType="centerCrop"/>
 
         <Button

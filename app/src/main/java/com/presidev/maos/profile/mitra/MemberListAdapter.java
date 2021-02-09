@@ -20,6 +20,7 @@ import com.presidev.maos.subscribe.model.MemberCard;
 import java.util.ArrayList;
 
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
+import static com.presidev.maos.utils.AppUtils.showMemberCardId;
 import static com.presidev.maos.utils.DateUtils.getFullDate;
 
 public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder> {
@@ -87,7 +88,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
                 }
             });
 
-            tvMemberCardId.setText(memberCard.getId());
+            tvMemberCardId.setText(showMemberCardId(memberCard.getId()));
             tvStartDate.setText(getFullDate(memberCard.getStartDate(), true));
             tvExpDate.setText(getFullDate(memberCard.getExpDate(), true));
         }

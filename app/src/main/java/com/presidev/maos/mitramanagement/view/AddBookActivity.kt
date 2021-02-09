@@ -12,6 +12,7 @@ import com.google.type.DateTime
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.AppUtils.showToast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
@@ -72,12 +73,7 @@ class AddBookActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (data != null) if (data.data != null) {
                     uriPaymentImage = data.data
-                    Picasso.get()
-                            .load(uriPaymentImage.toString())
-                            .resize(100, 100) // resizes the image to these dimensions (in pixel)
-                            .centerCrop()
-                            .placeholder(R.mipmap.ic_launcher)
-                            .into(imgUpload)
+                    loadImageFromUrl(imgUpload, uriPaymentImage.toString())
                     btn_simpan.setOnClickListener {
                         val book = Book()
                         val id = firebaseUser?.uid

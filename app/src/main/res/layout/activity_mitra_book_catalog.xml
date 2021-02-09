@@ -33,7 +33,8 @@
                     android:id="@+id/img_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@color/cardview_dark_background" />
+                    android:src="@drawable/ic_no_pic"
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/img_mitra_information"
@@ -52,6 +53,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="50dp"
                     android:src="@drawable/mitralogo"
+                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

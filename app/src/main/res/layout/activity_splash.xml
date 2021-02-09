@@ -10,6 +10,6 @@
     <ImageView
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:src="@color/black"
+        android:src="@drawable/ic_logo_no_bg"
         tools:ignore="ContentDescription" />
 </LinearLayout>

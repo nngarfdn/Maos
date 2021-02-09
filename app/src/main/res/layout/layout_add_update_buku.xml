@@ -63,7 +63,8 @@
                 android:id="@+id/imgUpload"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_no_pic"
+                android:scaleType="centerCrop"
                 android:layout_marginTop="16dp"
                 android:layout_below="@id/txtKetersediaan" />
 
