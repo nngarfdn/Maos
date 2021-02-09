@@ -10,4 +10,7 @@ class MitraBookViewModel : ViewModel(){
     fun getResultByMitraId()  = repository.getResultsByMitraId()
     fun loadResultBymitraId(mitraId: String) = repository.getProyekByMitraID(mitraId)
 
+    fun getResultByMitraIdPopuler()  = repository.getResultsByMitraIdPopuler()
+    fun loadResultBymitraIdPopuler(mitraId: String) = repository.getProyekByMitraIDPopuler(mitraId)
+
 }
