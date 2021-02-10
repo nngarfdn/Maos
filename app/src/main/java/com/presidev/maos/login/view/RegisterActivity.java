@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.presidev.maos.MainActivity;
+import com.presidev.maos.App;
 import com.presidev.maos.R;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
@@ -24,7 +24,6 @@ import com.presidev.maos.profile.user.UserViewModel;
 
 import java.util.regex.Pattern;
 
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 import static com.presidev.maos.utils.AppUtils.hideStatusBar;
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
 import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
@@ -115,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void launchMain(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(this, App.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

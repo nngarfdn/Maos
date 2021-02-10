@@ -14,12 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.presidev.maos.R;
+import com.presidev.maos.about.AboutActivity;
 import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
+import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity;
+import com.presidev.maos.mitramanagement.view.KatalogMitraActivity;
 import com.presidev.maos.welcome.view.SplashActivity;
 
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
@@ -30,7 +34,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
     private Mitra mitra;
 
     private ImageView imgLogo;
-    private TextView tvName, tvEmail, tvWhatsApp;
+    private TextView tvName, tvEmail;
 
     public MitraProfileFragment() {}
 
@@ -45,13 +49,17 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
 
         AccountPreference accountPreference = new AccountPreference(getContext());
 
+        ImageButton ibView = view.findViewById(R.id.ib_view_mp);
+        Button btnManage = view.findViewById(R.id.btn_manage_mp);
         Button btnUpdate = view.findViewById(R.id.btn_update_mp);
-        Button btnSubscribe = view.findViewById(R.id.btn_subscriber_mp);
+        Button btnSubscriber = view.findViewById(R.id.btn_subscriber_mp);
         Button btnResetPassword = view.findViewById(R.id.btn_reset_password_mp);
         Button btnAbout = view.findViewById(R.id.btn_about_mp);
         Button btnLogout = view.findViewById(R.id.btn_logout_mp);
+        ibView.setOnClickListener(this);
+        btnManage.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
-        btnSubscribe.setOnClickListener(this);
+        btnSubscriber.setOnClickListener(this);
         btnResetPassword.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -59,7 +67,6 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
         imgLogo = view.findViewById(R.id.img_logo_mp);
         tvName = view.findViewById(R.id.tv_name_mp);
         tvEmail = view.findViewById(R.id.tv_email_mp);
-        tvWhatsApp = view.findViewById(R.id.tv_whatsapp_mp);
 
         MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
         mitraViewModel.getMitraLiveData().observe(getViewLifecycleOwner(), mitra -> {
@@ -67,7 +74,6 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
             loadProfilePicFromUrl(imgLogo, mitra.getLogo());
             tvName.setText(mitra.getName());
             tvEmail.setText(mitra.getEmail());
-            tvWhatsApp.setText(mitra.getWhatsApp());
         });
         mitraViewModel.query(accountPreference.getId());
         mitraViewModel.addSnapshotListener(accountPreference.getId());
@@ -79,6 +85,17 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.ib_view_mp:
+                Intent intentView = new Intent(getContext(), MitraBookCatalogActivity.class);
+                intentView.putExtra(EXTRA_MITRA, mitra);
+                startActivity(intentView);
+                break;
+
+            case R.id.btn_manage_mp:
+                Intent intentManage = new Intent(getContext(), KatalogMitraActivity.class);
+                startActivity(intentManage);
+                break;
+
             case R.id.btn_update_mp:
                 if (mitra == null) return;
                 Intent intent = new Intent(getContext(), UpdateMitraProfileActivity.class);
@@ -92,6 +109,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.btn_reset_password_mp:
+                if (mitra == null) return;
                 new AlertDialog.Builder(getContext())
                         .setTitle("Ganti kata sandi")
                         .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
@@ -101,6 +119,8 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.btn_about_mp:
+                Intent intentAbout = new Intent(getContext(), AboutActivity.class);
+                startActivity(intentAbout);
                 break;
 
             case R.id.btn_logout_mp:

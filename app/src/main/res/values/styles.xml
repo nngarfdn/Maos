@@ -42,7 +42,7 @@
 
     <style name="Button.Secondary">
         <item name="android:background">@drawable/bg_button_secondary</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/orange</item>
     </style>
 
     <style name="EditText">

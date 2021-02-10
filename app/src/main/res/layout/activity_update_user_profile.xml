@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/black"
-        android:background="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/white"
+        android:background="@color/orange"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Edit Profil" />
 
     <ScrollView
@@ -38,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginVertical="16dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_photo_uup"
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="Awali nomor dengan 62"
                 android:textColor="@color/gray"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="16dp"/>
 
             <EditText
                 android:id="@+id/edt_address_uup"
@@ -129,7 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginVertical="16dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_id_card_uup"

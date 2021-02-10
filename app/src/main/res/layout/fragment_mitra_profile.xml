@@ -8,7 +8,7 @@
     tools:context=".profile.mitra.MitraProfileFragment"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -24,8 +24,18 @@
             android:text="Profil"
             android:textSize="@dimen/font_md"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:textColor="@color/white"
+            android:layout_alignParentStart="true"/>
+
+        <ImageButton
+            android:id="@+id/ib_view_mp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_view"
+            android:tint="@color/white"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -74,25 +84,16 @@
                         android:textColor="@color/gray"
                         app:drawableStartCompat="@drawable/ic_profile_email_16"
                         android:drawablePadding="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_whatsapp_mp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/loading"
-                        android:textColor="@color/gray"
-                        app:drawableStartCompat="@drawable/ic_profile_phone_16"
-                        android:drawablePadding="8dp"/>
                 </LinearLayout>
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_update_mp"
+                android:id="@+id/btn_manage_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit profil"
-                app:icon="@drawable/ic_profile_update" />
+                android:text="Kelola katalog"
+                app:icon="@drawable/ic_profile_manage" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscriber_mp"
@@ -101,6 +102,15 @@
                 android:layout_height="wrap_content"
                 android:text="Daftar anggota"
                 app:icon="@drawable/ic_profile_subscribe"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit profil"
+                app:icon="@drawable/ic_profile_update"
+                android:layout_marginTop="12dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_reset_password_mp"
@@ -116,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tentang aplikasi"
-                app:icon="@drawable/ic_profile_about"/>
+                app:icon="@drawable/ic_profile_about"
+                android:layout_marginTop="12dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout_mp"

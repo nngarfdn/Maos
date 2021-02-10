@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/black"
-        android:background="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/white"
+        android:background="@color/orange"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Edit Profil" />
 
     <ScrollView
@@ -38,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginVertical="16dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_logo_ump"
@@ -67,7 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="16dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_banner_ump"
@@ -84,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="Pilih Foto"
                     android:layout_gravity="start"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
             <EditText
@@ -118,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tentang"
-                android:layout_marginVertical="4dp"/>
+                android:layout_marginVertical="16dp"/>
 
             <EditText
                 android:id="@+id/edt_address_ump"
@@ -162,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Peraturan peminjaman"
-                android:layout_marginVertical="4dp"/>
+                android:layout_marginVertical="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

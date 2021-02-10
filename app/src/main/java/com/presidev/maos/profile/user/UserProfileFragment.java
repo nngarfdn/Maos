@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.presidev.maos.R;
+import com.presidev.maos.about.AboutActivity;
 import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.subscribe.view.MembershipIntroActivity;
@@ -35,7 +36,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     private User user;
 
     private ImageView imgPhoto;
-    private TextView tvName, tvEmail, tvWhatsApp;
+    private TextView tvName, tvEmail;
 
     public UserProfileFragment() {}
 
@@ -70,7 +71,6 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         imgPhoto = view.findViewById(R.id.img_photo_up);
         tvName = view.findViewById(R.id.tv_name_up);
         tvEmail = view.findViewById(R.id.tv_email_up);
-        tvWhatsApp = view.findViewById(R.id.tv_whatsapp_up);
 
         MemberCardViewModel memberCardViewModel = new ViewModelProvider(this).get(MemberCardViewModel.class);
         memberCardViewModel.getMemberCardListLiveData().observe(getViewLifecycleOwner(), result -> adapter.setData(result));
@@ -81,7 +81,6 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
             loadProfilePicFromUrl(imgPhoto, user.getPhoto());
             tvName.setText(user.getName());
             tvEmail.setText(user.getEmail());
-            tvWhatsApp.setText(user.getWhatsApp());
             memberCardViewModel.queryByUserId(user.getId());
         });
         userViewModel.query(accountPreference.getId());
@@ -107,6 +106,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btn_reset_password_up:
+                if (user == null) return;
                 new AlertDialog.Builder(getContext())
                         .setTitle("Ganti kata sandi")
                         .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
@@ -116,6 +116,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btn_about_up:
+                Intent intentAbout = new Intent(getContext(), AboutActivity.class);
+                startActivity(intentAbout);
                 break;
 
             case R.id.btn_logout_up:
