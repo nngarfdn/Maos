@@ -23,8 +23,6 @@
         <activity android:name=".App" />
         <activity android:name=".profile.user.UpdateUserProfileActivity" />
         <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />
-        <activity android:name=".profile.user.UserProfileActivity" />
-        <activity android:name=".profile.mitra.MitraProfileActivity" />
         <activity android:name=".search.view.SearchActivity" />
         <activity android:name=".welcome.view.SplashActivity">
             <intent-filter>

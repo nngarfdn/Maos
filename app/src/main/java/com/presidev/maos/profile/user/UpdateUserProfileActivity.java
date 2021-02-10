@@ -2,6 +2,7 @@ package com.presidev.maos.profile.user;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -46,7 +47,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
 
     private Button btnSave;
     private ImageView imgPhoto, imgIdCard;
-    private EditText edtName, edtAddress;
+    private EditText edtName, edtWhatsApp, edtAddress;
     private Spinner spProvinces, spRegencies, spDistricts;
     private Uri uriIdCard;
 
@@ -56,6 +57,10 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_profile);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, false);
 
@@ -69,6 +74,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         imgPhoto = findViewById(R.id.img_photo_uup);
         imgIdCard = findViewById(R.id.img_id_card_uup);
         edtName = findViewById(R.id.edt_name_uup);
+        edtWhatsApp = findViewById(R.id.edt_whatsapp_uup);
         edtAddress = findViewById(R.id.edt_address_uup);
 
         spProvinces = findViewById(R.id.sp_provinces_uup);
@@ -84,6 +90,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
             loadProfilePicFromUrl(imgPhoto, user.getPhoto());
             loadImageFromUrl(imgIdCard, user.getIdCard());
             edtName.setText(user.getName());
+            edtWhatsApp.setText(user.getWhatsApp());
             edtAddress.setText(user.getAddress());
         }
 
@@ -117,15 +124,18 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
 
             case R.id.btn_save_uup:
                 String name = getFixText(edtName);
+                String whatsApp = getFixText(edtWhatsApp);
                 String address = getFixText(edtAddress);
 
-                if (name.isEmpty() || address.isEmpty()){
+                if (name.isEmpty() || whatsApp.isEmpty() || address.isEmpty()){
                     if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
+                    if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
                     return;
                 }
 
                 user.setName(name);
+                user.setWhatsApp(whatsApp);
                 user.setAddress(address);
 
                 user.setProvince(spProvinces.getSelectedItem().toString());
@@ -234,5 +244,11 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         List<String> itemList = new ArrayList<>();
         for (Location location : locationList) itemList.add(location.getName());
         return new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemList);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

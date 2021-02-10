@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".profile.mitra.MitraProfileFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/orange"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="32dp"
+        android:paddingTop="40dp">
+
+        <TextView
+            android:id="@+id/tv_header_mp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profil"
+            android:textSize="@dimen/font_md"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="16dp"
+                android:gravity="center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_logo_mp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/ic_no_profile_pic"
+                    android:scaleType="centerCrop"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_name_mp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_md"/>
+
+                    <TextView
+                        android:id="@+id/tv_email_mp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading"
+                        android:textColor="@color/gray"
+                        app:drawableStartCompat="@drawable/ic_profile_email_16"
+                        android:drawablePadding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_whatsapp_mp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading"
+                        android:textColor="@color/gray"
+                        app:drawableStartCompat="@drawable/ic_profile_phone_16"
+                        android:drawablePadding="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit profil"
+                app:icon="@drawable/ic_profile_update" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_subscriber_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daftar anggota"
+                app:icon="@drawable/ic_profile_subscribe"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reset_password_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ganti kata sandi"
+                app:icon="@drawable/ic_profile_password"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_about_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tentang aplikasi"
+                app:icon="@drawable/ic_profile_about"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout_mp"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keluar akun"
+                app:icon="@drawable/ic_profile_logout"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

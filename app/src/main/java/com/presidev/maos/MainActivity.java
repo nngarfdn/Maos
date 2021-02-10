@@ -13,8 +13,6 @@ import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.view.LoginActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.mitramanagement.view.KatalogMitraActivity;
-import com.presidev.maos.profile.mitra.MitraProfileActivity;
-import com.presidev.maos.profile.user.UserProfileActivity;
 import com.presidev.maos.search.view.SearchActivity;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
@@ -71,18 +69,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnSearch = findViewById(R.id.btn_search_main);
         btnSearch.setOnClickListener(view -> {
             Intent intent = new Intent(this, SearchActivity.class);
-            startActivity(intent);
-        });
-
-        Button btnUserMitra = findViewById(R.id.btn_mitra_profile_main);
-        btnUserMitra.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MitraProfileActivity.class);
-            startActivity(intent);
-        });
-
-        Button btnUserProfile = findViewById(R.id.btn_user_profile_main);
-        btnUserProfile.setOnClickListener(view -> {
-            Intent intent = new Intent(this, UserProfileActivity.class);
             startActivity(intent);
         });
 

@@ -2,6 +2,7 @@ package com.presidev.maos.profile.mitra;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,10 +52,15 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
 
     private ArrayList<Location> provinceList, regencyList;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_mitra_profile);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, false);
 
@@ -80,6 +87,9 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         spProvinces.setOnItemSelectedListener(this);
         spRegencies.setOnItemSelectedListener(this);
         spDistricts.setOnItemSelectedListener(this);
+
+        edtDescription.setOnTouchListener(scrollableListener);
+        edtRules.setOnTouchListener(scrollableListener);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_MITRA)){
@@ -250,4 +260,20 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         for (Location location : locationList) itemList.add(location.getName());
         return new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemList);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private final View.OnTouchListener scrollableListener = (view, event) -> {
+        view.getParent().requestDisallowInterceptTouchEvent(true);
+        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_SCROLL) {
+            view.getParent().requestDisallowInterceptTouchEvent(false);
+            return true;
+        }
+        return false;
+    };
 }

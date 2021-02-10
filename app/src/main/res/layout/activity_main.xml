@@ -45,18 +45,6 @@
         android:text="Cari mitra/buku"/>
 
     <Button
-        android:id="@+id/btn_mitra_profile_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Contoh profil mitra"/>
-
-    <Button
-        android:id="@+id/btn_user_profile_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Contoh profil user"/>
-
-    <Button
         android:id="@+id/btn_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

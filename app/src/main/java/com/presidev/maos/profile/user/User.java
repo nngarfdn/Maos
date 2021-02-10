@@ -8,6 +8,7 @@ public class User implements Parcelable {
     private String photo;
     private String name;
     private String email;
+    private String whatsApp;
     private String idCard;
     private String address;
     private String province;
@@ -16,11 +17,12 @@ public class User implements Parcelable {
 
     public User(){}
 
-    public User(String id, String photo, String name, String email, String idCard, String address, String province, String regency, String district) {
+    public User(String id, String photo, String name, String email, String whatsApp, String idCard, String address, String province, String regency, String district) {
         this.id = id;
         this.photo = photo;
         this.name = name;
         this.email = email;
+        this.whatsApp = whatsApp;
         this.idCard = idCard;
         this.address = address;
         this.province = province;
@@ -33,6 +35,7 @@ public class User implements Parcelable {
         photo = in.readString();
         name = in.readString();
         email = in.readString();
+        whatsApp = in.readString();
         idCard = in.readString();
         address = in.readString();
         province = in.readString();
@@ -46,6 +49,7 @@ public class User implements Parcelable {
         dest.writeString(photo);
         dest.writeString(name);
         dest.writeString(email);
+        dest.writeString(whatsApp);
         dest.writeString(idCard);
         dest.writeString(address);
         dest.writeString(province);
@@ -100,6 +104,14 @@ public class User implements Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getWhatsApp() {
+        return whatsApp;
+    }
+
+    public void setWhatsApp(String whatsApp) {
+        this.whatsApp = whatsApp;
     }
 
     public String getIdCard() {

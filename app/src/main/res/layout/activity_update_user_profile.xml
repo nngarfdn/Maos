@@ -1,82 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.user.UpdateUserProfileActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".profile.user.UpdateUserProfileActivity"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/black"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="Edit Profil" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:overScrollMode="never">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_photo_uup"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:src="@drawable/ic_no_profile_pic"
-            android:scaleType="centerCrop"/>
-
-        <Button
-            android:id="@+id/btn_photo_uup"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ganti foto profil"/>
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <EditText
-            android:id="@+id/edt_name_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama lengkap"
-            android:inputType="textCapWords|textPersonName"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto profil"
+                android:textColor="@color/black"/>
 
-        <EditText
-            android:id="@+id/edt_address_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Alamat"
-            android:inputType="textCapWords"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="16dp">
 
-        <Spinner
-            android:id="@+id/sp_provinces_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:spinnerMode="dialog"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_photo_uup"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_no_profile_pic"
+                    android:scaleType="centerCrop"/>
 
-        <Spinner
-            android:id="@+id/sp_regencies_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:spinnerMode="dialog"/>
+                <Button
+                    android:id="@+id/btn_photo_uup"
+                    style="@style/Button.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih foto"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
 
-        <Spinner
-            android:id="@+id/sp_districts_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:spinnerMode="dialog"/>
+            <EditText
+                android:id="@+id/edt_name_uup"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama lengkap"
+                android:inputType="textCapWords|textPersonName"
+                android:layout_marginVertical="4dp"/>
 
-        <ImageView
-            android:id="@+id/img_id_card_uup"
-            android:layout_width="180dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_no_pic"
-            android:scaleType="centerCrop"/>
+            <EditText
+                android:id="@+id/edt_whatsapp_uup"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nomor WhatsApp"
+                android:inputType="phone"
+                android:layout_marginVertical="4dp"/>
 
-        <Button
-            android:id="@+id/btn_id_card_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ganti foto identitas"/>
+            <EditText
+                android:id="@+id/edt_address_uup"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alamat"
+                android:inputType="textCapWords"
+                android:layout_marginVertical="4dp"/>
 
-        <Button
-            android:id="@+id/btn_save_uup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Simpan"/>
-    </LinearLayout>
-</ScrollView>
+            <Spinner
+                android:id="@+id/sp_provinces_uup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <Spinner
+                android:id="@+id/sp_regencies_uup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <Spinner
+                android:id="@+id/sp_districts_uup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kartu identitas"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="16dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_id_card_uup"
+                    android:layout_width="180dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/ic_no_pic"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_id_card_uup"
+                    style="@style/Button.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ambil foto"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_uup"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan"
+                android:layout_marginTop="32dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
