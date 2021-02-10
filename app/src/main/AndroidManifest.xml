@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".profile.mitra.MemberListActivity"/>
+        <activity android:name=".search.view.SearchTestActivity"/>
+        <activity android:name=".profile.mitra.MemberListActivity" />
         <activity android:name=".DeveloperActivity" />
         <activity android:name=".subscribe.view.AddMemberCardActivity" />
         <activity android:name=".subscribe.view.MembershipIntroActivity" />

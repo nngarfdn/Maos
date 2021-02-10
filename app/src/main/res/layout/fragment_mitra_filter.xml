@@ -1,109 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.view.MitraFilterFragment"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="24dp"
+    android:paddingTop="8dp">
 
-    <TextView
+    <ImageView
+        android:id="@+id/pull"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter"/>
+        android:layout_marginVertical="16dp"
+        android:src="@drawable/ic_pull"
+        android:layout_gravity="center_horizontal"/>
 
-    <TextView
-        android:id="@+id/tv_reset_mf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Setel ulang"
-        android:clickable="true"
-        android:focusable="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lokasi"/>
-
-    <com.google.android.material.chip.ChipGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:chipSpacingHorizontal="8dp"
-        app:singleLine="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_provinces_mf"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Provinsi" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_regencies_mf"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kabupaten" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_districts_mf"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kecamatan" />
-    </com.google.android.material.chip.ChipGroup>
-
-    <Spinner
-        android:id="@+id/sp_provinces_mf"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:spinnerMode="dialog"/>
+        android:overScrollMode="never">
 
-    <Spinner
-        android:id="@+id/sp_regencies_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:spinnerMode="dialog"/>
-
-    <Spinner
-        android:id="@+id/sp_districts_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:spinnerMode="dialog"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pengantaran buku"/>
-
-    <com.google.android.material.chip.ChipGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:chipSpacingHorizontal="8dp"
-        app:singleLine="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_only_cod_mf"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sistem COD" />
+            android:orientation="vertical">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_only_kirim_luar_kota_mf"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pengiriman luar kota" />
-    </com.google.android.material.chip.ChipGroup>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
 
-    <Button
-        android:id="@+id/btn_apply_mf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Filter"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_md"
+                    android:textColor="@color/black"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/tv_reset_mf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Setel ulang"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="@color/orange"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:textColor="@color/black"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_provinces_mf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Provinsi" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_regencies_mf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kabupaten" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_districts_mf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kecamatan" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <Spinner
+                android:id="@+id/sp_provinces_mf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <Spinner
+                android:id="@+id/sp_regencies_mf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <Spinner
+                android:id="@+id/sp_districts_mf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dialog"
+                android:background="@drawable/bg_edit_text"
+                android:layout_marginVertical="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengantaran buku"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_only_cod_mf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sistem COD" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_only_kirim_luar_kota_mf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pengiriman luar kota" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <Button
+                android:id="@+id/btn_apply_mf"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:layout_marginTop="32dp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
