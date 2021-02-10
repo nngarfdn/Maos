@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".dashboard.view.DashboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -34,12 +38,26 @@
 
     </androidx.cardview.widget.CardView>
 
+    <EditText
+        android:id="@+id/edt_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cari penyedia buku"
+        style="@style/EditText"
+        android:layout_marginTop="32dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:inputType="none"
+        android:focusable="false"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginHorizontal="32dp"
+        android:layout_below="@+id/cv_slider_mainActivity"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/cv_slider_mainActivity"
+        android:layout_below="@+id/edt_search"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
@@ -51,3 +69,4 @@
         android:layout_height="30dp"/>
 
 </RelativeLayout>
+</ScrollView>

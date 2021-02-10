@@ -53,8 +53,6 @@ class BookDetailActivity : AppCompatActivity() {
 
         Palette.Builder(bitmap).generate { it?.let { palette ->
             val dominantColor = palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
-            val  darkMuted = palette.getDarkMutedColor(ContextCompat.getColor(this, R.color.gray_dark))
-            val vibran = palette.getLightVibrantColor(ContextCompat.getColor(this, R.color.gray_dark))
             relative_detail.setBackgroundColor(dominantColor)
             toolbar.setBackgroundColor(dominantColor)
             img_btn.setBackgroundColor(dominantColor)

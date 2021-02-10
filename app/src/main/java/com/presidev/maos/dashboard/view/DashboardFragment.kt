@@ -1,5 +1,6 @@
 package com.presidev.maos.dashboard.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.presidev.maos.R
 import com.presidev.maos.dashboard.model.Slider
+import com.presidev.maos.search.view.SearchActivity
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
 class DashboardFragment : Fragment() {
 
@@ -66,6 +69,13 @@ class DashboardFragment : Fragment() {
         sliderView.setScrollTimeInSec(3)
         sliderView.setAutoCycle(true)
         sliderView.startAutoCycle()
+
+        view.edt_search.setOnClickListener{
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
 
         return view

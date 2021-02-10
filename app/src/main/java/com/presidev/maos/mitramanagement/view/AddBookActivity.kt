@@ -47,7 +47,7 @@ class AddBookActivity : AppCompatActivity() {
         btn_choose_image.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(Intent.createChooser(intent, "Unggah bukti pembayaran"), RC_PAYMENT_IMAGE)
+            startActivityForResult(Intent.createChooser(intent, "Unggah foto"), RC_PAYMENT_IMAGE)
         }
 
 
