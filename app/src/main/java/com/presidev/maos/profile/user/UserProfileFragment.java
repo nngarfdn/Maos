@@ -85,6 +85,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
             memberCardViewModel.queryByUserId(user.getId());
         });
         userViewModel.query(accountPreference.getId());
+        userViewModel.addSnapshotListener(accountPreference.getId());
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }

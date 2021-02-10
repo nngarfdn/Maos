@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.presidev.maos.utils.AppUtils.getFixText;
+import static com.presidev.maos.utils.AppUtils.isValidPhone;
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.AppUtils.showToast;
@@ -70,6 +71,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         btnPhoto.setOnClickListener(this);
         btnIdCard.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btnSave.setEnabled(false);
 
         imgPhoto = findViewById(R.id.img_photo_uup);
         imgIdCard = findViewById(R.id.img_id_card_uup);
@@ -131,6 +133,11 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                     if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
                     if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
+                    return;
+                }
+
+                if (!isValidPhone(whatsApp)){
+                    edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
                     return;
                 }
 

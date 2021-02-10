@@ -70,6 +70,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
             tvWhatsApp.setText(mitra.getWhatsApp());
         });
         mitraViewModel.query(accountPreference.getId());
+        mitraViewModel.addSnapshotListener(accountPreference.getId());
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }

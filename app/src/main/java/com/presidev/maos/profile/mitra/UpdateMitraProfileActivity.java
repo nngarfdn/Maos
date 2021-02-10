@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.presidev.maos.utils.AppUtils.getFixText;
+import static com.presidev.maos.utils.AppUtils.isValidPhone;
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
@@ -70,6 +71,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         btnLogo.setOnClickListener(this);
         btnBanner.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btnSave.setEnabled(false);
 
         chipCOD = findViewById(R.id.chip_cod_ump);
         chipKirimLuarKota = findViewById(R.id.chip_kirim_luar_kota_ump);
@@ -132,10 +134,10 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
 
             case R.id.btn_save_ump:
                 String name = getFixText(edtName);
-                String description = getFixText(edtDescription);
+                String description = edtDescription.getText().toString().trim();
                 String whatsApp = getFixText(edtWhatsApp);
                 String address = getFixText(edtAddress);
-                String rules = getFixText(edtRules);
+                String rules = edtRules.getText().toString().trim();
 
                 if (name.isEmpty() || description.isEmpty() || whatsApp.isEmpty() ||
                         address.isEmpty() || rules.isEmpty()){
@@ -144,6 +146,11 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                     if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
                     if (rules.isEmpty()) edtRules.setError("Masukkan peraturan peminjaman");
+                    return;
+                }
+
+                if (!isValidPhone(whatsApp)){
+                    edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
                     return;
                 }
 

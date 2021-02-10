@@ -98,6 +98,16 @@ public class UserRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting image", e));
     }
 
+    public void addSnapshotListener(String userId){
+        reference.addSnapshotListener((value, error) -> {
+            if (error != null) Log.w(TAG, "Listen failed", error);
+            else if (value != null){
+                query(userId);
+                Log.d(TAG, "Changes detected");
+            }
+        });
+    }
+
     private Map<String, Object> objectToHashMap(User user){
         Map<String, Object> document = new HashMap<>();
         document.put("id", user.getId());

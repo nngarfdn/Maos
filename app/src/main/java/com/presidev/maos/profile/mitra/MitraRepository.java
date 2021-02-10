@@ -98,6 +98,16 @@ public class MitraRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting image", e));
     }
 
+    public void addSnapshotListener(String userId){
+        reference.addSnapshotListener((value, error) -> {
+            if (error != null) Log.w(TAG, "Listen failed", error);
+            else if (value != null){
+                query(userId);
+                Log.d(TAG, "Changes detected");
+            }
+        });
+    }
+
     private Map<String, Object> objectToHashMap(Mitra mitra){
         Map<String, Object> document = new HashMap<>();
         document.put("id", mitra.getId());
@@ -112,7 +122,7 @@ public class MitraRepository {
         document.put("regency", mitra.getRegency());
         document.put("district", mitra.getDistrict());
         document.put("rules", mitra.getRules());
-        document.put("COD", mitra.isCOD());
+        document.put("cod", mitra.isCOD());
         document.put("kirimLuarKota", mitra.isKirimLuarKota());
         return document;
     }

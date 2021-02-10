@@ -43,4 +43,8 @@ public class UserViewModel extends ViewModel {
     public void deleteImage(String imageUrl){
         repository.deleteImage(imageUrl);
     }
+
+    public void addSnapshotListener(String userId){
+        repository.addSnapshotListener(userId);
+    }
 }

@@ -103,7 +103,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Nomor WhatsApp"
                 android:inputType="phone"
-                android:layout_marginVertical="4dp"/>
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Awali nomor dengan 62"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="4dp"/>
 
             <EditText
                 android:id="@+id/edt_description_ump"

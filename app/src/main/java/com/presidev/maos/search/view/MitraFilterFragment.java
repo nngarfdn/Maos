@@ -80,6 +80,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
         TextView tvReset = view.findViewById(R.id.tv_reset_mf);
         btnApply.setOnClickListener(this);
         tvReset.setOnClickListener(this);
+        btnApply.setEnabled(false);
 
         Bundle bundle = getArguments();
         if (bundle.containsKey(EXTRA_MITRA_FILTER)){

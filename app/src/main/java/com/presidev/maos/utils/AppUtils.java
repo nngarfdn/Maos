@@ -44,6 +44,11 @@ public class AppUtils {
         return (editText.getText().toString().trim()).replaceAll("\\s+", " ");
     }
 
+    public static boolean isValidPhone(String number){
+        if (number.length() < 2) return false;
+        else return number.charAt(0) == '6' && number.charAt(1) == '2';
+    }
+
     public static void loadImageFromUrl(ImageView imageView, String url){
         Picasso.get()
                 .load(url)
