@@ -21,7 +21,7 @@ import static com.presidev.maos.utils.Constants.EXTRA_MITRA_FILTER;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, MitraFilterFragment.MitraFilterListener {
     private LoadingDialog loadingDialog;
-    private MitraFilter mitraFilter;
+    private MitraFilter filter;
     private SearchViewModel searchViewModel;
 
     @Override
@@ -42,16 +42,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             loadingDialog.dismiss();
         });
 
-        mitraFilter = new MitraFilter();
-        searchViewModel.query(mitraFilter);
+        filter = new MitraFilter();
+        searchViewModel.query(filter);
 
-        SearchView svMitra = findViewById(R.id.sv_mitra_search);
-        svMitra.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchView searchView = findViewById(R.id.sv_mitra_search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) loadingDialog.show();
-                mitraFilter.setKeyword(query);
-                searchViewModel.query(mitraFilter);
+                filter.setKeyword(query);
+                searchViewModel.query(filter);
                 return false;
             }
 
@@ -71,7 +71,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.ib_mitra_filter_search) {
             Bundle bundle = new Bundle();
-            bundle.putParcelable(EXTRA_MITRA_FILTER, mitraFilter);
+            bundle.putParcelable(EXTRA_MITRA_FILTER, filter);
             MitraFilterFragment bottomSheet = new MitraFilterFragment();
             bottomSheet.setArguments(bundle);
             bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
@@ -81,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void receiveData(MitraFilter filter) {
         loadingDialog.show();
-        mitraFilter = filter;
-        searchViewModel.query(mitraFilter);
+        this.filter = filter;
+        searchViewModel.query(filter);
     }
 }

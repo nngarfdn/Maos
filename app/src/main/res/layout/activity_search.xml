@@ -58,5 +58,6 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:padding="16dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:clipToPadding="false"/>
 </LinearLayout>

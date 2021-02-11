@@ -19,43 +19,46 @@
         android:src="@drawable/ic_pull"
         android:layout_gravity="center_horizontal"/>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never">
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_md"
+            android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_reset_mf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setel ulang"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/orange"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Filter"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/font_md"
-                    android:textColor="@color/black"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/tv_reset_mf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Setel ulang"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:textColor="@color/orange"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -154,5 +157,5 @@
                 android:text="Filter"
                 android:layout_marginTop="32dp"/>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

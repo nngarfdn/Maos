@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,13 +16,14 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.presidev.maos.R;
-import com.presidev.maos.dashboard.view.DashboardMitraAdapter;
+import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.profile.mitra.Mitra;
 import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
+import com.presidev.maos.subscribe.adapter.SelectMitraAdapter;
 
 public class SelectMitraFragment extends BottomSheetDialogFragment {
-    private DashboardMitraAdapter adapter;
+    private SelectMitraAdapter adapter;
     private SelectMitraListener listener;
 
     public SelectMitraFragment() {}
@@ -35,15 +37,38 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView rvMitra = view.findViewById(R.id.rv_mitra_sm);
-        rvMitra.setHasFixedSize(true);
-        rvMitra.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity(), true);
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_mitra_sm);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adapter = new SelectMitraAdapter(this, listener);
+        recyclerView.setAdapter(adapter);
 
         SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-        searchViewModel.query(new MitraFilter());
         searchViewModel.getMitraLiveData().observe(this, result -> {
-            adapter = new DashboardMitraAdapter(result);
-            rvMitra.setAdapter(adapter);
+            adapter.setData(result);
+            loadingDialog.dismiss();
+        });
+
+        MitraFilter filter = new MitraFilter();
+        searchViewModel.query(filter);
+
+        SearchView searchView = view.findViewById(R.id.sv_mitra_sm);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (!query.isEmpty()) loadingDialog.show();
+                filter.setKeyword(query);
+                searchViewModel.query(filter);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) onQueryTextSubmit("");
+                return false;
+            }
         });
     }
 

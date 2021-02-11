@@ -1,6 +1,7 @@
 package com.presidev.maos.subscribe.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -47,6 +48,10 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member_card);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button btnMitraValidation = findViewById(R.id.btn_mitra_validation_amc);
         Button btnUserValidation = findViewById(R.id.btn_user_validation_amc);
@@ -171,5 +176,11 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
     private void setUserValidView(boolean isUserValid){
         if (isUserValid) tvUserValidation.setText("VALID: Akun pengguna ditemukan");
         else tvUserValidation.setText("TIDAK VALID: Akun pengguna tidak ditemukan");
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

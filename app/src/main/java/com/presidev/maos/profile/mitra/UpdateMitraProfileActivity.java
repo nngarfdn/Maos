@@ -32,6 +32,7 @@ import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.isValidPhone;
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
+import static com.presidev.maos.utils.AppUtils.scrollableListener;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 import static com.presidev.maos.utils.Constants.FOLDER_BANNER;
 import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
@@ -273,14 +274,4 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         onBackPressed();
         return true;
     }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private final View.OnTouchListener scrollableListener = (view, event) -> {
-        view.getParent().requestDisallowInterceptTouchEvent(true);
-        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_SCROLL) {
-            view.getParent().requestDisallowInterceptTouchEvent(false);
-            return true;
-        }
-        return false;
-    };
 }

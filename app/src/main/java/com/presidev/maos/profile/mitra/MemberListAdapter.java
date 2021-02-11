@@ -1,5 +1,9 @@
 package com.presidev.maos.profile.mitra;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +69,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         private User user;
 
         private final ImageView imgPhoto;
-        private final TextView tvName, tvEmail, tvAddress, tvMemberCardId, tvStartDate, tvExpDate;
+        private final TextView tvName, tvEmail, tvAddress, tvMemberCardId, tvDate;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -72,10 +78,10 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
             tvEmail = view.findViewById(R.id.tv_email_member);
             tvAddress = view.findViewById(R.id.tv_address_member);
             tvMemberCardId = view.findViewById(R.id.tv_member_card_id_member);
-            tvStartDate = view.findViewById(R.id.tv_start_date_member);
-            tvExpDate = view.findViewById(R.id.tv_exp_date_member);
+            tvDate = view.findViewById(R.id.tv_date_member);
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(MemberCard memberCard) {
             userViewModel.getReference().document(memberCard.getUserId()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
@@ -84,13 +90,27 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
                     loadProfilePicFromUrl(imgPhoto, user.getPhoto());
                     tvName.setText(user.getName());
                     tvEmail.setText(user.getEmail());
-                    tvAddress.setText(user.getAddress());
+                    tvAddress.setText(user.getRegency() + ", " + user.getProvince());
                 }
             });
 
             tvMemberCardId.setText(showMemberCardId(memberCard.getId()));
-            tvStartDate.setText(getFullDate(memberCard.getStartDate(), true));
-            tvExpDate.setText(getFullDate(memberCard.getExpDate(), true));
+            tvDate.setText(getFullDate(memberCard.getStartDate(), true) + "—" +
+                    getFullDate(memberCard.getExpDate(), true));
+
+            Typeface typeface = ResourcesCompat.getFont(itemView.getContext(), R.font.mont_medium);
+            tvMemberCardId.setTypeface(typeface);
+            tvDate.setTypeface(typeface);
+
+            itemView.setOnClickListener(view -> new  AlertDialog.Builder(itemView.getContext())
+                    .setTitle("Buka WhatsApp")
+                    .setMessage("Pilih ya untuk membuka akun WhatsApp pengguna ini.")
+                    .setNegativeButton("Batal", null)
+                    .setPositiveButton("Ya", (dialogInterface, i) -> {
+                        String url = "https://wa.me/" + user.getWhatsApp();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        view.getContext().startActivity(intent);
+                    }).create().show());
         }
     }
 }

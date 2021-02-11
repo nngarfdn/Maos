@@ -1,6 +1,7 @@
 package com.presidev.maos.subscribe.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,20 +23,28 @@ import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity;
 import com.presidev.maos.profile.mitra.Mitra;
 import com.presidev.maos.profile.user.UserViewModel;
 
+import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
+import static com.presidev.maos.utils.AppUtils.scrollableListener;
 import static com.presidev.maos.utils.AppUtils.setFullAddress;
+import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 
 public class MembershipRegistrationActivity extends AppCompatActivity implements View.OnClickListener, SelectMitraFragment.SelectMitraListener {
     private Mitra mitra;
 
     private EditText edtName, edtEmail, edtAddress;
-    private ImageView imgMitraLogo;
+    private ImageView imgMitraBanner, imgMitraLogo;
     private TextView tvMitraName, tvMitraAddress;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membership_registration);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -47,9 +56,12 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
         edtName = findViewById(R.id.edt_name_mr);
         edtEmail = findViewById(R.id.edt_email_mr);
         edtAddress = findViewById(R.id.edt_address_mr);
+        imgMitraBanner = findViewById(R.id.img_mitra_banner_mr);
         imgMitraLogo = findViewById(R.id.img_mitra_logo_mr);
         tvMitraName = findViewById(R.id.tv_mitra_name_mr);
         tvMitraAddress = findViewById(R.id.tv_mitra_address_mr);
+
+        edtAddress.setOnTouchListener(scrollableListener);
 
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(this, user -> {
@@ -78,6 +90,7 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
                             case R.id.menu_open_mitra:
                                 Intent intent;
                                 intent = new Intent(this, MitraBookCatalogActivity.class);
+                                intent.putExtra(EXTRA_MITRA, mitra);
                                 startActivity(intent);
                                 break;
 
@@ -103,8 +116,15 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
     @Override
     public void receiveData(Mitra mitra) {
         this.mitra = mitra;
+        loadBlurImageFromUrl(this, imgMitraBanner, mitra.getBanner());
         loadProfilePicFromUrl(imgMitraLogo, mitra.getLogo());
         tvMitraName.setText(mitra.getName());
-        tvMitraAddress.setText(mitra.getAddress());
+        tvMitraAddress.setText(setFullAddress(null, mitra.getProvince(), mitra.getRegency(), mitra.getDistrict()));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

@@ -4,12 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".subscribe.view.SelectMitraFragment"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="24dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/pull"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:src="@drawable/ic_pull"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih penyedia buku"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_md"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_mitra_sm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_secondary"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Cari penyedia buku…"
+        app:submitBackground="@android:color/transparent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra_sm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

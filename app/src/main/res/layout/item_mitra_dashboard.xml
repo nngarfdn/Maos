@@ -18,7 +18,8 @@
             android:id="@+id/img_item_book_dashboard"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_no_pic"/>
+            android:src="@drawable/ic_no_pic"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/txt_title_book"

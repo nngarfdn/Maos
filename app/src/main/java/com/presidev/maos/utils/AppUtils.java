@@ -1,9 +1,11 @@
 package com.presidev.maos.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -75,7 +77,8 @@ public class AppUtils {
     }
 
     public static String setFullAddress(String address, String province, String regency, String district){
-        return address + ", " + district + ", " + regency + ", " + province;
+        if (address == null) return district + ", " + regency + ", " + province;
+        else return address + ", " + district + ", " + regency + ", " + province;
     }
 
     public static String createMemberCardId(String mitraId, String userId){
@@ -87,4 +90,14 @@ public class AppUtils {
         return id.substring(0, 4) + " " + id.substring(4, 8) + " " +
                 id.substring(8, 12) + " " + id.substring(12, 16);
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public static final View.OnTouchListener scrollableListener = (view, event) -> {
+        view.getParent().requestDisallowInterceptTouchEvent(true);
+        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_SCROLL) {
+            view.getParent().requestDisallowInterceptTouchEvent(false);
+            return true;
+        }
+        return false;
+    };
 }

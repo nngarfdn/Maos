@@ -80,8 +80,8 @@ public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.Vi
             tvMitra = view.findViewById(R.id.tv_mitra_mc);
             tvExpDate = view.findViewById(R.id.tv_exp_date_mc);
 
-            Typeface typeface = ResourcesCompat.getFont(view.getContext(), R.font.mont_medium);
             tvHeader.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.mont_semibold));
+            Typeface typeface = ResourcesCompat.getFont(view.getContext(), R.font.mont_medium);
             tvId.setTypeface(typeface);
             tvMitra.setTypeface(typeface);
             tvExpDate.setTypeface(typeface);

@@ -4,61 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".subscribe.view.AddMemberCardActivity"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Akun pengguna"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        android:background="@color/orange"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Tambah Member" />
 
-    <EditText
-        android:id="@+id/edt_user_email_amc"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email pengguna"
-        android:inputType="textEmailAddress"/>
+        android:overScrollMode="never"
+        android:padding="24dp"
+        android:clipToPadding="false"
+        android:scrollbars="none">
 
-    <Button
-        android:id="@+id/btn_user_validation_amc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Validasi pengguna"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_user_validation_amc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hasil validasi pengguna"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun pengguna"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_md"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Akun mitra"/>
+            <EditText
+                android:id="@+id/edt_user_email_amc"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email pengguna"
+                android:inputType="textEmailAddress"
+                android:layout_marginVertical="4dp"/>
 
-    <EditText
-        android:id="@+id/edt_mitra_email_amc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email mitra"
-        android:inputType="textEmailAddress"/>
+            <TextView
+                android:id="@+id/tv_user_validation_amc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasil validasi pengguna"
+                android:textColor="@color/orange"
+                android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/btn_mitra_validation_amc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Validasi mitra"/>
+            <Button
+                android:id="@+id/btn_user_validation_amc"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Validasi pengguna"
+                android:layout_marginVertical="8dp"/>
 
-    <TextView
-        android:id="@+id/tv_mitra_validation_amc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hasil validasi mitra"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun mitra"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:textSize="@dimen/font_md"/>
 
-    <Button
-        android:id="@+id/btn_add_amc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tambah kartu member"/>
+            <EditText
+                android:id="@+id/edt_mitra_email_amc"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email mitra"
+                android:inputType="textEmailAddress"
+                android:layout_marginVertical="4dp"/>
+
+            <TextView
+                android:id="@+id/tv_mitra_validation_amc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasil validasi mitra"
+                android:textColor="@color/orange"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_mitra_validation_amc"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Validasi mitra"
+                android:layout_marginVertical="8dp"/>
+
+            <Button
+                android:id="@+id/btn_add_amc"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tambah kartu member"
+                android:layout_marginTop="24dp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

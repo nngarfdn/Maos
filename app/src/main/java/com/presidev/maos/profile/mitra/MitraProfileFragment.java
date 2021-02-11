@@ -105,6 +105,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
 
             case R.id.btn_subscriber_mp:
                 Intent intentMemberList = new Intent(getContext(), MemberListActivity.class);
+                intentMemberList.putExtra(EXTRA_MITRA, mitra);
                 startActivity(intentMemberList);
                 break;
 

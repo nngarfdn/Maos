@@ -4,57 +4,96 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:contentPadding="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_photo_member"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/ic_no_profile_pic"
-            android:scaleType="centerCrop"/>
-
-        <TextView
-            android:id="@+id/tv_name_member"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_email_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_photo_member"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_no_profile_pic"
+                app:riv_corner_radius="8dp" />
 
-        <TextView
-            android:id="@+id/tv_address_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_member_card_id_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+                <TextView
+                    android:id="@+id/tv_name_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_md" />
 
-        <TextView
-            android:id="@+id/tv_start_date_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+                <TextView
+                    android:id="@+id/tv_email_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:text="@string/loading"
+                    android:textColor="@color/gray_dark"
+                    app:drawableStartCompat="@drawable/ic_email_16"
+                    app:drawableTint="@color/gray_dark" />
 
-        <TextView
-            android:id="@+id/tv_exp_date_member"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_address_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:text="@string/loading"
+                    android:textColor="@color/gray_dark"
+                    app:drawableStartCompat="@drawable/ic_location_16"
+                    app:drawableTint="@color/gray_dark" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loading"/>
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_member_card_id_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:textColor="@color/black"
+                app:drawableStartCompat="@drawable/ic_card"
+                app:drawableTint="@color/gray_dark"
+                android:drawablePadding="4dp" />
+
+            <TextView
+                android:id="@+id/tv_date_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:textColor="@color/black"
+                app:drawableStartCompat="@drawable/ic_calendar"
+                app:drawableTint="@color/gray_dark"
+                android:drawablePadding="4dp"  />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

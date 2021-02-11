@@ -102,7 +102,7 @@ class BookRepository {
 
     fun uploadImage(context: Context?, portfolioId: String, uri: Uri?, fileName: String, callback: OnImageUploadCallback) { // Investor
         var image: ByteArray? = convertUriToByteArray(context, uri)
-        image = getCompressedByteArray(image, false)
+        image = getCompressedByteArray(image, true)
         val reference: StorageReference = storage.getReference().child(FOLDER_BUKU + "/" + portfolioId + "/" + fileName)
         val uploadTask = reference.putBytes(image!!)
         uploadTask.addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot? ->
