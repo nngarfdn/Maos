@@ -10,36 +10,46 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.presidev.maos.R;
-import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.dashboard.view.DashboardMitraAdapter;
 import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
+import com.presidev.maos.utils.ShimmerHelper;
 
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA_FILTER;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, MitraFilterFragment.MitraFilterListener {
-    private LoadingDialog loadingDialog;
     private MitraFilter filter;
+    private RecyclerView recyclerView;
     private SearchViewModel searchViewModel;
+    private ShimmerHelper shimmer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        loadingDialog = new LoadingDialog(this, true);
-
-        RecyclerView recyclerView = findViewById(R.id.rv_mitra_search);
+        recyclerView = findViewById(R.id.rv_mitra_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        ImageView imgEmpty = findViewById(R.id.img_empty_search);
+        imgEmpty.setVisibility(View.GONE);
+
+        shimmer = new ShimmerHelper(findViewById(R.id.shimmer_mitra_search), recyclerView);
+        shimmer.show();
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.getMitraLiveData().observe(this, mitraList -> {
             DashboardMitraAdapter adapter = new DashboardMitraAdapter(mitraList);
             recyclerView.setAdapter(adapter);
-            loadingDialog.dismiss();
+
+            if (mitraList.isEmpty()) imgEmpty.setVisibility(View.VISIBLE);
+            else imgEmpty.setVisibility(View.GONE);
+
+            shimmer.hide();
         });
 
         filter = new MitraFilter();
@@ -49,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (!query.isEmpty()) loadingDialog.show();
+                if (!query.isEmpty()) shimmer.show();
                 filter.setKeyword(query);
                 searchViewModel.query(filter);
                 return false;
@@ -80,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void receiveData(MitraFilter filter) {
-        loadingDialog.show();
+        shimmer.show();
         this.filter = filter;
         searchViewModel.query(filter);
     }

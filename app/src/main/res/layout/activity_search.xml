@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +9,12 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_header_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:layout_alignParentTop="true">
 
         <TextView
             android:id="@+id/tv_header_search"
@@ -27,6 +29,7 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/sv_mitra_search"
+            style="@style/SearchView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
@@ -49,11 +52,35 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_header_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_mitra_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layout_header_search">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_layout_mitra"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra_search"
         style="@style/RecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layout_header_search"/>
+
+    <ImageView
+        android:id="@+id/img_empty_search"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@color/gray"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
