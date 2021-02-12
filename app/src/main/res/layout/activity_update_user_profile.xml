@@ -18,10 +18,9 @@
         app:title="Edit Profil" />
 
     <ScrollView
+        style="@style/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,10 +43,9 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_photo_uup"
+                    style="@style/ImageView.Profile"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_no_profile_pic"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="100dp"/>
 
                 <Button
                     android:id="@+id/btn_photo_uup"
@@ -65,8 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama lengkap"
-                android:inputType="textCapWords|textPersonName"
-                android:layout_marginVertical="4dp"/>
+                android:inputType="textCapWords|textPersonName"/>
 
             <EditText
                 android:id="@+id/edt_whatsapp_uup"
@@ -74,8 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nomor WhatsApp"
-                android:inputType="phone"
-                android:layout_marginTop="4dp"/>
+                android:inputType="phone"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,35 +86,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Alamat"
-                android:inputType="textCapWords"
-                android:layout_marginVertical="4dp"/>
+                android:inputType="textCapWords"/>
 
             <Spinner
                 android:id="@+id/sp_provinces_uup"
+                style="@style/Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:spinnerMode="dialog"
-                android:background="@drawable/bg_edit_text"
-                android:layout_marginVertical="4dp"/>
+                android:layout_height="wrap_content"/>
 
             <Spinner
                 android:id="@+id/sp_regencies_uup"
+                style="@style/Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:spinnerMode="dialog"
-                android:background="@drawable/bg_edit_text"
-                android:layout_marginVertical="4dp"/>
+                android:layout_height="wrap_content"/>
 
             <Spinner
                 android:id="@+id/sp_districts_uup"
+                style="@style/Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:spinnerMode="dialog"
-                android:background="@drawable/bg_edit_text"
-                android:layout_marginVertical="4dp"/>
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,10 +122,9 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_id_card_uup"
+                    style="@style/ImageView"
                     android:layout_width="180dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/ic_no_pic"
-                    android:scaleType="centerCrop"
                     app:riv_corner_radius="8dp"/>
 
                 <Button
@@ -158,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Simpan"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="24dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -33,6 +33,7 @@ import static com.presidev.maos.utils.AppUtils.isValidPhone;
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.AppUtils.scrollableListener;
+import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 import static com.presidev.maos.utils.Constants.FOLDER_BANNER;
 import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
@@ -147,11 +148,13 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                     if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
                     if (rules.isEmpty()) edtRules.setError("Masukkan peraturan peminjaman");
+                    showToast(this, "Pastikan data yang diisi lengkap");
                     return;
                 }
 
                 if (!isValidPhone(whatsApp)){
                     edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
+                    showToast(this, "Awali nomor WhatsApp dengan 62");
                     return;
                 }
 

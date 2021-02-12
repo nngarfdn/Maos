@@ -3,7 +3,7 @@ package com.presidev.maos.search.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         RecyclerView recyclerView = findViewById(R.id.rv_mitra_search);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.getMitraLiveData().observe(this, mitraList -> {

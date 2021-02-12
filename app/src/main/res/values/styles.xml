@@ -22,6 +22,8 @@
         <item name="android:textSize">14sp</item>
         <item name="backgroundTint">@null</item>
         <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
     <style name="Button.Primary">
@@ -53,6 +55,8 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textSize">@dimen/font_nm</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
     <style name="EditText.MultiLine">
@@ -64,5 +68,40 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:overScrollMode">always</item>
         <item name="android:scrollbarStyle">insideInset</item>
+    </style>
+
+    <style name="ImageView">
+        <item name="android:src">@drawable/ic_no_pic</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="ImageView.Profile">
+        <item name="android:src">@drawable/ic_no_profile_pic</item>
+    </style>
+
+    <style name="RecyclerView">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <style name="SearchView">
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="submitBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
+    </style>
+
+    <style name="ScrollView">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="Spinner">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 </resources>

@@ -18,12 +18,10 @@
         app:title="Tambah Member" />
 
     <ScrollView
+        style="@style/ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:padding="24dp"
-        android:clipToPadding="false"
-        android:scrollbars="none">
+        android:padding="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,8 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email pengguna"
-                android:inputType="textEmailAddress"
-                android:layout_marginVertical="4dp"/>
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/tv_user_validation_amc"
@@ -76,8 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email mitra"
-                android:inputType="textEmailAddress"
-                android:layout_marginVertical="4dp"/>
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/tv_mitra_validation_amc"

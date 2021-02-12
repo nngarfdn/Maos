@@ -30,7 +30,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp">
+            android:padding="24dp">
 
             <ImageView
                 android:id="@+id/img_illustration_register"
@@ -61,8 +61,7 @@
                 android:layout_marginBottom="12dp"
                 android:hint="Nama lengkap"
                 android:inputType="textPersonName|textCapWords"
-                app:layout_constraintBottom_toTopOf="@+id/edt_email_register"
-                tools:layout_editor_absoluteX="32dp" />
+                app:layout_constraintBottom_toTopOf="@+id/edt_email_register" />
 
             <EditText
                 android:id="@+id/edt_email_register"
@@ -72,8 +71,7 @@
                 android:layout_marginBottom="12dp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toTopOf="@+id/edt_password_register"
-                tools:layout_editor_absoluteX="32dp" />
+                app:layout_constraintBottom_toTopOf="@+id/edt_password_register" />
 
             <EditText
                 android:id="@+id/edt_password_register"
@@ -83,8 +81,7 @@
                 android:layout_marginBottom="12dp"
                 android:hint="Kata sandi"
                 android:inputType="textPassword"
-                app:layout_constraintBottom_toTopOf="@+id/edt_password_confirmation_register"
-                tools:layout_editor_absoluteX="32dp" />
+                app:layout_constraintBottom_toTopOf="@+id/edt_password_confirmation_register" />
 
             <EditText
                 android:id="@+id/edt_password_confirmation_register"
@@ -94,8 +91,7 @@
                 android:layout_marginBottom="12dp"
                 android:hint="Konfirmasi kata sandi"
                 android:inputType="textPassword"
-                app:layout_constraintBottom_toTopOf="@+id/btn_email_register"
-                tools:layout_editor_absoluteX="32dp" />
+                app:layout_constraintBottom_toTopOf="@+id/btn_email_register" />
 
             <Button
                 android:id="@+id/btn_email_register"
@@ -112,7 +108,7 @@
                 android:id="@+id/layout_login_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

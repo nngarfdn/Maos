@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/orange"
-        android:paddingHorizontal="32dp"
-        android:paddingBottom="32dp"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="24dp"
         android:paddingTop="40dp">
 
         <TextView
@@ -38,31 +38,29 @@
     </RelativeLayout>
 
     <ScrollView
+        style="@style/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="32dp">
+            android:paddingBottom="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="32dp"
+                android:paddingHorizontal="24dp"
                 android:paddingVertical="16dp"
                 android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_logo_mp"
+                    style="@style/ImageView.Profile"
                     android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:src="@drawable/ic_no_profile_pic"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="72dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

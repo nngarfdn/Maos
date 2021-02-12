@@ -30,20 +30,16 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_mitra_sm"
+        style="@style/SearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_button_secondary"
-        app:iconifiedByDefault="false"
-        app:queryBackground="@android:color/transparent"
-        app:queryHint="Cari penyedia buku…"
-        app:submitBackground="@android:color/transparent" />
+        app:queryHint="Cari penyedia buku…" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra_sm"
+        style="@style/RecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

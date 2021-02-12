@@ -12,12 +12,13 @@
         android:layout_width="258dp"
         android:layout_height="162dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_banner_mc"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:src="@color/gray_dark"
+            app:riv_corner_radius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,10 +66,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_mitra_mc"
+                style="@style/ImageView.Profile"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_no_profile_pic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

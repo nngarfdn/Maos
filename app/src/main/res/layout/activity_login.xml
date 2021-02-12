@@ -30,7 +30,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp">
+            android:padding="24dp">
 
             <ImageView
                 android:id="@+id/img_illustration_login"
@@ -55,7 +55,7 @@
                 android:id="@+id/tv_belum_punya_akun"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="24dp"
                 android:text="Saya belum punya akun,"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/edt_email_login"
@@ -151,7 +151,7 @@
                 style="@style/Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="24dp"
                 android:text="Masuk dengan Google"
                 app:icon="@drawable/ic_google"
                 app:iconGravity="textStart"

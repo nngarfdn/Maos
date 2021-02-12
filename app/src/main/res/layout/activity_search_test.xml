@@ -11,35 +11,41 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_mitra_search"
+        style="@style/SearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:queryHint="Cari mitra di sini"/>
 
     <Button
         android:id="@+id/btn_mitra_filter_search"
+        style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Filter mitra"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra_search"
+        style="@style/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_book_search"
+        style="@style/SearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:queryHint="Cari buku di sini"/>
 
     <Button
         android:id="@+id/btn_book_filter_search"
+        style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Filter buku"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_book_search"
+        style="@style/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

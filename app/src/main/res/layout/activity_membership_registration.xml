@@ -18,10 +18,9 @@
         app:title="Berlangganan 30 Hari" />
 
     <ScrollView
+        style="@style/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,8 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama lengkap"
-                android:inputType="textPersonName|textCapWords"
-                android:layout_marginVertical="4dp"/>
+                android:inputType="textPersonName|textCapWords"/>
 
             <EditText
                 android:id="@+id/edt_email_mr"
@@ -118,8 +116,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:inputType="none"
-                android:editable="false"
-                android:layout_marginVertical="4dp"/>
+                android:editable="false"/>
 
             <EditText
                 android:id="@+id/edt_address_mr"
@@ -128,8 +125,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Alamat lengkap"
                 android:lines="4"
-                android:maxLines="4"
-                android:layout_marginVertical="4dp"/>
+                android:maxLines="4"/>
 
             <Button
                 android:id="@+id/btn_submit_mr"

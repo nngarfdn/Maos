@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -41,7 +41,7 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_mitra_sm);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new SelectMitraAdapter(this, listener);
         recyclerView.setAdapter(adapter);
 

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:padding="16dp"
+<androidx.cardview.widget.CardView
+    app:contentPadding="8dp"
     android:background="@color/white"
-    app:cardCornerRadius="16dp"
-    android:layout_marginVertical="8dp"
-    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="8dp"
+    app:cardUseCompatPadding="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="120dp"
-    android:layout_height="200dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_book_catalog"
+            style="@style/ImageView"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/examplebook"
-            android:scaleType="centerCrop"
-            />
+            android:src="@drawable/examplebook" />
+
         <TextView
             android:id="@+id/txt_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mega Bank Saintek 2021"
-            android:textSize="10sp"
-            android:layout_marginHorizontal="10dp"
-            android:textAlignment="center"/>
+            android:textSize="@dimen/font_xs"
+            android:textAlignment="center"
+            android:lines="2"
+            android:maxLines="2"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

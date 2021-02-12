@@ -133,11 +133,13 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                     if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
                     if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
+                    showToast(this, "Pastikan data yang diisi lengkap");
                     return;
                 }
 
                 if (!isValidPhone(whatsApp)){
                     edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
+                    showToast(this, "Awali nomor WhatsApp dengan 62");
                     return;
                 }
 

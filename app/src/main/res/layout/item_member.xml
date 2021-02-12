@@ -27,10 +27,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_photo_member"
+                style="@style/ImageView.Profile"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_no_profile_pic"
                 app:riv_corner_radius="8dp" />
 
             <LinearLayout
