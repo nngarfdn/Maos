@@ -35,7 +35,15 @@ class App : AppCompatActivity() {
     private fun showTab(it: Int) {
         when(it) {
             0 -> loadFragment(DashboardFragment())
-            1 -> loadFragment(BookmarkFragment())
+            1 -> {
+                if (accountPreference!!.level == null) {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+                else if (accountPreference!!.level.equals(LEVEL_USER) || accountPreference!!.level.equals(LEVEL_MITRA) ) loadFragment(BookmarkFragment())
+
+            }
+
             2 -> {
                 if (accountPreference!!.level == null) {
                     val intent = Intent(this, LoginActivity::class.java)
@@ -47,7 +55,8 @@ class App : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment?): Boolean {
+
+     fun loadFragment(fragment: Fragment?): Boolean {
         if (fragment != null) {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_container, fragment)
@@ -65,7 +74,5 @@ class App : AppCompatActivity() {
                 Tab(icon = R.drawable.ic_baseline_person_24, title = "Profile")
         )
     }
-
-
 
 }

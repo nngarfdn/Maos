@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -53,11 +56,31 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
     private Uri uriIdCard;
 
     private ArrayList<Location> provinceList, regencyList;
+    private int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_profile);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (shouldShowRequestPermissionRationale(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Explain to the user why we need to read the contacts
+                }
+
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                // app-defined int constant that should be quite unique
+
+                return;
+            }
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -156,6 +179,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                 break;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

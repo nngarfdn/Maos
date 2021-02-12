@@ -90,6 +90,7 @@ class BookDetailActivity : AppCompatActivity() {
         btn_peminjaman.setOnClickListener {
             if (firebaseUser != null) {
                 val intent = Intent(this, PeminjamanActivity::class.java)
+                intent.putExtra(EXTRA_BOOK, book)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, LoginActivity::class.java)

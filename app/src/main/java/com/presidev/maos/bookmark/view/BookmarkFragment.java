@@ -131,6 +131,8 @@ public class BookmarkFragment extends Fragment implements BookmarkCallback {
         super.onResume();
         favoriteViewModel.loadData(firebaseUser.getUid());
     }
+
+
 }
 
 interface BookmarkCallback{
