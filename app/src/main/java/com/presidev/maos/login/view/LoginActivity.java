@@ -25,8 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.presidev.maos.R;
+import com.presidev.maos.bookdetail.BookDetailActivity;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
+import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.profile.user.User;
 import com.presidev.maos.profile.user.UserViewModel;
 
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoadingDialog loadingDialog;
 
     private EditText edtEmail, edtPassword;
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         hideStatusBar(this, getSupportActionBar());
         setContentView(R.layout.activity_login);
 
+        if (getIntent().hasExtra(BookDetailActivity.EXTRA_BOOK)){
+            book = getIntent().getParcelableExtra(BookDetailActivity.EXTRA_BOOK);
+        }
         loadingDialog = new LoadingDialog(this, true);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

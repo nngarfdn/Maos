@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingHorizontal="32dp"
+    tools:context=".mitrabookcatalog.view.InformationDialog">
+
+
+    <ImageView
+        android:id="@+id/img_top"
+        android:src="@drawable/top_bottomsheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/txt_info_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informasi Peminjaman"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/img_top"
+        android:layout_centerHorizontal="true"
+        />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_book_info"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/txt_info_peminjam"
+        android:src="@drawable/mitralogo"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/txt_book_title_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="buku_jogja"
+        android:textStyle="bold"
+        android:layout_below="@+id/img_book_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        />
+
+    <TextView
+        android:id="@+id/txt_description_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_book_title_info"
+        android:layout_marginTop="16dp"
+        android:text="buku_jogja sudah berdiri sejak 2017 yang dimulai dengan membentuk komunitas untuk umum dengan agenda peprustakaan keliling untuk sekolah dasar dan taman kanak-kanak "/>
+
+    <TextView
+        android:id="@+id/txt_peraturan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Peraturan Peminjaman"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/txt_description_info"
+        />
+
+    <TextView
+        android:id="@+id/txt_rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_peraturan"
+        android:layout_marginTop="8dp"
+        android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."/>
+
+</RelativeLayout>

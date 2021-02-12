@@ -56,15 +56,12 @@ public class SliderAdapter extends
         Slider sliderItem = mSliderItems.get(position);
 
 //        viewHolder.textViewDescription.setText(sliderItem.getDescription());
-        viewHolder.textViewDescription.setTextSize(16);
+        viewHolder.textViewDescription.setTextSize(16F);
         viewHolder.textViewDescription.setTextColor(Color.WHITE);
         loadImageFromUrl(viewHolder.imageViewBackground, sliderItem.getImageUrl());
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        viewHolder.itemView.setOnClickListener(v -> {
 //                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
-            }
         });
     }
 

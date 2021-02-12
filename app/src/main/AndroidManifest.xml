@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".about.AboutActivity"/>
+        <activity android:name=".bookmark.view.SearchBookmarkActivity"></activity>
+        <activity android:name=".about.AboutActivity" />
         <activity android:name=".search.view.SearchTestActivity" />
         <activity android:name=".profile.mitra.MemberListActivity" />
         <activity android:name=".DeveloperActivity" />

@@ -3,6 +3,7 @@ package com.presidev.maos.mitrabookcatalog.view
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +60,13 @@ class MitraBookCatalogActivity : AppCompatActivity() {
             rv_bookpopuler.adapter = adapter
         }
 
+        img_mitra_information.setOnClickListener {
+            val args = Bundle()
+            args.putParcelable(EXTRA_MITRA, mitra)
+            val bottomSheet = InformationDialog()
+            bottomSheet.arguments = args
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
     }
 
 

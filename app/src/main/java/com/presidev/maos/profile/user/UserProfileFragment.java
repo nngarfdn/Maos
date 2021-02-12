@@ -78,10 +78,13 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
             this.user = user;
-            loadProfilePicFromUrl(imgPhoto, user.getPhoto());
-            tvName.setText(user.getName());
-            tvEmail.setText(user.getEmail());
-            memberCardViewModel.queryByUserId(user.getId());
+//            if (user.getPhoto()!= null){
+//                loadProfilePicFromUrl(imgPhoto, user.getPhoto());
+//            }
+//
+//            tvName.setText(user.getName());
+//            tvEmail.setText(user.getEmail());
+//            memberCardViewModel.queryByUserId(user.getId());
         });
         userViewModel.query(accountPreference.getId());
         userViewModel.addSnapshotListener(accountPreference.getId());

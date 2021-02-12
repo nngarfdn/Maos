@@ -53,6 +53,7 @@
                 <!--                android:shadowDx="1.5"-->
                 <!--                android:shadowDy="1.3"-->
                 <!--                android:shadowRadius="1.6"-->
+
                 <ImageView
                     android:id="@+id/img_book_detail"
                     android:layout_width="120dp"
