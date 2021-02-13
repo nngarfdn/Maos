@@ -39,12 +39,36 @@
             app:submitBackground="@android:color/transparent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:padding="16dp"
-        android:layout_gravity="center_horizontal"
-        android:clipToPadding="false" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:padding="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:clipToPadding="false" />
+
+        <ImageView
+            android:id="@+id/img_bookmark"
+            android:src="@drawable/ilustrasi_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_bookmark_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@+id/img_bookmark"
+            android:textColor="#838383"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="Belum ada bookmark"/>
+    </RelativeLayout>
+
 </merge>

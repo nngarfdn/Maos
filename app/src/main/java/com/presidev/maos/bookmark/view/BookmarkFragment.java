@@ -1,20 +1,19 @@
 package com.presidev.maos.bookmark.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,18 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.presidev.maos.R;
-import com.presidev.maos.bookmark.model.Bookmark;
-import com.presidev.maos.borrowbook.PeminjamanActivity;
-import com.presidev.maos.login.view.LoginActivity;
-import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogAdapter;
 import com.presidev.maos.mitramanagement.model.Book;
-import com.presidev.maos.mitramanagement.view.BookAdapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static com.presidev.maos.bookdetail.BookDetailActivity.EXTRA_BOOK;
 
 public class BookmarkFragment extends Fragment implements BookmarkCallback {
 
@@ -44,18 +36,12 @@ public class BookmarkFragment extends Fragment implements BookmarkCallback {
     private FirebaseUser firebaseUser;
     private BookmarkAdapter adapter;
     private FirebaseFirestore database;
+    private ImageView imgBookmark;
+    private TextView txtEmptyBookmark;
     private List<String> listBookId = new ArrayList<>();
 
     public BookmarkFragment() {
         // Required empty public constructor
-    }
-
-    public static BookmarkFragment newInstance(String param1, String param2) {
-        BookmarkFragment fragment = new BookmarkFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -83,7 +69,8 @@ public class BookmarkFragment extends Fragment implements BookmarkCallback {
         adapter = new BookmarkAdapter(getActivity());
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
-
+        imgBookmark = view.findViewById(R.id.img_bookmark);
+        txtEmptyBookmark = view.findViewById(R.id.txt_bookmark_empty);
 
         favoriteViewModel.getData().observe(getViewLifecycleOwner(), favorite -> {
             // Kalo daftar favorit masih sama, jangan dimuat lagi
@@ -117,6 +104,13 @@ public class BookmarkFragment extends Fragment implements BookmarkCallback {
     @Override
     public void onFinish(ArrayList<Book> listItem) {
         adapter.setData(listItem);
+        if (adapter.getItemCount() > 0) {
+            txtEmptyBookmark.setVisibility(View.INVISIBLE);
+            imgBookmark.setVisibility(View.INVISIBLE);
+        } else  {
+            txtEmptyBookmark.setVisibility(View.VISIBLE);
+            imgBookmark.setVisibility(View.VISIBLE);
+        }
         Log.d(TAG, "onFinish: " + listItem);
     }
 
@@ -132,9 +126,5 @@ public class BookmarkFragment extends Fragment implements BookmarkCallback {
         favoriteViewModel.loadData(firebaseUser.getUid());
     }
 
-
 }
 
-interface BookmarkCallback{
-    void onFinish(ArrayList<Book> listItem);
-}
