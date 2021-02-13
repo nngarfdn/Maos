@@ -23,7 +23,7 @@ import com.presidev.maos.profile.user.UserViewModel;
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel;
 import com.presidev.maos.subscribe.model.MemberCard;
 
-import static com.presidev.maos.utils.AppUtils.createMemberCardId;
+import static com.presidev.maos.utils.AppUtils.getMemberCardId;
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.DateUtils.addDay;
@@ -139,14 +139,14 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
                 }
 
                 memberCard = new MemberCard(
-                        createMemberCardId(mitra.getId(), user.getId()),
+                        getMemberCardId(mitra.getId(), user.getId()),
                         user.getId(),
                         mitra.getId(),
                         getCurrentDate(),
                         addDay(getCurrentDate(), 30)
                 );
 
-                memberCardViewModel.queryByCardId(memberCard.getId());
+                memberCardViewModel.queryByCardId(getMemberCardId(mitra.getId(), user.getId()));
                 memberCardViewModel.getMemberCardLiveData().observe(this, oldMemberCard -> {
                     if (oldMemberCard != null){
                         Log.d(getClass().getSimpleName(), "Sisa hari: " + differenceOfDates(oldMemberCard.getExpDate(), getCurrentDate()));

@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="32dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mitramanagement.view.EditBookActivity">
+    tools:context=".mitramanagement.view.EditBookActivity"
+    android:orientation="vertical">
 
-    <include layout="@layout/layout_add_update_buku" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        app:title="Edit Buku" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_delete"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_below="@+id/btn_simpan"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Hapus" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
+        <include layout="@layout/layout_add_update_buku"/>
 
-</RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
+            style="@style/Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Hapus"/>
+    </LinearLayout>
+</LinearLayout>

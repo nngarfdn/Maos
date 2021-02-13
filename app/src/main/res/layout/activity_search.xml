@@ -79,8 +79,10 @@
 
     <ImageView
         android:id="@+id/img_empty_search"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@color/gray"
-        android:layout_centerInParent="true"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_illustration_empty_search"
+        android:layout_below="@+id/layout_header_search"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

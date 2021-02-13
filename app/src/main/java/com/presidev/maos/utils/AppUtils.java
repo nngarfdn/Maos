@@ -81,7 +81,7 @@ public class AppUtils {
         else return address + ", " + district + ", " + regency + ", " + province;
     }
 
-    public static String createMemberCardId(String mitraId, String userId){
+    public static String getMemberCardId(String mitraId, String userId){
         return String.valueOf(UUID.nameUUIDFromBytes((mitraId + userId).getBytes()))
                 .replace("-", "").toUpperCase().substring(16, 32);
     }

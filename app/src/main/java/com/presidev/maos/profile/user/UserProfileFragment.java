@@ -78,8 +78,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
             this.user = user;
-                loadProfilePicFromUrl(imgPhoto, user.getPhoto());
-
+            loadProfilePicFromUrl(imgPhoto, user.getPhoto());
             tvName.setText(user.getName());
             tvEmail.setText(user.getEmail());
             memberCardViewModel.queryByUserId(user.getId());
@@ -110,7 +109,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 if (user == null) return;
                 new AlertDialog.Builder(getContext())
                         .setTitle("Ganti kata sandi")
-                        .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
+                        .setMessage("Kirim tautan ganti kata sandi ke email-mu?")
                         .setNegativeButton("Tidak", null)
                         .setPositiveButton("Ya", (dialogInterface, i) ->
                                 authViewModel.sendPasswordReset(user.getEmail())).create().show();

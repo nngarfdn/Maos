@@ -10,11 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/white"
-        android:background="@color/orange"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        style="@style/Toolbar"
         app:title="Daftar Anggota" />
 
     <androidx.recyclerview.widget.RecyclerView

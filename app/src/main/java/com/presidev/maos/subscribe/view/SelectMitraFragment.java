@@ -46,18 +46,14 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
         recyclerView.setAdapter(adapter);
 
         ImageView imgEmpty = view.findViewById(R.id.img_empty_sm);
-        imgEmpty.setVisibility(View.GONE);
-
-        shimmer = new ShimmerHelper(view.findViewById(R.id.shimmer_mitra_sm), recyclerView);
+        shimmer = new ShimmerHelper(view.findViewById(R.id.shimmer_mitra_sm), recyclerView, imgEmpty);
         shimmer.show();
 
         SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.getMitraLiveData().observe(this, result -> {
             adapter.setData(result);
-
             if (result.isEmpty()) imgEmpty.setVisibility(View.VISIBLE);
             else imgEmpty.setVisibility(View.GONE);
-
             shimmer.hide();
         });
 

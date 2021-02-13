@@ -14,11 +14,16 @@ import android.widget.ImageView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.dashboard.view.DashboardMitraAdapter;
+import com.presidev.maos.login.preference.AccountPreference;
+import com.presidev.maos.profile.mitra.MitraViewModel;
+import com.presidev.maos.profile.user.UserViewModel;
 import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
 import com.presidev.maos.utils.ShimmerHelper;
 
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA_FILTER;
+import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
+import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, MitraFilterFragment.MitraFilterListener {
     private MitraFilter filter;
@@ -36,19 +41,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ImageView imgEmpty = findViewById(R.id.img_empty_search);
-        imgEmpty.setVisibility(View.GONE);
-
-        shimmer = new ShimmerHelper(findViewById(R.id.shimmer_mitra_search), recyclerView);
+        shimmer = new ShimmerHelper(findViewById(R.id.shimmer_mitra_search), recyclerView, imgEmpty);
         shimmer.show();
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         searchViewModel.getMitraLiveData().observe(this, mitraList -> {
             DashboardMitraAdapter adapter = new DashboardMitraAdapter(mitraList);
             recyclerView.setAdapter(adapter);
-
             if (mitraList.isEmpty()) imgEmpty.setVisibility(View.VISIBLE);
             else imgEmpty.setVisibility(View.GONE);
-
             shimmer.hide();
         });
 
@@ -74,6 +75,25 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         ImageButton ibMitraFilter = findViewById(R.id.ib_mitra_filter_search);
         ibMitraFilter.setOnClickListener(this);
+
+        // Atur nilai default lokasi filter sama dengan lokasi pengguna
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUserLiveData().observe(this, user -> {
+            filter.setDistrict(user.getDistrict());
+            filter.setRegency(user.getRegency());
+            filter.setProvince(user.getProvince());
+        });
+        MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
+        mitraViewModel.getMitraLiveData().observe(this, mitra -> {
+            filter.setDistrict(mitra.getDistrict());
+            filter.setRegency(mitra.getRegency());
+            filter.setProvince(mitra.getProvince());
+        });
+        AccountPreference accountPreference = new AccountPreference(this);
+        if (accountPreference.getId() != null) {
+            if (accountPreference.getLevel().equals(LEVEL_USER)) userViewModel.query(accountPreference.getId());
+            else if (accountPreference.getLevel().equals(LEVEL_MITRA)) mitraViewModel.query(accountPreference.getId());
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

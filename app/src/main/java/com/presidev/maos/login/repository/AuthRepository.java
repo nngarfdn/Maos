@@ -161,7 +161,7 @@ public class AuthRepository {
                 callback.onSuccess(task.getResult().getString("level"));
                 Log.d(TAG, "setDefaultAccountSettings: success");
             }
-            else Log.w(TAG, "sendPasswordReset: failure", task.getException());
+            else Log.w(TAG, "setDefaultAccountSettings: failure", task.getException());
         });
     }
 

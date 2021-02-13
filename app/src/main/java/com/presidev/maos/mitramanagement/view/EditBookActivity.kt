@@ -2,15 +2,15 @@ package com.presidev.maos.mitramanagement.view
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_book.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
 import java.util.*
@@ -31,6 +31,10 @@ class EditBookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_book)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
 
@@ -76,7 +80,7 @@ class EditBookActivity : AppCompatActivity() {
 
         btn_delete.setOnClickListener {
             AlertDialog.Builder(this)
-                    .setTitle("Hapus laporan")
+                    .setTitle("Hapus data buku")
                     .setMessage("Apakah kamu yakin ingin menghapus?")
                     .setNegativeButton("Tidak", null)
                     .setPositiveButton("Ya") { _, _ ->
@@ -132,4 +136,8 @@ class EditBookActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

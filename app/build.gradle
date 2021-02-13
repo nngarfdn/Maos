@@ -29,8 +29,6 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        renderscriptTargetApi 19
-        renderscriptSupportModeEnabled true
     }
 
     compileOptions {
@@ -40,9 +38,8 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
@@ -65,7 +62,6 @@ dependencies {
     //PICASSO
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
@@ -73,19 +69,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.4'
 
     //bottom
-    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
     implementation 'com.github.naz013:smooth-bottom-bar:1.0.2'
-    implementation "androidx.dynamicanimation:dynamicanimation:1.0.0"
 
-    //rounded image
     implementation 'com.makeramen:roundedimageview:2.3.0'
-
     implementation 'androidx.palette:palette:1.0.0'
-
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
-
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
 repositories {

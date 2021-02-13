@@ -87,55 +87,55 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_manage_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kelola katalog"
-                app:icon="@drawable/ic_profile_manage" />
+                android:drawableStart="@drawable/ic_profile_manage" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_subscriber_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Daftar anggota"
-                app:icon="@drawable/ic_profile_subscribe"/>
+                android:drawableStart="@drawable/ic_profile_subscribe"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_update_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Edit profil"
-                app:icon="@drawable/ic_profile_update"
+                android:drawableStart="@drawable/ic_profile_update"
                 android:layout_marginTop="12dp"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_reset_password_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ganti kata sandi"
-                app:icon="@drawable/ic_profile_password"/>
+                android:drawableStart="@drawable/ic_profile_password"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_about_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tentang aplikasi"
-                app:icon="@drawable/ic_profile_about"
+                android:drawableStart="@drawable/ic_profile_about"
                 android:layout_marginTop="12dp"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout_mp"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Keluar akun"
-                app:icon="@drawable/ic_profile_logout"/>
+                android:drawableStart="@drawable/ic_profile_logout"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

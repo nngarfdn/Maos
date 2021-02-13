@@ -113,7 +113,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
                 if (mitra == null) return;
                 new AlertDialog.Builder(getContext())
                         .setTitle("Ganti kata sandi")
-                        .setMessage("Kirim tautan ganti kata sandi ke email Anda?")
+                        .setMessage("Kirim tautan ganti kata sandi ke email-mu?")
                         .setNegativeButton("Tidak", null)
                         .setPositiveButton("Ya", (dialogInterface, i) ->
                                 authViewModel.sendPasswordReset(mitra.getEmail())).create().show();

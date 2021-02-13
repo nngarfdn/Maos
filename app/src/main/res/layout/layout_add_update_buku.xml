@@ -8,11 +8,11 @@
     <ScrollView
         style="@style/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edt_title"
@@ -27,7 +27,6 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_below="@+id/edt_title"
                 android:hint="Penulis"
                 android:inputType="textPersonName|textCapWords"/>
@@ -37,7 +36,6 @@
                 style="@style/EditText.MultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_below="@+id/edt_penulis"
                 android:hint="Deskripsi" />
 
