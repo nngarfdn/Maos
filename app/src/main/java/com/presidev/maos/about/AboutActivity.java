@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
+import com.presidev.maos.BuildConfig;
 import com.presidev.maos.R;
 
 public class AboutActivity extends AppCompatActivity {
@@ -16,7 +18,10 @@ public class AboutActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView tvAppVersion = findViewById(R.id.tv_app_version_about);
+        tvAppVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override

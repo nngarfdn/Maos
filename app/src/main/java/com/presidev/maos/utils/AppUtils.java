@@ -63,8 +63,8 @@ public class AppUtils {
         Picasso.get()
                 .load(url)
                 .transform(new BlurTransformation(context, 24, 1))
-                .placeholder(R.color.gray_dark)
-                .error(R.color.gray_dark)
+                .placeholder(R.color.gray)
+                .error(R.color.gray)
                 .into(imageView);
     }
 
