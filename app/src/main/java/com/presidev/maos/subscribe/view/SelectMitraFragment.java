@@ -1,6 +1,8 @@
 package com.presidev.maos.subscribe.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,9 @@ import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
 import com.presidev.maos.subscribe.adapter.SelectMitraAdapter;
 import com.presidev.maos.utils.ShimmerHelper;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public class SelectMitraFragment extends BottomSheetDialogFragment {
     private SelectMitraAdapter adapter;
@@ -76,6 +81,7 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
                 return false;
             }
         });
+
     }
 
     @Override
@@ -89,7 +95,10 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
         }
     }
 
+
+
     public interface SelectMitraListener{
         void receiveData(Mitra mitra);
     }
+
 }
