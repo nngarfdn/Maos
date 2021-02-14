@@ -31,14 +31,9 @@ public class AuthRepository {
     private final CollectionReference usersReference = database.collection("accounts");
     private final AccountPreference accountPreference;
 
-    private final MutableLiveData<FirebaseUser> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isNewAccount = new MutableLiveData<>();
-
-    public MutableLiveData<FirebaseUser> getUserLiveData() {
+    private final MutableLiveData<Account> userLiveData = new MutableLiveData<>();
+    public MutableLiveData<Account> getUserLiveData() {
         return userLiveData;
-    }
-    public MutableLiveData<Boolean> getIsNewAccount() {
-        return isNewAccount;
     }
 
     public AuthRepository(Application application){
@@ -53,22 +48,21 @@ public class AuthRepository {
 
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null){
-                    userLiveData.postValue(firebaseUser);
-
-                    boolean isNewAccount = task.getResult().getAdditionalUserInfo().isNewUser();
-                    this.isNewAccount.postValue(isNewAccount);
-
                     String id = firebaseUser.getUid();
                     String email = firebaseUser.getEmail();
+                    boolean isNewAccount = task.getResult().getAdditionalUserInfo().isNewUser();
+
                     if (isNewAccount){
                         // Hanya level user yang bisa mendaftar via Google
-                        Account account = new Account(id, email, LEVEL_USER);
+                        Account account = new Account(firebaseUser, id, email, LEVEL_USER, isNewAccount);
                         accountPreference.setData(account);
                         setDefaultAccountSettings(account);
+                        userLiveData.postValue(account);
                     } else {
                         getUserLevel(id, level -> {
-                            Account account = new Account(id, email, level);
+                            Account account = new Account(firebaseUser, id, email, level, isNewAccount);
                             accountPreference.setData(account);
+                            userLiveData.postValue(account);
                         });
                     }
                 }
@@ -98,13 +92,11 @@ public class AuthRepository {
                         else Log.w(TAG, "sendEmailVerification: failure", task.getException());
                     });
 
-                    userLiveData.postValue(firebaseUser);
-                    isNewAccount.postValue(true);
-
                     String id = firebaseUser.getUid();
-                    Account account = new Account(id, email, level);
+                    Account account = new Account(firebaseUser, id, email, level, true);
                     accountPreference.setData(account);
                     setDefaultAccountSettings(account);
+                    userLiveData.postValue(account);
                 }
             } else {
                 showToast(application.getApplicationContext(), "Email sudah terdaftar");
@@ -119,13 +111,11 @@ public class AuthRepository {
                 Log.d(TAG, "signInWithEmail: success");
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null){
-                    userLiveData.postValue(firebaseUser);
-                    isNewAccount.postValue(false);
-
                     String id = firebaseUser.getUid();
                     getUserLevel(id, level -> {
-                        Account account = new Account(id, email, level);
+                        Account account = new Account(firebaseUser, id, email, level, false);
                         accountPreference.setData(account);
+                        userLiveData.postValue(account);
                     });
                 }
             } else {
@@ -176,8 +166,7 @@ public class AuthRepository {
         AccountPreference accountPreference = new AccountPreference(application);
         accountPreference.resetData();
 
-        userLiveData.postValue(firebaseAuth.getCurrentUser());
-        isNewAccount.postValue(false);
+        userLiveData.postValue(new Account(firebaseAuth.getCurrentUser(), null, null, null, false));
     }
 
     private interface OnGetUserLevel{

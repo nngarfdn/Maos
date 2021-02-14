@@ -24,28 +24,32 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.presidev.maos.App;
 import com.presidev.maos.R;
 import com.presidev.maos.bookdetail.BookDetailActivity;
+import com.presidev.maos.borrowbook.PeminjamanActivity;
 import com.presidev.maos.customview.LoadingDialog;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.profile.user.User;
 import com.presidev.maos.profile.user.UserViewModel;
 
+import static com.presidev.maos.bookdetail.BookDetailActivity.EXTRA_BOOK;
 import static com.presidev.maos.utils.AppUtils.hideStatusBar;
 import static com.presidev.maos.utils.Constants.EXTRA_LEVEL;
-import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = getClass().getSimpleName();
     private static final int RC_SIGN_IN = 9001;
 
     private AuthViewModel authViewModel;
+    private Book book;
     private GoogleSignInClient googleSignInClient;
     private LoadingDialog loadingDialog;
 
     private EditText edtEmail, edtPassword;
-    private Book book;
+
+    private String loggedInUserLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         hideStatusBar(this, getSupportActionBar());
         setContentView(R.layout.activity_login);
 
-        if (getIntent().hasExtra(BookDetailActivity.EXTRA_BOOK)){
-            book = getIntent().getParcelableExtra(BookDetailActivity.EXTRA_BOOK);
-        }
         loadingDialog = new LoadingDialog(this, true);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -65,7 +66,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        authViewModel.getUserLiveData().observe(this, firebaseUser -> {
+        authViewModel.getUserLiveData().observe(this, account -> { // Dipanggil setelah login
+            if (account.isNewAccount()){
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                User user = new User();
+                user.setId(firebaseUser.getUid());
+                user.setName(firebaseUser.getDisplayName());
+                user.setEmail(firebaseUser.getEmail());
+                user.setPhoto(getPhotoUrl(firebaseUser));
+                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                userViewModel.insert(user);
+            }
+
+            loggedInUserLevel = account.getLevel();
             loadingDialog.dismiss();
             launchMain();
         });
@@ -83,6 +96,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnGoogle.setOnClickListener(this);
         tvResetPassword.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(BookDetailActivity.EXTRA_BOOK)) book = intent.getParcelableExtra(BookDetailActivity.EXTRA_BOOK);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) launchMain();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -99,14 +122,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.tv_reset_password_login:
-                Intent intent = new Intent(this,ResetPasswordActivity.class);
+                Intent intent = new Intent(this, ResetPasswordActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.tv_register_login:
-                Intent intentRegister = new Intent(this,RegisterActivity.class);
-                intentRegister.putExtra(EXTRA_LEVEL, LEVEL_USER);
+                Intent intentRegister = new Intent(this, RegisterActivity.class);
+                intentRegister.putExtra(EXTRA_BOOK, book);
                 startActivity(intentRegister);
+                finish();
                 break;
         }
     }
@@ -134,18 +158,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         authViewModel.authWithGoogle(authCredential);
-        authViewModel.getIsNewAccount().observe(this, isNewAccount -> {
-            if (isNewAccount){
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                User user = new User();
-                user.setId(firebaseUser.getUid());
-                user.setName(firebaseUser.getDisplayName());
-                user.setEmail(firebaseUser.getEmail());
-                user.setPhoto(getPhotoUrl(firebaseUser));
-                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-                userViewModel.insert(user);
-            }
-        });
     }
 
     private void loginWithEmail(String email, String password){
@@ -158,7 +170,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void launchMain(){
-        onBackPressed();
+        Intent intent;
+        if (book != null) {
+            intent = new Intent(this, PeminjamanActivity.class);
+            intent.putExtra(EXTRA_BOOK, book);
+        } else {
+            intent = new Intent(this, App.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra(EXTRA_LEVEL, loggedInUserLevel);
+        }
+        startActivity(intent);
+        finish();
     }
 
     private boolean validateForm(String email, String password){
@@ -178,8 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private String getPhotoUrl(FirebaseUser firebaseUser){
-        String photoUrl = firebaseUser.getPhotoUrl().toString();
-        if (photoUrl != null) return photoUrl;
+        if (firebaseUser.getPhotoUrl() != null) return firebaseUser.getPhotoUrl().toString();
         else return "default";
     }
 }

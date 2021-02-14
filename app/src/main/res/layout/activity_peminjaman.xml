@@ -22,6 +22,7 @@
         android:layout_marginHorizontal="32dp"
         style="@style/EditText"
         android:hint="Nama"
+        android:inputType="textPersonName|textCapWords"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/bg_edit_text"/>
@@ -30,9 +31,11 @@
         android:id="@+id/edt_alamat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/EditText"
+        style="@style/EditText.MultiLine"
         android:layout_marginHorizontal="32dp"
         android:hint="Alamat"
+        android:lines="4"
+        android:maxLines="4"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/edt_nama"
         android:background="@drawable/bg_edit_text"/>
@@ -68,14 +71,14 @@
         android:layout_alignParentEnd="true"
         android:text="Berlangganan"/>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imgUpload"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        style="@style/ImageView"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
         android:layout_marginStart="32dp"
-        android:src="@drawable/ic_no_pic"
-        android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
+        app:riv_corner_radius="8dp"
         android:layout_below="@id/txt_berlangganan" />
 
     <TextView
@@ -91,24 +94,19 @@
         android:id="@+id/btn_choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Button.Secondary"
         android:layout_below="@id/txtUpload"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
         android:layout_alignStart="@+id/txtUpload"
         android:layout_marginTop="16dp"
         android:text="Pilih Gambar" />
 
     <Button
         android:id="@+id/btn_simpan"
+        style="@style/Button.Primary"
         android:layout_below="@+id/imgUpload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginHorizontal="32dp"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:background="@drawable/bg_button_primary"
         android:text="Pinjam Sekarang" />
-
 </RelativeLayout>

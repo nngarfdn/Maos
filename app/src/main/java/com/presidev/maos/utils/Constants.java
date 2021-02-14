@@ -8,10 +8,9 @@ public interface Constants {
     String FOLDER_ID_CARD = "idCard";
     String FOLDER_BANNER = "banner";
 
-    String EXTRA_LEVEL = "extra_level";
     String EXTRA_MITRA_FILTER = "extra_mitra_filter";
     String EXTRA_BOOK_FILTER = "extra_book_filter";
-    String EXTRA_UID = "extra_uid";
     String EXTRA_USER = "extra_user";
     String EXTRA_MITRA = "extra_mitra";
+    String EXTRA_LEVEL = "extra_level";
 }

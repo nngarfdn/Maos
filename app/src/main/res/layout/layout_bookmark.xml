@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:tools="http://schemas.android.com/tools"
+<merge
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:showIn="@layout/fragment_bookmark">
-
+    tools:showIn="@layout/fragment_bookmark"
+    android:id="@+id/layout_bookmark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
-        android:padding="24dp">
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="40dp">
 
         <TextView
             android:id="@+id/tv_header_search"
@@ -24,24 +27,23 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/sv_mitra_search"
+            style="@style/SearchView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_button_secondary"
-            app:iconifiedByDefault="false"
             app:layout_constraintBottom_toBottomOf="@+id/ib_mitra_filter_search"
             app:layout_constraintEnd_toStartOf="@+id/ib_mitra_filter_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_header_search"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Cari penyedia buku…"
-            app:submitBackground="@android:color/transparent" />
+            app:queryHint="Cari penyedia buku…" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bookmark"
             android:layout_width="wrap_content"
@@ -70,5 +72,4 @@
             android:layout_marginTop="8dp"
             android:text="Belum ada bookmark"/>
     </RelativeLayout>
-
 </merge>

@@ -69,7 +69,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.4'
 
     //bottom
-    implementation 'com.github.naz013:smooth-bottom-bar:1.0.2'
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.palette:palette:1.0.0'

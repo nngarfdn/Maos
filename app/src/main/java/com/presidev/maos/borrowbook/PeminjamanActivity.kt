@@ -30,6 +30,7 @@ import com.presidev.maos.subscribe.view.MembershipIntroActivity
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.utils.AppUtils.scrollableListener
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_peminjaman.*
 import java.io.ByteArrayOutputStream
@@ -115,7 +116,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
             startActivity(intent)
         }
 
-
+        edt_alamat.setOnTouchListener(scrollableListener)
     }
 
     private fun loadMemberCode() {

@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_illustration_register"
-                app:layout_constraintBottom_toTopOf="@+id/edt_name_register"
+                app:layout_constraintBottom_toTopOf="@+id/include_layout_register"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -53,53 +53,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/edt_name_register"
-                style="@style/EditText"
+            <include
+                android:id="@+id/include_layout_register"
+                layout="@layout/layout_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Nama lengkap"
-                android:inputType="textPersonName|textCapWords"
-                app:layout_constraintBottom_toTopOf="@+id/edt_email_register" />
-
-            <EditText
-                android:id="@+id/edt_email_register"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toTopOf="@+id/edt_password_register" />
-
-            <EditText
-                android:id="@+id/edt_password_register"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Kata sandi"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toTopOf="@+id/edt_password_confirmation_register" />
-
-            <EditText
-                android:id="@+id/edt_password_confirmation_register"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Konfirmasi kata sandi"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toTopOf="@+id/btn_email_register" />
-
-            <Button
-                android:id="@+id/btn_email_register"
-                style="@style/Button.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:text="Daftar"
                 app:layout_constraintBottom_toTopOf="@+id/layout_login_register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

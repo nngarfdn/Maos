@@ -11,13 +11,11 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.presidev.maos.login.view.RegisterActivity;
+import com.presidev.maos.login.view.MitraRegistrationActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.subscribe.view.AddMemberCardActivity;
-import com.presidev.maos.utils.Constants;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
-import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
 
 public class DeveloperActivity extends AppCompatActivity implements View.OnClickListener {
     private AuthViewModel authViewModel;
@@ -45,8 +43,7 @@ public class DeveloperActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.btn_register_mitra_dev:
                 if (firebaseUser == null){
-                    Intent intent = new Intent(this, RegisterActivity.class);
-                    intent.putExtra(Constants.EXTRA_LEVEL, LEVEL_MITRA);
+                    Intent intent = new Intent(this, MitraRegistrationActivity.class);
                     startActivity(intent);
                 } else showToast(this, "Kamu sudah masuk");
                 break;
@@ -58,8 +55,8 @@ public class DeveloperActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.btn_logout_dev:
                 authViewModel.logout();
-                authViewModel.getUserLiveData().observe(this, firebaseUser -> {
-                    this.firebaseUser = firebaseUser;
+                authViewModel.getUserLiveData().observe(this, account -> {
+                    this.firebaseUser = account.getFirebaseUser();
                     if (firebaseUser == null) showToast(this, "Berhasil keluar akun");
                 });
                 break;

@@ -1,78 +1,56 @@
 package com.presidev.maos
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.github.naz013.smoothbottombar.SmoothBottomBar
-import com.github.naz013.smoothbottombar.Tab
-import com.presidev.maos.bookmark.view.BookmarkFragment
-import com.presidev.maos.dashboard.view.DashboardFragment
+import androidx.viewpager.widget.ViewPager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.login.preference.AccountPreference
-import com.presidev.maos.login.view.LoginActivity
-import com.presidev.maos.profile.mitra.MitraProfileFragment
-import com.presidev.maos.profile.user.UserProfileFragment
 import com.presidev.maos.utils.AppUtils.hideStatusBar
-import com.presidev.maos.utils.Constants.LEVEL_MITRA
-import com.presidev.maos.utils.Constants.LEVEL_USER
+import com.presidev.maos.utils.Constants.EXTRA_LEVEL
+import me.ibrahimsn.lib.SmoothBottomBar
 
 class App : AppCompatActivity() {
-
-    private var accountPreference: AccountPreference? = null
+    private var firebaseUser: FirebaseUser? = null
+    private var viewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideStatusBar(this, supportActionBar)
         setContentView(R.layout.activity_app)
 
-        accountPreference = AccountPreference(this)
+        val pagerAdapter : MainPagerAdapter
+        if (intent.hasExtra(EXTRA_LEVEL)) pagerAdapter = MainPagerAdapter(intent.getStringExtra(EXTRA_LEVEL), supportFragmentManager)
+        else pagerAdapter = MainPagerAdapter(AccountPreference(this).level, supportFragmentManager)
+        viewPager = findViewById(R.id.view_pager)
+        viewPager?.adapter = pagerAdapter
 
-        loadFragment(DashboardFragment())
-        findViewById<SmoothBottomBar>(R.id.bottomBar2).setTabs(createTabs4())
-        findViewById<SmoothBottomBar>(R.id.bottomBar2).setOnTabSelectedListener { showTab(it) }
+        findViewById<SmoothBottomBar>(R.id.bottom_bar).onItemSelected = { i: Int -> viewPager?.currentItem = i }
+
+        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageSelected(position: Int) {
+                findViewById<SmoothBottomBar>(R.id.bottom_bar).itemActiveIndex = position
+            }
+        })
+
+        firebaseUser = FirebaseAuth.getInstance().currentUser
     }
 
-    private fun showTab(it: Int) {
-        when(it) {
-            0 -> loadFragment(DashboardFragment())
-            1 -> {
-                if (accountPreference!!.level == null) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-                else if (accountPreference!!.level.equals(LEVEL_USER) || accountPreference!!.level.equals(LEVEL_MITRA) ) loadFragment(BookmarkFragment())
-
-            }
-
-            2 -> {
-                if (accountPreference!!.level == null) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-                else if (accountPreference!!.level.equals(LEVEL_MITRA)) loadFragment(MitraProfileFragment())
-                else if (accountPreference!!.level.equals(LEVEL_USER)) loadFragment(UserProfileFragment())
+    override fun onResume() {
+        super.onResume()
+        if (firebaseUser == null){
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null){
+                Log.d("App onResume", "Terdeteksi login: " + currentUser.email)
+                firebaseUser = currentUser
+                /*viewPager!!.adapter = null
+                val pagerAdapter = MainPagerAdapter(LEVEL_USER, supportFragmentManager)
+                viewPager!!.adapter = pagerAdapter
+                pagerAdapter.notifyDataSetChanged()*/
             }
         }
     }
-
-
-     fun loadFragment(fragment: Fragment?): Boolean {
-        if (fragment != null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fl_container, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            return true
-        }
-        return false
-    }
-
-    private fun createTabs4(): List<Tab> {
-        return listOf(
-                Tab(icon = R.drawable.ic_baseline_home_24, title = "Home"),
-                Tab(icon = R.drawable.ic_baseline_bookmark_24, title = "Bookmark"),
-                Tab(icon = R.drawable.ic_baseline_person_24, title = "Profile")
-        )
-    }
-
 }

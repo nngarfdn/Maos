@@ -121,8 +121,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btn_logout_up:
-                authViewModel.getUserLiveData().observe(this, firebaseUser -> {
-                    if (firebaseUser == null){
+                authViewModel.getUserLiveData().observe(this, account -> {
+                    if (account.getFirebaseUser() == null){
                         Intent intentRestart = new Intent(getContext(), SplashActivity.class);
                         startActivity(intentRestart);
                         getActivity().finish();

@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dashboard.view.DashboardFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_slider_mainActivity"
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="0dp">
+        android:layout_height="match_parent"
+        tools:context=".dashboard.view.DashboardFragment">
 
-        <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/imageSlider"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_slider_mainActivity"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:sliderAnimationDuration="600"
-            app:sliderAutoCycleDirection="back_and_forth"
-            app:sliderIndicatorAnimationDuration="600"
-            app:sliderIndicatorEnabled="true"
-            app:sliderIndicatorGravity="center_horizontal|bottom"
-            app:sliderIndicatorMargin="15dp"
-            app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="3dp"
-            app:sliderIndicatorRadius="2dp"
-            app:sliderIndicatorSelectedColor="#5A5A5A"
-            app:sliderIndicatorUnselectedColor="#FFF"
-            app:sliderScrollTimeInSec="1" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:cardCornerRadius="0dp">
 
-    </androidx.cardview.widget.CardView>
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorEnabled="true"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1" />
+        </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/edt_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Cari penyedia buku"
-        style="@style/EditText"
-        android:layout_marginTop="32dp"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="4dp"
-        android:inputType="none"
-        android:focusable="false"
-        android:background="@drawable/bg_edit_text"
-        android:layout_marginHorizontal="32dp"
-        android:layout_below="@+id/cv_slider_mainActivity"/>
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cari penyedia buku"
+            style="@style/EditText"
+            android:layout_marginTop="32dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:inputType="none"
+            android:focusable="false"
+            android:layout_marginHorizontal="32dp"
+            android:layout_below="@+id/cv_slider_mainActivity"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_mitra"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/edt_search"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mitra"
+            style="@style/RecyclerView"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/edt_search"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"/>
 
-    <View
-        android:layout_below="@+id/rv_mitra"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-</RelativeLayout>
-</ScrollView>
+        <View
+            android:layout_below="@+id/rv_mitra"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
