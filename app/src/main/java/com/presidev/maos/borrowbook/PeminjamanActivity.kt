@@ -29,8 +29,7 @@ import com.presidev.maos.profile.user.UserViewModel
 import com.presidev.maos.subscribe.view.MembershipIntroActivity
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.presidev.maos.utils.AppUtils.scrollableListener
+import com.presidev.maos.utils.AppUtils.*
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_peminjaman.*
 import java.io.ByteArrayOutputStream
@@ -180,38 +179,43 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
             val code = txt_member_code.text.toString()
 
-            val bitmap = ((findViewById<View>(R.id.imgUpload) as ImageView).drawable as BitmapDrawable).bitmap
-            val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            val imgBitmapPath = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "title", null)
-            val imgBitmapUri = Uri.parse(imgBitmapPath)
-            val whatsappIntent = Intent(Intent.ACTION_SEND)
-            whatsappIntent.type = "text/plain"
-            whatsappIntent.setPackage("com.whatsapp")
-            if (code.equals("-")){
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
-                                "Nama   : $nama \n" +
-                                "Alamat : $alamat \n" +
-                                "Terima kasih kak \n")
-            }else {
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
-                                "Nama        : $nama \n" +
-                                "Alamat      : $alamat \n" +
-                                "Kode Member : *${code}* \n" +
-                                "Terima kasih kak \n")
-            }
-
-            whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
-            whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net");
-            whatsappIntent.type = "image/jpeg"
-            whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
             try {
-                startActivity(whatsappIntent)
-            } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(this, "Whatsapp belum terinstall", Toast.LENGTH_SHORT).show()
+                val bitmap = ((findViewById<View>(R.id.imgUpload) as ImageView).drawable as BitmapDrawable).bitmap
+                val bytes = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                val imgBitmapPath = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "title", null)
+                val imgBitmapUri = Uri.parse(imgBitmapPath)
+                val whatsappIntent = Intent(Intent.ACTION_SEND)
+                whatsappIntent.type = "text/plain"
+                whatsappIntent.setPackage("com.whatsapp")
+                if (code.equals("-")){
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
+                                    "Nama   : $nama \n" +
+                                    "Alamat : $alamat \n" +
+                                    "Terima kasih kak \n")
+                }else {
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
+                                    "Nama        : $nama \n" +
+                                    "Alamat      : $alamat \n" +
+                                    "Kode Member : *${code}* \n" +
+                                    "Terima kasih kak \n")
+                }
+
+                whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
+                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net");
+                whatsappIntent.type = "image/jpeg"
+                whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                try {
+                    startActivity(whatsappIntent)
+                } catch (ex: ActivityNotFoundException) {
+                    Toast.makeText(this, "WhatsApp belum terinstall", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: ClassCastException) {
+                Log.e(TAG, "getDrawable: " + e)
+                showToast(this, "Kartu identitas belum ada")
             }
         }
     }

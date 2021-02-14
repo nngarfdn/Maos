@@ -3,6 +3,7 @@ package com.presidev.maos.bookdetail
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,10 +20,7 @@ import com.presidev.maos.login.view.LoginActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.utils.AppUtils
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_book_detail.*
-import kotlinx.android.synthetic.main.layout_add_update_buku.*
-
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -58,20 +56,20 @@ class BookDetailActivity : AppCompatActivity() {
 
         AppUtils.loadImageFromUrl(imageView, book?.photo)
 
-        var bitmap = (imageView.drawable as BitmapDrawable).bitmap
-
-        Palette.Builder(bitmap).generate {
-            it?.let { palette ->
-                val dominantColor = palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
-                relative_detail.setBackgroundColor(dominantColor)
-                toolbar.setBackgroundColor(dominantColor)
-                img_btn.setBackgroundColor(dominantColor)
-                toolbar_layout.setBackgroundColor(dominantColor)
-
+        try {
+            var bitmap = (imageView.drawable as BitmapDrawable).bitmap
+            Palette.Builder(bitmap).generate {
+                it?.let { palette ->
+                    val dominantColor = palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
+                    relative_detail.setBackgroundColor(dominantColor)
+                    toolbar.setBackgroundColor(dominantColor)
+                    img_btn.setBackgroundColor(dominantColor)
+                    toolbar_layout.setBackgroundColor(dominantColor)
+                }
             }
+        } catch (e: ClassCastException) {
+            Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: " + e)
         }
-
-
 
         if (book.ketersediaan == true) {
             txt_ketersediaan.text = "Tersedia"

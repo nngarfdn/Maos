@@ -47,11 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Kode Memeber :"/>
+        android:text="Kode Member:"/>
    <TextView
        android:id="@+id/txt_member_code"
        android:layout_below="@+id/textmember"
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_marginHorizontal="32dp"
        android:layout_marginTop="8dp"
        android:textColor="@color/green"
@@ -71,14 +71,13 @@
         android:layout_alignParentEnd="true"
         android:text="Berlangganan"/>
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <ImageView
         android:id="@+id/imgUpload"
         style="@style/ImageView"
         android:layout_width="180dp"
         android:layout_height="120dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        app:riv_corner_radius="8dp"
         android:layout_below="@id/txt_berlangganan" />
 
     <TextView
