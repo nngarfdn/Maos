@@ -1,92 +1,94 @@
-package com.presidev.maos.bookmark.view;
+package com.presidev.maos.bookmark.view
 
-import android.app.Activity;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.app.Activity
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.presidev.maos.R
+import com.presidev.maos.bookdetail.BookDetailActivity
+import com.presidev.maos.bookmark.view.BookmarkAdapter.FavoriteViewHolder
+import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.utils.AppUtils
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<FavoriteViewHolder>(), Filterable {
+    private val listItem = ArrayList<Book>()
+    private val listItemFiltered = ArrayList<Book>()
+    var data: ArrayList<Book>?
+        get() = listItem
+        set(listItem) {
+            this.listItem.clear()
+            this.listItem.addAll(listItem!!)
+            listItemFiltered.clear()
+            listItemFiltered.addAll(listItem)
+            notifyDataSetChanged()
+        }
 
-import com.presidev.maos.R;
-import com.presidev.maos.bookdetail.BookDetailActivity;
-import com.presidev.maos.mitramanagement.model.Book;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
-
-
-public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.FavoriteViewHolder> {
-    private final Activity activity;
-    private final ArrayList<Book> listItem = new ArrayList<>();
-    private ArrayList<Book> listItemFiltered = new ArrayList<>();
-
-    public BookmarkAdapter(Activity activity) {
-        this.activity = activity;
+    var countryFilterList = ArrayList<Book>()
+    init {
+        countryFilterList = data!!
     }
 
-    public void setData(List<Book> listItem) {
-        this.listItem.clear();
-        this.listItem.addAll(listItem);
-
-        this.listItemFiltered.clear();
-        this.listItemFiltered.addAll(listItem);
-
-        notifyDataSetChanged();
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mitra_book_catalog, parent, false)
+        return FavoriteViewHolder(view)
     }
 
-    public ArrayList<Book> getData() {
-        return listItem;
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+        val item = countryFilterList[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(activity, BookDetailActivity::class.java)
+            intent.putExtra(BookDetailActivity.EXTRA_BOOK, item)
+            activity.startActivity(intent)
+        }
     }
 
-    @NonNull
-    @Override
-    public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mitra_book_catalog, parent, false);
-        return new FavoriteViewHolder(view);
+    override fun getItemCount(): Int {
+        return countryFilterList.size
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
-        Book item = listItemFiltered.get(position);
-        holder.bind(item);
+    class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var imgPhoto: ImageView = itemView.findViewById(R.id.img_book_catalog)
+        private var tvName: TextView = itemView.findViewById(R.id.txt_book_title)
+        fun bind(item: Book) {
+            tvName.text = item.title
+            AppUtils.loadImageFromUrl(imgPhoto, item.photo)
+        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, BookDetailActivity.class);
-                intent.putExtra(BookDetailActivity.EXTRA_BOOK, item);
-                activity.startActivity(intent);
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    countryFilterList = data!!
+                } else {
+                    val resultList = ArrayList<Book>()
+                    for (row in data!!) {
+                        if (row.title!!.toLowerCase().contains(charSearch.toLowerCase())) {
+                            resultList.add(row)
+                        }
+                    }
+                    countryFilterList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = countryFilterList
+                return filterResults
             }
-        });
-    }
 
-    @Override
-    public int getItemCount() {
-        return listItemFiltered.size();
-    }
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                countryFilterList = results?.values as ArrayList<Book>
+                notifyDataSetChanged()
+            }
 
-    public static class FavoriteViewHolder extends RecyclerView.ViewHolder {
-       ImageView imgPhoto;
-       TextView tvName;
-        public FavoriteViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvName = itemView.findViewById(R.id.txt_book_title);
-            imgPhoto = itemView.findViewById(R.id.img_book_catalog);
         }
-
-        public void bind(Book item) {
-            tvName.setText(item.getTitle());
-            loadImageFromUrl(imgPhoto, item.getPhoto());
-        }
-
     }
 }
-

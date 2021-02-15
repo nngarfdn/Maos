@@ -1,130 +1,121 @@
-package com.presidev.maos.bookmark.view;
+package com.presidev.maos.bookmark.view
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.presidev.maos.R
+import com.presidev.maos.bookmark.model.Bookmark
+import com.presidev.maos.mitramanagement.model.Book
+import kotlinx.android.synthetic.main.layout_bookmark.*
+import kotlinx.android.synthetic.main.layout_bookmark.view.*
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.presidev.maos.R;
-import com.presidev.maos.mitramanagement.model.Book;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-public class BookmarkFragment extends Fragment implements BookmarkCallback {
-
-    RecyclerView recyclerView;
-    private static final String TAG = "BookmarkFragment";
-    private BookmarkViewModel favoriteViewModel;
-    private FirebaseUser firebaseUser;
-    private BookmarkAdapter adapter;
-    private FirebaseFirestore database;
-    private ImageView imgBookmark;
-    private TextView txtEmptyBookmark;
-    private List<String> listBookId = new ArrayList<>();
-
-    public BookmarkFragment() {
-        // Required empty public constructor
+class BookmarkFragment : Fragment(), BookmarkCallback {
+    private lateinit var recyclerView: RecyclerView
+    private var favoriteViewModel: BookmarkViewModel? = null
+    private var firebaseUser: FirebaseUser? = null
+    private var adapter: BookmarkAdapter? = null
+    private var database: FirebaseFirestore? = null
+    private var imgBookmark: ImageView? = null
+    private var txtEmptyBookmark: TextView? = null
+    private var listBookId: List<String> = ArrayList()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        firebaseUser = FirebaseAuth.getInstance().currentUser
+        favoriteViewModel = ViewModelProviders.of(this).get(BookmarkViewModel::class.java)
+        database = FirebaseFirestore.getInstance()
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        favoriteViewModel = ViewModelProviders.of(this).get(BookmarkViewModel.class);
-        database = FirebaseFirestore.getInstance();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookmark, container, false);
+        return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = view.findViewById(R.id.rv_bookmark);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        recyclerView.setHasFixedSize(true);
-        adapter = new BookmarkAdapter(getActivity());
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-        imgBookmark = view.findViewById(R.id.img_bookmark);
-        txtEmptyBookmark = view.findViewById(R.id.txt_bookmark_empty);
-
-        favoriteViewModel.getData().observe(getViewLifecycleOwner(), favorite -> {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.rv_bookmark)
+        recyclerView.setLayoutManager(GridLayoutManager(context, 2))
+        recyclerView.setHasFixedSize(true)
+        adapter = BookmarkAdapter(requireActivity())
+        adapter!!.notifyDataSetChanged()
+        recyclerView.setAdapter(adapter)
+        imgBookmark = view.findViewById(R.id.img_bookmark)
+        txtEmptyBookmark = view.findViewById(R.id.txt_bookmark_empty)
+        favoriteViewModel!!.data.observe(viewLifecycleOwner, { favorite: Bookmark ->
             // Kalo daftar favorit masih sama, jangan dimuat lagi
-            if (!listBookId.equals(favorite.getListBookId())){
-                listBookId = favorite.getListBookId();
+            if (listBookId != favorite.listBookId) {
+                listBookId = favorite.listBookId
                 // Muat semua produk menurut id yang difavoritkan
-                loadBookById();
+                loadBookById()
             }
-        });
+        })
+
+        view.sv_mitra_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
     }
 
-    private void loadBookById() {
-        ArrayList<Book> listItem = new ArrayList<>();
-        Iterator<String> iterator = listBookId.iterator();
-        while (iterator.hasNext()){
-            database.collection("book").document(iterator.next())
+    private fun loadBookById() {
+        val listItem = ArrayList<Book>()
+        val iterator = listBookId.iterator()
+        while (iterator.hasNext()) {
+            database!!.collection("book").document(iterator.next())
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()){
-                                Book product = task.getResult().toObject(Book.class);
-                                if (product != null) listItem.add(product);
-                                if (!iterator.hasNext()) onFinish(listItem); // Pemuatan id terakhir
-                            }
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val product = task.result!!.toObject(Book::class.java)
+                            if (product != null) listItem.add(product)
+                            if (!iterator.hasNext()) onFinish(listItem) // Pemuatan id terakhir
                         }
-                    });
+                    }
         }
     }
 
-    @Override
-    public void onFinish(ArrayList<Book> listItem) {
-        adapter.setData(listItem);
-        if (adapter.getItemCount() > 0) {
-            txtEmptyBookmark.setVisibility(View.INVISIBLE);
-            imgBookmark.setVisibility(View.INVISIBLE);
-        } else  {
-            txtEmptyBookmark.setVisibility(View.VISIBLE);
-            imgBookmark.setVisibility(View.VISIBLE);
+    override fun onFinish(listItem: ArrayList<Book>) {
+        adapter!!.data = listItem
+        if (adapter!!.itemCount > 0) {
+            txtEmptyBookmark!!.visibility = View.INVISIBLE
+            imgBookmark!!.visibility = View.INVISIBLE
+        } else {
+            txtEmptyBookmark!!.visibility = View.VISIBLE
+            imgBookmark!!.visibility = View.VISIBLE
         }
-        Log.d(TAG, "onFinish: " + listItem);
+        Log.d(TAG, "onFinish: $listItem")
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        favoriteViewModel.loadData(firebaseUser.getUid());
+    override fun onStart() {
+        super.onStart()
+        favoriteViewModel!!.loadData(firebaseUser!!.uid)
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        favoriteViewModel.loadData(firebaseUser.getUid());
+    override fun onResume() {
+        super.onResume()
+        favoriteViewModel!!.loadData(firebaseUser!!.uid)
     }
 
+    companion object {
+        private const val TAG = "BookmarkFragment"
+    }
 }
-
