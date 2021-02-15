@@ -9,17 +9,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.bookmark.view.BookmarkViewModel
 import com.presidev.maos.borrowbook.PeminjamanActivity
+import com.presidev.maos.login.preference.AccountPreference
 import com.presidev.maos.login.view.LoginActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
+import com.presidev.maos.profile.user.UserViewModel
 import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_book_detail.*
 
 class BookDetailActivity : AppCompatActivity() {
@@ -28,6 +31,7 @@ class BookDetailActivity : AppCompatActivity() {
     private var firebaseUser: FirebaseUser? = null
     var isFavorite: Boolean = false
     private lateinit var favoriteViewModel: BookmarkViewModel
+    private lateinit var userViewModel: UserViewModel
 
     companion object {
         const val EXTRA_BOOK = "extra_book"
@@ -37,7 +41,8 @@ class BookDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
 
-        favoriteViewModel = ViewModelProviders.of(this).get(BookmarkViewModel::class.java)
+        favoriteViewModel = ViewModelProvider(this).get(BookmarkViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val intent = intent?.extras
         book = intent?.getParcelable(EditBookActivity.EXTRA_BOOK)!!
@@ -50,6 +55,24 @@ class BookDetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (book.ketersediaan == true){
+            btn_peminjaman.isEnabled = true
+            btn_peminjaman.isClickable = true
+        } else {
+            btn_peminjaman.isEnabled = false
+            btn_peminjaman.isClickable = false
+        }
+
+        val accountPreference = AccountPreference(this)
+
+        if (accountPreference.level.equals(Constants.LEVEL_MITRA)) {
+            btn_peminjaman.isEnabled = false
+            btn_peminjaman.isClickable = false
+        } else if (accountPreference.level.equals(Constants.LEVEL_USER)){
+            btn_peminjaman.isEnabled = true
+            btn_peminjaman.isClickable = false
+        }
 
 
         val imageView = findViewById<ImageView>(R.id.img_book_detail)
@@ -79,6 +102,9 @@ class BookDetailActivity : AppCompatActivity() {
             txt_ketersediaan.setTextColor(ContextCompat.getColor(this, R.color.red))
         }
 
+
+
+
         txt_title.setText(book.title)
         txt_penulis.setText(book.penulis)
         txt_desc_book.setText(book.description)
@@ -101,9 +127,9 @@ class BookDetailActivity : AppCompatActivity() {
             // TODO : add remve favorite
             favoriteViewModel.data.observe(this, Observer { favorite ->
                 isFavorite = favorite.listBookId.contains(book.bookId)
-                if (isFavorite){
+                if (isFavorite) {
                     img_bookmark.setImageResource(R.drawable.ic_bookmark_filled)
-                }else {
+                } else {
                     img_bookmark.setImageResource(R.drawable.ic_bookmark_outline)
                 }
             })
@@ -136,7 +162,7 @@ class BookDetailActivity : AppCompatActivity() {
         if (firebaseUser != null) {
             // TODO : add remve favorite
             favoriteViewModel.loadData(firebaseUser!!.uid)
-
+            userViewModel.query(firebaseUser!!.uid)
         }
     }
 

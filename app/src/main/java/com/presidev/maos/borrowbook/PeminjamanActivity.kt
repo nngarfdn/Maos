@@ -2,7 +2,6 @@ package com.presidev.maos.borrowbook
 
 import android.Manifest
 import android.content.ActivityNotFoundException
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,7 +13,6 @@ import android.provider.MediaStore
 import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -30,27 +28,24 @@ import com.presidev.maos.subscribe.view.MembershipIntroActivity
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_peminjaman.*
 import java.io.ByteArrayOutputStream
-import java.lang.ClassCastException
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var userViewModel: UserViewModel
     private lateinit var memberCardViewModel: MemberCardViewModel
     private lateinit var mitraViewModel: MitraViewModel
-    private lateinit var book :  Book
+    private lateinit var book: Book
     private var uriIdCard: Uri? = null
     private lateinit var loadingDialog: LoadingDialog
-    private var waNumber : String? = null
+    private var waNumber: String? = null
 
-    private val RC_PROFILE_IMAGE = 100
-    private val RC_ID_CARD_IMAGE = 200
-    private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,16 +78,19 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
         mitraViewModel = ViewModelProvider(this).get(MitraViewModel::class.java)
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
 
-
-
         userViewModel.userLiveData.observe(this) { result ->
             edt_nama.setText(result.name)
             edt_alamat.setText(result.address)
-            loadImageFromUrl(imgUpload, result.idCard)
+            if (uriIdCard != null) {
+                loadImageFromUrl(imgUpload, uriIdCard.toString())
+            }else{
+                loadImageFromUrl(imgUpload, result.idCard)
+            }
+
         }
 
 
-        mitraViewModel.mitraLiveData.observe(this){result ->
+        mitraViewModel.mitraLiveData.observe(this) { result ->
             waNumber = result.whatsApp
 
         }
@@ -104,14 +102,9 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
 
         btn_choose_image.setOnClickListener {
-            val values = ContentValues()
-            values.put(MediaStore.Images.Media.TITLE, "Ambil foto identitas")
-            values.put(MediaStore.Images.Media.DESCRIPTION, "Menggunakan kamera")
-            uriIdCard = contentResolver.insert(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            val intentIdCard = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intentIdCard.putExtra(MediaStore.EXTRA_OUTPUT, uriIdCard)
-            startActivityForResult(intentIdCard, RC_ID_CARD_IMAGE)
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(Intent.createChooser(intent, "Unggah foto"), RC_ID_CARD_IMAGE)
         }
 
         txt_berlangganan.setOnClickListener {
@@ -123,9 +116,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
     }
 
     private fun loadMemberCode() {
-
         memberCardViewModel.memberCardListLiveData.observe(this) { result ->
-
             for (member in result) {
                 if (member.mitraId.equals(book.mitraId)) {
                     txt_member_code.setText(member.id)
@@ -135,8 +126,6 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                     txt_member_code.setText("-")
                     onClickPinjam("-")
                 }
-
-                onClickPinjam("-")
             }
         }
 
@@ -153,22 +142,27 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_ID_CARD_IMAGE) {
             if (resultCode == RESULT_OK) {
-                try {
-                    loadingDialog.show()
-
-                    val fileName: String = book.title + Calendar.getInstance().time.toString() + ".jpeg"
-                    userViewModel.uploadImage(this, uriIdCard, Constants.FOLDER_ID_CARD, fileName) { imageUrl: String? ->
-                        loadImageFromUrl(imgUpload, imageUrl)
-                        loadMemberCode()
+                if (data?.data != null) {
+                    uriIdCard = data.data
+                    loadImageFromUrl(imgUpload, uriIdCard.toString())
+                    try {
+                        loadingDialog.show()
+                        val fileName: String = book.title + Calendar.getInstance().time.toString() + ".jpeg"
                         onClickPinjam(txt_member_code.text.toString())
                         loadingDialog.dismiss()
+                        btn_choose_image.visibility = View.INVISIBLE
+                        //    userViewModel.uploadImage(this, uriIdCard, Constants.FOLDER_ID_CARD, fileName) { imageUrl: String? ->
+                        //    loadImageFromUrl(imgUpload, imageUrl)
+                        //    loadMemberCode()
+                        //
+                        //    loadingDialog.dismiss()
+                        //  }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        AppUtils.showToast(applicationContext, "Gagal mengunggah kartu identitas")
+                        loadingDialog.dismiss()
                     }
-
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    AppUtils.showToast(applicationContext, "Gagal mengunggah kartu identitas")
-                    loadingDialog.dismiss()
                 }
             }
         }
@@ -176,59 +170,67 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
     override fun onClickPinjam(code: String) {
         btn_simpan.setOnClickListener {
-
-
             Log.d(TAG, "onClickPinjam: $code")
             val nama = edt_nama.text.toString()
             val alamat = edt_alamat.text.toString()
 
-            imgUpload.buildDrawingCache()
-            val imgBitmap = Bitmap.createBitmap(imgUpload.getDrawingCache())
-            val imgBitmapPathFirst = MediaStore.Images.Media.insertImage(contentResolver, imgBitmap, "title", null)
-            val imgBitmapUriFirst = Uri.parse(imgBitmapPathFirst)
-
-            val bytes = ByteArrayOutputStream()
-            imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            val imgBitmapPath = MediaStore.Images.Media.insertImage(contentResolver, imgBitmap, "title", null)
-            val imgBitmapUri = Uri.parse(imgBitmapPath)
-            val whatsappIntent = Intent(Intent.ACTION_SEND)
-            whatsappIntent.type = "text/plain"
-            whatsappIntent.setPackage("com.whatsapp")
-            if (code.equals("-")) {
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
-                                "Nama   : $nama \n" +
-                                "Alamat : $alamat \n" +
-                                "Terima kasih kak \n")
-            } else if (code.isNotEmpty()) {
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
-                                "Nama        : $nama \n" +
-                                "Alamat      : $alamat \n" +
-                                "Kode Member : *${code}* \n" +
-                                "Terima kasih kak \n")
-            }
-
-            whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUriFirst)
-            whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net");
-            whatsappIntent.type = "image/jpeg"
-            whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            //     imgUpload.buildDrawingCache()
+            //    val imgBitmap = Bitmap.createBitmap(imgUpload.getDrawingCache())
+            //  val imgBitmapPathFirst = MediaStore.Images.Media.insertImage(contentResolver, imgBitmap, "title", null)
+            //  val imgBitmapUriFirst = Uri.parse(imgBitmapPathFirst)
 
             if (edt_nama.text.toString().isEmpty() || edt_alamat.text.toString().isEmpty()) {
                 Toast.makeText(this, "Lengkapi data dulu", Toast.LENGTH_SHORT).show()
-            } else {
-                try {
-                    startActivity(whatsappIntent)
-                } catch (ex: ActivityNotFoundException) {
-                    Toast.makeText(this, "Whatsapp belum terinstall", Toast.LENGTH_SHORT).show()
-                } catch (e: ClassCastException) {
-                    Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
+            } else
+            try {
+                val imgBitmap = (imgUpload.getDrawable() as BitmapDrawable).bitmap
+                val bytes = ByteArrayOutputStream()
+                imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                val imgBitmapPath = MediaStore.Images.Media.insertImage(
+                        applicationContext.getContentResolver(), imgBitmap, "IMG_" + System.currentTimeMillis(), null
+                );
+                val imgBitmapUri = Uri.parse(imgBitmapPath)
+                val whatsappIntent = Intent(Intent.ACTION_SEND)
+                whatsappIntent.type = "text/plain"
+                whatsappIntent.setPackage("com.whatsapp")
+                if (code.equals("-")) {
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
+                                    "Nama   : $nama \n" +
+                                    "Alamat : $alamat \n" +
+                                    "Terima kasih kak \n")
+                } else if (code.isNotEmpty()) {
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
+                                    "Nama        : $nama \n" +
+                                    "Alamat      : $alamat \n" +
+                                    "Kode Member : *${code}* \n" +
+                                    "Terima kasih kak \n")
                 }
+
+                whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
+                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net");
+                whatsappIntent.type = "image/jpeg"
+                whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                    try {
+                        startActivity(whatsappIntent)
+                    } catch (ex: ActivityNotFoundException) {
+                        Toast.makeText(this, "Whatsapp belum terinstall", Toast.LENGTH_SHORT).show()
+                    } catch (e: ClassCastException) {
+                        Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
+                    }
+
+            }catch (e: ClassCastException) {
+                Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: " + e)
+                Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    companion object{
+    companion object {
         private const val TAG = "PeminjamanActivity"
+        private const val RC_ID_CARD_IMAGE = 100
+        private const val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100
     }
 }

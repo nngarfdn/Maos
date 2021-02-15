@@ -11,6 +11,7 @@ import com.presidev.maos.utils.AppUtils.hideStatusBar
 import com.presidev.maos.utils.Constants.EXTRA_LEVEL
 import me.ibrahimsn.lib.SmoothBottomBar
 
+
 class App : AppCompatActivity() {
     private var firebaseUser: FirebaseUser? = null
     private var viewPager: ViewPager? = null

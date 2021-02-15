@@ -154,7 +154,7 @@
                 android:layout_marginHorizontal="@dimen/text_margin"
                 android:text="@string/large_text" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_peminjaman"
                 style="@style/Button.Primary"
                 android:layout_width="match_parent"
