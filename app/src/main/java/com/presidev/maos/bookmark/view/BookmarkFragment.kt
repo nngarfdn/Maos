@@ -72,9 +72,7 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
                 adapter!!.filter.filter(newText)
                 return false
             }
-
         })
-
     }
 
     private fun loadBookById() {

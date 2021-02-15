@@ -200,7 +200,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                                 "Nama   : $nama \n" +
                                 "Alamat : $alamat \n" +
                                 "Terima kasih kak \n")
-            } else {
+            } else if (code.isNotEmpty()) {
                 whatsappIntent.putExtra(Intent.EXTRA_TEXT,
                         "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
                                 "Nama        : $nama \n" +
