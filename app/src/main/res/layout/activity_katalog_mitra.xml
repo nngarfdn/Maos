@@ -16,6 +16,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_bookcatalog"
+        style="@style/RecyclerView"
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
@@ -32,6 +33,6 @@
         app:srcCompat="@android:drawable/ic_input_add"
         app:tint="@color/white"
         android:focusable="true"
-        android:layout_margin="32dp"
+        android:layout_margin="24dp"
         tools:ignore="ContentDescription" />
 </RelativeLayout>

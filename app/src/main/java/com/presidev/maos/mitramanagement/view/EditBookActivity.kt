@@ -90,7 +90,7 @@ class EditBookActivity : AppCompatActivity() {
                     }.create().show()
         }
 
-
+        edt_description.setOnTouchListener(AppUtils.scrollableListener);
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -11,8 +11,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.presidev.maos.utils.AppUtils.showToast
+import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
 import java.sql.Timestamp
 import java.util.*
@@ -67,6 +66,7 @@ class AddBookActivity : AppCompatActivity() {
 
         }
 
+        edt_description.setOnTouchListener(scrollableListener);
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

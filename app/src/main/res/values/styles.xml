@@ -112,5 +112,6 @@
         <item name="titleTextColor">@color/white</item>
         <item name="android:background">@color/orange</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:elevation" tools:targetApi="lollipop">8dp</item>
     </style>
 </resources>
