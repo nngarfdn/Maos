@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -56,22 +57,20 @@ class BookDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (book.ketersediaan == true){
-            btn_peminjaman.isEnabled = true
-            btn_peminjaman.isClickable = true
-        } else {
-            btn_peminjaman.isEnabled = false
-            btn_peminjaman.isClickable = false
-        }
-
         val accountPreference = AccountPreference(this)
+        if (accountPreference.level != null){
+            if (accountPreference.level.equals(Constants.LEVEL_MITRA) || book.ketersediaan == false ) {
+                btn_peminjaman.isEnabled = false
 
-        if (accountPreference.level.equals(Constants.LEVEL_MITRA)) {
-            btn_peminjaman.isEnabled = false
-            btn_peminjaman.isClickable = false
-        } else if (accountPreference.level.equals(Constants.LEVEL_USER)){
-            btn_peminjaman.isEnabled = true
-            btn_peminjaman.isClickable = false
+            } else if (accountPreference.level.equals(Constants.LEVEL_USER) || book.ketersediaan == true){
+                btn_peminjaman.isEnabled = true
+            }
+        } else {
+            if (book.ketersediaan == false ) {
+                btn_peminjaman.isEnabled = false
+            } else if ( book.ketersediaan == true){
+                btn_peminjaman.isEnabled = true
+            }
         }
 
 
