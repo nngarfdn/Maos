@@ -29,6 +29,7 @@ import com.presidev.maos.R;
 import com.presidev.maos.bookdetail.BookDetailActivity;
 import com.presidev.maos.borrowbook.PeminjamanActivity;
 import com.presidev.maos.customview.LoadingDialog;
+import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.mitramanagement.model.Book;
 import com.presidev.maos.profile.user.User;
@@ -105,7 +106,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) launchMain();
+        if (currentUser != null) {
+            AccountPreference accountPreference = new AccountPreference(this);
+            authenticatedUserLevel = accountPreference.getLevel();
+            launchMain();
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
