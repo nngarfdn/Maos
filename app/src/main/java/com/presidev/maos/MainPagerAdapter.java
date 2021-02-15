@@ -29,11 +29,11 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
                 return new DashboardFragment();
 
             case 1:
-                if (userLevel == null) return new ProfileFragment();
+                if (userLevel == null) return new UnauthenticatedFragment();
                 else if (userLevel.equals(LEVEL_MITRA) || userLevel.equals(LEVEL_USER)) return new BookmarkFragment();
 
             case 2:
-                if (userLevel == null) return new ProfileFragment();
+                if (userLevel == null) return new UnauthenticatedFragment();
                 else if (userLevel.equals(LEVEL_MITRA)) return new MitraProfileFragment();
                 else if (userLevel.equals(LEVEL_USER)) return new UserProfileFragment();
 

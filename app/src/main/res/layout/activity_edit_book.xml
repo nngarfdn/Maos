@@ -26,7 +26,7 @@
 
             <include layout="@layout/layout_add_update_buku" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btn_delete"
                 style="@style/Button.Secondary"
                 android:layout_width="match_parent"

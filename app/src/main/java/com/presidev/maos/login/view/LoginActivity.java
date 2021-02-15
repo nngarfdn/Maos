@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText edtEmail, edtPassword;
 
-    private String loggedInUserLevel;
+    private String authenticatedUserLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 userViewModel.insert(user);
             }
 
-            loggedInUserLevel = account.getLevel();
+            authenticatedUserLevel = account.getLevel();
             loadingDialog.dismiss();
             launchMain();
         });
@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             intent = new Intent(this, App.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra(EXTRA_LEVEL, loggedInUserLevel);
+            intent.putExtra(EXTRA_LEVEL, authenticatedUserLevel);
         }
         startActivity(intent);
         finish();

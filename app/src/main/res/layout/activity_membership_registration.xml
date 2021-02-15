@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        app:title="Berlangganan 30 Hari" />
+        app:title="Berlangganan" />
 
     <ScrollView
         style="@style/ScrollView"
@@ -23,6 +23,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_package_mr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paket Berlangganan 30 Hari"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_md"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp10.000"
+                        android:textColor="@color/white"
+                        android:background="@color/orange"
+                        android:padding="4dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_mitra_mr"
@@ -113,15 +147,6 @@
                 android:hint="Email"
                 android:inputType="none"
                 android:editable="false"/>
-
-            <EditText
-                android:id="@+id/edt_address_mr"
-                style="@style/EditText.MultiLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Alamat lengkap"
-                android:lines="4"
-                android:maxLines="4"/>
 
             <Button
                 android:id="@+id/btn_submit_mr"

@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:paddingTop="16dp"
     android:paddingHorizontal="32dp"
+    android:paddingBottom="32dp"
     tools:context=".mitrabookcatalog.view.InformationDialog">
 
 
     <ImageView
         android:id="@+id/img_top"
-        android:src="@drawable/top_bottomsheet"
+        android:src="@drawable/ic_pull"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

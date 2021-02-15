@@ -14,19 +14,19 @@ import android.widget.Button;
 
 import com.presidev.maos.login.view.LoginActivity;
 
-public class ProfileFragment extends Fragment {
-    public ProfileFragment() {}
+public class UnauthenticatedFragment extends Fragment {
+    public UnauthenticatedFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_unauthenticated, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button btnLogin = view.findViewById(R.id.btn_login_profile);
+        Button btnLogin = view.findViewById(R.id.btn_login_unauthenticated);
         btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
