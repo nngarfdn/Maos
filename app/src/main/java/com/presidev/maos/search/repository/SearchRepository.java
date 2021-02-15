@@ -62,6 +62,7 @@ public class SearchRepository {
     }
 
     public void query(BookFilter filter) {
+
         Query query = database.collection("book")
                 .whereEqualTo("mitraId", filter.getMitraId());
 

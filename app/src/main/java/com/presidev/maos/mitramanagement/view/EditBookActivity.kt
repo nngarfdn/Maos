@@ -77,6 +77,7 @@ class EditBookActivity : AppCompatActivity() {
             }
 
         }
+        btn_delete.setText("Hapus")
 
         btn_delete.setOnClickListener {
             AlertDialog.Builder(this)
