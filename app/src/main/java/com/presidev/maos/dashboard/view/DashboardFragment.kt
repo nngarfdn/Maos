@@ -1,8 +1,10 @@
 package com.presidev.maos.dashboard.view
 
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.presidev.maos.R
 import com.presidev.maos.dashboard.model.Slider
 import com.presidev.maos.search.view.SearchActivity
+import com.presidev.maos.subscribe.view.MembershipRegistrationActivity
+import com.presidev.maos.utils.AppUtils
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -27,6 +31,7 @@ class DashboardFragment : Fragment() {
 
     companion object{
         private const val TAG = "DashboardFragment"
+        private const val ADMIN_PHONE_NUMBER = "6287838804270"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +61,9 @@ class DashboardFragment : Fragment() {
 
         adapter = SliderAdapter(context)
 
-        adapter.addItem(Slider("https://lh3.googleusercontent.com/proxy/UUgs-tHSUQygir4eUBnHYOOztsXOidDYjsIyQHCtWrGMiulXUbwvwdeuOvUkr_SThHsTmT3gfK__6r28RjbFGbcK7JH7-fS5PpgQneBBVsKVbJJwUZgsSQ"))
-        adapter.addItem(Slider("https://i.pinimg.com/originals/71/d6/71/71d671919e929493e33816336f625355.jpg"))
-        adapter.addItem(Slider("https://i.pinimg.com/736x/70/b8/e2/70b8e25d04a4e79f4ea15893bfcc4f91.jpg"))
+        adapter.addItem(Slider("https://i.imgur.com/g6rZGhw.png"))
+        adapter.addItem(Slider("https://i.imgur.com/HDcDGcn.png"))
+        adapter.addItem(Slider("https://i.imgur.com/pS4Yr5R.png"))
         sliderView.setSliderAdapter(adapter)
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
 
@@ -73,6 +78,21 @@ class DashboardFragment : Fragment() {
         view.edt_search.setOnClickListener{
             val intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
+        }
+
+        view.btn_daftar_penyedia.setOnClickListener {
+            try {
+                val whatsappIntent = Intent("android.intent.action.SEND")
+                whatsappIntent.component = ComponentName("com.whatsapp", "com.whatsapp.ContactPicker")
+                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(ADMIN_PHONE_NUMBER) + "@s.whatsapp.net")
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, """
+                Halo kak, saya ingin mendaftar sebagai penyedia buku di aplikasi *Maos*, apakah bisa kak ?
+                """.trimIndent())
+                startActivity(whatsappIntent)
+            } catch (e: Exception) {
+                Log.e(javaClass.simpleName, "Error on sharing: $e")
+                AppUtils.showToast(view.context, "Kamu belum punya aplikasi WhatsApp")
+            }
         }
 
 

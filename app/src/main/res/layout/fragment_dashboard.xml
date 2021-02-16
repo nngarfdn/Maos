@@ -22,7 +22,7 @@
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderIndicatorAnimationDuration="600"
@@ -62,8 +62,17 @@
             android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"/>
 
-        <View
+        <Button
+            android:id="@+id/btn_daftar_penyedia"
+            android:layout_width="match_parent"
             android:layout_below="@+id/rv_mitra"
+            android:layout_marginTop="24dp"
+            style="@style/Button.Secondary"
+            android:text="Daftar Jadi Penyedia Buku"
+            android:layout_marginHorizontal="32dp"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_below="@+id/btn_daftar_penyedia"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
     </RelativeLayout>
