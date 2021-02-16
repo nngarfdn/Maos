@@ -3,6 +3,7 @@ package com.presidev.maos.utils;
 public interface Constants {
     String LEVEL_USER = "user";
     String LEVEL_MITRA = "mitra";
+    String LEVEL_DEVELOPER = "developer";
 
     String FOLDER_PROFILE = "profile";
     String FOLDER_ID_CARD = "idCard";

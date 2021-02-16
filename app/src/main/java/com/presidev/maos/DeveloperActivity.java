@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.login.view.MitraRegistrationActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.subscribe.view.AddMemberCardActivity;
+import com.presidev.maos.welcome.view.SplashActivity;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
 
@@ -35,6 +36,15 @@ public class DeveloperActivity extends AppCompatActivity implements View.OnClick
         btnRegisterMitra.setOnClickListener(this);
         btnAddMemberCard.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+
+        authViewModel.getUserLiveData().observe(this, account -> {
+            this.firebaseUser = account.getFirebaseUser();
+            if (firebaseUser == null) {
+                showToast(this, "Berhasil keluar akun");
+                Intent intent1 = new Intent(this, SplashActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 
     @Override
@@ -61,10 +71,18 @@ public class DeveloperActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.btn_logout_dev:
                 authViewModel.logout();
+                Intent i = new Intent(this, SplashActivity.class);
+                startActivity(i);
                 authViewModel.getUserLiveData().observe(this, account -> {
                     this.firebaseUser = account.getFirebaseUser();
-                    if (firebaseUser == null) showToast(this, "Berhasil keluar akun");
+                    if (firebaseUser == null) {
+                        showToast(this, "Berhasil keluar akun");
+                        Intent intent1 = new Intent(this, SplashActivity.class);
+                        startActivity(intent1);
+                    }
                 });
+
+
                 break;
         }
     }

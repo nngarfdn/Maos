@@ -1,5 +1,7 @@
 package com.presidev.maos;
 
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -7,9 +9,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.presidev.maos.bookmark.view.BookmarkFragment;
 import com.presidev.maos.dashboard.view.DashboardFragment;
+import com.presidev.maos.developer.DeveloperFragment;
 import com.presidev.maos.profile.mitra.MitraProfileFragment;
 import com.presidev.maos.profile.user.UserProfileFragment;
 
+import static com.presidev.maos.utils.Constants.LEVEL_DEVELOPER;
 import static com.presidev.maos.utils.Constants.LEVEL_MITRA;
 import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
@@ -26,17 +30,20 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new DashboardFragment();
+                if (userLevel == null) return new DashboardFragment();
+                else if (userLevel.equals(LEVEL_MITRA) || userLevel.equals(LEVEL_USER)) return new DashboardFragment();
+                else if (userLevel.equals(LEVEL_DEVELOPER)) return new DeveloperFragment();
 
             case 1:
                 if (userLevel == null) return new UnauthenticatedFragment();
                 else if (userLevel.equals(LEVEL_MITRA) || userLevel.equals(LEVEL_USER)) return new BookmarkFragment();
+                else if (userLevel.equals(LEVEL_DEVELOPER)) return new DeveloperFragment();
 
             case 2:
                 if (userLevel == null) return new UnauthenticatedFragment();
                 else if (userLevel.equals(LEVEL_MITRA)) return new MitraProfileFragment();
                 else if (userLevel.equals(LEVEL_USER)) return new UserProfileFragment();
-
+                else if (userLevel.equals(LEVEL_DEVELOPER)) return new DeveloperFragment();
             default:
                 return new Fragment();
         }
