@@ -85,7 +85,7 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
             case R.id.cv_package_mr:
                 new AlertDialog.Builder(this)
                         .setTitle("Info paket")
-                        .setMessage("Paket berlangganan 30 hari Rp10.000 berlaku setelah pembayaran dikonfirmasi oleh admin melalui WhatsApp.")
+                        .setMessage("Paket berlangganan 30 hari Rp10.000 per penyedia buku berlaku setelah pembayaran dikonfirmasi oleh admin melalui WhatsApp.")
                         .setPositiveButton("Oke", null)
                         .create().show();
                 break;

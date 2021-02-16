@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dengan menjadi member, kamu bisa mendapatkan beberapa keuntungan, seperti melakukan peminjaman dengan waktu yang lebih lama serta melakukan peminjaman untuk lebih dari 1 buku."
+                android:text="Dengan menjadi member, kamu bisa mendapatkan beberapa keuntungan sesuai dengan ketentuan penyedia buku, seperti melakukan peminjaman dengan waktu yang lebih lama ataupun melakukan peminjaman untuk lebih dari 1 buku."
                 android:textColor="@color/black"/>
         </LinearLayout>
 

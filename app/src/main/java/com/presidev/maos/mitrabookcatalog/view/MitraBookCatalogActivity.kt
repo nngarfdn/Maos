@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.presidev.maos.R
 import com.presidev.maos.profile.mitra.Mitra
-import com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl
-import com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl
+import com.presidev.maos.utils.AppUtils.*
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
@@ -40,7 +39,7 @@ class MitraBookCatalogActivity : AppCompatActivity() {
 
         txt_mitra_name.setText(mitra.name)
         txt_mitra_description.setText(mitra.description)
-        txt_address_mitra.setText(mitra.address)
+        txt_address_mitra.setText(setFullAddress(mitra.address, mitra.province, mitra.regency, mitra.district))
 
         mitraBookViewModel =  ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MitraBookViewModel::class.java)
 

@@ -101,6 +101,7 @@
                     android:layout_width="280dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_height="wrap_content"
                     android:text="Mantrijeron, Kota Yogyakarta, DI Yogyakarta"
                     android:textColor="@color/white"

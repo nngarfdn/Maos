@@ -31,6 +31,7 @@ import com.presidev.maos.subscribe.view.MembershipIntroActivity
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.utils.AppUtils.setFullAddress
 import com.presidev.maos.utils.Constants.LEVEL_MITRA
 import com.presidev.maos.utils.Constants.LEVEL_USER
 import kotlinx.android.synthetic.main.activity_peminjaman.*
@@ -78,7 +79,6 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                         MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
                 // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
                 // app-defined int constant that should be quite unique
-                return
             }
         }
 
@@ -94,7 +94,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
         userViewModel.userLiveData.observe(this) { result ->
             edt_nama.setText(result.name)
-            edt_alamat.setText(result.address)
+            edt_alamat.setText(setFullAddress(result.address, result.province, result.regency, result.district))
             if (uriIdCard != null) {
                 loadImageFromUrl(imgUpload, uriIdCard.toString())
             }else{
