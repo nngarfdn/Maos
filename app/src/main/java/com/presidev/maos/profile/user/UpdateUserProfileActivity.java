@@ -43,6 +43,7 @@ import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
 public class UpdateUserProfileActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final int RC_PROFILE_IMAGE = 100;
     private static final int RC_ID_CARD_IMAGE = 200;
+    private static final int RC_WRITE_EXTERNAL_STORAGE = 100;
 
     private LoadingDialog loadingDialog;
     private LocationViewModel locationViewModel;
@@ -56,7 +57,6 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
     private Uri uriIdCard;
 
     private ArrayList<Location> provinceList, regencyList;
-    private int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +74,9 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                 }
 
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        RC_WRITE_EXTERNAL_STORAGE);
                 // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
                 // app-defined int constant that should be quite unique
-
-                return;
             }
         }
 
@@ -137,6 +135,13 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
                 break;
 
             case R.id.btn_id_card_uup:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        showToast(this, "Maos tidak punya izin untuk menyimpan foto");
+                        return;
+                    }
+                }
+
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Images.Media.TITLE, "Ambil foto identitas");
                 values.put(MediaStore.Images.Media.DESCRIPTION, "Menggunakan kamera");

@@ -37,6 +37,12 @@ public class DeveloperActivity extends AppCompatActivity implements View.OnClick
         btnLogout.setOnClickListener(this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {

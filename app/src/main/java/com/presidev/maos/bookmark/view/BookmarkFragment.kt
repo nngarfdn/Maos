@@ -18,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.presidev.maos.R
 import com.presidev.maos.bookmark.model.Bookmark
 import com.presidev.maos.mitramanagement.model.Book
-import kotlinx.android.synthetic.main.layout_bookmark.*
 import kotlinx.android.synthetic.main.layout_bookmark.view.*
 import java.util.*
 
@@ -77,17 +76,20 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
 
     private fun loadBookById() {
         val listItem = ArrayList<Book>()
-        val iterator = listBookId.iterator()
-        while (iterator.hasNext()) {
-            database!!.collection("book").document(iterator.next())
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val product = task.result!!.toObject(Book::class.java)
-                            if (product != null) listItem.add(product)
-                            if (!iterator.hasNext()) onFinish(listItem) // Pemuatan id terakhir
+        if (listBookId.size == 0) onFinish(listItem)
+        else{
+            val iterator = listBookId.iterator()
+            while (iterator.hasNext()) {
+                database!!.collection("book").document(iterator.next())
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val product = task.result!!.toObject(Book::class.java)
+                                if (product != null) listItem.add(product)
+                                if (!iterator.hasNext()) onFinish(listItem) // Pemuatan id terakhir
+                            }
                         }
-                    }
+            }
         }
     }
 

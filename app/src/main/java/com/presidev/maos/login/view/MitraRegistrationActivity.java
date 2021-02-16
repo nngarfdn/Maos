@@ -80,7 +80,7 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
 
             loadingDialog.dismiss();
             showToast(this, "Akun mitra berhasil dibuat");
-            authViewModel.logout();
+            onBackPressed();
         });
     }
 

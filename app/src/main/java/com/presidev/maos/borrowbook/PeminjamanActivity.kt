@@ -2,6 +2,7 @@ package com.presidev.maos.borrowbook
 
 import android.Manifest
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,12 +15,14 @@ import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.customview.LoadingDialog
+import com.presidev.maos.login.preference.AccountPreference
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.profile.mitra.MitraViewModel
@@ -28,6 +31,8 @@ import com.presidev.maos.subscribe.view.MembershipIntroActivity
 import com.presidev.maos.subscribe.viewmodel.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.utils.Constants.LEVEL_MITRA
+import com.presidev.maos.utils.Constants.LEVEL_USER
 import kotlinx.android.synthetic.main.activity_peminjaman.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -44,12 +49,20 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
     private var uriIdCard: Uri? = null
     private lateinit var loadingDialog: LoadingDialog
     private var waNumber: String? = null
-
-
+    private val accountPreference : AccountPreference = AccountPreference(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_peminjaman)
+
+        if (accountPreference.level == LEVEL_MITRA){
+            AlertDialog.Builder(this)
+                    .setTitle("Tidak bisa meminjam buku")
+                    .setMessage("Penyedia buku tidak bisa meminjam buku")
+                    .setPositiveButton("Kembali") { dialogInterface: DialogInterface?, i: Int -> onBackPressed() }
+                    .setCancelable(false)
+                    .create().show()
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -133,9 +146,11 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
     override fun onStart() {
         super.onStart()
-        userViewModel.query(firebaseUser.uid)
-        memberCardViewModel.queryByUserId(firebaseUser.uid)
-        mitraViewModel.query(book.mitraId)
+        if (accountPreference.level == LEVEL_USER){
+            userViewModel.query(firebaseUser.uid)
+            memberCardViewModel.queryByUserId(firebaseUser.uid)
+            mitraViewModel.query(book.mitraId)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
