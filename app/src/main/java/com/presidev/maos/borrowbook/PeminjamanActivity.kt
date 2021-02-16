@@ -49,13 +49,14 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
     private var uriIdCard: Uri? = null
     private lateinit var loadingDialog: LoadingDialog
     private var waNumber: String? = null
-    private val accountPreference : AccountPreference = AccountPreference(this)
+    private var accountPreference : AccountPreference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_peminjaman)
 
-        if (accountPreference.level == LEVEL_MITRA){
+        accountPreference = AccountPreference(this)
+        if (accountPreference!!.level == LEVEL_MITRA){
             AlertDialog.Builder(this)
                     .setTitle("Tidak bisa meminjam buku")
                     .setMessage("Penyedia buku tidak bisa meminjam buku")
@@ -146,7 +147,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
     override fun onStart() {
         super.onStart()
-        if (accountPreference.level == LEVEL_USER){
+        if (accountPreference!!.level == LEVEL_USER){
             userViewModel.query(firebaseUser.uid)
             memberCardViewModel.queryByUserId(firebaseUser.uid)
             mitraViewModel.query(book.mitraId)
