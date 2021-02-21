@@ -19,8 +19,7 @@
             android:id="@+id/img_book_catalog"
             style="@style/ImageView"
             android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:src="@drawable/examplebook" />
+            android:layout_height="150dp" />
 
         <TextView
             android:id="@+id/txt_book_title"

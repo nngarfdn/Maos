@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.telephony.PhoneNumberUtils
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -106,7 +107,17 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
         mitraViewModel.mitraLiveData.observe(this) { result ->
             waNumber = result.whatsApp
-
+            if (!TextUtils.isDigitsOnly(waNumber)){
+                val uri = Uri.parse("http://instagram.com/_u/" + waNumber)
+                val likeIng = Intent(Intent.ACTION_VIEW, uri)
+                likeIng.setPackage("com.instagram.android")
+                try {
+                    startActivity(likeIng)
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + waNumber)))
+                }
+                finish()
+            }
         }
 
         loadMemberCode()

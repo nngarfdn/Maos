@@ -53,12 +53,11 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_book_catalog"
+                    style="@style/ImageView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="50dp"
-                    android:src="@drawable/mitralogo"
-                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

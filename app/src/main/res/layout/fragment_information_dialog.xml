@@ -31,14 +31,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/img_book_info"
+        style="@style/ImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
         android:layout_below="@+id/txt_info_peminjam"
-        android:src="@drawable/mitralogo"
-        android:scaleType="centerCrop"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/txt_book_title_info"

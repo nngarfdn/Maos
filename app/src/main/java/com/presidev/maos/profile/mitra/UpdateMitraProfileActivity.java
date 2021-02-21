@@ -10,7 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -145,14 +145,15 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
                         address.isEmpty() || rules.isEmpty()){
                     if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
                     if (description.isEmpty()) edtDescription.setError("Masukkan deskripsi");
-                    if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
+                    if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp/nama pengguna Instagram");
                     if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
                     if (rules.isEmpty()) edtRules.setError("Masukkan peraturan peminjaman");
                     showToast(this, "Pastikan data yang diisi lengkap");
                     return;
                 }
 
-                if (!isValidPhone(whatsApp)){
+                boolean isWA = TextUtils.isDigitsOnly(whatsApp);
+                if (isWA && !isValidPhone(whatsApp)){
                     edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
                     showToast(this, "Awali nomor WhatsApp dengan 62");
                     return;
