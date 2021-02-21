@@ -61,6 +61,31 @@ public class SearchRepository {
         });
     }
 
+    public void query(MitraFilter filter, boolean isMembership) {
+        database.collection("mitra")
+                .whereEqualTo("membership", isMembership)
+                .get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    ArrayList<Mitra> listMitra = new ArrayList<>();
+                    QuerySnapshot querySnapshot = task.getResult();
+
+                    for (DocumentSnapshot snapshot : querySnapshot) {
+                        Mitra mitra = snapshot.toObject(Mitra.class);
+                        if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
+                                mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase())){
+                            if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
+                            if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
+                            listMitra.add(mitra);
+                        }
+                        Log.d(TAG, "mitra.getName(): " + mitra.getName());
+                    }
+
+                    mitraLiveData.postValue(listMitra);
+                    Log.d(TAG, "Document was queried");
+                } else Log.w(TAG, "Error querying document", task.getException());
+            });
+    }
+
     public void query(BookFilter filter) {
 
         Query query = database.collection("book")

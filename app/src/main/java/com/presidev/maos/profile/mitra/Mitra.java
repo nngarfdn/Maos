@@ -18,10 +18,11 @@ public class Mitra implements Parcelable {
     private String rules;
     private boolean COD;
     private boolean kirimLuarKota;
+    private boolean membership;
 
     public Mitra() {}
 
-    public Mitra(String id, String logo, String banner, String name, String email, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota) {
+    public Mitra(String id, String logo, String banner, String name, String email, String description, String whatsApp, String address, String province, String regency, String district, String rules, boolean COD, boolean kirimLuarKota, boolean membership) {
         this.id = id;
         this.logo = logo;
         this.banner = banner;
@@ -36,6 +37,7 @@ public class Mitra implements Parcelable {
         this.rules = rules;
         this.COD = COD;
         this.kirimLuarKota = kirimLuarKota;
+        this.membership = membership;
     }
 
     protected Mitra(Parcel in) {
@@ -53,6 +55,7 @@ public class Mitra implements Parcelable {
         rules = in.readString();
         COD = in.readByte() != 0;
         kirimLuarKota = in.readByte() != 0;
+        membership = in.readByte() != 0;
     }
 
     @Override
@@ -71,6 +74,7 @@ public class Mitra implements Parcelable {
         dest.writeString(rules);
         dest.writeByte((byte) (COD ? 1 : 0));
         dest.writeByte((byte) (kirimLuarKota ? 1 : 0));
+        dest.writeByte((byte) (membership ? 1 : 0));
     }
 
     @Override
@@ -200,5 +204,13 @@ public class Mitra implements Parcelable {
 
     public void setKirimLuarKota(boolean kirimLuarKota) {
         this.kirimLuarKota = kirimLuarKota;
+    }
+
+    public boolean isMembership() {
+        return membership;
+    }
+
+    public void setMembership(boolean membership) {
+        this.membership = membership;
     }
 }

@@ -1,5 +1,6 @@
 package com.presidev.maos.developer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,24 +20,13 @@ import com.presidev.maos.R;
 import com.presidev.maos.login.view.MitraRegistrationActivity;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.subscribe.view.AddMemberCardActivity;
-
-import static com.presidev.maos.utils.AppUtils.showToast;
+import com.presidev.maos.welcome.view.SplashActivity;
 
 public class DeveloperFragment extends Fragment implements View.OnClickListener {
-
     private AuthViewModel authViewModel;
     private FirebaseUser firebaseUser;
 
-    public DeveloperFragment() {
-        // Required empty public constructor
-    }
-
-    public static DeveloperFragment newInstance(String param1, String param2) {
-        DeveloperFragment fragment = new DeveloperFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    public DeveloperFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,9 +36,7 @@ public class DeveloperFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_developer, container, false);
     }
 
@@ -63,14 +51,13 @@ public class DeveloperFragment extends Fragment implements View.OnClickListener 
         btnLogout.setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_register_mitra_dev:
-                if (firebaseUser == null){
-                    Intent intent = new Intent(requireActivity(), MitraRegistrationActivity.class);
-                    startActivity(intent);
-                } else showToast(requireActivity(), "Kamu sudah masuk");
+                Intent intentRegisterMitra = new Intent(requireActivity(), MitraRegistrationActivity.class);
+                startActivity(intentRegisterMitra);
                 break;
 
             case R.id.btn_add_member_card_dev:
@@ -82,7 +69,11 @@ public class DeveloperFragment extends Fragment implements View.OnClickListener 
                 authViewModel.logout();
                 authViewModel.getUserLiveData().observe(this, account -> {
                     this.firebaseUser = account.getFirebaseUser();
-                    if (firebaseUser == null) showToast(getContext(), "Berhasil keluar akun");
+                    if (firebaseUser == null) {
+                        Intent intentRestart = new Intent(getContext(), SplashActivity.class);
+                        startActivity(intentRestart);
+                        getActivity().finish();
+                    }
                 });
                 break;
         }

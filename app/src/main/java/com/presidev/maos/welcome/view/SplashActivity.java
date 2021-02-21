@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.presidev.maos.App;
-import com.presidev.maos.MainActivity;
 import com.presidev.maos.R;
 
 public class SplashActivity extends AppCompatActivity {

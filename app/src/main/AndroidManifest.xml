@@ -32,7 +32,6 @@
         <activity android:name=".about.AboutActivity" />
         <activity android:name=".search.view.SearchTestActivity" />
         <activity android:name=".profile.mitra.MemberListActivity" />
-        <activity android:name=".DeveloperActivity"/>
         <activity android:name=".subscribe.view.AddMemberCardActivity" />
         <activity android:name=".subscribe.view.MembershipIntroActivity" />
         <activity android:name=".subscribe.view.MembershipRegistrationActivity" />
@@ -56,7 +55,6 @@
         <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity" />
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
         <activity android:name=".bookdetail.BookDetailActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -26,6 +26,10 @@ public class SearchViewModel extends ViewModel {
         repository.query(filter);
     }
 
+    public void query(MitraFilter filter, boolean isMembership){
+        repository.query(filter, isMembership);
+    }
+
     public void query(BookFilter filter){
         repository.query(filter);
     }

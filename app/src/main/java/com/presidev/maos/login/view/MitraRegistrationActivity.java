@@ -75,12 +75,12 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
             mitra.setId(account.getId());
             mitra.setName(name);
             mitra.setEmail(account.getEmail());
+            mitra.setMembership(true);
             MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
             mitraViewModel.insert(mitra);
 
             loadingDialog.dismiss();
             showToast(this, "Akun mitra berhasil dibuat");
-            onBackPressed();
         });
     }
 

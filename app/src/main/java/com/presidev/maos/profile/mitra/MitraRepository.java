@@ -124,6 +124,7 @@ public class MitraRepository {
         document.put("rules", mitra.getRules());
         document.put("cod", mitra.isCOD());
         document.put("kirimLuarKota", mitra.isKirimLuarKota());
+        document.put("membership", mitra.isMembership());
         return document;
     }
 }

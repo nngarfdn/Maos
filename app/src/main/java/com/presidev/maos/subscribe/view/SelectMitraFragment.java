@@ -1,8 +1,6 @@
 package com.presidev.maos.subscribe.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,9 +22,6 @@ import com.presidev.maos.search.model.MitraFilter;
 import com.presidev.maos.search.viewmodel.SearchViewModel;
 import com.presidev.maos.subscribe.adapter.SelectMitraAdapter;
 import com.presidev.maos.utils.ShimmerHelper;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 public class SelectMitraFragment extends BottomSheetDialogFragment {
     private SelectMitraAdapter adapter;
@@ -63,7 +58,7 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
         });
 
         MitraFilter filter = new MitraFilter();
-        searchViewModel.query(filter);
+        searchViewModel.query(filter, true);
 
         SearchView searchView = view.findViewById(R.id.sv_mitra_sm);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -71,7 +66,7 @@ public class SelectMitraFragment extends BottomSheetDialogFragment {
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) shimmer.show();
                 filter.setKeyword(query);
-                searchViewModel.query(filter);
+                searchViewModel.query(filter, true);
                 return false;
             }
 
