@@ -47,7 +47,7 @@ public class SearchRepository {
                 for (DocumentSnapshot snapshot : querySnapshot) {
                     Mitra mitra = snapshot.toObject(Mitra.class);
                     if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                            mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase())){
+                            (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
                         if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
                         if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
                         listMitra.add(mitra);
@@ -72,7 +72,7 @@ public class SearchRepository {
                     for (DocumentSnapshot snapshot : querySnapshot) {
                         Mitra mitra = snapshot.toObject(Mitra.class);
                         if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                                mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase())){
+                                (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
                             if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
                             if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
                             listMitra.add(mitra);
@@ -101,7 +101,7 @@ public class SearchRepository {
                 for (DocumentSnapshot snapshot : querySnapshot) {
                     Book book = snapshot.toObject(Book.class);
                     if (book.getTitle().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                            book.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase())){
+                            (!(book.getDescription() == null) && book.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
                         listBook.add(book);
                     }
                     Log.d(TAG, "book.getTitle(): " + book.getTitle());
