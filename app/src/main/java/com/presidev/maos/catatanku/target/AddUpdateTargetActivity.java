@@ -64,7 +64,7 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
     private void setEditTextValidationListener() {
         binding.edtPagesRead.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void afterTextChanged(Editable editable) {}
+
             @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int totalPages = 0;
                 if (!getFixText(binding.edtTotalPages).isEmpty())
@@ -78,6 +78,14 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                     binding.edtPagesRead.setText(String.valueOf(totalPages));
                     showToast(AddUpdateTargetActivity.this,
                             "Progres baca tidak boleh lebih dari jumlah halaman");
+                }
+            }
+
+            @Override public void afterTextChanged(Editable editable) {
+                if (!getFixText(binding.edtPagesRead).isEmpty()){
+                    if (Integer.parseInt(getFixText(binding.edtPagesRead)) < 0){
+                        binding.edtPagesRead.setText("0");
+                    }
                 }
             }
         });
