@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.about.AboutActivity;
+import com.presidev.maos.catatanku.CatatanKuActivity;
 import com.presidev.maos.login.preference.AccountPreference;
 import com.presidev.maos.login.viewmodel.AuthViewModel;
 import com.presidev.maos.subscribe.view.MembershipIntroActivity;
@@ -57,11 +58,13 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         adapter = new MemberCardAdapter(this);
         rvMemberCard.setAdapter(adapter);
 
+        Button btnCatatanku = view.findViewById(R.id.btn_catatanku_up);
         Button btnUpdate = view.findViewById(R.id.btn_update_up);
         Button btnSubscribe = view.findViewById(R.id.btn_subscribe_up);
         Button btnResetPassword = view.findViewById(R.id.btn_reset_password_up);
         Button btnAbout = view.findViewById(R.id.btn_about_up);
         Button btnLogout = view.findViewById(R.id.btn_logout_up);
+        btnCatatanku.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
         btnSubscribe.setOnClickListener(this);
         btnResetPassword.setOnClickListener(this);
@@ -93,6 +96,11 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btn_catatanku_up:
+                Intent intentCatatanKu = new Intent(getContext(), CatatanKuActivity.class);
+                startActivity(intentCatatanKu);
+                break;
+
             case R.id.btn_update_up:
                 if (user == null) return;
                 Intent intent = new Intent(getContext(), UpdateUserProfileActivity.class);

@@ -86,13 +86,21 @@
                 android:paddingHorizontal="16dp" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_catatanku_up"
+                style="@style/Button.Menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CatatanKu"
+                android:drawableStart="@drawable/ic_profile_catatanku"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_update_up"
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Edit profil"
                 android:drawableStart="@drawable/ic_profile_update"
-                android:layout_marginTop="@null"/>
+                android:layout_marginTop="12dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_reset_password_up"
