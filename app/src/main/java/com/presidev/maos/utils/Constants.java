@@ -14,4 +14,5 @@ public interface Constants {
     String EXTRA_USER = "extra_user";
     String EXTRA_MITRA = "extra_mitra";
     String EXTRA_LEVEL = "extra_level";
+    String EXTRA_TARGET = "extra_target";
 }

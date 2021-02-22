@@ -62,7 +62,9 @@ public class TargetRepository {
     }
 
     public void insert(Target target){
-        reference.document(target.getUserId()).collection("target").document(target.getId())
+        CollectionReference ref = reference.document(target.getUserId()).collection("target");
+        target.setId(ref.document().getId());
+        ref.document(target.getId())
                 .set(target)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) Log.d(TAG, "Document was added");

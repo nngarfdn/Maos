@@ -28,7 +28,8 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".catatanku.CatatanKuActivity"/>
+        <activity android:name=".catatanku.target.AddUpdateTargetActivity"/>
+        <activity android:name=".catatanku.CatatanKuActivity" />
         <activity android:name=".login.view.MitraRegistrationActivity" />
         <activity android:name=".bookmark.view.SearchBookmarkActivity" />
         <activity android:name=".about.AboutActivity" />

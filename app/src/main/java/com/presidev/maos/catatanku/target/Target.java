@@ -10,11 +10,11 @@ public class Target implements Parcelable {
     private int totalPages;
     private int dailyPages;
     private int pagesRead;
-    private int progress;
+    private double progress;
 
     public Target() {}
 
-    public Target(String id, String userId, String bookTitle, int totalPages, int dailyPages, int pagesRead, int progress) {
+    public Target(String id, String userId, String bookTitle, int totalPages, int dailyPages, int pagesRead, double progress) {
         this.id = id;
         this.userId = userId;
         this.bookTitle = bookTitle;
@@ -31,7 +31,7 @@ public class Target implements Parcelable {
         totalPages = in.readInt();
         dailyPages = in.readInt();
         pagesRead = in.readInt();
-        progress = in.readInt();
+        progress = in.readDouble();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Target implements Parcelable {
         dest.writeInt(totalPages);
         dest.writeInt(dailyPages);
         dest.writeInt(pagesRead);
-        dest.writeInt(progress);
+        dest.writeDouble(progress);
     }
 
     @Override
@@ -110,11 +110,11 @@ public class Target implements Parcelable {
         this.pagesRead = pagesRead;
     }
 
-    public int getProgress() {
+    public double getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(double progress) {
         this.progress = progress;
     }
 }

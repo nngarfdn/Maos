@@ -71,6 +71,15 @@
         <item name="android:scrollbarStyle">insideInset</item>
     </style>
 
+    <style name="FloatingActionButton">
+        <item name="borderWidth">0dp</item>
+        <item name="pressedTranslationZ">0dp</item>
+        <item name="fabSize">normal</item>
+        <item name="elevation">3dp</item>
+        <item name="backgroundTint">@color/orange</item>
+        <item name="tint">@color/white</item>
+    </style>
+
     <style name="ImageView">
         <item name="android:src">@drawable/ic_no_pic</item>
         <item name="android:scaleType">centerCrop</item>
