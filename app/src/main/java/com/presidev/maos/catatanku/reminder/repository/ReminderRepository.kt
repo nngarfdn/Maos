@@ -25,7 +25,7 @@ class ReminderRepository {
         val produkData: MutableList<Reminder> = ArrayList()
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Reminder>()
-        db.collection("mitra")
+        db.collection("reminder")
 //                .orderBy("namaProyek")
                 .get()
                 .addOnSuccessListener { result ->

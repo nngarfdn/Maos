@@ -11,8 +11,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@android:color/black"
-        android:background="@color/white"
+        app:titleTextColor="@android:color/white"
+        android:background="@color/orange"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:title="Tambah Pengingat Pengembalian" />
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         style="@style/EditText"
-        android:hint="Tangggal Peminjaman"
+        android:hint="Tempat Peminjaman"
         android:inputType="textPersonName|textCapWords"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
@@ -51,5 +51,23 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/bg_edit_text"/>
+
+    <CheckBox
+        android:id="@+id/checkboxReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sudah Kembali"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btn_save_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="32dp"
+        style="@style/Button.Primary"
+        android:textAllCaps="false"
+        android:text="Simpan"/>
 
 </LinearLayout>
