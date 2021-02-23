@@ -79,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:maxLines="5"
                     app:layout_constraintRight_toRightOf="parent"
                     android:text="buku_jogja sudah berdiri sejak 2017 yang dimulai dengan membentuk komunitas untuk umum dengan agenda peprustakaan keliling untuk sekolah dasar dan taman ka "
                     android:textColor="@color/white"

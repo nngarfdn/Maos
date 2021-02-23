@@ -110,6 +110,7 @@ class BookDetailActivity : AppCompatActivity() {
 
         img_btn.setOnClickListener { onBackPressed() }
         btn_peminjaman.setOnClickListener {
+
             if (firebaseUser != null) {
                 val intent = Intent(this, PeminjamanActivity::class.java)
                 intent.putExtra(EXTRA_BOOK, book)

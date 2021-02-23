@@ -44,12 +44,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btn_catatanku"
+            style="@style/Button.Secondary"
+            android:text="CatatanKu"
+            android:drawableLeft="@drawable/ic_notes"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_height="wrap_content"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:padding="16dp"
+            android:layout_below="@+id/btn_catatanku"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:clipToPadding="false" />

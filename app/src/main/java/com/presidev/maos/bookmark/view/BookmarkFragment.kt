@@ -1,5 +1,6 @@
 package com.presidev.maos.bookmark.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.presidev.maos.R
 import com.presidev.maos.bookmark.model.Bookmark
+import com.presidev.maos.catatanku.CatatanKuActivity
 import com.presidev.maos.mitramanagement.model.Book
 import kotlinx.android.synthetic.main.layout_bookmark.view.*
 import java.util.*
@@ -66,12 +68,16 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter!!.filter.filter(newText)
                 return false
             }
         })
+
+        view.btn_catatanku.setOnClickListener {
+            val intent = Intent(context, CatatanKuActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadBookById() {
