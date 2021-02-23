@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.presidev.maos.R;
 import com.presidev.maos.catatanku.quotes.QuotesFragment;
 import com.presidev.maos.catatanku.target.TargetFragment;
-import com.presidev.maos.reminder.view.ReminderFragment;
+import com.presidev.maos.catatanku.reminder.view.ReminderFragment;
 
 import org.jetbrains.annotations.NotNull;
 

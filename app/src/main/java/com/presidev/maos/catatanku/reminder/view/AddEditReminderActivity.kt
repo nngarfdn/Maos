@@ -1,4 +1,4 @@
-package com.presidev.maos.reminder.view
+package com.presidev.maos.catatanku.reminder.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -22,7 +22,6 @@ import java.util.*
 
 class BookRepository {
 
-
     private var resultBookByMitraId: MutableLiveData<List<Book>> = MutableLiveData()
     private val storage = FirebaseStorage.getInstance()
 
@@ -67,7 +66,6 @@ class BookRepository {
     fun insert(book: Book) {
         val ref = database.collection("book").document()
         book.bookId = ref.id
-//        book.dateCreated = Timestamp.now().toString()
         ref.set(hashMapBook(book))
                 .addOnCompleteListener { task: Task<Void?> ->
                     if (task.isSuccessful) Log.d(TAG, "Document was added") else
