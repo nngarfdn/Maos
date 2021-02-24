@@ -146,7 +146,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:inputType="none"
-                android:editable="false"/>
+                android:editable="false"
+                tools:ignore="Deprecated,TextFields" />
 
             <Button
                 android:id="@+id/btn_submit_mr"

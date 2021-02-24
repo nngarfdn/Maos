@@ -60,6 +60,13 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
+    <style name="EditText.Clickable">
+        <item name="android:inputType">none</item>
+        <item name="android:editable">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">false</item>
+    </style>
+
     <style name="EditText.MultiLine">
         <item name="android:inputType">textMultiLine|textCapSentences</item>
         <item name="android:lines">8</item>

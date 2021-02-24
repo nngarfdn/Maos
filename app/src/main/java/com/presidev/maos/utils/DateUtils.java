@@ -7,20 +7,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.presidev.maos.utils.AppUtils.locale;
+import static com.presidev.maos.utils.AppUtils.LOCALE;
 
 public class DateUtils {
     public static final String DATE_FORMAT = "yyyy/MM/dd";
     public static final String TIME_FORMAT = "HH:mm";
 
     public static String getCurrentDate(){
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
         Date date = new Date();
         return dateFormat.format(date);
     }
 
     public static String getCurrentTime(){
-        DateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, locale);
+        DateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, LOCALE);
         Date time = new Date();
         return timeFormat.format(time);
     }
@@ -37,7 +37,7 @@ public class DateUtils {
     public static String addDay(String oldDate, int numberOfDays){
         if (isValidDateFormat(oldDate)){
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dateFormat.parse(oldDate));
                 calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
@@ -52,7 +52,7 @@ public class DateUtils {
     public static int differenceOfDates(String newerDate, String olderDate){
         if (isValidDateFormat(newerDate) && isValidDateFormat(olderDate)){
             try{
-                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
                 Date finalDate = dateFormat.parse(newerDate);
                 Date currentDate = dateFormat.parse(olderDate);
 
@@ -87,10 +87,10 @@ public class DateUtils {
         } else return null;
     }
 
-    private static boolean isValidDateFormat(String date){
+    public static boolean isValidDateFormat(String date){
         if (date != null){
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, locale);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
                 dateFormat.parse(date);
                 return true;
             } catch (ParseException e) {
@@ -99,10 +99,10 @@ public class DateUtils {
         } else return false;
     }
 
-    private static boolean isValidTimeFormat(String time){
+    public static boolean isValidTimeFormat(String time){
         if (time != null){
             try {
-                SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, locale);
+                SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, LOCALE);
                 timeFormat.parse(time);
                 return true;
             } catch (ParseException e) {

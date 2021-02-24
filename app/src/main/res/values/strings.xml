@@ -10,4 +10,14 @@
     <string name="tab_title_1">Target</string>
     <string name="tab_title_2">Pengingat</string>
     <string name="tab_title_3">Kutipan</string>
+
+    <string-array name="days">
+        <item>Senin</item>
+        <item>Selasa</item>
+        <item>Rabu</item>
+        <item>Kamis</item>
+        <item>Jumat</item>
+        <item>Sabtu</item>
+        <item>Minggu</item>
+    </string-array>
 </resources>

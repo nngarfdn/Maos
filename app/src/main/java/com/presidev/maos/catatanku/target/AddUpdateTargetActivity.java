@@ -14,15 +14,24 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.presidev.maos.R;
 import com.presidev.maos.catatanku.UserPreference;
+import com.presidev.maos.catatanku.helper.TargetReminder;
+import com.presidev.maos.catatanku.helper.TimePickerFragment;
 import com.presidev.maos.databinding.ActivityAddUpdateTargetBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import static com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder;
 import static com.presidev.maos.utils.AppUtils.getFixText;
+import static com.presidev.maos.utils.AppUtils.LOCALE;
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.EXTRA_TARGET;
+import static com.presidev.maos.utils.DateUtils.TIME_FORMAT;
 import static com.presidev.maos.utils.DateUtils.differenceOfDates;
 import static com.presidev.maos.utils.DateUtils.getCurrentDate;
 
-public class AddUpdateTargetActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddUpdateTargetActivity extends AppCompatActivity implements View.OnClickListener, TimePickerFragment.DialogTimeListener {
+    private final String TIME_PICKER_REPEAT_TAG = "time_picker_repeat";
 
     private ActivityAddUpdateTargetBinding binding;
     private Target target;
@@ -44,6 +53,19 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
 
         preference = new UserPreference(this);
 
+        binding.btnAdd.setOnClickListener(this);
+        binding.btnRemove.setOnClickListener(this);
+        binding.edtTime.setOnClickListener(this);
+        binding.btnSave.setOnClickListener(this);
+        binding.btnDelete.setOnClickListener(this);
+
+        binding.switchReminder.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            binding.edtTime.setEnabled(isChecked);
+            for (int i = 0; i < binding.cgReminder.getChildCount(); i++) {
+                binding.cgReminder.getChildAt(i).setEnabled(isChecked);
+            }
+        });
+
         Intent intent = getIntent();
         isUpdate = intent.hasExtra(EXTRA_TARGET);
         if (isUpdate){
@@ -55,6 +77,8 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
             binding.edtBookTitle.setText(target.getBookTitle());
             binding.edtTotalPages.setText(String.valueOf(target.getTotalPages()));
             binding.edtDailyPages.setText(String.valueOf(target.getDailyPages()));
+            binding.switchReminder.setChecked(target.getIsReminderEnabled());
+            binding.edtTime.setText(target.getReminderTime());
 
             todayPagesRead = preference.getTodayPagesRead(target.getId());
             lastUpdatePagesRead = preference.getLastUpdatePagesRead(target.getId());
@@ -68,11 +92,6 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
             todayPagesRead = 0;
             lastUpdatePagesRead = getCurrentDate();
         }
-
-        binding.btnAdd.setOnClickListener(this);
-        binding.btnRemove.setOnClickListener(this);
-        binding.btnSave.setOnClickListener(this);
-        binding.btnDelete.setOnClickListener(this);
 
         targetViewModel = new ViewModelProvider(this).get(TargetViewModel.class);
 
@@ -152,6 +171,11 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                 }
                 break;
 
+            case R.id.edt_time:
+                TimePickerFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), TIME_PICKER_REPEAT_TAG);
+                break;
+
             case R.id.btn_save:
                 String bookTitle = getFixText(binding.edtBookTitle);
                 String totalPages = getFixText(binding.edtTotalPages);
@@ -165,7 +189,20 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                     return;
                 }
 
-                target.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                String time = getFixText(binding.edtTime);
+                if (binding.switchReminder.isChecked()){
+                    if (time.isEmpty()){
+                        showToast(this, "Kamu belum mengatur waktu untuk pengingat");
+                        return;
+                    }
+                }
+
+                if (!isUpdate){
+                    target.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    target.setId(targetViewModel.getReference().document(target.getUserId())
+                            .collection("target").document().getId());
+                }
+
                 target.setBookTitle(bookTitle);
                 target.setTotalPages(Integer.parseInt(totalPages));
                 target.setDailyPages(Integer.parseInt(dailyPages));
@@ -174,7 +211,17 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                 target.setPagesRead(pagesRead);
                 target.setProgress(((double) pagesRead/(double) target.getTotalPages()) * 100);
 
+                target.setIsReminderEnabled(binding.switchReminder.isChecked());
+                target.setReminderTime(time);
+
                 preference.setData(target.getId(), lastUpdatePagesRead, todayPagesRead);
+
+                if (target.getIsReminderEnabled()){
+                    TargetReminder targetReminder = new TargetReminder();
+                    targetReminder.setReminder(this, target);
+                } else {
+                    cancelReminder(this, target.getId().hashCode());
+                }
 
                 if (isUpdate){
                     targetViewModel.update(target);
@@ -195,10 +242,23 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                         .setPositiveButton("Ya", (dialogInterface, i) -> {
                             targetViewModel.delete(target);
                             preference.removeData(target.getId());
+                            cancelReminder(this, target.getId().hashCode());
                             showToast(view.getContext(), "Target berhasil dihapus");
                             onBackPressed();
                         }).create().show();
                 break;
+        }
+    }
+
+    @Override
+    public void onDialogTimeSet(String tag, int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT, LOCALE);
+        if (TIME_PICKER_REPEAT_TAG.equals(tag)) {
+            binding.edtTime.setText(dateFormat.format(calendar.getTime()));
         }
     }
 

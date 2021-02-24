@@ -11,10 +11,12 @@ public class Target implements Parcelable {
     private int dailyPages;
     private int pagesRead;
     private double progress;
+    private boolean isReminderEnabled;
+    private String reminderTime;
 
     public Target() {}
 
-    public Target(String id, String userId, String bookTitle, int totalPages, int dailyPages, int pagesRead, double progress) {
+    public Target(String id, String userId, String bookTitle, int totalPages, int dailyPages, int pagesRead, double progress, boolean isReminderEnabled, String reminderTime) {
         this.id = id;
         this.userId = userId;
         this.bookTitle = bookTitle;
@@ -22,6 +24,8 @@ public class Target implements Parcelable {
         this.dailyPages = dailyPages;
         this.pagesRead = pagesRead;
         this.progress = progress;
+        this.isReminderEnabled = isReminderEnabled;
+        this.reminderTime = reminderTime;
     }
 
     protected Target(Parcel in) {
@@ -32,6 +36,8 @@ public class Target implements Parcelable {
         dailyPages = in.readInt();
         pagesRead = in.readInt();
         progress = in.readDouble();
+        isReminderEnabled = in.readByte() != 0;
+        reminderTime = in.readString();
     }
 
     @Override
@@ -43,6 +49,8 @@ public class Target implements Parcelable {
         dest.writeInt(dailyPages);
         dest.writeInt(pagesRead);
         dest.writeDouble(progress);
+        dest.writeByte((byte) (isReminderEnabled ? 1 : 0));
+        dest.writeString(reminderTime);
     }
 
     @Override
@@ -116,5 +124,21 @@ public class Target implements Parcelable {
 
     public void setProgress(double progress) {
         this.progress = progress;
+    }
+
+    public boolean getIsReminderEnabled() {
+        return isReminderEnabled;
+    }
+
+    public void setIsReminderEnabled(boolean isReminderEnabled) {
+        this.isReminderEnabled = isReminderEnabled;
+    }
+
+    public String getReminderTime() {
+        return reminderTime;
+    }
+
+    public void setReminderTime(String reminderTime) {
+        this.reminderTime = reminderTime;
     }
 }

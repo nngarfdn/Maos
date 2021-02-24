@@ -11,6 +11,7 @@ public class UserPreference {
     private final SharedPreferences.Editor editor;
 
     private static final String PREFERENCE_NAME = "user_preference";
+    private static final String IS_FIRST_TIME_LOGIN = "is_first_time_login";
     private static final String LAST_UPDATE_PAGES_READ = "last_update_pages_read";
     private static final String TODAY_PAGES_READ = "today_pages_read";
 
@@ -18,6 +19,15 @@ public class UserPreference {
     public UserPreference(Context context){
         sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+    }
+
+    public void setIsFirstTimeLogin(boolean IsFirstTimeLogin){
+        editor.putBoolean(IS_FIRST_TIME_LOGIN, IsFirstTimeLogin);
+        editor.apply();
+    }
+
+    public boolean getIsFirstTimeLogin(){
+        return sharedPreferences.getBoolean(IS_FIRST_TIME_LOGIN, true);
     }
 
     public void setData(String targetId, String lastUpdatePagesRead, int todayPagesRead){
@@ -38,5 +48,9 @@ public class UserPreference {
 
     public int getTodayPagesRead(String targetId){
         return sharedPreferences.getInt(TODAY_PAGES_READ +  "_" + targetId, 0);
+    }
+
+    public void resetData(){
+        editor.clear().apply();
     }
 }

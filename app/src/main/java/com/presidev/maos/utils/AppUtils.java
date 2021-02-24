@@ -24,7 +24,7 @@ import java.util.UUID;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class AppUtils {
-    public static Locale locale = new Locale("in", "ID");
+    public static final Locale LOCALE = new Locale("in", "ID");
 
     public static void hideStatusBar(Activity activity, ActionBar actionBar){
         if (actionBar != null) actionBar.hide();

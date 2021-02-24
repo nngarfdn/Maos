@@ -58,7 +58,7 @@
         <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity" />
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
         <activity android:name=".bookdetail.BookDetailActivity" />
-        <activity android:name="com.presidev.maos.catatanku.reminder.view.AddEditReminderActivity"/>
+        <activity android:name=".catatanku.reminder.view.AddEditReminderActivity"/>
     </application>
 
 </manifest>

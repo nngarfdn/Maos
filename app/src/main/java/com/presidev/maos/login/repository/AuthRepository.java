@@ -15,6 +15,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.presidev.maos.R;
+import com.presidev.maos.catatanku.UserPreference;
 import com.presidev.maos.login.model.Account;
 import com.presidev.maos.login.preference.AccountPreference;
 
@@ -165,6 +166,9 @@ public class AuthRepository {
 
         AccountPreference accountPreference = new AccountPreference(application);
         accountPreference.resetData();
+
+        UserPreference userPreference = new UserPreference(application);
+        userPreference.resetData();
 
         userLiveData.postValue(new Account(firebaseAuth.getCurrentUser(), null, null, null, false));
     }
