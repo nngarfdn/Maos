@@ -3,8 +3,6 @@ package com.presidev.maos.catatanku.reminder.view
 import androidx.lifecycle.ViewModel
 import com.presidev.maos.catatanku.reminder.model.Reminder
 import com.presidev.maos.catatanku.reminder.repository.ReminderRepository
-import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.mitramanagement.repository.BookRepository
 
 class ReminderViewModel : ViewModel() {
     private val repository = ReminderRepository()

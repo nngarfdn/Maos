@@ -9,11 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white"
-        android:background="@color/orange"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        style="@style/Toolbar"
         app:title="Tambah Pengingat Pengembalian" />
 
     <EditText
@@ -69,5 +65,13 @@
         style="@style/Button.Primary"
         android:textAllCaps="false"
         android:text="Simpan"/>
+
+    <Button
+        android:id="@+id/btn_delete_reminder"
+        style="@style/Button.Secondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:text="Hapus"/>
 
 </LinearLayout>

@@ -72,7 +72,6 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
             target = intent.getParcelableExtra(EXTRA_TARGET);
             binding.toolbar.setTitle("Edit Target");
             binding.btnDelete.setVisibility(View.VISIBLE);
-
             binding.edtPagesRead.setText(String.valueOf(target.getPagesRead()));
             binding.edtBookTitle.setText(target.getBookTitle());
             binding.edtTotalPages.setText(String.valueOf(target.getTotalPages()));

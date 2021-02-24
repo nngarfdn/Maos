@@ -4,15 +4,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
-import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
-import com.presidev.maos.profile.mitra.Mitra
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.catatanku.reminder.model.Reminder
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ReminderAdapter(private val list: List<Mitra>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
+class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -22,19 +21,44 @@ class ReminderAdapter(private val list: List<Mitra>) : RecyclerView.Adapter<Remi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val image : ImageView = holder.itemView.findViewById(R.id.img_item_book_dashboard)
-        val namaMitra : TextView = holder.itemView.findViewById(R.id.txt_title_book)
-        val alamatMitra : TextView = holder.itemView.findViewById(R.id.txt_address_book)
-        loadImageFromUrl(image, list[position].logo)
+        val bookTitle: TextView = holder.itemView.findViewById(R.id.tv_book_title)
+        val penyedia: TextView = holder.itemView.findViewById(R.id.tv_daily_pages)
+        val status: TextView = holder.itemView.findViewById(R.id.tv_progress)
+        var dayLeft = 0
 
-        namaMitra.setText(list[position].name)
-        alamatMitra.setText(list[position].address)
+        val calCurr: Calendar = Calendar.getInstance()
+        val day: Calendar = Calendar.getInstance()
 
-        holder.itemView.setOnClickListener {
-            val c = holder.itemView.context
-            val intent = Intent(c, MitraBookCatalogActivity::class.java)
-            intent.putExtra(MitraBookCatalogActivity.EXTRA_MITRA, list[position])
-            c.startActivity(intent)
+        day.setTime(SimpleDateFormat("yyyy/MM/dd").parse(list[position].returnDate))
+        if (day.after(calCurr)) {
+            dayLeft = (day.get(Calendar.DAY_OF_YEAR) - calCurr.get(Calendar.DAY_OF_YEAR))
         }
+
+        bookTitle.setText(list[position].bookTitle)
+        penyedia.setText(list[position].tempatPeminjam)
+
+
+        val isReturned = list[position].isKembali
+
+        if (isReturned.equals("true")) {
+            status.setText("Sudah Kembali")
+            status.setTextColor(holder.itemView.context.getResources().getColor(R.color.green))
+        } else if ((isReturned.equals("false"))) {
+            if (dayLeft <= 0) {
+                status.setText("Kembalikan Sekarang")
+                status.setTextColor(holder.itemView.context.getResources().getColor(R.color.red))
+            } else if (dayLeft >= 0) {
+                status.setText("$dayLeft Hari lagi")
+                status.setTextColor(holder.itemView.context.getResources().getColor(R.color.orange))
+            }
     }
+
+
+    holder.itemView.setOnClickListener{
+        val c = holder.itemView.context
+        val intent = Intent(c, AddEditReminderActivity::class.java)
+        intent.putExtra(AddEditReminderActivity.EXTRA_REMINDER, list[position])
+        c.startActivity(intent)
+    }
+}
 }

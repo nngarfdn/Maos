@@ -86,7 +86,7 @@ class ReminderRepository {
         document["bookTitle"] = reminder.bookTitle
         document["tempatPeminjam"] = reminder.tempatPeminjam
         document["returnDate"] = reminder.returnDate
-        document["isReturned"] = reminder.isReturned
+        document["isKembali"] = reminder.isKembali
 
         return document
     }
