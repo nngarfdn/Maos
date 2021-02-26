@@ -17,14 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
+        <activity android:name=".catatanku.quotes.AddQuoteActivity"></activity>
+
         <receiver
             android:name=".catatanku.helper.ReturnReminder"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
         <receiver
             android:name=".catatanku.helper.TargetReminder"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

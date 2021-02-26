@@ -75,11 +75,16 @@ dependencies {
     //bottom
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
 
+    //photoEditor
+    implementation 'ja.burhanrashid52:photoeditor:1.1.0'
+
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    
+
 }
 repositories {
     mavenCentral()
