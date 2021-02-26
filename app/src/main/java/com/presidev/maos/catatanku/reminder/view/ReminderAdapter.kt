@@ -1,5 +1,6 @@
 package com.presidev.maos.catatanku.reminder.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
 import com.presidev.maos.catatanku.reminder.model.Reminder
+import com.presidev.maos.utils.DateUtils.DATE_FORMAT
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,6 +21,7 @@ class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<R
 
     override fun getItemCount(): Int = list.size
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val bookTitle: TextView = holder.itemView.findViewById(R.id.tv_book_title)
@@ -29,7 +32,7 @@ class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<R
         val calCurr: Calendar = Calendar.getInstance()
         val day: Calendar = Calendar.getInstance()
 
-        day.setTime(SimpleDateFormat("yyyy/MM/dd").parse(list[position].returnDate))
+        day.setTime(SimpleDateFormat(DATE_FORMAT).parse(list[position].returnDate))
         if (day.after(calCurr)) {
             dayLeft = (day.get(Calendar.DAY_OF_YEAR) - calCurr.get(Calendar.DAY_OF_YEAR))
         }

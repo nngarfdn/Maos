@@ -5,10 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
@@ -114,8 +111,8 @@ class BookRepository {
     fun deleteImage(imageUrl: String?) { // Investor
         if (imageUrl != null) {
             storage.getReferenceFromUrl(imageUrl).delete()
-                    .addOnSuccessListener(OnSuccessListener { aVoid: Void? -> Log.d(TAG, "Image was deleted") })
-                    .addOnFailureListener(OnFailureListener { e: Exception? -> Log.w(TAG, "Error deleting image", e) })
+                    .addOnSuccessListener({ Log.d(TAG, "Image was deleted") })
+                    .addOnFailureListener({ e: Exception? -> Log.w(TAG, "Error deleting image", e) })
         }
     }
 

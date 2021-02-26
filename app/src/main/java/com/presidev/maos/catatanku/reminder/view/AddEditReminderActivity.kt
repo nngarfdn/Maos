@@ -26,7 +26,7 @@ class AddEditReminderActivity : AppCompatActivity() {
     private var dateFormatter: SimpleDateFormat? = null
 
     companion object {
-        val EXTRA_REMINDER = "extra_reminder"
+        const val EXTRA_REMINDER = "extra_reminder"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +84,7 @@ class AddEditReminderActivity : AppCompatActivity() {
                         .setTitle("Hapus pengingat")
                         .setMessage("Apakah kamu yakin ingin menghapusnya?")
                         .setNegativeButton("Batal", null)
-                        .setPositiveButton("Ya") { dialogInterface: DialogInterface?, i: Int ->
+                        .setPositiveButton("Ya") { _: DialogInterface?, i: Int ->
                             reminder?.let { it1 -> reminderViewModel.delete(it1.id)
                                 cancelReminder(this, it1.id.hashCode()) }
                             finish()

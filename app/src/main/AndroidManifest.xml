@@ -40,20 +40,20 @@
 
         <activity android:name=".catatanku.target.view.AddUpdateTargetActivity" />
         <activity android:name=".catatanku.CatatanKuActivity" />
-        <activity android:name=".login.view.MitraRegistrationActivity" />
+        <activity android:name=".developer.MitraRegistrationActivity" />
         <activity android:name=".bookmark.view.SearchBookmarkActivity" />
         <activity android:name=".about.AboutActivity" />
-        <activity android:name=".search.view.SearchTestActivity" />
-        <activity android:name=".profile.mitra.MemberListActivity" />
-        <activity android:name=".subscribe.view.AddMemberCardActivity" />
-        <activity android:name=".subscribe.view.MembershipIntroActivity" />
-        <activity android:name=".subscribe.view.MembershipRegistrationActivity" />
-        <activity android:name=".borrowbook.PeminjamanActivity" />
-        <activity android:name=".App" />
-        <activity android:name=".profile.user.UpdateUserProfileActivity" />
-        <activity android:name=".profile.mitra.UpdateMitraProfileActivity" />
+        <activity android:name=".testing.SearchTestActivity" />
+        <activity android:name=".profile.mitra.view.MemberListActivity" />
+        <activity android:name=".developer.AddMemberCardActivity" />
+        <activity android:name=".membership.view.MembershipIntroActivity" />
+        <activity android:name=".membership.view.MembershipRegistrationActivity" />
+        <activity android:name=".bookdetail.PeminjamanActivity" />
+        <activity android:name=".home.App" />
+        <activity android:name=".profile.user.view.UpdateUserProfileActivity" />
+        <activity android:name=".profile.mitra.view.UpdateMitraProfileActivity" />
         <activity android:name=".search.view.SearchActivity" />
-        <activity android:name=".welcome.view.SplashActivity">
+        <activity android:name=".welcome.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,9 +61,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.view.ResetPasswordActivity" />
-        <activity android:name=".login.view.RegisterActivity" />
-        <activity android:name=".login.view.LoginActivity" />
+        <activity android:name=".auth.view.ResetPasswordActivity" />
+        <activity android:name=".auth.view.RegisterActivity" />
+        <activity android:name=".auth.view.LoginActivity" />
         <activity android:name=".mitramanagement.view.AddBookActivity" />
         <activity android:name=".mitramanagement.view.EditBookActivity" />
         <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity" />

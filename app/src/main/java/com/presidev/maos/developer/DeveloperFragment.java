@@ -17,10 +17,8 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.R;
-import com.presidev.maos.login.view.MitraRegistrationActivity;
-import com.presidev.maos.login.viewmodel.AuthViewModel;
-import com.presidev.maos.subscribe.view.AddMemberCardActivity;
-import com.presidev.maos.welcome.view.SplashActivity;
+import com.presidev.maos.auth.view.AuthViewModel;
+import com.presidev.maos.welcome.SplashActivity;
 
 public class DeveloperFragment extends Fragment implements View.OnClickListener {
     private AuthViewModel authViewModel;

@@ -18,11 +18,11 @@ import java.util.*
 class EditBookActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_BOOK = "extra_book"
+        const val EXTRA_BOOK = "extra_book"
     }
 
     private val RC_PAYMENT_IMAGE = 100
-    val RC_ADD_PAYMENT = 200
+    private val RC_ADD_PAYMENT = 200
     private var uriPaymentImage: Uri? = null
 
     private lateinit var book: Book

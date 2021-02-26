@@ -81,7 +81,7 @@
         android:id="@+id/img_empty_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_illustration_empty_search"
+        android:src="@drawable/illustration_empty_search"
         android:layout_below="@+id/layout_header_search"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>

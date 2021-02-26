@@ -47,8 +47,8 @@ public class AppUtils {
     }
 
     public static boolean isValidPhone(String number){
-        if (number.length() < 2) return false;
-        else return number.charAt(0) == '6' && number.charAt(1) == '2';
+        if (number.length() < 2) return true;
+        else return number.charAt(0) != '6' || number.charAt(1) != '2';
     }
 
     public static void loadImageFromUrl(ImageView imageView, String url){
@@ -81,6 +81,18 @@ public class AppUtils {
     public static String setFullAddress(String address, String province, String regency, String district){
         if (address == null) return district + ", " + regency + ", " + province;
         else return address + ", " + district + ", " + regency + ", " + province;
+    }
+
+    public static String getSimpleRegency(String regency){
+        try {
+            String[] arrayRegency = regency.split(" ");
+            StringBuilder simpleName = new StringBuilder(arrayRegency[1]);
+            for (int i = 2; i < arrayRegency.length; i++) simpleName.append(" ").append(arrayRegency[i]);
+            return simpleName.toString();
+        } catch (Exception e){
+            e.printStackTrace();
+            return regency;
+        }
     }
 
     public static String getMemberCardId(String mitraId, String userId){

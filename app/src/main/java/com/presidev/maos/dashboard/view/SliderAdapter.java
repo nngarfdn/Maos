@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.presidev.maos.R;
 import com.presidev.maos.dashboard.model.Slider;
@@ -15,18 +14,15 @@ import com.presidev.maos.dashboard.model.Slider;
 import java.util.ArrayList;
 import java.util.List;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Picasso;
 
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 
 public class SliderAdapter extends
         SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 
-    private Context context;
     private List<Slider> mSliderItems = new ArrayList<>();
 
     public SliderAdapter(Context context) {
-        this.context = context;
     }
 
     public void renewItems(List<Slider> sliderItems) {
@@ -71,12 +67,12 @@ public class SliderAdapter extends
         return mSliderItems.size();
     }
 
-    class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+    static class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
-        View itemView;
-        ImageView imageViewBackground;
-        ImageView imageGifContainer;
-        TextView textViewDescription;
+        final View itemView;
+        final ImageView imageViewBackground;
+        final ImageView imageGifContainer;
+        final TextView textViewDescription;
 
         public SliderAdapterVH(View itemView) {
             super(itemView);

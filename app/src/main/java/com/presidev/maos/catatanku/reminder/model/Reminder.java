@@ -3,6 +3,8 @@ package com.presidev.maos.catatanku.reminder.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Reminder implements Parcelable {
     String id;
     String bookTitle;
@@ -81,6 +83,7 @@ public class Reminder implements Parcelable {
         this.isKembali = isKembali;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Reminder{" +

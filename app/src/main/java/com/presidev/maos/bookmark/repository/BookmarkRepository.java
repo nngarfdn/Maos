@@ -27,57 +27,45 @@ public class BookmarkRepository {
     public void query(String userId){
         database.collection("bookmark").document(userId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            Bookmark favorite = task.getResult().toObject(Bookmark.class);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        Bookmark favorite = task.getResult().toObject(Bookmark.class);
 
-                            // Pengguna yang belum pernah tambah favorit
-                            if (favorite == null) {
-                                favorite = new Bookmark(new ArrayList<>());
-                                insert(userId, favorite);  // Sekalian bikin dokumennya
-                            }
+                        // Pengguna yang belum pernah tambah favorit
+                        if (favorite == null) {
+                            favorite = new Bookmark(new ArrayList<>());
+                            insert(userId, favorite);  // Sekalian bikin dokumennya
+                        }
 
-                            resultData.postValue(favorite);
-                        } else Log.w(TAG, "Error querying document", task.getException());
-                    }
+                        resultData.postValue(favorite);
+                    } else Log.w(TAG, "Error querying document", task.getException());
                 });
     }
 
     private void insert(String userId, Bookmark favorite){
         database.collection("bookmark").document(userId)
                 .set(favorite)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) Log.d(TAG, "Document was added");
-                        else Log.w(TAG, "Error adding document", task.getException());
-                    }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) Log.d(TAG, "Document was added");
+                    else Log.w(TAG, "Error adding document", task.getException());
                 });
     }
 
     public void add(String userId, String productId){
         database.collection("bookmark").document(userId)
                 .update("listBookId", FieldValue.arrayUnion(productId))
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) Log.d(TAG, "Document was updated");
-                        else Log.w(TAG, "Error updating document", task.getException());
-                    }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) Log.d(TAG, "Document was updated");
+                    else Log.w(TAG, "Error updating document", task.getException());
                 });
     }
 
     public void remove(String userId, String productId){
         database.collection("bookmark").document(userId)
                 .update("listBookId", FieldValue.arrayRemove(productId))
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) Log.d(TAG, "Document was updated");
-                        else Log.w(TAG, "Error updating document", task.getException());
-                    }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) Log.d(TAG, "Document was updated");
+                    else Log.w(TAG, "Error updating document", task.getException());
                 });
     }
 

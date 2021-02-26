@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.view.LoginActivity">
+    tools:context=".auth.view.LoginActivity">
 
     <ImageView
         android:id="@+id/img_background_login"
@@ -36,7 +36,7 @@
                 android:id="@+id/img_illustration_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_illustration_login"
+                android:src="@drawable/illustration_login"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_belum_punya_akun"
                 app:layout_constraintEnd_toEndOf="parent" />
 
