@@ -1,15 +1,13 @@
 package com.presidev.maos.mitrabookcatalog.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.presidev.maos.R
-import com.presidev.maos.profile.mitra.Mitra
+import com.presidev.maos.profile.mitra.model.Mitra
 import com.presidev.maos.utils.AppUtils
-import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 import kotlinx.android.synthetic.main.fragment_information_dialog.view.*
 
 class InformationDialog : BottomSheetDialogFragment() {

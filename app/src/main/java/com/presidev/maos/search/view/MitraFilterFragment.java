@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.presidev.maos.R;
 import com.presidev.maos.location.model.Location;
-import com.presidev.maos.location.viewmodel.LocationViewModel;
+import com.presidev.maos.location.view.LocationViewModel;
 import com.presidev.maos.search.model.MitraFilter;
 
 import java.util.ArrayList;

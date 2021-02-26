@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
 import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
-import com.presidev.maos.profile.mitra.Mitra
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.profile.mitra.model.Mitra
+import com.presidev.maos.utils.AppUtils.*
 
 class DashboardMitraAdapter(private val list: List<Mitra>) : RecyclerView.Adapter<DashboardMitraAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -28,7 +28,7 @@ class DashboardMitraAdapter(private val list: List<Mitra>) : RecyclerView.Adapte
         loadImageFromUrl(image, list[position].logo)
 
         namaMitra.setText(list[position].name)
-        alamatMitra.setText(list[position].address)
+        alamatMitra.setText(setFullAddress(null, list[position].province, getSimpleRegency(list[position].regency), list[position].district))
 
         holder.itemView.setOnClickListener {
             val c = holder.itemView.context

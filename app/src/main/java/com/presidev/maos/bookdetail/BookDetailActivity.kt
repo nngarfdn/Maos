@@ -15,12 +15,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.bookmark.view.BookmarkViewModel
-import com.presidev.maos.borrowbook.PeminjamanActivity
-import com.presidev.maos.login.preference.AccountPreference
-import com.presidev.maos.login.view.LoginActivity
+import com.presidev.maos.auth.preference.AuthPreference
+import com.presidev.maos.auth.view.LoginActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
-import com.presidev.maos.profile.user.UserViewModel
+import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_book_detail.*
@@ -29,7 +28,7 @@ class BookDetailActivity : AppCompatActivity() {
 
     private lateinit var book: Book
     private var firebaseUser: FirebaseUser? = null
-    var isFavorite: Boolean = false
+    private var isFavorite: Boolean = false
     private lateinit var favoriteViewModel: BookmarkViewModel
     private lateinit var userViewModel: UserViewModel
 
@@ -56,7 +55,7 @@ class BookDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val accountPreference = AccountPreference(this)
+        val accountPreference = AuthPreference(this)
         if (accountPreference.level != null){
             if (accountPreference.level.equals(Constants.LEVEL_MITRA) || book.ketersediaan == false ) {
                 btn_peminjaman.isEnabled = false
@@ -78,7 +77,7 @@ class BookDetailActivity : AppCompatActivity() {
         AppUtils.loadImageFromUrl(imageView, book?.photo)
 
         try {
-            var bitmap = (imageView.drawable as BitmapDrawable).bitmap
+            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
             Palette.Builder(bitmap).generate {
                 it?.let { palette ->
                     val dominantColor = palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
@@ -89,7 +88,7 @@ class BookDetailActivity : AppCompatActivity() {
                 }
             }
         } catch (e: ClassCastException) {
-            Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: " + e)
+            Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: $e")
         }
 
         if (book.ketersediaan == true) {

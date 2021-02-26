@@ -14,11 +14,10 @@ import android.widget.ImageView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.dashboard.view.DashboardMitraAdapter;
-import com.presidev.maos.login.preference.AccountPreference;
-import com.presidev.maos.profile.mitra.MitraViewModel;
-import com.presidev.maos.profile.user.UserViewModel;
+import com.presidev.maos.auth.preference.AuthPreference;
+import com.presidev.maos.profile.mitra.view.MitraViewModel;
+import com.presidev.maos.profile.user.view.UserViewModel;
 import com.presidev.maos.search.model.MitraFilter;
-import com.presidev.maos.search.viewmodel.SearchViewModel;
 import com.presidev.maos.utils.ShimmerHelper;
 
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA_FILTER;
@@ -89,10 +88,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             filter.setRegency(mitra.getRegency());
             filter.setProvince(mitra.getProvince());
         });
-        AccountPreference accountPreference = new AccountPreference(this);
-        if (accountPreference.getId() != null) {
-            if (accountPreference.getLevel().equals(LEVEL_USER)) userViewModel.query(accountPreference.getId());
-            else if (accountPreference.getLevel().equals(LEVEL_MITRA)) mitraViewModel.query(accountPreference.getId());
+        AuthPreference authPreference = new AuthPreference(this);
+        if (authPreference.getId() != null) {
+            if (authPreference.getLevel().equals(LEVEL_USER)) userViewModel.query(authPreference.getId());
+            else if (authPreference.getLevel().equals(LEVEL_MITRA)) mitraViewModel.query(authPreference.getId());
         }
     }
 

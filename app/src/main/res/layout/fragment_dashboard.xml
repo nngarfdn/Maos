@@ -42,12 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Cari penyedia buku"
-            style="@style/EditText"
+            style="@style/EditText.Clickable"
             android:layout_marginTop="32dp"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            android:inputType="none"
-            android:focusable="false"
             android:layout_marginHorizontal="32dp"
             android:layout_below="@+id/cv_slider_mainActivity"/>
 

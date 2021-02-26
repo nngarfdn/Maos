@@ -3,15 +3,12 @@ package com.presidev.maos.mitrabookcatalog.view
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.presidev.maos.R
-import com.presidev.maos.profile.mitra.Mitra
+import com.presidev.maos.profile.mitra.model.Mitra
 import com.presidev.maos.utils.AppUtils.*
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 
 

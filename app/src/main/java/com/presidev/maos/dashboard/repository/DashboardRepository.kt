@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.profile.mitra.Mitra
+import com.presidev.maos.profile.mitra.model.Mitra
 import java.util.ArrayList
 
 class DashboardRepository {

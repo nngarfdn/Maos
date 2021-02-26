@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -35,13 +35,11 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseUser = FirebaseAuth.getInstance().currentUser
-        favoriteViewModel = ViewModelProviders.of(this).get(BookmarkViewModel::class.java)
+        favoriteViewModel = ViewModelProvider(this).get(BookmarkViewModel::class.java)
         database = FirebaseFirestore.getInstance()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
@@ -82,7 +80,7 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
 
     private fun loadBookById() {
         val listItem = ArrayList<Book>()
-        if (listBookId.size == 0) onFinish(listItem)
+        if (listBookId.isEmpty()) onFinish(listItem)
         else{
             val iterator = listBookId.iterator()
             while (iterator.hasNext()) {

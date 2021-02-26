@@ -19,7 +19,7 @@ import java.util.*
 class AddBookActivity : AppCompatActivity() {
 
     private val RC_PAYMENT_IMAGE = 100
-    val RC_ADD_PAYMENT = 200
+    private val RC_ADD_PAYMENT = 200
     private var uriPaymentImage: Uri? = null
 
     private var firebaseAuth: FirebaseAuth? = null
@@ -40,7 +40,7 @@ class AddBookActivity : AppCompatActivity() {
         bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseUser = firebaseAuth!!.getCurrentUser()
+        firebaseUser = firebaseAuth!!.currentUser
 
         swtKetersediaan.isChecked = true
 
@@ -56,7 +56,7 @@ class AddBookActivity : AppCompatActivity() {
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
             val penulis = edt_penulis.text.toString()
-            val switchState = swtKetersediaan.isChecked()
+            val switchState = swtKetersediaan.isChecked
 //            loadingDialog.show()
 
 
@@ -82,7 +82,7 @@ class AddBookActivity : AppCompatActivity() {
                         val judul = edt_title.text.toString()
                         val deskripsi = edt_description.text.toString()
                         val penulis = edt_penulis.text.toString()
-                        val switchState = swtKetersediaan.isChecked()
+                        val switchState = swtKetersediaan.isChecked
                         val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->

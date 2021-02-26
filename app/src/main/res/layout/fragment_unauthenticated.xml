@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UnauthenticatedFragment"
+    tools:context=".home.UnauthenticatedFragment"
     android:padding="24dp"
     style="@style/ScrollView"
     android:fillViewport="true">
@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_illustration_unauthenticated"
+            android:src="@drawable/illustration_unauthenticated"
             tools:ignore="ContentDescription" />
 
         <Button

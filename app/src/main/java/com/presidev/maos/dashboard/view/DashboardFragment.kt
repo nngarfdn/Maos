@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.presidev.maos.R
 import com.presidev.maos.dashboard.model.Slider
 import com.presidev.maos.search.view.SearchActivity
-import com.presidev.maos.subscribe.view.MembershipRegistrationActivity
 import com.presidev.maos.utils.AppUtils
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
