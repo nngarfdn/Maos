@@ -18,6 +18,7 @@ import com.presidev.maos.bookmark.view.BookmarkViewModel
 import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.auth.view.LoginActivity
 import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.mitramanagement.view.BookViewModel
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.AppUtils
@@ -31,6 +32,7 @@ class BookDetailActivity : AppCompatActivity() {
     private var isFavorite: Boolean = false
     private lateinit var favoriteViewModel: BookmarkViewModel
     private lateinit var userViewModel: UserViewModel
+    private lateinit var bookViewModel: BookViewModel
 
     companion object {
         const val EXTRA_BOOK = "extra_book"
@@ -42,6 +44,7 @@ class BookDetailActivity : AppCompatActivity() {
 
         favoriteViewModel = ViewModelProvider(this).get(BookmarkViewModel::class.java)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        bookViewModel = ViewModelProvider(this).get(BookViewModel::class.java)
 
         val intent = intent?.extras
         book = intent?.getParcelable(EditBookActivity.EXTRA_BOOK)!!
@@ -112,6 +115,8 @@ class BookDetailActivity : AppCompatActivity() {
 
             if (firebaseUser != null) {
                 val intent = Intent(this, PeminjamanActivity::class.java)
+                book.waCount = book.waCount?.plus(1)
+                bookViewModel.update(book)
                 intent.putExtra(EXTRA_BOOK, book)
                 startActivity(intent)
             } else {

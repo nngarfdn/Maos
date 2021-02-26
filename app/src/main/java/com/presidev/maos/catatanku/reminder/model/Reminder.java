@@ -7,28 +7,46 @@ import org.jetbrains.annotations.NotNull;
 
 public class Reminder implements Parcelable {
     String id;
+    String uuid;
     String bookTitle;
     String tempatPeminjam;
     String returnDate;
     String isKembali = "false";
 
-    public Reminder(String id, String bookTitle, String tempatPeminjam, String returnDate, String isKembali) {
+    public Reminder() {
+    }
+
+    public Reminder(String id, String uuid, String bookTitle, String tempatPeminjam, String returnDate, String isKembali) {
         this.id = id;
+        this.uuid = uuid;
         this.bookTitle = bookTitle;
         this.tempatPeminjam = tempatPeminjam;
         this.returnDate = returnDate;
         this.isKembali = isKembali;
     }
 
-    public Reminder() {
-    }
-
     protected Reminder(Parcel in) {
         id = in.readString();
+        uuid = in.readString();
         bookTitle = in.readString();
         tempatPeminjam = in.readString();
         returnDate = in.readString();
         isKembali = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(uuid);
+        dest.writeString(bookTitle);
+        dest.writeString(tempatPeminjam);
+        dest.writeString(returnDate);
+        dest.writeString(isKembali);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Reminder> CREATOR = new Creator<Reminder>() {
@@ -49,6 +67,14 @@ public class Reminder implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getBookTitle() {
@@ -81,31 +107,5 @@ public class Reminder implements Parcelable {
 
     public void setIsKembali(String isKembali) {
         this.isKembali = isKembali;
-    }
-
-    @NotNull
-    @Override
-    public String toString() {
-        return "Reminder{" +
-                "id='" + id + '\'' +
-                ", bookTitle='" + bookTitle + '\'' +
-                ", tempatPeminjam='" + tempatPeminjam + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", isKembali='" + isKembali + '\'' +
-                '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(bookTitle);
-        dest.writeString(tempatPeminjam);
-        dest.writeString(returnDate);
-        dest.writeString(isKembali);
     }
 }

@@ -9,10 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
+import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder
 import com.presidev.maos.catatanku.helper.ReturnReminder
 import com.presidev.maos.catatanku.reminder.model.Reminder
+import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.DateUtils.DATE_FORMAT
 import kotlinx.android.synthetic.main.activity_add_edit_reminder.*
 import java.text.SimpleDateFormat
@@ -24,6 +28,9 @@ class AddEditReminderActivity : AppCompatActivity() {
     private var fromDatePickerDialog: DatePickerDialog? = null
     private var toDatePickerDialog: DatePickerDialog? = null
     private var dateFormatter: SimpleDateFormat? = null
+
+    var pref : AuthPreference? = null
+
 
     companion object {
         const val EXTRA_REMINDER = "extra_reminder"
@@ -37,7 +44,9 @@ class AddEditReminderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        pref = AuthPreference(this)
         reminderViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(ReminderViewModel::class.java)
+
 
         dateFormatter = SimpleDateFormat(DATE_FORMAT, Locale.US)
         edt_return_date.inputType = InputType.TYPE_NULL
@@ -66,7 +75,7 @@ class AddEditReminderActivity : AppCompatActivity() {
                 if (title.isEmpty() || borrowDate.isEmpty() || returnDate.isEmpty()) {
                     Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show()
                 } else {
-                    val reminder = Reminder(reminder?.id, title, borrowDate, returnDate, isReturned)
+                    val reminder = Reminder(reminder?.id, pref?.id , title, borrowDate, returnDate, isReturned)
                     reminderViewModel.update(reminder)
 
                     if (reminder.isKembali.equals("false")){
@@ -101,7 +110,7 @@ class AddEditReminderActivity : AppCompatActivity() {
                 if (title.isEmpty() || borrowDate.isEmpty() || returnDate.isEmpty()) {
                     Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show()
                 } else {
-                    val reminder = Reminder("", title, borrowDate, returnDate, isReturned)
+                    val reminder = Reminder("", pref?.id ,title, borrowDate, returnDate, isReturned)
                     reminderViewModel.insert(reminder)
 
                     if (reminder.isKembali.equals("false")){

@@ -11,6 +11,6 @@ class ReminderViewModel : ViewModel() {
     fun update(reminder: Reminder){ repository.update(reminder) }
     fun delete(id: String){ repository.delete(id)}
     fun getResultReminder()  = repository.getResultsReminder()
-    fun loadResultReminder() = repository.getReminder()
+    fun loadResultReminder(uuid : String) = repository.getReminder(uuid)
 
 }

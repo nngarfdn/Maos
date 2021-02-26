@@ -7,6 +7,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.presidev.maos.catatanku.reminder.model.Reminder
+import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.mitramanagement.repository.BookRepository
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -22,7 +24,7 @@ class ReminderRepository {
     }
 
 
-    fun getReminder() {
+    fun getReminder(id: String) {
         val produkData: MutableList<Reminder> = ArrayList()
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Reminder>()
@@ -32,14 +34,17 @@ class ReminderRepository {
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
-                        val pp = document.toObject(Reminder::class.java)
-                        pp.id = document.id
-                        savedProdukList.add(pp)
-                        produkData.add(pp)
-                        Log.d(TAG, "getData size : ${savedProdukList.size} getData: $pp")
+                        val kategoriDocument = document.data["uuid"] as String
+                        if (kategoriDocument == id) {
+                            val pp = document.toObject(Reminder::class.java)
+                            pp.id = document.id
+                            savedProdukList.add(pp)
+                            produkData.add(pp)
+                            Log.d(TAG, "Reminder size : ${savedProdukList.size} Reminder: $pp")
+                        }
                     }
                     resultReminder.value = produkData
-                    Log.d(TAG, "readProduk size final getData : ${savedProdukList.size}")
+                    Log.d(TAG, "readProduk size final Reminder : ${savedProdukList.size}")
                 }
                 .addOnFailureListener { exception ->
                     Log.e(TAG, "Error getting documents.", exception)
@@ -85,6 +90,7 @@ class ReminderRepository {
     private fun hashMapBook(reminder : Reminder): Map<String, Any?> {
         val document: MutableMap<String, Any?> = HashMap()
         document["id"] = reminder.id
+        document["uuid"] = reminder.uuid
         document["bookTitle"] = reminder.bookTitle
         document["tempatPeminjam"] = reminder.tempatPeminjam
         document["returnDate"] = reminder.returnDate
