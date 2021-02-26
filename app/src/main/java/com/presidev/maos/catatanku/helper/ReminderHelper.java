@@ -24,14 +24,14 @@ public class ReminderHelper {
     public static void cancelReminder(Context context, int notifId){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, TargetReminder.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, 0);
         pendingIntent.cancel();
         if (alarmManager != null) alarmManager.cancel(pendingIntent);
         Log.d(TAG, "Reminder canceled: " + notifId);
     }
 
     static void showNotification(Context context, String title, String message, int notifId) {
-        String CHANNEL_ID = "channel_01";
+        String CHANNEL_ID = "channel_reminder";
         String CHANNEL_NAME = "Reminder";
 
         // Intent saat notif diklik

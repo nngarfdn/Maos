@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.repository;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.presidev.maos.catatanku.target.model.Target;
 
 import java.util.ArrayList;
 import java.util.HashMap;

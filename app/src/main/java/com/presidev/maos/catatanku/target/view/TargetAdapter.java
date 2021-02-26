@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.view;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.presidev.maos.R;
+import com.presidev.maos.catatanku.target.model.Target;
 import com.presidev.maos.databinding.ItemTargetBinding;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ class TargetAdapter extends RecyclerView.Adapter<TargetAdapter.ViewHolder> {
                 binding.tvProgress.setText("selesai");
                 binding.tvProgress.setTextColor(binding.getRoot().getResources().getColor(R.color.green));
             } else {
-                binding.tvProgress.setText("progres: " + (int) progress + "%");
+                binding.tvProgress.setText("progres: " + (int) progress + "%" + " (" + target.getPagesRead() + "/" + target.getTotalPages() + ")");
                 binding.tvProgress.setTextColor(binding.getRoot().getResources().getColor(R.color.red));
             }
 

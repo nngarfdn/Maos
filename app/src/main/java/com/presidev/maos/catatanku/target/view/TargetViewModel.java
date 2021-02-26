@@ -1,9 +1,11 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.view;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.presidev.maos.catatanku.target.model.Target;
+import com.presidev.maos.catatanku.target.repository.TargetRepository;
 
 import java.util.ArrayList;
 

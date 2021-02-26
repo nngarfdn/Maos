@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

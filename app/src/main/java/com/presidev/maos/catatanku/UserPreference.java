@@ -11,7 +11,8 @@ public class UserPreference {
     private final SharedPreferences.Editor editor;
 
     private static final String PREFERENCE_NAME = "user_preference";
-    private static final String IS_FIRST_TIME_LOGIN = "is_first_time_login";
+    private static final String HAS_SET_TARGET_RELOGIN = "has_set_target_relogin";
+    private static final String HAS_SET_RETURN_RELOGIN = "has_set_return_relogin";
     private static final String LAST_UPDATE_PAGES_READ = "last_update_pages_read";
     private static final String TODAY_PAGES_READ = "today_pages_read";
 
@@ -21,13 +22,23 @@ public class UserPreference {
         editor = sharedPreferences.edit();
     }
 
-    public void setIsFirstTimeLogin(boolean IsFirstTimeLogin){
-        editor.putBoolean(IS_FIRST_TIME_LOGIN, IsFirstTimeLogin);
+    public void setHasSetTargetRelogin(boolean hasSetTargetRelogin){
+        editor.putBoolean(HAS_SET_TARGET_RELOGIN, hasSetTargetRelogin);
         editor.apply();
     }
 
-    public boolean getIsFirstTimeLogin(){
-        return sharedPreferences.getBoolean(IS_FIRST_TIME_LOGIN, true);
+    // Buat cek apakah setelah relogin sudah atur notif target kembali
+    public boolean getHasSetTargetRelogin(){
+        return sharedPreferences.getBoolean(HAS_SET_TARGET_RELOGIN, false);
+    }
+
+    public void setHasSetReturnRelogin(boolean hasSetReturnRelogin){
+        editor.putBoolean(HAS_SET_RETURN_RELOGIN, hasSetReturnRelogin);
+        editor.apply();
+    }
+
+    public boolean getHasSetReturnRelogin(){
+        return sharedPreferences.getBoolean(HAS_SET_RETURN_RELOGIN, false);
     }
 
     public void setData(String targetId, String lastUpdatePagesRead, int todayPagesRead){

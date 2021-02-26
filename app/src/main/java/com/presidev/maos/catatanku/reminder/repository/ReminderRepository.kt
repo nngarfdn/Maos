@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.presidev.maos.catatanku.reminder.model.Reminder
 import java.util.ArrayList
 import java.util.HashMap
@@ -26,7 +27,8 @@ class ReminderRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Reminder>()
         db.collection("reminder")
-//                .orderBy("namaProyek")
+                .orderBy("isKembali", Query.Direction.ASCENDING)
+                .orderBy("returnDate", Query.Direction.ASCENDING)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {

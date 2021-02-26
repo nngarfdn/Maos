@@ -8,15 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.presidev.maos.R
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import com.presidev.maos.catatanku.UserPreference
+import com.presidev.maos.catatanku.helper.ReturnReminder
 import kotlinx.android.synthetic.main.fragment_reminder.*
 import kotlinx.android.synthetic.main.fragment_reminder.view.*
 
 
 class ReminderFragment : Fragment(){
+    private val TAG = javaClass.simpleName
 
     private lateinit var  reminderViewModel : ReminderViewModel
 
@@ -39,12 +40,24 @@ class ReminderFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userPreference = UserPreference(context)
         reminderViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(ReminderViewModel::class.java)
         reminderViewModel.getResultReminder().observe(viewLifecycleOwner, { result ->
             Log.d("ReminderFragment", "onViewCreated: $result")
             rv_reminder.layoutManager = LinearLayoutManager(context)
             val adapter = ReminderAdapter(result)
             rv_reminder.adapter = adapter
+
+            if (!userPreference.hasSetReturnRelogin) {
+                val returnReminder = ReturnReminder()
+                for (reminder in result) {
+                    if (reminder.isKembali.equals("false")) {
+                        returnReminder.setReminder(context, reminder)
+                    }
+                }
+                userPreference.hasSetReturnRelogin = true
+                Log.d(TAG, "Set reminder after relogin")
+            }
         })
 
         view.fab_add_reminder.setOnClickListener {

@@ -28,7 +28,7 @@ public class DateUtils {
     public static String getFullDate(String date, boolean isSimple){
         if (isValidDateFormat(date)){
             int[] arrayDate = getArrayDate(date);
-            String month = new DateFormatSymbols().getMonths()[(arrayDate[1])];
+            String month = new DateFormatSymbols().getMonths()[(arrayDate[1]-1)]; // Karena bulan di mulai dari 0, jadi dikurangi 1
             if (isSimple) month = month.substring(0,3);
             return arrayDate[2] + " " + month + " " + arrayDate[0];
         } else return "-1";
@@ -40,7 +40,7 @@ public class DateUtils {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dateFormat.parse(oldDate));
-                calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
+                calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
                 return dateFormat.format(calendar.getTime());
             } catch (ParseException e){
                 e.printStackTrace();
@@ -72,8 +72,7 @@ public class DateUtils {
             String[] stringArrayDate = date.split("/");
             int[] integerArrayDate = new int[3];
             for (int i = 0; i < 3; i++) integerArrayDate[i] = Integer.parseInt(stringArrayDate[i]);
-            // Karena bulan di mulai dari 0, jadi dikurangi 1
-            return new int[] {integerArrayDate[0], integerArrayDate[1]-1, integerArrayDate[2]};
+            return new int[] {integerArrayDate[0], integerArrayDate[1], integerArrayDate[2]};
         } else return null;
     }
 

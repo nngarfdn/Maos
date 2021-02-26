@@ -17,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
+        <receiver
+            android:name=".catatanku.helper.ReturnReminder"
+            android:enabled="true"
+            android:exported="false"/>
+        <receiver
+            android:name=".catatanku.helper.TargetReminder"
+            android:enabled="true"
+            android:exported="false"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -28,7 +36,7 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".catatanku.target.AddUpdateTargetActivity"/>
+        <activity android:name=".catatanku.target.view.AddUpdateTargetActivity" />
         <activity android:name=".catatanku.CatatanKuActivity" />
         <activity android:name=".login.view.MitraRegistrationActivity" />
         <activity android:name=".bookmark.view.SearchBookmarkActivity" />
@@ -46,6 +54,7 @@
         <activity android:name=".welcome.view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -58,7 +67,7 @@
         <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity" />
         <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
         <activity android:name=".bookdetail.BookDetailActivity" />
-        <activity android:name=".catatanku.reminder.view.AddEditReminderActivity"/>
+        <activity android:name=".catatanku.reminder.view.AddEditReminderActivity" />
     </application>
 
 </manifest>

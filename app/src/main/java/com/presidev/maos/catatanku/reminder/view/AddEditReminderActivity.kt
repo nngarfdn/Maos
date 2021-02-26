@@ -10,8 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
+import com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder
+import com.presidev.maos.catatanku.helper.ReturnReminder
 import com.presidev.maos.catatanku.reminder.model.Reminder
-import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.DateUtils.DATE_FORMAT
 import kotlinx.android.synthetic.main.activity_add_edit_reminder.*
 import java.text.SimpleDateFormat
@@ -67,6 +68,12 @@ class AddEditReminderActivity : AppCompatActivity() {
                 } else {
                     val reminder = Reminder(reminder?.id, title, borrowDate, returnDate, isReturned)
                     reminderViewModel.update(reminder)
+
+                    if (reminder.isKembali.equals("false")){
+                        val returnReminder = ReturnReminder()
+                        returnReminder.setReminder(this, reminder)
+                    } else cancelReminder(this, reminder.id.hashCode())
+
                     Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show()
                     finish()
                 }
@@ -78,7 +85,8 @@ class AddEditReminderActivity : AppCompatActivity() {
                         .setMessage("Apakah kamu yakin ingin menghapusnya?")
                         .setNegativeButton("Batal", null)
                         .setPositiveButton("Ya") { dialogInterface: DialogInterface?, i: Int ->
-                            reminder?.let { it1 -> reminderViewModel.delete(it1.id) }
+                            reminder?.let { it1 -> reminderViewModel.delete(it1.id)
+                                cancelReminder(this, it1.id.hashCode()) }
                             finish()
                         }.create().show()
             }
@@ -95,6 +103,12 @@ class AddEditReminderActivity : AppCompatActivity() {
                 } else {
                     val reminder = Reminder("", title, borrowDate, returnDate, isReturned)
                     reminderViewModel.insert(reminder)
+
+                    if (reminder.isKembali.equals("false")){
+                        val returnReminder = ReturnReminder()
+                        returnReminder.setReminder(this, reminder)
+                    } else cancelReminder(this, reminder.id.hashCode())
+
                     Toast.makeText(this, "Berhasil Menambahkan", Toast.LENGTH_SHORT).show()
                     finish()
                 }

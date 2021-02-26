@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.presidev.maos.catatanku.target.Target;
+import com.presidev.maos.catatanku.target.model.Target;
 
 import java.util.Calendar;
 
@@ -51,12 +51,12 @@ public class TargetReminder extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, timeArray[1]);
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, target.getId().hashCode(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, target.getId().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (alarmManager != null){
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         }
 
-        Log.d(TAG, "Target reminder set up: " + target.getId());
+        Log.d(TAG, "Reminder set up: " + target.getId());
     }
 }

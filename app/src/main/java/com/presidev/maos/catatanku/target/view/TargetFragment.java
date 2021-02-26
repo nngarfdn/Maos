@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.catatanku.UserPreference;
 import com.presidev.maos.catatanku.helper.TargetReminder;
+import com.presidev.maos.catatanku.target.model.Target;
 import com.presidev.maos.databinding.FragmentTargetBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -51,14 +52,14 @@ public class TargetFragment extends Fragment {
         targetViewModel.getTargetListLiveData().observe(getViewLifecycleOwner(), targetList -> {
             adapter.setData(targetList);
 
-            if (userPreference.getIsFirstTimeLogin()){
+            if (!userPreference.getHasSetTargetRelogin()){
                 TargetReminder targetReminder = new TargetReminder();
                 for (Target target : targetList){
-                    if (target.getIsReminderEnabled()) {
+                    if (target.getIsReminderEnabled() && target.getProgress() != 100) {
                         targetReminder.setReminder(getContext(), target);
                     }
                 }
-                userPreference.setIsFirstTimeLogin(false);
+                userPreference.setHasSetTargetRelogin(true);
                 Log.d(TAG, "Set reminder after relogin");
             }
         });

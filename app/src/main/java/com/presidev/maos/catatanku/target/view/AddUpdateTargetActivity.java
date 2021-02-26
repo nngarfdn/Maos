@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.target;
+package com.presidev.maos.catatanku.target.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import com.presidev.maos.R;
 import com.presidev.maos.catatanku.UserPreference;
 import com.presidev.maos.catatanku.helper.TargetReminder;
 import com.presidev.maos.catatanku.helper.TimePickerFragment;
+import com.presidev.maos.catatanku.target.model.Target;
 import com.presidev.maos.databinding.ActivityAddUpdateTargetBinding;
 
 import java.text.SimpleDateFormat;
@@ -215,7 +216,7 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
 
                 preference.setData(target.getId(), lastUpdatePagesRead, todayPagesRead);
 
-                if (target.getIsReminderEnabled()){
+                if (target.getIsReminderEnabled() && target.getProgress() != 100){
                     TargetReminder targetReminder = new TargetReminder();
                     targetReminder.setReminder(this, target);
                 } else {
