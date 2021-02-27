@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".catatanku.quotes.AddQuoteActivity"></activity>
+        <activity android:name=".catatanku.quotes.AddQuoteActivity"/>
 
         <receiver
             android:name=".catatanku.helper.ReturnReminder"

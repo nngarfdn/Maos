@@ -33,6 +33,13 @@ public class TargetReminder extends BroadcastReceiver {
     }
 
     public void setReminder(Context context, Target target){
+        for (int dayOfWeek : target.getReminderDayOfWeeks()){
+            Log.d(TAG, "dayOfWeek: " + dayOfWeek);
+            setWeeklyReminder(context, target, dayOfWeek);
+        }
+    }
+
+    private void setWeeklyReminder(Context context, Target target, int dayOfWeek){
         Log.d(TAG, target.getReminderTime());
         if (!isValidTimeFormat(target.getReminderTime())) return;
 
@@ -51,12 +58,22 @@ public class TargetReminder extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, timeArray[1]);
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, target.getId().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if (alarmManager != null){
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
+        calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
+
+        // Check we aren't setting it in the past which would trigger it to fire instantly
+        if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 7);
         }
 
-        Log.d(TAG, "Reminder set up: " + target.getId());
+        // Bedakan id reminder per harinya
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                target.getId().hashCode() + dayOfWeek, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (alarmManager != null){
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY * 7, pendingIntent); // Seminggu sekali
+        }
+
+        Log.d(TAG, "Reminder set up: " + target.getId() +
+                ": " + target.getId().hashCode() + dayOfWeek);
     }
 }

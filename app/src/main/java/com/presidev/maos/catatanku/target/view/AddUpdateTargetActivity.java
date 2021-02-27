@@ -20,7 +20,9 @@ import com.presidev.maos.catatanku.target.model.Target;
 import com.presidev.maos.databinding.ActivityAddUpdateTargetBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder;
 import static com.presidev.maos.utils.AppUtils.getFixText;
@@ -79,16 +81,20 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
             binding.edtDailyPages.setText(String.valueOf(target.getDailyPages()));
             binding.switchReminder.setChecked(target.getIsReminderEnabled());
             binding.edtTime.setText(target.getReminderTime());
-
+            binding.chipMonday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.MONDAY));
+            binding.chipTuesday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.TUESDAY));
+            binding.chipWednesday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.WEDNESDAY));
+            binding.chipThursday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.THURSDAY));
+            binding.chipFriday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.FRIDAY));
+            binding.chipSaturday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.SATURDAY));
+            binding.chipSunday.setChecked(target.getReminderDayOfWeeks().contains(Calendar.SUNDAY));
             todayPagesRead = preference.getTodayPagesRead(target.getId());
             lastUpdatePagesRead = preference.getLastUpdatePagesRead(target.getId());
         } else {
             target = new Target();
             binding.toolbar.setTitle("Tambah Target");
             binding.btnDelete.setVisibility(View.GONE);
-
             binding.edtPagesRead.setText("0");
-
             todayPagesRead = 0;
             lastUpdatePagesRead = getCurrentDate();
         }
@@ -214,13 +220,30 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                 target.setIsReminderEnabled(binding.switchReminder.isChecked());
                 target.setReminderTime(time);
 
+                List<Integer> dayOfWeekList = new ArrayList<>();
+                if (binding.chipMonday.isChecked()) dayOfWeekList.add(Calendar.MONDAY);
+                if (binding.chipTuesday.isChecked()) dayOfWeekList.add(Calendar.TUESDAY);
+                if (binding.chipWednesday.isChecked()) dayOfWeekList.add(Calendar.WEDNESDAY);
+                if (binding.chipThursday.isChecked()) dayOfWeekList.add(Calendar.THURSDAY);
+                if (binding.chipFriday.isChecked()) dayOfWeekList.add(Calendar.FRIDAY);
+                if (binding.chipSaturday.isChecked()) dayOfWeekList.add(Calendar.SATURDAY);
+                if (binding.chipSunday.isChecked()) dayOfWeekList.add(Calendar.SUNDAY);
+                target.setReminderDayOfWeeks(dayOfWeekList);
+
                 preference.setData(target.getId(), lastUpdatePagesRead, todayPagesRead);
 
                 if (target.getIsReminderEnabled() && target.getProgress() != 100){
                     TargetReminder targetReminder = new TargetReminder();
-                    targetReminder.setReminder(this, target);
+                    targetReminder.setReminder(this, target); // Atur yang dicentang, dan
+                    for (int i = 1; i <= 7; i++){ // cancel yang tidak dicentang
+                        if (!target.getReminderDayOfWeeks().contains(i)){
+                            cancelReminder(this, target.getId().hashCode() + i);
+                        }
+                    }
                 } else {
-                    cancelReminder(this, target.getId().hashCode());
+                    for (int i = 1; i <= 7; i++){ // Cancel semua: SUN-MON -> 1-7
+                        cancelReminder(this, target.getId().hashCode() + i);
+                    }
                 }
 
                 if (isUpdate){
@@ -242,7 +265,7 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                         .setPositiveButton("Ya", (dialogInterface, i) -> {
                             targetViewModel.delete(target);
                             preference.removeData(target.getId());
-                            cancelReminder(this, target.getId().hashCode());
+                            for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) cancelReminder(this, target.getId().hashCode() + dayOfWeek);
                             showToast(view.getContext(), "Target berhasil dihapus");
                             onBackPressed();
                         }).create().show();

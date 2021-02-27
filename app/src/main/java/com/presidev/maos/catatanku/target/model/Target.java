@@ -3,6 +3,9 @@ package com.presidev.maos.catatanku.target.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Target implements Parcelable {
     private String id;
     private String userId;
@@ -13,20 +16,9 @@ public class Target implements Parcelable {
     private double progress;
     private boolean isReminderEnabled;
     private String reminderTime;
+    private List<String> reminderDayOfWeeks;
 
     public Target() {}
-
-    public Target(String id, String userId, String bookTitle, int totalPages, int dailyPages, int pagesRead, double progress, boolean isReminderEnabled, String reminderTime) {
-        this.id = id;
-        this.userId = userId;
-        this.bookTitle = bookTitle;
-        this.totalPages = totalPages;
-        this.dailyPages = dailyPages;
-        this.pagesRead = pagesRead;
-        this.progress = progress;
-        this.isReminderEnabled = isReminderEnabled;
-        this.reminderTime = reminderTime;
-    }
 
     protected Target(Parcel in) {
         id = in.readString();
@@ -38,6 +30,7 @@ public class Target implements Parcelable {
         progress = in.readDouble();
         isReminderEnabled = in.readByte() != 0;
         reminderTime = in.readString();
+        reminderDayOfWeeks = in.createStringArrayList();
     }
 
     @Override
@@ -51,6 +44,7 @@ public class Target implements Parcelable {
         dest.writeDouble(progress);
         dest.writeByte((byte) (isReminderEnabled ? 1 : 0));
         dest.writeString(reminderTime);
+        dest.writeStringList(reminderDayOfWeeks);
     }
 
     @Override
@@ -140,5 +134,21 @@ public class Target implements Parcelable {
 
     public void setReminderTime(String reminderTime) {
         this.reminderTime = reminderTime;
+    }
+
+    public List<Integer> getReminderDayOfWeeks() {
+        List<Integer> result = new ArrayList<>();
+        for(String dayOfWeek : reminderDayOfWeeks) {
+            result.add(Integer.parseInt(dayOfWeek));
+        }
+        return result;
+    }
+
+    public void setReminderDayOfWeeks(List<Integer> reminderDayOfWeeks) {
+        List<String> result = new ArrayList<>();
+        for(int dayOfWeek : reminderDayOfWeeks) {
+            result.add(String.valueOf(dayOfWeek));
+        }
+        this.reminderDayOfWeeks = result;
     }
 }

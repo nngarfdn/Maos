@@ -59,8 +59,6 @@ public class AppUtils {
                 .into(imageView);
     }
 
-
-
     public static void loadBlurImageFromUrl(Context context, ImageView imageView, String url){
         Picasso.get()
                 .load(url)

@@ -5,6 +5,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +28,8 @@ import com.presidev.maos.catatanku.quotes.photoeditor.EditingToolsAdapter;
 import com.presidev.maos.catatanku.quotes.photoeditor.TextEditorDialogFragment;
 import com.presidev.maos.catatanku.quotes.photoeditor.ToolType;
 import com.presidev.maos.databinding.ActivityAddQuoteBinding;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +69,19 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
 
         mPhotoEditor.setOnPhotoEditorListener(this);
 
-        binding.photoEditorView.setBackgroundResource(R.drawable.gambarii);
+        Picasso.get()
+                .load("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")
+                .placeholder(R.drawable.ic_no_pic)
+                .error(R.drawable.ic_no_pic)
+                .into(new Target() {
+                    @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                    @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        binding.photoEditorView.setBackground(new BitmapDrawable(getResources(), bitmap));
+                    }
+                });
+
         binding.imgUndo.setOnClickListener(this);
         binding.imgRedo.setOnClickListener(this);
         binding.imgShare.setOnClickListener(this);
@@ -80,6 +97,7 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
         return super.onSupportNavigateUp();
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

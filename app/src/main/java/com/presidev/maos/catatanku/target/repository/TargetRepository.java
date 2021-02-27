@@ -111,6 +111,7 @@ public class TargetRepository {
         document.put("progress", target.getProgress());
         document.put("isReminderEnabled", target.getIsReminderEnabled());
         document.put("reminderTime", target.getReminderTime());
+        document.put("reminderDayOfWeeks", target.getReminderDayOfWeeks());
         return document;
     }
 }
