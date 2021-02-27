@@ -68,16 +68,16 @@ class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<Fav
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                if (charSearch.isEmpty()) {
-                    countryFilterList = data!!
+                countryFilterList = if (charSearch.isEmpty()) {
+                    data!!
                 } else {
                     val resultList = ArrayList<Book>()
                     for (row in data!!) {
-                        if (row.title!!.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.title!!.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
                             resultList.add(row)
                         }
                     }
-                    countryFilterList = resultList
+                    resultList
                 }
                 val filterResults = FilterResults()
                 filterResults.values = countryFilterList

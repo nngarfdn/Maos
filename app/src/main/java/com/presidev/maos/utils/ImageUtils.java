@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class ImageUtils {
     public static byte[] convertBitmapToByteArray(Context context, Bitmap bitmap){
         ByteArrayOutputStream stream = null;
@@ -51,6 +52,7 @@ public class ImageUtils {
             e.printStackTrace();
         }
 
+        assert stream != null;
         return stream.toByteArray();
     }
 
@@ -82,6 +84,7 @@ public class ImageUtils {
             e.printStackTrace();
         }
 
+        assert stream != null;
         return stream.toByteArray();
     }
 }

@@ -13,6 +13,8 @@ import com.presidev.maos.R;
 import com.presidev.maos.membership.view.MemberCardViewModel;
 import com.presidev.maos.profile.mitra.model.Mitra;
 
+import java.util.Objects;
+
 import static com.presidev.maos.utils.Constants.EXTRA_MITRA;
 
 public class MemberListActivity extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class MemberListActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         RecyclerView recyclerView = findViewById(R.id.rv_member_list_ml);
         recyclerView.setHasFixedSize(true);

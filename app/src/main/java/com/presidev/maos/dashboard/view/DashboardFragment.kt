@@ -56,10 +56,8 @@ class DashboardFragment : Fragment() {
             rv_mitra.adapter = adapter
         })
 
-        sliderView = view.findViewById<SliderView>(R.id.imageSlider)
-
-        adapter = SliderAdapter(context)
-
+        sliderView = view.findViewById(R.id.imageSlider)
+        adapter = SliderAdapter()
         adapter.addItem(Slider("https://i.imgur.com/g6rZGhw.png"))
         adapter.addItem(Slider("https://i.imgur.com/HDcDGcn.png"))
         adapter.addItem(Slider("https://i.imgur.com/pS4Yr5R.png"))
@@ -67,11 +65,11 @@ class DashboardFragment : Fragment() {
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
 
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
-        sliderView.setIndicatorSelectedColor(Color.WHITE)
-        sliderView.setIndicatorUnselectedColor(Color.GRAY)
-        sliderView.setScrollTimeInSec(3)
-        sliderView.setAutoCycle(true)
+        sliderView.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+        sliderView.indicatorSelectedColor = Color.WHITE
+        sliderView.indicatorUnselectedColor = Color.GRAY
+        sliderView.scrollTimeInSec = 3
+        sliderView.isAutoCycle = true
         sliderView.startAutoCycle()
 
         view.edt_search.setOnClickListener{
@@ -93,17 +91,7 @@ class DashboardFragment : Fragment() {
                 AppUtils.showToast(view.context, "Kamu belum punya aplikasi WhatsApp")
             }
         }
-
-
-
-
         return view
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onStart() {

@@ -3,16 +3,15 @@ package com.presidev.maos.developer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,7 +69,7 @@ public class DeveloperFragment extends Fragment implements View.OnClickListener 
                     if (firebaseUser == null) {
                         Intent intentRestart = new Intent(getContext(), SplashActivity.class);
                         startActivity(intentRestart);
-                        getActivity().finish();
+                        requireActivity().finish();
                     }
                 });
                 break;

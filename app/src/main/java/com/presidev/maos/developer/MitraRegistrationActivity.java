@@ -18,6 +18,7 @@ import com.presidev.maos.auth.view.AuthViewModel;
 import com.presidev.maos.profile.mitra.model.Mitra;
 import com.presidev.maos.profile.mitra.view.MitraViewModel;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static com.presidev.maos.utils.AppUtils.showToast;
@@ -38,7 +39,7 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, true);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);

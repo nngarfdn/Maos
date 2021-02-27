@@ -22,6 +22,7 @@ import com.presidev.maos.profile.mitra.view.MitraViewModel;
 import com.presidev.maos.membership.model.MemberCard;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
@@ -90,7 +91,7 @@ public class MemberCardAdapter extends RecyclerView.Adapter<MemberCardAdapter.Vi
         public void bind(MemberCard memberCard) {
             mitraViewModel.getReference().document(memberCard.getMitraId()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
-                    mitra = task.getResult().toObject(Mitra.class);
+                    mitra = Objects.requireNonNull(task.getResult()).toObject(Mitra.class);
                     Log.d(getClass().getSimpleName(), mitra.getEmail());
                     loadBlurImageFromUrl(itemView.getContext(), imgBanner, mitra.getBanner());
                     loadProfilePicFromUrl(imgMitra, mitra.getLogo());

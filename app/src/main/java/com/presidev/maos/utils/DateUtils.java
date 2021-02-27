@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import static com.presidev.maos.utils.AppUtils.LOCALE;
 
@@ -19,15 +20,16 @@ public class DateUtils {
         return dateFormat.format(date);
     }
 
-    public static String getCurrentTime(){
-        DateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, LOCALE);
-        Date time = new Date();
-        return timeFormat.format(time);
-    }
+//    public static String getCurrentTime(){
+//        DateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, LOCALE);
+//        Date time = new Date();
+//        return timeFormat.format(time);
+//    }
 
     public static String getFullDate(String date, boolean isSimple){
         if (isValidDateFormat(date)){
             int[] arrayDate = getArrayDate(date);
+            assert arrayDate != null;
             String month = new DateFormatSymbols().getMonths()[(arrayDate[1]-1)]; // Karena bulan di mulai dari 0, jadi dikurangi 1
             if (isSimple) month = month.substring(0,3);
             return arrayDate[2] + " " + month + " " + arrayDate[0];
@@ -39,7 +41,7 @@ public class DateUtils {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, LOCALE);
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dateFormat.parse(oldDate));
+                calendar.setTime(Objects.requireNonNull(dateFormat.parse(oldDate)));
                 calendar.add(Calendar.DAY_OF_YEAR, numberOfDays);
                 return dateFormat.format(calendar.getTime());
             } catch (ParseException e){
@@ -57,6 +59,8 @@ public class DateUtils {
                 Date currentDate = dateFormat.parse(olderDate);
 
                 // Bagi 100rb karena aslinya long
+                assert finalDate != null;
+                assert currentDate != null;
                 double difference = (double) ((finalDate.getTime()-currentDate.getTime())/100000); // Jika ingin absolut -> Math.abs()
                 return (int) ((difference / (24*60*60*1000))*100000);
             }catch (ParseException e){

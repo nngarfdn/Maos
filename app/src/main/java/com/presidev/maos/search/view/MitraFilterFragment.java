@@ -83,6 +83,7 @@ public class MitraFilterFragment extends BottomSheetDialogFragment implements Vi
         btnApply.setEnabled(false);
 
         Bundle bundle = getArguments();
+        assert bundle != null;
         if (bundle.containsKey(EXTRA_MITRA_FILTER)){
             filter = bundle.getParcelable(EXTRA_MITRA_FILTER);
             setView(filter);

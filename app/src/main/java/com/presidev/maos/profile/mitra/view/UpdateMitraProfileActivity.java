@@ -28,6 +28,7 @@ import com.presidev.maos.profile.mitra.model.Mitra;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.isValidPhone;
@@ -64,7 +65,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, false);
 

@@ -9,6 +9,7 @@ import android.os.Handler;
 import com.presidev.maos.home.App;
 import com.presidev.maos.R;
 
+@SuppressWarnings("ALL")
 public class SplashActivity extends AppCompatActivity {
 
     @Override

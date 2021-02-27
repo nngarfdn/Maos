@@ -15,7 +15,6 @@ class DashboardRepository {
         private const val TAG = "DashboardRepository"
     }
 
-    private val database = FirebaseFirestore.getInstance()
     private var resultMitra: MutableLiveData<List<Mitra>> = MutableLiveData()
     fun getResultsMitra(): LiveData<List<Mitra>> = resultMitra
 

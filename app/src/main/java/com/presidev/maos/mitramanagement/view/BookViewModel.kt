@@ -23,8 +23,4 @@ class BookViewModel : ViewModel() {
         }
     }
 
-    fun deleteImage(imageUrl: String?) {
-        repository.deleteImage(imageUrl)
-    }
-
 }

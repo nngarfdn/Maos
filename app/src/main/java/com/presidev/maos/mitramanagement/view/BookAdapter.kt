@@ -1,18 +1,14 @@
 package com.presidev.maos.mitramanagement.view
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.squareup.picasso.Picasso
 
 class BookAdapter (private val list: List<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

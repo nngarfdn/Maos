@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (account.isNewAccount()){
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 User user = new User();
+                assert firebaseUser != null;
                 user.setId(firebaseUser.getUid());
                 user.setName(firebaseUser.getDisplayName());
                 user.setEmail(firebaseUser.getEmail());

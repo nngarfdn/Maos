@@ -28,6 +28,8 @@ import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity;
 import com.presidev.maos.profile.mitra.model.Mitra;
 import com.presidev.maos.profile.user.view.UserViewModel;
 
+import java.util.Objects;
+
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.loadBlurImageFromUrl;
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
@@ -52,7 +54,7 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -75,6 +77,7 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
             edtName.setText(user.getName());
             edtEmail.setText(user.getEmail());
         });
+        assert firebaseUser != null;
         userViewModel.query(firebaseUser.getUid());
     }
 

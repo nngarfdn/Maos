@@ -4,12 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.presidev.maos.R;
 import com.presidev.maos.about.AboutActivity;
@@ -49,7 +48,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        AuthPreference authPreference = new AuthPreference(getContext());
+        AuthPreference authPreference = new AuthPreference(requireContext());
 
         ImageButton ibView = view.findViewById(R.id.ib_view_mp);
         LinearLayout layoutProfile = view.findViewById(R.id.layout_profile_mp);
@@ -134,7 +133,7 @@ public class MitraProfileFragment extends Fragment implements View.OnClickListen
                     if (account.getFirebaseUser() == null){
                         Intent intentRestart = new Intent(getContext(), SplashActivity.class);
                         startActivity(intentRestart);
-                        getActivity().finish();
+                        requireActivity().finish();
                     }
                 });
                 new AlertDialog.Builder(getActivity())

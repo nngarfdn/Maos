@@ -10,7 +10,5 @@ class DashboardViewModel : ViewModel() {
     fun getResultMitra()  = repository.getResultsMitra()
     fun loadResultMitra() = repository.getMitra()
 
-    fun getResultBokk()  = repository.getResultsBook()
-    fun loadResultBook() = repository.getBook()
 
 }

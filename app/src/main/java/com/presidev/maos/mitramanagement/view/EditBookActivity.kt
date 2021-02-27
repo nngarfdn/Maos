@@ -1,5 +1,6 @@
 package com.presidev.maos.mitramanagement.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,15 +20,17 @@ class EditBookActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_BOOK = "extra_book"
+        private const val RC_PAYMENT_IMAGE = 100
+        private const val RC_ADD_PAYMENT = 200
     }
 
-    private val RC_PAYMENT_IMAGE = 100
-    private val RC_ADD_PAYMENT = 200
+
     private var uriPaymentImage: Uri? = null
 
     private lateinit var book: Book
     private lateinit var bookViewModel: BookViewModel
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_book)
@@ -39,19 +42,19 @@ class EditBookActivity : AppCompatActivity() {
         bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
 
         val intent = intent?.extras
-        book = intent?.getParcelable<Book>(EXTRA_BOOK)!!
+        book = intent?.getParcelable(EXTRA_BOOK)!!
 
-        edt_title.setText(book?.title)
-        edt_description.setText(book?.description)
-        edt_penulis.setText(book?.penulis)
-        swtKetersediaan.isChecked = book?.ketersediaan!!
+        edt_title.setText(book.title)
+        edt_description.setText(book.description)
+        edt_penulis.setText(book.penulis)
+        swtKetersediaan.isChecked = book.ketersediaan!!
 
-        loadImageFromUrl(imgUpload, book?.photo)
+        loadImageFromUrl(imgUpload, book.photo)
 
         btn_choose_image.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(Intent.createChooser(intent, "Unggah bukti pembayaran"), RC_PAYMENT_IMAGE)
+            val i = Intent(Intent.ACTION_PICK)
+            i.type = "image/*"
+            startActivityForResult(Intent.createChooser(i, "Unggah bukti pembayaran"), RC_PAYMENT_IMAGE)
         }
 
         btn_simpan.setOnClickListener {
@@ -59,7 +62,7 @@ class EditBookActivity : AppCompatActivity() {
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
             val sinopsis = edt_penulis.text.toString()
-            val switchState = swtKetersediaan.isChecked()
+            val switchState = swtKetersediaan.isChecked
 
             book.bookId = id
             book.mitraId = book.mitraId
@@ -77,7 +80,7 @@ class EditBookActivity : AppCompatActivity() {
             }
 
         }
-        btn_delete.setText("Hapus")
+        btn_delete.text = "Hapus"
 
         btn_delete.setOnClickListener {
             AlertDialog.Builder(this)
@@ -90,7 +93,7 @@ class EditBookActivity : AppCompatActivity() {
                     }.create().show()
         }
 
-        edt_description.setOnTouchListener(AppUtils.scrollableListener);
+        edt_description.setOnTouchListener(AppUtils.scrollableListener)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -106,7 +109,7 @@ class EditBookActivity : AppCompatActivity() {
                         val judul = edt_title.text.toString()
                         val deskripsi = edt_description.text.toString()
                         val penulis = edt_penulis.text.toString()
-                        val switchState = swtKetersediaan.isChecked()
+                        val switchState = swtKetersediaan.isChecked
                         val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->

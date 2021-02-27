@@ -45,6 +45,7 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
         tvReset.setOnClickListener(this);
 
         Bundle bundle = getArguments();
+        assert bundle != null;
         if (bundle.containsKey(EXTRA_BOOK_FILTER)){
             filter = bundle.getParcelable(EXTRA_BOOK_FILTER);
             setView(filter);

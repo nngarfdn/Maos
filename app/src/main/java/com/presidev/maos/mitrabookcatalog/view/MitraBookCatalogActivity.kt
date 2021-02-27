@@ -26,17 +26,17 @@ class MitraBookCatalogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mitra_book_catalog)
 
         val intent = intent?.extras
-        mitra = intent?.getParcelable<Mitra>(EXTRA_MITRA)!!
+        mitra = intent?.getParcelable(EXTRA_MITRA)!!
 
         loadProfilePicFromUrl(img_book_catalog, mitra.logo)
 
-        img_book_catalog.setCornerRadius(16F)
+        img_book_catalog.cornerRadius = 16F
 
         loadBlurImageFromUrl(this, img_cover, mitra.banner)
 
-        txt_mitra_name.setText(mitra.name)
-        txt_mitra_description.setText(mitra.description)
-        txt_address_mitra.setText(setFullAddress(mitra.address, mitra.province, mitra.regency, mitra.district))
+        txt_mitra_name.text = mitra.name
+        txt_mitra_description.text = mitra.description
+        txt_address_mitra.text = setFullAddress(mitra.address, mitra.province, mitra.regency, mitra.district)
 
         mitraBookViewModel =  ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MitraBookViewModel::class.java)
 

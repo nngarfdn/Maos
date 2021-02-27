@@ -1,6 +1,6 @@
 package com.presidev.maos.dashboard.view;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,30 +10,30 @@ import android.widget.TextView;
 
 import com.presidev.maos.R;
 import com.presidev.maos.dashboard.model.Slider;
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import static com.presidev.maos.utils.AppUtils.loadImageFromUrl;
 
 public class SliderAdapter extends
         SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 
-    private List<Slider> mSliderItems = new ArrayList<>();
+    private final List<Slider> mSliderItems = new ArrayList<>();
 
-    public SliderAdapter(Context context) {
+    public SliderAdapter() {
     }
 
-    public void renewItems(List<Slider> sliderItems) {
-        this.mSliderItems = sliderItems;
-        notifyDataSetChanged();
-    }
-
-    public void deleteItem(int position) {
-        this.mSliderItems.remove(position);
-        notifyDataSetChanged();
-    }
+//    public void renewItems(List<Slider> sliderItems) {
+//        this.mSliderItems = sliderItems;
+//        notifyDataSetChanged();
+//    }
+//
+//    public void deleteItem(int position) {
+//        this.mSliderItems.remove(position);
+//        notifyDataSetChanged();
+//    }
 
     public void addItem(Slider sliderItem) {
         this.mSliderItems.add(sliderItem);
@@ -42,7 +42,7 @@ public class SliderAdapter extends
 
     @Override
     public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout_item, null);
+        @SuppressLint("InflateParams") View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout_item, null);
         return new SliderAdapterVH(inflate);
     }
 

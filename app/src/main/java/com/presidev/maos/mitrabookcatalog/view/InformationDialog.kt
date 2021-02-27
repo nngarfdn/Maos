@@ -30,9 +30,9 @@ class InformationDialog : BottomSheetDialogFragment() {
 
         AppUtils.loadProfilePicFromUrl(view.img_book_info, mitra?.logo)
 
-        view.txt_book_title_info.setText(mitra?.name)
-        view.txt_description_info.setText(mitra?.description)
-        view.txt_rules.setText(mitra?.rules)
+        view.txt_book_title_info.text = mitra?.name
+        view.txt_description_info.text = mitra?.description
+        view.txt_rules.text = mitra?.rules
         return view
     }
 

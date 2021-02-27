@@ -46,13 +46,14 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rv_bookmark)
-        recyclerView.setLayoutManager(GridLayoutManager(context, 2))
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.setHasFixedSize(true)
         adapter = BookmarkAdapter(requireActivity())
         adapter!!.notifyDataSetChanged()
-        recyclerView.setAdapter(adapter)
+        recyclerView.adapter = adapter
         imgBookmark = view.findViewById(R.id.img_bookmark)
         txtEmptyBookmark = view.findViewById(R.id.txt_bookmark_empty)
+
         favoriteViewModel!!.data.observe(viewLifecycleOwner, { favorite: Bookmark ->
             // Kalo daftar favorit masih sama, jangan dimuat lagi
             if (listBookId != favorite.listBookId) {

@@ -31,6 +31,7 @@ import com.presidev.maos.profile.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.isValidPhone;
@@ -84,7 +85,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(Objects.requireNonNull(getSupportActionBar())).setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new LoadingDialog(this, false);
 

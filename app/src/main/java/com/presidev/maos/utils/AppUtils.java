@@ -23,6 +23,7 @@ import java.util.UUID;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
+@SuppressWarnings("ALL")
 public class AppUtils {
     public static final Locale LOCALE = new Locale("in", "ID");
 

@@ -23,6 +23,8 @@ import com.presidev.maos.profile.user.model.User;
 import com.presidev.maos.profile.user.view.UserViewModel;
 import com.presidev.maos.membership.model.MemberCard;
 
+import java.util.Objects;
+
 import static com.presidev.maos.utils.AppUtils.getMemberCardId;
 import static com.presidev.maos.utils.AppUtils.getFixText;
 import static com.presidev.maos.utils.AppUtils.showToast;
@@ -51,7 +53,7 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Button btnMitraValidation = findViewById(R.id.btn_mitra_validation_amc);
         Button btnUserValidation = findViewById(R.id.btn_user_validation_amc);
@@ -72,7 +74,7 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (isMitraValid){
                     isMitraValid = false;
-                    setMitraValidView(isMitraValid);
+                    setMitraValidView(false);
                 }
             }
         });
@@ -84,7 +86,7 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (isUserValid){
                     isUserValid = false;
-                    setUserValidView(isUserValid);
+                    setUserValidView(false);
                 }
             }
         });

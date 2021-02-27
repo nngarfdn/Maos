@@ -27,8 +27,8 @@ class DashboardMitraAdapter(private val list: List<Mitra>) : RecyclerView.Adapte
         val alamatMitra : TextView = holder.itemView.findViewById(R.id.txt_address_book)
         loadImageFromUrl(image, list[position].logo)
 
-        namaMitra.setText(list[position].name)
-        alamatMitra.setText(setFullAddress(null, list[position].province, getSimpleRegency(list[position].regency), list[position].district))
+        namaMitra.text = list[position].name
+        alamatMitra.text = setFullAddress(null, list[position].province, getSimpleRegency(list[position].regency), list[position].district)
 
         holder.itemView.setOnClickListener {
             val c = holder.itemView.context

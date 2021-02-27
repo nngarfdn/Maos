@@ -16,6 +16,7 @@ import com.presidev.maos.profile.user.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
 import static com.presidev.maos.utils.ImageUtils.convertUriToByteArray;
@@ -39,7 +40,7 @@ public class UserRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        User user = task.getResult().toObject(User.class);
+                        User user = Objects.requireNonNull(task.getResult()).toObject(User.class);
                         userLiveData.postValue(user);
                         if (user != null) Log.d(TAG, "query: " + user.getName());
                         Log.d(TAG, "Document was queried");
@@ -53,8 +54,9 @@ public class UserRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         User user = null;
-                        if (task.getResult().getDocuments().size() > 0){
+                        if (Objects.requireNonNull(task.getResult()).getDocuments().size() > 0){
                             user = task.getResult().getDocuments().get(0).toObject(User.class);
+                            assert user != null;
                             Log.d(TAG, "query: " + user.getName());
                         }
                         userLiveData.postValue(user);

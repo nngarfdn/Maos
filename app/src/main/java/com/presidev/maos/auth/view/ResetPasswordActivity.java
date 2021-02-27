@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.presidev.maos.R;
 
+import java.util.Objects;
+
 public class ResetPasswordActivity extends AppCompatActivity {
     private AuthViewModel authViewModel;
 
@@ -23,7 +25,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 

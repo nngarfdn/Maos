@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +11,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.presidev.maos.R
 import com.presidev.maos.bookdetail.BookDetailActivity
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.mitramanagement.view.BookAdapter
-import com.presidev.maos.mitramanagement.view.EditBookActivity
-import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 
 class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapter<MitraBookCatalogAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -33,8 +27,8 @@ class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapt
         val title : TextView = holder.itemView.findViewById(R.id.txt_book_title)
         loadImageFromUrl(image, list[position].photo)
 
-        image.setCornerRadius(16F)
-        title.setText(list[position].title)
+        image.cornerRadius = 16F
+        title.text = list[position].title
 
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "${list[position].title}", Toast.LENGTH_SHORT).show()

@@ -10,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
 import java.sql.Timestamp
@@ -18,10 +17,12 @@ import java.util.*
 
 class AddBookActivity : AppCompatActivity() {
 
-    private val RC_PAYMENT_IMAGE = 100
-    private val RC_ADD_PAYMENT = 200
-    private var uriPaymentImage: Uri? = null
+    companion object{
+        private const val RC_PAYMENT_IMAGE = 100
+        private const val RC_ADD_PAYMENT = 200
+    }
 
+    private var uriPaymentImage: Uri? = null
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseUser: FirebaseUser? = null
 
@@ -56,7 +57,7 @@ class AddBookActivity : AppCompatActivity() {
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
             val penulis = edt_penulis.text.toString()
-            val switchState = swtKetersediaan.isChecked
+            swtKetersediaan.isChecked
 //            loadingDialog.show()
 
 
@@ -66,7 +67,7 @@ class AddBookActivity : AppCompatActivity() {
 
         }
 
-        edt_description.setOnTouchListener(scrollableListener);
+        edt_description.setOnTouchListener(scrollableListener)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,7 +88,7 @@ class AddBookActivity : AppCompatActivity() {
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
                             if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty() || fileName.isEmpty()) {
-                                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+                                showToast(applicationContext, "Pastikan semua data lengkap")
                             } else {
                                 book.photo = imageUrl
                                 book.mitraId = id
@@ -101,7 +102,7 @@ class AddBookActivity : AppCompatActivity() {
 //                intentResult.putExtra(EXTRA_PAYMENT, payment)
                                 setResult(RC_ADD_PAYMENT, intentResult)
 //                loadingDialog.dismiss()
-                                AppUtils.showToast(applicationContext, "Berhasil")
+                                showToast(applicationContext, "Berhasil")
                                 finish()
                             }
 

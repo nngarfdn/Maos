@@ -22,14 +22,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
-import com.presidev.maos.customview.LoadingDialog
 import com.presidev.maos.auth.preference.AuthPreference
+import com.presidev.maos.customview.LoadingDialog
+import com.presidev.maos.membership.view.MemberCardViewModel
+import com.presidev.maos.membership.view.MembershipIntroActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.profile.mitra.view.MitraViewModel
 import com.presidev.maos.profile.user.view.UserViewModel
-import com.presidev.maos.membership.view.MembershipIntroActivity
-import com.presidev.maos.membership.view.MemberCardViewModel
 import com.presidev.maos.utils.AppUtils
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.AppUtils.setFullAddress
@@ -37,7 +37,6 @@ import com.presidev.maos.utils.Constants.LEVEL_MITRA
 import com.presidev.maos.utils.Constants.LEVEL_USER
 import kotlinx.android.synthetic.main.activity_peminjaman.*
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -62,7 +61,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
             AlertDialog.Builder(this)
                     .setTitle("Tidak bisa meminjam buku")
                     .setMessage("Penyedia buku tidak bisa meminjam buku")
-                    .setPositiveButton("Kembali") { dialogInterface: DialogInterface?, i: Int -> onBackPressed() }
+                    .setPositiveButton("Kembali") { _: DialogInterface?, _: Int -> onBackPressed() }
                     .setCancelable(false)
                     .create().show()
         }
@@ -75,6 +74,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                 if (shouldShowRequestPermissionRationale(
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     // Explain to the user why we need to read the contacts
+                    Toast.makeText(this, "Perlu akses", Toast.LENGTH_SHORT).show()
                 }
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                         MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
@@ -108,13 +108,13 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
         mitraViewModel.mitraLiveData.observe(this) { result ->
             waNumber = result.whatsApp
             if (!TextUtils.isDigitsOnly(waNumber)){
-                val uri = Uri.parse("http://instagram.com/_u/" + waNumber)
+                val uri = Uri.parse("http://instagram.com/_u/$waNumber")
                 val likeIng = Intent(Intent.ACTION_VIEW, uri)
                 likeIng.setPackage("com.instagram.android")
                 try {
                     startActivity(likeIng)
                 } catch (e: ActivityNotFoundException) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + waNumber)))
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/$waNumber")))
                 }
                 finish()
             }
@@ -127,14 +127,14 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
 
         btn_choose_image.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(Intent.createChooser(intent, "Unggah foto"), RC_ID_CARD_IMAGE)
+            val i = Intent(Intent.ACTION_PICK)
+            i.type = "image/*"
+            startActivityForResult(Intent.createChooser(i, "Unggah foto"), RC_ID_CARD_IMAGE)
         }
 
         txt_berlangganan.setOnClickListener {
-            val intent = Intent(this, MembershipIntroActivity::class.java)
-            startActivity(intent)
+            val i = Intent(this, MembershipIntroActivity::class.java)
+            startActivity(i)
         }
 
 
@@ -143,12 +143,12 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
     private fun loadMemberCode() {
         memberCardViewModel.memberCardListLiveData.observe(this) { result ->
             for (member in result) {
-                if (member.mitraId.equals(book.mitraId)) {
-                    txt_member_code.setText(member.id)
+                if (member.mitraId == book.mitraId) {
+                    txt_member_code.text = member.id
                     onClickPinjam(member.id)
                     break
                 } else {
-                    txt_member_code.setText("-")
+                    txt_member_code.text = "-"
                     onClickPinjam("-")
                 }
             }
@@ -174,7 +174,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                     loadImageFromUrl(imgUpload, uriIdCard.toString())
                     try {
                         loadingDialog.show()
-                        val fileName: String = book.title + Calendar.getInstance().time.toString() + ".jpeg"
+//                        val fileName: String = book.title + Calendar.getInstance().time.toString() + ".jpeg"
                         onClickPinjam(txt_member_code.text.toString())
                         loadingDialog.dismiss()
                         btn_choose_image.visibility = View.INVISIBLE
@@ -210,17 +210,17 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                 Toast.makeText(this, "Lengkapi data dulu", Toast.LENGTH_SHORT).show()
             } else
             try {
-                val imgBitmap = (imgUpload.getDrawable() as BitmapDrawable).bitmap
+                val imgBitmap = (imgUpload.drawable as BitmapDrawable).bitmap
                 val bytes = ByteArrayOutputStream()
                 imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                 val imgBitmapPath = MediaStore.Images.Media.insertImage(
-                        applicationContext.getContentResolver(), imgBitmap, "IMG_" + System.currentTimeMillis(), null
-                );
+                        applicationContext.contentResolver, imgBitmap, "IMG_" + System.currentTimeMillis(), null
+                )
                 val imgBitmapUri = Uri.parse(imgBitmapPath)
                 val whatsappIntent = Intent(Intent.ACTION_SEND)
                 whatsappIntent.type = "text/plain"
                 whatsappIntent.setPackage("com.whatsapp")
-                if (code.equals("-")) {
+                if (code == "-") {
                     whatsappIntent.putExtra(Intent.EXTRA_TEXT,
                             "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
                                     "Nama   : $nama \n" +
@@ -236,7 +236,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                 }
 
                 whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
-                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net");
+                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net")
                 whatsappIntent.type = "image/jpeg"
                 whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
@@ -249,7 +249,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                     }
 
             }catch (e: ClassCastException) {
-                Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: " + e)
+                Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: $e")
                 Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
             }
         }

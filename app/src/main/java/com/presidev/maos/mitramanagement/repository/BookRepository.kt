@@ -10,7 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import com.presidev.maos.callback.OnImageUploadCallback
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.ImageUtils.convertUriToByteArray
@@ -98,9 +97,9 @@ class BookRepository {
     fun uploadImage(context: Context?, portfolioId: String, uri: Uri?, fileName: String, callback: OnImageUploadCallback) { // Investor
         var image: ByteArray? = convertUriToByteArray(context, uri)
         image = getCompressedByteArray(image, true)
-        val reference: StorageReference = storage.getReference().child(FOLDER_BUKU + "/" + portfolioId + "/" + fileName)
+        val reference: StorageReference = storage.reference.child("$FOLDER_BUKU/$portfolioId/$fileName")
         val uploadTask = reference.putBytes(image!!)
-        uploadTask.addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot? ->
+        uploadTask.addOnSuccessListener {
             reference.downloadUrl.addOnSuccessListener { uri1: Uri ->
                 callback.onSuccess(uri1.toString())
                 Log.d(TAG, "Image was uploaded")
@@ -111,8 +110,8 @@ class BookRepository {
     fun deleteImage(imageUrl: String?) { // Investor
         if (imageUrl != null) {
             storage.getReferenceFromUrl(imageUrl).delete()
-                    .addOnSuccessListener({ Log.d(TAG, "Image was deleted") })
-                    .addOnFailureListener({ e: Exception? -> Log.w(TAG, "Error deleting image", e) })
+                    .addOnSuccessListener { Log.d(TAG, "Image was deleted") }
+                    .addOnFailureListener { e: Exception? -> Log.w(TAG, "Error deleting image", e) }
         }
     }
 

@@ -4,6 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,20 +18,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.presidev.maos.R;
 import com.presidev.maos.about.AboutActivity;
-import com.presidev.maos.catatanku.CatatanKuActivity;
 import com.presidev.maos.auth.preference.AuthPreference;
 import com.presidev.maos.auth.view.AuthViewModel;
-import com.presidev.maos.membership.view.MembershipIntroActivity;
+import com.presidev.maos.catatanku.CatatanKuActivity;
 import com.presidev.maos.membership.view.MemberCardViewModel;
+import com.presidev.maos.membership.view.MembershipIntroActivity;
 import com.presidev.maos.profile.user.model.User;
 import com.presidev.maos.welcome.SplashActivity;
 
@@ -51,7 +50,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        AuthPreference authPreference = new AuthPreference(getContext());
+        AuthPreference authPreference = new AuthPreference(requireContext());
 
         RecyclerView rvMemberCard = view.findViewById(R.id.rv_member_card_up);
         rvMemberCard.setHasFixedSize(true);
@@ -134,7 +133,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                     if (account.getFirebaseUser() == null){
                         Intent intentRestart = new Intent(getContext(), SplashActivity.class);
                         startActivity(intentRestart);
-                        getActivity().finish();
+                        requireActivity().finish();
                     }
                 });
                 new AlertDialog.Builder(getActivity())
