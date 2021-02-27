@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -11,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="Nama lengkap"
-        android:inputType="textPersonName|textCapWords" />
+        android:hint="@string/nama_lengkap"
+        android:inputType="textPersonName|textCapWords"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/edt_email_register"
@@ -20,8 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/edt_password_register"
@@ -29,8 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="Kata sandi"
-        android:inputType="textPassword" />
+        android:hint="@string/kata_sandi"
+        android:inputType="textPassword"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/edt_password_confirmation_register"
@@ -38,8 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="Konfirmasi kata sandi"
-        android:inputType="textPassword" />
+        android:hint="@string/konfirmasi_kata_sandi"
+        android:inputType="textPassword"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/btn_email_register"
@@ -47,5 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Daftar" />
+        android:text="@string/daftar" />
 </LinearLayout>

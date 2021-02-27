@@ -18,7 +18,7 @@
             android:id="@+id/tv_header_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bookmark"
+            android:text="@string/bookmark"
             android:textColor="@color/white"
             android:textSize="@dimen/font_md"
             android:textStyle="bold"
@@ -45,13 +45,14 @@
         <Button
             android:id="@+id/btn_catatanku"
             style="@style/Button.Secondary"
-            android:text="CatatanKu"
+            android:text="@string/catatanku"
             android:drawableLeft="@drawable/ic_notes"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bookmark"
@@ -69,7 +70,8 @@
             android:src="@drawable/illustration_bookmark"
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/txt_bookmark_empty"
@@ -80,6 +82,6 @@
             android:textColor="#838383"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="Belum ada bookmark"/>
+            android:text="@string/belum_ada_bookmark"/>
     </RelativeLayout>
 </merge>

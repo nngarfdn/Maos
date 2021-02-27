@@ -39,7 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_no_pic"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/img_mitra_information"
@@ -49,7 +50,8 @@
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_information"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_book_catalog"
@@ -65,7 +67,7 @@
                     android:id="@+id/txt_mitra_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="buku_jogja"
+                    android:text="@string/buku_jogja"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -81,11 +83,12 @@
                     android:layout_marginTop="4dp"
                     android:maxLines="5"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:text="buku_jogja sudah berdiri sejak 2017 yang dimulai dengan membentuk komunitas untuk umum dengan agenda peprustakaan keliling untuk sekolah dasar dan taman ka "
+                    android:text="@string/buku_jogja_sudah_berdiri_sejak_2017_yang_dimulai_dengan_membentuk_komunitas_untuk_umum_dengan_agenda_peprustakaan_keliling_untuk_sekolah_dasar_dan_taman_ka"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/img_book_catalog"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_name"
+                    tools:ignore="SmallSp" />
 
                 <ImageView
                     android:id="@+id/location"
@@ -94,7 +97,8 @@
                     android:layout_height="10dp"
                     android:src="@drawable/ic_location_on"
                     app:layout_constraintStart_toStartOf="@+id/txt_mitra_description"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_description" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_description"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/txt_address_mitra"
@@ -103,13 +107,14 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_height="wrap_content"
-                    android:text="Mantrijeron, Kota Yogyakarta, DI Yogyakarta"
+                    android:text="@string/mantrijeron_kota_yogyakarta_di_yogyakarta"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/location"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_description" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_mitra_description"
+                    tools:ignore="SmallSp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -134,7 +139,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Populer"
+                android:text="@string/populer"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -155,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rv_bookpopuler"
-                android:text="Daftar Buku"
+                android:text="@string/daftar_buku"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"

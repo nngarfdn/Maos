@@ -21,11 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         style="@style/EditText"
-        android:hint="Nama"
+        android:hint="@string/nama"
         android:inputType="textPersonName|textCapWords"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
-        android:background="@drawable/bg_edit_text"/>
+        android:background="@drawable/bg_edit_text"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/edt_alamat"
@@ -33,12 +34,13 @@
         android:layout_height="wrap_content"
         style="@style/EditText.MultiLine"
         android:layout_marginHorizontal="32dp"
-        android:hint="Alamat"
+        android:hint="@string/alamat"
         android:lines="4"
         android:maxLines="4"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/edt_nama"
-        android:background="@drawable/bg_edit_text"/>
+        android:background="@drawable/bg_edit_text"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/textmember"
@@ -47,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Kode Member:"/>
+        android:text="@string/kode_member"/>
    <TextView
        android:id="@+id/txt_member_code"
        android:layout_below="@+id/textmember"
@@ -55,7 +57,7 @@
        android:layout_marginHorizontal="32dp"
        android:layout_marginTop="8dp"
        android:textColor="@color/green"
-       android:text="-"
+       android:text="@string/koson"
        android:textSize="22sp"
        android:textStyle="italic"
        android:layout_height="wrap_content"/>
@@ -69,7 +71,7 @@
         android:layout_marginEnd="32dp"
         android:layout_below="@+id/txt_member_code"
         android:layout_alignParentEnd="true"
-        android:text="Berlangganan"/>
+        android:text="@string/berlangganan"/>
 
     <ImageView
         android:id="@+id/imgUpload"
@@ -78,7 +80,8 @@
         android:layout_height="100dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/txt_berlangganan" />
+        android:layout_below="@id/txt_berlangganan"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/txtUpload"
@@ -87,7 +90,7 @@
         android:layout_alignTop="@+id/imgUpload"
         android:layout_toEndOf="@+id/imgUpload"
         android:layout_marginStart="32dp"
-        android:text="Kartu Identitas" />
+        android:text="@string/kartu_identitas" />
 
     <Button
         android:id="@+id/btn_choose_image"
@@ -98,7 +101,7 @@
         android:layout_below="@id/txtUpload"
         android:layout_alignStart="@+id/txtUpload"
         android:layout_marginTop="16dp"
-        android:text="Pilih Gambar" />
+        android:text="@string/pilih_gambar" />
 
     <Button
         android:id="@+id/btn_simpan"
@@ -108,5 +111,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginHorizontal="32dp"
-        android:text="Pinjam Sekarang" />
+        android:text="@string/pinjam_sekarang" />
 </RelativeLayout>

@@ -21,7 +21,7 @@
         style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filter mitra"/>
+        android:text="@string/filter_mitra"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mitra_search"
@@ -41,7 +41,7 @@
         style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filter buku"/>
+        android:text="@string/filter_buku"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_book_search"

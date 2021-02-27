@@ -19,8 +19,9 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Judul Buku"
-                android:inputType="textCapWords" />
+                android:hint="@string/judul_buku"
+                android:inputType="textCapWords"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/edt_penulis"
@@ -28,8 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edt_title"
-                android:hint="Penulis"
-                android:inputType="textPersonName|textCapWords"/>
+                android:hint="@string/penulis"
+                android:inputType="textPersonName|textCapWords"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/edt_description"
@@ -37,14 +39,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edt_penulis"
-                android:hint="Deskripsi" />
+                android:hint="@string/deskripsi"
+                tools:ignore="Autofill" />
 
             <TextView
                 android:id="@+id/txtKetersediaan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Ketersediaan"
+                android:text="@string/ketersediaan"
                 android:layout_below="@+id/edt_description" />
 
             <TextView
@@ -56,7 +59,7 @@
                 android:layout_alignBottom="@+id/swtKetersediaan"
                 android:layout_marginEnd="16dp"
                 android:layout_toStartOf="@+id/swtKetersediaan"
-                android:text="Ya" />
+                android:text="@string/ya" />
 
             <Switch
                 android:id="@+id/swtKetersediaan"
@@ -64,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/edt_description" />
+                android:layout_below="@id/edt_description"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgUpload"
@@ -82,7 +86,7 @@
                 android:layout_alignTop="@+id/imgUpload"
                 android:layout_toEndOf="@+id/imgUpload"
                 android:layout_marginStart="32dp"
-                android:text="Foto Buku" />
+                android:text="@string/foto_buku" />
 
             <Button
                 android:id="@+id/btn_choose_image"
@@ -92,7 +96,7 @@
                 android:layout_below="@id/txtUpload"
                 android:layout_alignStart="@+id/txtUpload"
                 android:layout_marginTop="16dp"
-                android:text="Pilih Gambar" />
+                android:text="@string/pilih_gambar" />
 
             <Button
                 android:id="@+id/btn_simpan"
@@ -101,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Simpan" />
+                android:text="@string/simpan" />
         </RelativeLayout>
     </ScrollView>
 </merge>

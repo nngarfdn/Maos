@@ -25,7 +25,7 @@
             android:id="@+id/txt_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mega Bank Saintek 2021"
+            android:text="@string/mega_bank_saintek_2021"
             android:textSize="@dimen/font_xs"
             android:textAlignment="center"
             android:lines="2"

@@ -21,7 +21,7 @@
             android:id="@+id/tv_header_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profil"
+            android:text="@string/profil"
             android:textSize="@dimen/font_md"
             android:textStyle="bold"
             android:textColor="@color/white"/>
@@ -90,7 +90,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CatatanKu"
+                android:text="@string/catatanku"
                 android:drawableStart="@drawable/ic_profile_catatanku"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -98,7 +98,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit profil"
+                android:text="@string/edit_profil"
                 android:drawableStart="@drawable/ic_profile_update"
                 android:layout_marginTop="12dp"/>
 
@@ -107,7 +107,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ganti kata sandi"
+                android:text="@string/ganti_kata_sandi"
                 android:drawableStart="@drawable/ic_profile_password"
                 android:layout_marginTop="@null"
                 android:layout_marginBottom="@null"/>
@@ -117,7 +117,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Berlangganan"
+                android:text="@string/berlangganan"
                 android:drawableStart="@drawable/ic_profile_subscribe"
                 android:layout_marginTop="12dp"/>
 
@@ -126,7 +126,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tentang aplikasi"
+                android:text="@string/tentang_aplikasi"
                 android:drawableStart="@drawable/ic_profile_about"
                 android:layout_marginTop="12dp"/>
 
@@ -135,7 +135,7 @@
                 style="@style/Button.Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Keluar akun"
+                android:text="@string/keluar_akun"
                 android:drawableStart="@drawable/ic_profile_logout"/>
         </LinearLayout>
     </ScrollView>

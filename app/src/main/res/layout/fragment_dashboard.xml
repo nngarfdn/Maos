@@ -2,12 +2,12 @@
 <androidx.core.widget.NestedScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".dashboard.view.DashboardFragment">
@@ -41,13 +41,14 @@
             android:id="@+id/edt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cari penyedia buku"
+            android:hint="@string/cari_penyedia_buku"
             style="@style/EditText.Clickable"
             android:layout_marginTop="32dp"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:layout_marginHorizontal="32dp"
-            android:layout_below="@+id/cv_slider_mainActivity"/>
+            android:layout_below="@+id/cv_slider_mainActivity"
+            tools:ignore="Autofill" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mitra"
@@ -66,7 +67,7 @@
             android:layout_below="@+id/rv_mitra"
             android:layout_marginTop="24dp"
             style="@style/Button.Secondary"
-            android:text="Daftar Jadi Penyedia Buku"
+            android:text="@string/daftar_jadi_penyedia_buku"
             android:layout_marginHorizontal="32dp"
             android:layout_height="wrap_content"/>
         <View

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,13 +42,14 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_member_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_header_mc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Membership"
+                android:text="@string/membership"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="bold"

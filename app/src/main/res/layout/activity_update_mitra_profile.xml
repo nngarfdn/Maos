@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Foto profil"
+                android:text="@string/foto_profil"
                 android:textColor="@color/black"/>
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     style="@style/Button.Secondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pilih Foto"
+                    android:text="@string/pilih_foto"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"/>
             </LinearLayout>
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Foto sampul"
+                android:text="@string/foto_sampul"
                 android:textColor="@color/black"/>
 
             <LinearLayout
@@ -78,7 +78,7 @@
                     style="@style/Button.Secondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pilih Foto"
+                    android:text="@string/pilih_foto"
                     android:layout_gravity="start"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
@@ -88,21 +88,23 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama"
-                android:inputType="textCapWords|textPersonName"/>
+                android:hint="@string/nama"
+                android:inputType="textCapWords|textPersonName"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/edt_whatsapp_ump"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="No. WA (62xx)/nama pengguna IG"
-                android:inputType="text"/>
+                android:hint="@string/no_wa_62xx_nama_pengguna_ig"
+                android:inputType="text"
+                tools:ignore="Autofill" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pilih salah satu sebagai opsi kontak peminjaman (WhatsApp atau Instagram)"
+                android:text="@string/pilih_salah_satu_sebagai_opsi_kontak_peminjaman_whatsapp_atau_instagram"
                 android:textColor="@color/gray"
                 android:layout_marginBottom="4dp"/>
 
@@ -111,13 +113,14 @@
                 style="@style/EditText.MultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tentang"
-                android:layout_marginTop="16dp"/>
+                android:hint="@string/tentang"
+                android:layout_marginTop="16dp"
+                tools:ignore="Autofill" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kamu bisa mencantumkan aturan yang paling ingin disorot"
+                android:text="@string/kamu_bisa_mencantumkan_aturan_yang_paling_ingin_disorot"
                 android:textColor="@color/gray"
                 android:layout_marginBottom="16dp"/>
 
@@ -126,8 +129,9 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Alamat"
-                android:inputType="textCapWords"/>
+                android:hint="@string/alamat"
+                android:inputType="textCapWords"
+                tools:ignore="Autofill" />
 
             <Spinner
                 android:id="@+id/sp_provinces_ump"
@@ -152,20 +156,21 @@
                 style="@style/EditText.MultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Peraturan peminjaman"
-                android:layout_marginTop="16dp"/>
+                android:hint="@string/peraturan_peminjaman"
+                android:layout_marginTop="16dp"
+                tools:ignore="Autofill" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jelaskan aturan peminjaman dan juga keuntungan sebagai member"
+                android:text="@string/jelaskan_aturan_peminjaman_dan_juga_keuntungan_sebagai_member"
                 android:textColor="@color/gray"
                 android:layout_marginBottom="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pengantaran buku"
+                android:text="@string/pengantaran_buku"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
 
@@ -179,14 +184,14 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sistem COD" />
+                    android:text="@string/sistem_cod" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_kirim_luar_kota_ump"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pengiriman luar kota" />
+                    android:text="@string/pengiriman_luar_kota" />
             </com.google.android.material.chip.ChipGroup>
 
             <Button
@@ -194,8 +199,9 @@
                 style="@style/Button.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Simpan"
+                android:text="@string/simpan"
                 android:layout_marginTop="24dp"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

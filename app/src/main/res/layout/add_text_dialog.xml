@@ -12,12 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="20dp"
         android:background="@drawable/rounded_border_text_view"
         android:padding="10dp"
-        android:text="Done"
+        android:text="@string/done"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp" />
@@ -32,7 +31,8 @@
         android:background="@null"
         android:gravity="center"
         android:inputType="textMultiLine"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        tools:ignore="Autofill,LabelFor" />
 
     <RelativeLayout
         android:id="@+id/add_text_color_picker_relative_layout"

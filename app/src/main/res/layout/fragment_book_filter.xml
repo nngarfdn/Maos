@@ -12,20 +12,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter"/>
+        android:text="@string/filter"/>
 
     <TextView
         android:id="@+id/tv_reset_bf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Setel ulang"
+        android:text="@string/setel_ulang"
         android:clickable="true"
         android:focusable="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ketersediaan stok"/>
+        android:text="@string/ketersediaan_stok"/>
 
     <com.google.android.material.chip.ChipGroup
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stok tersedia" />
+            android:text="@string/stok_tersedia" />
     </com.google.android.material.chip.ChipGroup>
 
     <Button
@@ -45,5 +45,5 @@
         style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filter"/>
+        android:text="@string/filter"/>
 </LinearLayout>

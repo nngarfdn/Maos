@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
@@ -18,7 +19,8 @@
             android:id="@+id/img_item_book_dashboard"
             style="@style/ImageView"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/txt_title_book"
@@ -28,7 +30,7 @@
             android:layout_marginTop="4dp"
             android:maxLines="1"
             android:textSize="@dimen/font_sm"
-            android:text="Title Book"/>
+            android:text="@string/title_book"/>
 
         <TextView
             android:id="@+id/txt_address_book"
@@ -38,6 +40,6 @@
             android:maxLines="2"
             android:lines="2"
             android:textSize="@dimen/font_xxs"
-            android:text="Mantrijeron, kota Yogyakarta"/>
+            android:text="@string/mantrijeron_kota_yogyakarta"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

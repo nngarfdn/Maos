@@ -15,13 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        />
+        tools:ignore="ContentDescription" />
     <TextView
         android:id="@+id/txt_info_peminjam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Informasi Peminjaman"
-        android:textSize="16dp"
+        android:text="@string/informasi_peminjaman"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="32dp"
@@ -42,7 +42,7 @@
         android:id="@+id/txt_book_title_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="buku_jogja"
+        android:text="@string/buku_jogja"
         android:textStyle="bold"
         android:layout_below="@+id/img_book_info"
         android:layout_centerHorizontal="true"
@@ -55,14 +55,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_book_title_info"
         android:layout_marginTop="16dp"
-        android:text="buku_jogja sudah berdiri sejak 2017 yang dimulai dengan membentuk komunitas untuk umum dengan agenda peprustakaan keliling untuk sekolah dasar dan taman kanak-kanak "/>
+        android:text="@string/buku_jogja_sudah_berdiri_sejak_2017_yang_dimulai_dengan_membentuk_komunitas_untuk_umum_dengan_agenda_peprustakaan_keliling_untuk_sekolah_dasar_dan_taman_kanak_kanak"/>
 
     <TextView
         android:id="@+id/txt_peraturan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/green"
-        android:text="Peraturan Peminjaman"
+        android:text="@string/peraturan_peminjaman"
         android:textSize="12sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
@@ -75,6 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_peraturan"
         android:layout_marginTop="8dp"
-        android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."/>
+        android:text="@string/sed_ut_perspiciatis_unde_omnis_iste_natus_error_sit_voluptatem_accusantium_doloremque_laudantium_totam_rem_aperiam_eaque_ipsa_quae_ab_illo_inventore_veritatis_et_quasi_architecto_beatae_vitae_dicta_sunt_explicabo"/>
 
 </RelativeLayout>

@@ -20,7 +20,7 @@
             android:id="@+id/tv_header_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temukan"
+            android:text="@string/temukan"
             android:textColor="@color/white"
             android:textSize="@dimen/font_md"
             android:textStyle="bold"
@@ -49,7 +49,8 @@
             android:padding="12dp"
             android:src="@drawable/ic_filter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_header_search" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_header_search"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -84,5 +85,6 @@
         android:src="@drawable/illustration_empty_search"
         android:layout_below="@+id/layout_header_search"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        tools:ignore="ContentDescription" />
 </RelativeLayout>

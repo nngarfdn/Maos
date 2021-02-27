@@ -18,11 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         style="@style/EditText"
-        android:hint="Judul Buku"
+        android:hint="@string/judul_buku"
         android:inputType="textPersonName|textCapWords"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
-        android:background="@drawable/bg_edit_text"/>
+        android:background="@drawable/bg_edit_text"
+        tools:ignore="Autofill,ObsoleteLayoutParam" />
 
     <EditText
         android:id="@+id/edt_borrow_date"
@@ -30,11 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         style="@style/EditText"
-        android:hint="Tempat Peminjaman"
+        android:hint="@string/tempat_peminjaman"
         android:inputType="textPersonName|textCapWords"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/bg_edit_text"/>
+        android:background="@drawable/bg_edit_text"
+        android:importantForAutofill="no"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/edt_return_date"
@@ -42,17 +44,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         style="@style/EditText.Clickable"
-        android:hint="Tanggal Pengembalian"
+        android:hint="@string/tanggal_pengembalian"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/bg_edit_text"
-        tools:ignore="TextFields" />
+        tools:ignore="Autofill,ObsoleteLayoutParam,TextFields" />
 
     <CheckBox
         android:id="@+id/checkboxReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sudah Kembali"
+        android:text="@string/sudah_kembali"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"/>
 
@@ -64,7 +66,7 @@
         android:layout_marginHorizontal="32dp"
         style="@style/Button.Primary"
         android:textAllCaps="false"
-        android:text="Simpan"/>
+        android:text="@string/simpan"/>
 
     <Button
         android:id="@+id/btn_delete_reminder"
@@ -72,6 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:text="Hapus"/>
+        android:text="@string/hapus"/>
 
 </LinearLayout>

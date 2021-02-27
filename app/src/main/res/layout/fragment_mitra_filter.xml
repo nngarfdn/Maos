@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="16dp"
         android:src="@drawable/ic_pull"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,23 +29,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter"
+            android:text="@string/filter"
             android:textStyle="bold"
             android:textSize="@dimen/font_md"
             android:textColor="@color/black"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/tv_reset_mf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setel ulang"
+            android:text="@string/setel_ulang"
             android:clickable="true"
             android:focusable="true"
             android:textColor="@color/orange"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -61,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lokasi"
+                android:text="@string/lokasi"
                 android:textColor="@color/black"/>
 
             <com.google.android.material.chip.ChipGroup
@@ -74,21 +77,21 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Provinsi" />
+                    android:text="@string/provinsi" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_regencies_mf"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kabupaten" />
+                    android:text="@string/kabupaten" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_districts_mf"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kecamatan" />
+                    android:text="@string/kecamatan" />
             </com.google.android.material.chip.ChipGroup>
 
             <Spinner
@@ -112,7 +115,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pengantaran buku"
+                android:text="@string/pengantaran_buku"
                 android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
 
@@ -126,14 +129,14 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sistem COD" />
+                    android:text="@string/sistem_cod" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_only_kirim_luar_kota_mf"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pengiriman luar kota" />
+                    android:text="@string/pengiriman_luar_kota" />
             </com.google.android.material.chip.ChipGroup>
 
             <Button
@@ -141,7 +144,7 @@
                 style="@style/Button.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filter"
+                android:text="@string/filter"
                 android:layout_marginTop="24dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

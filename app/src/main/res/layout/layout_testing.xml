@@ -8,7 +8,7 @@
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Populer"
+        android:text="@string/populer"
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:textStyle="bold"/>
