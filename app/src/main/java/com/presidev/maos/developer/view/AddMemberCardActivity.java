@@ -1,4 +1,4 @@
-package com.presidev.maos.developer;
+package com.presidev.maos.developer.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

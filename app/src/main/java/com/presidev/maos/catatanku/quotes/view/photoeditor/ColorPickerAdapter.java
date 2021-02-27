@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.quotes.photoeditor;
+package com.presidev.maos.catatanku.quotes.view.photoeditor;
 
 import android.content.Context;
 import android.graphics.Color;

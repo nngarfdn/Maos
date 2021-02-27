@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.quotes.photoeditor;
+package com.presidev.maos.catatanku.quotes.view.photoeditor;
 
 import android.view.LayoutInflater;
 import android.view.View;

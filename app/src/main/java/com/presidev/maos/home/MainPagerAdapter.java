@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.presidev.maos.bookmark.view.BookmarkFragment;
 import com.presidev.maos.dashboard.view.DashboardFragment;
-import com.presidev.maos.developer.DeveloperFragment;
+import com.presidev.maos.developer.view.DeveloperFragment;
 import com.presidev.maos.profile.mitra.view.MitraProfileFragment;
 import com.presidev.maos.profile.user.view.UserProfileFragment;
 

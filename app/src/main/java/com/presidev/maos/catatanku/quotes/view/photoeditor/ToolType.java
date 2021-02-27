@@ -1,4 +1,4 @@
-package com.presidev.maos.catatanku.quotes.photoeditor;
+package com.presidev.maos.catatanku.quotes.view.photoeditor;
 
 /**
  * @author <a href="https://github.com/burhanrashid52">Burhanuddin Rashid</a>

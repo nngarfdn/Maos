@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.presidev.maos.R;
-import com.presidev.maos.catatanku.quotes.QuotesFragment;
+import com.presidev.maos.catatanku.quotes.view.QuotesFragment;
 import com.presidev.maos.catatanku.target.view.TargetFragment;
 import com.presidev.maos.catatanku.reminder.view.ReminderFragment;
 

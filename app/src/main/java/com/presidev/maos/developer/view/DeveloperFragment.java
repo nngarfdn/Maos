@@ -1,4 +1,4 @@
-package com.presidev.maos.developer;
+package com.presidev.maos.developer.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

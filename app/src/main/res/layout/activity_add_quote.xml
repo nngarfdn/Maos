@@ -1,84 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catatanku.quotes.AddQuoteActivity">
+    tools:context=".catatanku.quotes.view.AddQuoteActivity"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        app:title="Tambah Quote" />
+        app:title="Tambah Kutipan" />
 
     <ja.burhanrashid52.photoeditor.PhotoEditorView
         android:id="@+id/photoEditorView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/toolbar"
-        />
+        android:layout_height="240dp"/>
 
-    <ImageView
-        android:id="@+id/imgUndo"
-        android:layout_below="@+id/photoEditorView"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/ic_baseline_undo_24"
-        android:layout_height="wrap_content"/>
-
-
-    <ImageView
-        android:id="@+id/imgRedo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_below="@+id/photoEditorView"
-        android:layout_marginTop="24dp"
-        android:layout_toEndOf="@+id/imgUndo"
-        android:src="@drawable/ic_baseline_redo_24" />
-
-
-    <ImageView
-        android:id="@+id/imgShare"
-        android:layout_below="@+id/photoEditorView"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="32dp"
-        android:src="@drawable/ic_baseline_share_24"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/quote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Masukan Quote"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp"
-        android:layout_below="@id/imgRedo"/>
-
-    <EditText
-        android:id="@+id/edt_quote"
-        style="@style/EditText.MultiLine"
+    <androidx.core.widget.NestedScrollView
+        style="@style/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:focusable="false"
-        android:layout_below="@id/quote"
-        android:hint="Quote Favorite"
-        android:layout_marginHorizontal="32dp"/>
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_simpan_quote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Simpan"
-        style="@style/Button.Primary"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:layout_marginHorizontal="32dp"
-        android:layout_below="@id/edt_quote"/>
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgUndo"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_baseline_undo_24"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"/>
+
+            <ImageView
+                android:id="@+id/imgRedo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:layout_toEndOf="@+id/imgUndo"
+                android:src="@drawable/ic_baseline_redo_24" />
+
+            <ImageView
+                android:id="@+id/imgShare"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_baseline_share_24"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_select_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Latar Belakang"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_below="@id/imgRedo"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_background"
+                style="@style/RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_select_background"
+                android:paddingHorizontal="32dp"/>
+
+            <TextView
+                android:id="@+id/quote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masukkan Kutipan"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_below="@id/rv_background"/>
+
+            <EditText
+                android:id="@+id/edt_quote"
+                style="@style/EditText.MultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:layout_below="@id/quote"
+                android:hint="Kutipan Favorit"
+                android:layout_marginHorizontal="32dp"/>
+
+            <Button
+                android:id="@+id/btn_simpan_quote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Simpan"
+                style="@style/Button.Primary"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginBottom="32dp"
+                android:layout_below="@id/edt_quote"/>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
