@@ -67,8 +67,8 @@
 
 #### Jenis User Aplikasi
 - :person_with_blond_hair: Admin
-- :woman: Penyedia Buku
-  **demo akun**
-  email : ariefbook@gmail.com
+- :woman: Penyedia Buku <br>
+  **demo akun** <br>
+  email : ariefbook@gmail.com <br>
   password : katasandi123 
 - :girl: Pengguna atau Peminjam 
