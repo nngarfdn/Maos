@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".catatanku.quotes.view.AddQuoteActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ContentDescription">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -33,7 +34,7 @@
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_undo"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true" />
 
             <ImageView
                 android:id="@+id/imgRedo"

@@ -88,6 +88,7 @@
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/img_book_catalog"
                     app:layout_constraintTop_toBottomOf="@+id/txt_mitra_name"
+                    android:ellipsize="end"
                     tools:ignore="SmallSp" />
 
                 <ImageView

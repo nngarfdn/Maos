@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PrefManager {
-    SharedPreferences pref;
+    final SharedPreferences pref;
     private final SharedPreferences.Editor editor;
 
     // Shared preferences file name

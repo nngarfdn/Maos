@@ -21,6 +21,7 @@ public class DeveloperRepository {
         return quoteBackgroundListLiveData;
     }
 
+    @SuppressWarnings("unchecked")
     public void queryQuoteBackground(){
         reference.document("quote")
                 .get()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="tentang_app">Tentang Aplikasi</string>
     <string name="tim_kami">Tim Kami</string>
     <string name="arief_zuhri">Arief Zuhri</string>
@@ -75,7 +75,7 @@
     <string name="stok_tersedia">Stok tersedia</string>
     <string name="ketersediaan_stok">Ketersediaan stok</string>
     <string name="setel_ulang">Setel ulang</string>
-    <string name="mohon_tunggu">Mohon tunggu...</string>
+    <string name="mohon_tunggu">Mohon tunggu…</string>
     <string name="done">Done</string>
     <string name="pilih_foto">Pilih foto</string>
     <string name="nomor_whatsapp">Nomor WhatsApp</string>
@@ -110,7 +110,7 @@
     <string name="buku_jogja">buku_jogja</string>
     <string name="buku_jogja_sudah_berdiri_sejak_2017_yang_dimulai_dengan_membentuk_komunitas_untuk_umum_dengan_agenda_peprustakaan_keliling_untuk_sekolah_dasar_dan_taman_ka">buku_jogja sudah berdiri sejak 2017 yang dimulai dengan membentuk komunitas untuk umum dengan agenda peprustakaan keliling untuk sekolah dasar dan taman ka</string>
     <string name="mantrijeron_kota_yogyakarta_di_yogyakarta">Mantrijeron, Kota Yogyakarta, DI Yogyakarta</string>
-    <string name="populer">Populer</string>
+    <string name="populer" tools:ignore="Typos">Populer</string>
     <string name="daftar_buku">Daftar Buku</string>
     <string name="kode_member">Kode Member:</string>
     <string name="berlangganan">Berlangganan</string>

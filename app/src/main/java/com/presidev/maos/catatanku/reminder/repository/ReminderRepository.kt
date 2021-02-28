@@ -7,10 +7,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.presidev.maos.catatanku.reminder.model.Reminder
-import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.mitramanagement.repository.BookRepository
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 
 class ReminderRepository {
 

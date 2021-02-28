@@ -12,7 +12,7 @@ import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 
 
-class MitraBookCatalogActivity : AppCompatActivity() {
+class MitraBookCatalogActivity : AppCompatActivity(){
 
     private lateinit var mitraBookViewModel: MitraBookViewModel
     private lateinit var mitra : Mitra
@@ -56,6 +56,7 @@ class MitraBookCatalogActivity : AppCompatActivity() {
             rv_bookpopuler.adapter = adapter
         }
 
+        txt_mitra_description.setOnClickListener { img_mitra_information.performClick() }
         img_mitra_information.setOnClickListener {
             val args = Bundle()
             args.putParcelable(EXTRA_MITRA, mitra)

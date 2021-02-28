@@ -9,14 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder
 import com.presidev.maos.catatanku.helper.ReturnReminder
 import com.presidev.maos.catatanku.reminder.model.Reminder
-import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.DateUtils.DATE_FORMAT
 import kotlinx.android.synthetic.main.activity_add_edit_reminder.*
 import java.text.SimpleDateFormat
@@ -29,7 +26,7 @@ class AddEditReminderActivity : AppCompatActivity() {
     private var toDatePickerDialog: DatePickerDialog? = null
     private var dateFormatter: SimpleDateFormat? = null
 
-    var pref : AuthPreference? = null
+    private var pref : AuthPreference? = null
 
 
     companion object {
@@ -53,7 +50,7 @@ class AddEditReminderActivity : AppCompatActivity() {
         edt_return_date.requestFocus()
         setDateTimeField()
 
-        val intent = getIntent()
+        val intent = intent
 
         if (intent.hasExtra(EXTRA_REMINDER)) {
 
@@ -128,7 +125,7 @@ class AddEditReminderActivity : AppCompatActivity() {
     private fun setDateTimeField() {
         val newCalendar: Calendar = Calendar.getInstance()
 
-        toDatePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+        toDatePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
             val newDate: Calendar = Calendar.getInstance()
             newDate.set(year, monthOfYear, dayOfMonth)
             edt_return_date.setText(dateFormatter!!.format(newDate.time))

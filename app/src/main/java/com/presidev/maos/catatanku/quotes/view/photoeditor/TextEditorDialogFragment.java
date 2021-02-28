@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.presidev.maos.R;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by Burhanuddin Rashid on 1/16/2018.
  */
@@ -33,7 +35,6 @@ public class TextEditorDialogFragment extends DialogFragment {
     public static final String EXTRA_INPUT_TEXT = "extra_input_text";
     public static final String EXTRA_COLOR_CODE = "extra_color_code";
     private EditText mAddTextEditText;
-    private TextView mAddTextDoneTextView;
     private InputMethodManager mInputMethodManager;
     private int mColorCode;
     private TextEditor mTextEditor;
@@ -82,11 +83,11 @@ public class TextEditorDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAddTextEditText = view.findViewById(R.id.add_text_edit_text);
         mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mAddTextDoneTextView = view.findViewById(R.id.add_text_done_tv);
+        TextView mAddTextDoneTextView = view.findViewById(R.id.add_text_done_tv);
 
         //Setup the color picker for text color
         RecyclerView addTextColorPickerRecyclerView = view.findViewById(R.id.add_text_color_picker_recycler_view);
@@ -95,12 +96,9 @@ public class TextEditorDialogFragment extends DialogFragment {
         addTextColorPickerRecyclerView.setHasFixedSize(true);
         ColorPickerAdapter colorPickerAdapter = new ColorPickerAdapter(getActivity());
         //This listener will change the text color when clicked on any color from picker
-        colorPickerAdapter.setOnColorPickerClickListener(new ColorPickerAdapter.OnColorPickerClickListener() {
-            @Override
-            public void onColorPickerClickListener(int colorCode) {
-                mColorCode = colorCode;
-                mAddTextEditText.setTextColor(colorCode);
-            }
+        colorPickerAdapter.setOnColorPickerClickListener(colorCode -> {
+            mColorCode = colorCode;
+            mAddTextEditText.setTextColor(colorCode);
         });
         addTextColorPickerRecyclerView.setAdapter(colorPickerAdapter);
         mAddTextEditText.setText(getArguments().getString(EXTRA_INPUT_TEXT));
@@ -109,15 +107,12 @@ public class TextEditorDialogFragment extends DialogFragment {
         mInputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
         //Make a callback on activity when user is done with text editing
-        mAddTextDoneTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mInputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                dismiss();
-                String inputText = mAddTextEditText.getText().toString();
-                if (!TextUtils.isEmpty(inputText) && mTextEditor != null) {
-                    mTextEditor.onDone(inputText, mColorCode);
-                }
+        mAddTextDoneTextView.setOnClickListener(view1 -> {
+            mInputMethodManager.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+            dismiss();
+            String inputText = mAddTextEditText.getText().toString();
+            if (!TextUtils.isEmpty(inputText) && mTextEditor != null) {
+                mTextEditor.onDone(inputText, mColorCode);
             }
         });
 

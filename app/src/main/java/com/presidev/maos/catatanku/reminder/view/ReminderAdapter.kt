@@ -32,27 +32,27 @@ class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<R
         val calCurr: Calendar = Calendar.getInstance()
         val day: Calendar = Calendar.getInstance()
 
-        day.setTime(SimpleDateFormat(DATE_FORMAT).parse(list[position].returnDate))
+        day.time = SimpleDateFormat(DATE_FORMAT).parse(list[position].returnDate)
         if (day.after(calCurr)) {
             dayLeft = (day.get(Calendar.DAY_OF_YEAR) - calCurr.get(Calendar.DAY_OF_YEAR))
         }
 
-        bookTitle.setText(list[position].bookTitle)
-        penyedia.setText(list[position].tempatPeminjam)
+        bookTitle.text = list[position].bookTitle
+        penyedia.text = list[position].tempatPeminjam
 
 
         val isReturned = list[position].isKembali
 
         if (isReturned.equals("true")) {
-            status.setText("Sudah Kembali")
-            status.setTextColor(holder.itemView.context.getResources().getColor(R.color.green))
+            status.text = "Sudah Kembali"
+            status.setTextColor(holder.itemView.context.resources.getColor(R.color.green))
         } else if ((isReturned.equals("false"))) {
             if (dayLeft <= 0) {
-                status.setText("Kembalikan Sekarang")
-                status.setTextColor(holder.itemView.context.getResources().getColor(R.color.red))
+                status.text = "Kembalikan Sekarang"
+                status.setTextColor(holder.itemView.context.resources.getColor(R.color.red))
             } else if (dayLeft >= 0) {
-                status.setText("$dayLeft Hari lagi")
-                status.setTextColor(holder.itemView.context.getResources().getColor(R.color.orange))
+                status.text = "$dayLeft Hari lagi"
+                status.setTextColor(holder.itemView.context.resources.getColor(R.color.orange))
             }
     }
 

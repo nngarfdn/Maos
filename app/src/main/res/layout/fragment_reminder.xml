@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catatanku.reminder.view.ReminderFragment">
+    tools:context=".catatanku.reminder.view.ReminderFragment"
+    tools:ignore="ContentDescription">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_reminder"

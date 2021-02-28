@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_reminder.view.*
 class ReminderFragment : Fragment(){
     private val TAG = javaClass.simpleName
     private lateinit var  reminderViewModel : ReminderViewModel
-    var pref : AuthPreference? = null
+    private var pref : AuthPreference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +42,8 @@ class ReminderFragment : Fragment(){
             val adapter = ReminderAdapter(result)
             rv_reminder.adapter = adapter
 
-            if (result.isEmpty()) img_empty.setVisibility(View.VISIBLE)
-            else img_empty.setVisibility(View.INVISIBLE)
+            if (result.isEmpty()) img_empty.visibility = View.VISIBLE
+            else img_empty.visibility = View.INVISIBLE
 
             if (!userPreference.hasSetReturnRelogin) {
                 val returnReminder = ReturnReminder()

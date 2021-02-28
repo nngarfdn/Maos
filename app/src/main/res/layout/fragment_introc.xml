@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:background="@color/orange"
     android:layout_height="match_parent"
-    tools:context=".welcome.intro.FragmentIntroc">
+    tools:context=".welcome.intro.FragmentIntroc"
+    tools:ignore="ContentDescription">
 
     <RelativeLayout
         android:layout_centerInParent="true"

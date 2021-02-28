@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.presidev.maos.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
 
     private Context context;
     private LayoutInflater inflater;
-    private List<Integer> colorPickerColors;
+    private final List<Integer> colorPickerColors;
     private OnColorPickerClickListener onColorPickerClickListener;
 
     ColorPickerAdapter(@NonNull Context context, @NonNull List<Integer> colorPickerColors) {
@@ -43,8 +45,9 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
         this.inflater = LayoutInflater.from(context);
     }
 
+    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.color_picker_item_list, parent, false);
         return new ViewHolder(view);
     }
@@ -78,6 +81,7 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
 
         LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
+        //noinspection deprecation
         view.setBackgroundDrawable(layerDrawable);
     }
 
@@ -86,17 +90,14 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        View colorPickerView;
+        final View colorPickerView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             colorPickerView = itemView.findViewById(R.id.color_picker_view);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onColorPickerClickListener != null)
-                        onColorPickerClickListener.onColorPickerClickListener(colorPickerColors.get(getAdapterPosition()));
-                }
+            itemView.setOnClickListener(v -> {
+                if (onColorPickerClickListener != null)
+                    onColorPickerClickListener.onColorPickerClickListener(colorPickerColors.get(getAdapterPosition()));
             });
         }
     }
