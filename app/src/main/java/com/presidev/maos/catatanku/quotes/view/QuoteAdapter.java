@@ -22,6 +22,10 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public ArrayList<Quote> getData(){
+        return quoteList;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,6 +54,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.ViewHolder> 
 
         public void bind(Quote quote) {
             loadImageFromUrl(binding.imgQuote, quote.getUrl());
+            itemView.setOnClickListener(null);
         }
     }
 }
