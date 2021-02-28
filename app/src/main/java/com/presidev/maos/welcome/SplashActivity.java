@@ -1,12 +1,11 @@
 package com.presidev.maos.welcome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.presidev.maos.home.App;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.presidev.maos.R;
 
 @SuppressWarnings("ALL")
@@ -18,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, App.class);
+            Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
             startActivity(intent);
             finish();
         }, 1000);

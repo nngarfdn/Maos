@@ -17,10 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".catatanku.quotes.view.AddQuoteActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".welcome.WelcomeActivity"></activity>
+        <activity android:name=".catatanku.quotes.view.AddQuoteActivity" />
 
         <receiver
             android:name=".catatanku.helper.ReturnReminder"
@@ -44,6 +42,7 @@
         <activity android:name=".catatanku.target.view.AddUpdateTargetActivity" />
         <activity android:name=".catatanku.CatatanKuActivity" />
         <activity android:name=".developer.view.MitraRegistrationActivity" />
+        <activity android:name=".bookmark.view.SearchBookmarkActivity" />
         <activity android:name=".about.AboutActivity" />
         <activity android:name=".testing.SearchTestActivity" />
         <activity android:name=".profile.mitra.view.MemberListActivity" />

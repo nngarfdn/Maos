@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".welcome.WelcomeActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@+id/btnMulaiSekarang"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+    <Button
+        android:id="@+id/btnMulaiSekarang"
+        android:layout_width="match_parent"
+        style="@style/Button.Secondary"
+        android:text="Mulai"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorPrimary"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
