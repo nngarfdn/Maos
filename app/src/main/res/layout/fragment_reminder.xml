@@ -15,6 +15,13 @@
         android:paddingTop="16dp"
         android:paddingBottom="100dp"/>
 
+    <ImageView
+        android:id="@+id/img_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/illustration_empty_reminder"
+        android:layout_centerInParent="true"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_reminder"
         style="@style/FloatingActionButton"

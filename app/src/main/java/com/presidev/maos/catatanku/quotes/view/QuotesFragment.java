@@ -64,6 +64,11 @@ public class QuotesFragment extends Fragment {
 
         QuoteViewModel quoteViewModel = new ViewModelProvider(this).get(QuoteViewModel.class);
         quoteViewModel.getQuoteListLiveData().observe(getViewLifecycleOwner(), adapter::setData);
+        quoteViewModel.getQuoteListLiveData().observe(getViewLifecycleOwner(), result -> {
+            adapter.setData(result);
+            if (result.isEmpty()) binding.imgEmpty.setVisibility(View.VISIBLE);
+            else binding.imgEmpty.setVisibility(View.INVISIBLE);
+        });
         quoteViewModel.query(firebaseUser.getUid());
         quoteViewModel.addSnapshotListener(firebaseUser.getUid());
 

@@ -110,7 +110,7 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
                     @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
                     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                         //binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        binding.photoEditorView.setBackground(new BitmapDrawable(getResources(), bitmap));
+                        binding.photoEditorView.getSource().setBackground(new BitmapDrawable(getResources(), bitmap));
                     }
                 });
     }

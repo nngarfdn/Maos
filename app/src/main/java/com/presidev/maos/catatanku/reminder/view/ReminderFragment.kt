@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.catatanku.UserPreference
@@ -18,26 +16,17 @@ import com.presidev.maos.catatanku.helper.ReturnReminder
 import kotlinx.android.synthetic.main.fragment_reminder.*
 import kotlinx.android.synthetic.main.fragment_reminder.view.*
 
-
 class ReminderFragment : Fragment(){
     private val TAG = javaClass.simpleName
-
     private lateinit var  reminderViewModel : ReminderViewModel
-
     var pref : AuthPreference? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let {}
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_reminder, container, false)
     }
 
@@ -52,6 +41,9 @@ class ReminderFragment : Fragment(){
             rv_reminder.layoutManager = LinearLayoutManager(context)
             val adapter = ReminderAdapter(result)
             rv_reminder.adapter = adapter
+
+            if (result.isEmpty()) img_empty.setVisibility(View.VISIBLE)
+            else img_empty.setVisibility(View.INVISIBLE)
 
             if (!userPreference.hasSetReturnRelogin) {
                 val returnReminder = ReturnReminder()
@@ -80,5 +72,4 @@ class ReminderFragment : Fragment(){
         super.onResume()
         reminderViewModel.loadResultReminder(pref?.id!!)
     }
-
 }

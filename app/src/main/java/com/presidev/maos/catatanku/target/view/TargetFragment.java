@@ -49,12 +49,14 @@ public class TargetFragment extends Fragment {
         binding.rvTarget.setAdapter(adapter);
 
         TargetViewModel targetViewModel = new ViewModelProvider(this).get(TargetViewModel.class);
-        targetViewModel.getTargetListLiveData().observe(getViewLifecycleOwner(), targetList -> {
-            adapter.setData(targetList);
+        targetViewModel.getTargetListLiveData().observe(getViewLifecycleOwner(), result -> {
+            adapter.setData(result);
+            if (result.isEmpty()) binding.imgEmpty.setVisibility(View.VISIBLE);
+            else binding.imgEmpty.setVisibility(View.INVISIBLE);
 
             if (!userPreference.getHasSetTargetRelogin()){
                 TargetReminder targetReminder = new TargetReminder();
-                for (Target target : targetList){
+                for (Target target : result){
                     if (target.getIsReminderEnabled() && target.getProgress() != 100) {
                         targetReminder.setReminder(getContext(), target);
                     }
