@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,13 +22,14 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.R;
 import com.presidev.maos.catatanku.quotes.model.Quote;
 import com.presidev.maos.databinding.FragmentQuotesBinding;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -120,23 +121,29 @@ public class QuotesFragment extends Fragment {
             }
         }
 
-        try {
-            Bitmap bitmap = ((BitmapDrawable) ((ImageView) getView().findViewById(R.id.img_quote)).getDrawable()).getBitmap();
+        Picasso.get().load(quote.getUrl()).into(new Target() {
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {}
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(
+                        requireContext().getContentResolver(), bitmap,
+                        quote.getId(), null);
+                Uri imageUri = Uri.parse(path);
 
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(
-                    requireContext().getContentResolver(), bitmap,
-                    quote.getId(), null);
-            Uri imageUri = Uri.parse(path);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                startActivity(Intent.createChooser(intent, "Bagikan kutipan"));
+            }
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_STREAM, imageUri);
-            startActivity(Intent.createChooser(intent, "Bagikan kutipan"));
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-            showToast(requireContext(), "Gagal membagikan kutipan, mohon coba lagi");
-        }
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                e.printStackTrace();
+                showToast(requireContext(), "Gagal membagikan kutipan, mohon coba lagi");
+            }
+        });
     }
 }
