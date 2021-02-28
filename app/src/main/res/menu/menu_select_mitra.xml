@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_open_mitra"
-        android:title="Lihat katalog"
+        android:title="@string/lihat_katalog"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_select_mitra"
-        android:title="Ganti penyedia"
+        android:title="@string/ganti_penyedia"
         app:showAsAction="never"/>
 </menu>

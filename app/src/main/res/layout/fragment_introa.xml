@@ -5,11 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/orange"
     tools:context=".welcome.intro.FragmentIntroa"
-    tools:ignore="ContentDescription">
-    <RelativeLayout
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    tools:ignore="ContentDescription"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/imga"
@@ -29,7 +26,8 @@
         android:fontFamily="@font/inter_medium"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="@string/intro_a_caribuku"/>
+        android:text="@string/intro_a_caribuku"
+        android:textAllCaps="true"/>
 
     <TextView
         android:id="@+id/desc"
@@ -43,9 +41,5 @@
         android:fontFamily="@font/inter_medium"
         android:textAlignment="center"
         android:layout_marginHorizontal="32dp"
-        android:text="Cari buku langsung dari penyedia
-di berbagai daerah"/>
-    </RelativeLayout>
-
-
+        android:text="@string/cari_buku_langsung_dari_penyedia_di_berbagai_daerah"/>
 </RelativeLayout>

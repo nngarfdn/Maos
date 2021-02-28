@@ -1,5 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Maos</string>
+    <string name="menu_dashboard">Beranda</string>
+    <string name="menu_bookmark">Bookmark</string>
+    <string name="menu_profil">Profil</string>
+    <string name="large_text">" \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\"         \"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\"         \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\"         \"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\"         \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\"         \"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\"         \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\"         \"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\" "</string>
+    <string name="loading">Memuat…</string>
+    <string name="tab_title_1">Target</string>
+    <string name="tab_title_2">Pengingat</string>
+    <string name="tab_title_3">Kutipan</string>
     <string name="tentang_app">Tentang Aplikasi</string>
     <string name="tim_kami">Tim Kami</string>
     <string name="arief_zuhri">Arief Zuhri</string>
@@ -23,8 +31,6 @@
     <string name="tambah_kartu_member">Tambah kartu member</string>
     <string name="validasi_mitra">Validasi mitra</string>
     <string name="hasil_validasi_mitra">Hasil validasi mitra</string>
-    <string name="masukan_quote">Masukan Quote</string>
-    <string name="quote_favorite">Quote Favorite</string>
     <string name="progres_halaman">Progres halaman</string>
     <string name="_0">0</string>
     <string name="data_buku">Data buku</string>
@@ -139,5 +145,16 @@
     <string name="kamu_bisa_mencantumkan_aturan_yang_paling_ingin_disorot">Kamu bisa mencantumkan aturan yang paling ingin disorot</string>
     <string name="alamat">Alamat</string>
     <string name="filter">Filter</string>
-    <string name="intro_a_caribuku">CARI BUKU</string>
+    <string name="intro_a_caribuku">Cari Buku</string>
+    <string name="pilih_latar_belakang">Pilih Latar Belakang</string>
+    <string name="masukkan_kutipan">Masukkan Kutipan</string>
+    <string name="kutipan_favorit">Kutipan Favorit</string>
+    <string name="mulai">Mulai</string>
+    <string name="pinjam">Pinjam</string>
+    <string name="peminjaman_mudah_tanpa_banyak_langkah">Peminjaman mudah tanpa banyak langkah.</string>
+    <string name="cari_buku_langsung_dari_penyedia_di_berbagai_daerah">Cari buku langsung dari penyedia di berbagai daerah</string>
+    <string name="simpan_buku_kesukaan_untuk_pinjam_nanti">Simpan buku kesukaan untuk pinjam nanti</string>
+    <string name="pilih_dari_galeri">Pilih dari galeri</string>
+    <string name="lihat_katalog">Lihat katalog</string>
+    <string name="ganti_penyedia">Ganti penyedia</string>
 </resources>

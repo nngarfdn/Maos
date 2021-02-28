@@ -11,7 +11,6 @@ import com.google.firebase.firestore.Query;
 import com.presidev.maos.membership.model.MemberCard;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.presidev.maos.utils.DateUtils.getCurrentDate;
 
@@ -37,9 +36,11 @@ public class MemberCardRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        MemberCard memberCard = Objects.requireNonNull(task.getResult()).toObject(MemberCard.class);
-                        memberCardLiveData.postValue(memberCard);
-                        if (memberCard != null) Log.d(TAG, "query: " + memberCard.getId());
+                        if (task.getResult() != null){
+                            MemberCard memberCard = task.getResult().toObject(MemberCard.class);
+                            memberCardLiveData.postValue(memberCard);
+                            if (memberCard != null) Log.d(TAG, "query: " + memberCard.getId());
+                        }
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });
@@ -52,12 +53,14 @@ public class MemberCardRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         ArrayList<MemberCard> result = new ArrayList<>();
-                        Log.d(TAG, "Size result: " + Objects.requireNonNull(task.getResult()).size());
-                        for (DocumentSnapshot document : task.getResult()){
-                            MemberCard memberCard = document.toObject(MemberCard.class);
-                            result.add(memberCard);
-                            assert memberCard != null;
-                            Log.d(TAG, "query: " + memberCard.getId());
+                        if (task.getResult() != null){
+                            Log.d(TAG, "Size result: " + task.getResult().size());
+                            for (DocumentSnapshot document : task.getResult()){
+                                MemberCard memberCard = document.toObject(MemberCard.class);
+                                result.add(memberCard);
+                                assert memberCard != null;
+                                Log.d(TAG, "query: " + memberCard.getId());
+                            }
                         }
                         memberCardListLiveData.postValue(result);
                         Log.d(TAG, "Document was queried");
@@ -72,11 +75,13 @@ public class MemberCardRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         ArrayList<MemberCard> result = new ArrayList<>();
-                        for (DocumentSnapshot document : Objects.requireNonNull(task.getResult())){
-                            MemberCard memberCard = document.toObject(MemberCard.class);
-                            result.add(memberCard);
-                            assert memberCard != null;
-                            Log.d(TAG, "query: " + memberCard.getId());
+                        if (task.getResult() != null){
+                            for (DocumentSnapshot document : task.getResult()){
+                                MemberCard memberCard = document.toObject(MemberCard.class);
+                                result.add(memberCard);
+                                assert memberCard != null;
+                                Log.d(TAG, "query: " + memberCard.getId());
+                            }
                         }
                         memberCardListLiveData.postValue(result);
                         Log.d(TAG, "Document was queried");

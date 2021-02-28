@@ -21,7 +21,7 @@ import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookViewModel
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.profile.user.view.UserViewModel
-import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_book_detail.*
 
@@ -72,7 +72,7 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
         val imageView = findViewById<ImageView>(R.id.img_book_detail)
-        AppUtils.loadImageFromUrl(imageView, book.photo)
+        loadImageFromUrl(imageView, book.photo)
         try {
             val bitmap = (imageView.drawable as BitmapDrawable).bitmap
             Palette.Builder(bitmap).generate {

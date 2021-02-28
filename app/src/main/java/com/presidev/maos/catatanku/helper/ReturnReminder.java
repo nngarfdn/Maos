@@ -48,6 +48,7 @@ public class ReturnReminder extends BroadcastReceiver {
         intent.putExtra(EXTRA_MESSAGE, message);
 
         int[] dateArray = getArrayDate(addDay(reminder.getReturnDate(), -1)); // Reminder H-1
+        if (dateArray == null) return;
         Log.d(TAG, "H-1: " + Arrays.toString(dateArray));
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, dateArray[0]);

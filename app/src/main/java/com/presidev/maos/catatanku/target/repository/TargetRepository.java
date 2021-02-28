@@ -38,10 +38,12 @@ public class TargetRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         ArrayList<Target> targetList = new ArrayList<>();
-                        for (DocumentSnapshot document : task.getResult()){
-                            Target target = document.toObject(Target.class);
-                            targetList.add(target);
-                            if (target != null) Log.d(TAG, "query: " + target.getBookTitle());
+                        if (task.getResult() != null){
+                            for (DocumentSnapshot document : task.getResult()){
+                                Target target = document.toObject(Target.class);
+                                targetList.add(target);
+                                if (target != null) Log.d(TAG, "query: " + target.getBookTitle());
+                            }
                         }
                         targetListLiveData.postValue(targetList);
                         Log.d(TAG, "Document was queried");
@@ -54,10 +56,12 @@ public class TargetRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        Target target = task.getResult().toObject(Target.class);
-                        targetLiveData.postValue(target);
-                        if (target != null) Log.d(TAG, "query: " + target.getBookTitle());
-                        Log.d(TAG, "Document was queried");
+                        if (task.getResult() != null){
+                            Target target = task.getResult().toObject(Target.class);
+                            targetLiveData.postValue(target);
+                            if (target != null) Log.d(TAG, "query: " + target.getBookTitle());
+                            Log.d(TAG, "Document was queried");
+                        }
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });
     }

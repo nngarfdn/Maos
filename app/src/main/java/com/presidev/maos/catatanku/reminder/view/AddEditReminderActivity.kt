@@ -22,7 +22,6 @@ import java.util.*
 class AddEditReminderActivity : AppCompatActivity() {
 
     private lateinit var reminderViewModel: ReminderViewModel
-    private var fromDatePickerDialog: DatePickerDialog? = null
     private var toDatePickerDialog: DatePickerDialog? = null
     private var dateFormatter: SimpleDateFormat? = null
 

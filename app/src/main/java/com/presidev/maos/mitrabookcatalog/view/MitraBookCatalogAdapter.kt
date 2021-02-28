@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.presidev.maos.R
@@ -31,7 +30,6 @@ class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapt
         title.text = list[position].title
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "${list[position].title}", Toast.LENGTH_SHORT).show()
             val intent = Intent(holder.itemView.context, BookDetailActivity::class.java)
             intent.putExtra(BookDetailActivity.EXTRA_BOOK, list[position])
             holder.itemView.context.startActivity(intent)

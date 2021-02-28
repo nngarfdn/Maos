@@ -47,10 +47,12 @@ public class LocationViewModel extends ViewModel {
                     if (response.isSuccessful()){
                         ArrayList<Location> provinceList = new ArrayList<>();
                         Provinces result = response.body();
-                        for (Attributes attributes : result.getProvinces()){
-                            if (attributes.getId() == 31) provinceList.add(new Location(attributes.getId(), "DKI Jakarta"));
-                            else if (attributes.getId() == 34) provinceList.add(new Location(attributes.getId(), "DI Yogyakarta"));
-                            else provinceList.add(new Location(attributes.getId(), attributes.getName()));
+                        if (result != null){
+                            for (Attributes attributes : result.getProvinces()){
+                                if (attributes.getId() == 31) provinceList.add(new Location(attributes.getId(), "DKI Jakarta"));
+                                else if (attributes.getId() == 34) provinceList.add(new Location(attributes.getId(), "DI Yogyakarta"));
+                                else provinceList.add(new Location(attributes.getId(), attributes.getName()));
+                            }
                         }
                         provincesLiveData.postValue(provinceList);
                     }
@@ -74,8 +76,10 @@ public class LocationViewModel extends ViewModel {
                     if (response.isSuccessful()){
                         ArrayList<Location> regencyList = new ArrayList<>();
                         Regencies result = response.body();
-                        for (Attributes attributes : result.getRegencies()){
-                            regencyList.add(new Location(attributes.getId(), attributes.getName()));
+                        if (result != null){
+                            for (Attributes attributes : result.getRegencies()){
+                                regencyList.add(new Location(attributes.getId(), attributes.getName()));
+                            }
                         }
                         regenciesLiveData.postValue(regencyList);
                     }
@@ -99,8 +103,10 @@ public class LocationViewModel extends ViewModel {
                     if (response.isSuccessful()){
                         ArrayList<Location> districtList = new ArrayList<>();
                         Districts result = response.body();
-                        for (Attributes attributes : result.getDistricts()){
-                            districtList.add(new Location(attributes.getId(), attributes.getName()));
+                        if (result != null){
+                            for (Attributes attributes : result.getDistricts()){
+                                districtList.add(new Location(attributes.getId(), attributes.getName()));
+                            }
                         }
                         districtsLiveData.postValue(districtList);
                     }

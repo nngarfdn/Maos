@@ -46,10 +46,10 @@ public class BackgroundQuoteAdapter extends RecyclerView.Adapter<BackgroundQuote
         if (viewType == VIEW_TYPE_CELL) {
             ItemQuoteBackgroundBinding binding = ItemQuoteBackgroundBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new ViewHolder(binding);
-        } else if (viewType == VIEW_TYPE_FOOTER) {
+        } else {
             ItemQuoteBackgroundAddBinding binding = ItemQuoteBackgroundAddBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new ViewHolder(binding);
-        } else return null;
+        }
     }
 
     @Override

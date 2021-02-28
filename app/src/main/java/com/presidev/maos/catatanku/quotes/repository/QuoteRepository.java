@@ -45,10 +45,12 @@ public class QuoteRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         ArrayList<Quote> quoteList = new ArrayList<>();
-                        for (DocumentSnapshot document : task.getResult()){
-                            Quote quote = document.toObject(Quote.class);
-                            quoteList.add(quote);
-                            if (quote != null) Log.d(TAG, "query: " + quote.getUrl());
+                        if (task.getResult() != null){
+                            for (DocumentSnapshot document : task.getResult()){
+                                Quote quote = document.toObject(Quote.class);
+                                quoteList.add(quote);
+                                if (quote != null) Log.d(TAG, "query: " + quote.getUrl());
+                            }
                         }
                         quoteListLiveData.postValue(quoteList);
                         Log.d(TAG, "Document was queried");
@@ -61,9 +63,11 @@ public class QuoteRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        Quote quote = task.getResult().toObject(Quote.class);
-                        quoteLiveData.postValue(quote);
-                        if (quote != null) Log.d(TAG, "query: " + quote.getUrl());
+                        if (task.getResult() != null){
+                            Quote quote = task.getResult().toObject(Quote.class);
+                            quoteLiveData.postValue(quote);
+                            if (quote != null) Log.d(TAG, "query: " + quote.getUrl());
+                        }
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });

@@ -1,3 +1,5 @@
+@file:Suppress("PrivatePropertyName")
+
 package com.presidev.maos.catatanku.reminder.view
 
 import android.content.Intent

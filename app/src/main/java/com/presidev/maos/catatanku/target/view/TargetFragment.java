@@ -41,7 +41,7 @@ public class TargetFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        UserPreference userPreference = new UserPreference(getContext());
+        UserPreference userPreference = new UserPreference(requireContext());
 
         binding.rvTarget.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTarget.setHasFixedSize(true);
@@ -65,8 +65,10 @@ public class TargetFragment extends Fragment {
                 Log.d(TAG, "Set reminder after relogin");
             }
         });
-        targetViewModel.query(firebaseUser.getUid());
-        targetViewModel.addSnapshotListener(firebaseUser.getUid());
+        if (firebaseUser != null){
+            targetViewModel.query(firebaseUser.getUid());
+            targetViewModel.addSnapshotListener(firebaseUser.getUid());
+        }
 
         binding.fabAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), AddUpdateTargetActivity.class);

@@ -14,7 +14,7 @@ import com.presidev.maos.R
 import com.presidev.maos.bookdetail.BookDetailActivity
 import com.presidev.maos.bookmark.view.BookmarkAdapter.FavoriteViewHolder
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import java.util.*
 
 class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<FavoriteViewHolder>(), Filterable {
@@ -59,7 +59,7 @@ class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<Fav
         private var tvName: TextView = itemView.findViewById(R.id.txt_book_title)
         fun bind(item: Book) {
             tvName.text = item.title
-            AppUtils.loadImageFromUrl(imgPhoto, item.photo)
+            loadImageFromUrl(imgPhoto, item.photo)
         }
 
     }

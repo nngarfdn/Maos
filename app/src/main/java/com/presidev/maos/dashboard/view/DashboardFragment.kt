@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.presidev.maos.R
 import com.presidev.maos.dashboard.model.Slider
 import com.presidev.maos.search.view.SearchActivity
-import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.showToast
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -88,7 +88,7 @@ class DashboardFragment : Fragment() {
                 startActivity(whatsappIntent)
             } catch (e: Exception) {
                 Log.e(javaClass.simpleName, "Error on sharing: $e")
-                AppUtils.showToast(view.context, "Kamu belum punya aplikasi WhatsApp")
+                showToast(view.context, "Kamu belum punya aplikasi WhatsApp")
             }
         }
         return view

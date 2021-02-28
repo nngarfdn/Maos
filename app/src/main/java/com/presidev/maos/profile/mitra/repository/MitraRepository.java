@@ -16,7 +16,6 @@ import com.presidev.maos.profile.mitra.model.Mitra;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.presidev.maos.utils.Constants.FOLDER_PROFILE;
 import static com.presidev.maos.utils.ImageUtils.convertUriToByteArray;
@@ -40,9 +39,11 @@ public class MitraRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        Mitra mitra = Objects.requireNonNull(task.getResult()).toObject(Mitra.class);
-                        mitraLiveData.postValue(mitra);
-                        if (mitra != null) Log.d(TAG, "query: " + mitra.getName());
+                        if (task.getResult() != null){
+                            Mitra mitra = task.getResult().toObject(Mitra.class);
+                            mitraLiveData.postValue(mitra);
+                            if (mitra != null) Log.d(TAG, "query: " + mitra.getName());
+                        }
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });
@@ -54,10 +55,12 @@ public class MitraRepository {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         Mitra mitra = null;
-                        if (Objects.requireNonNull(task.getResult()).getDocuments().size() > 0){
-                            mitra = task.getResult().getDocuments().get(0).toObject(Mitra.class);
-                            assert mitra != null;
-                            Log.d(TAG, "query: " + mitra.getName());
+                        if (task.getResult() != null){
+                            if (task.getResult().getDocuments().size() > 0){
+                                mitra = task.getResult().getDocuments().get(0).toObject(Mitra.class);
+                                assert mitra != null;
+                                Log.d(TAG, "query: " + mitra.getName());
+                            }
                         }
                         mitraLiveData.postValue(mitra);
                         Log.d(TAG, "Document was queried");
@@ -93,12 +96,6 @@ public class MitraRepository {
             callback.onSuccess(uriResult.toString());
             Log.d(TAG, "Image was uploaded");
         })).addOnFailureListener(e -> Log.w(TAG, "Error uploading image", e));
-    }
-
-    public void deleteImage(String imageUrl){
-        storage.getReferenceFromUrl(imageUrl).delete()
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Image was deleted"))
-                .addOnFailureListener(e -> Log.w(TAG, "Error deleting image", e));
     }
 
     public void addSnapshotListener(String userId){

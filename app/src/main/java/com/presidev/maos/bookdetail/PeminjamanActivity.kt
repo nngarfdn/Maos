@@ -30,9 +30,7 @@ import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.EditBookActivity
 import com.presidev.maos.profile.mitra.view.MitraViewModel
 import com.presidev.maos.profile.user.view.UserViewModel
-import com.presidev.maos.utils.AppUtils
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
-import com.presidev.maos.utils.AppUtils.setFullAddress
+import com.presidev.maos.utils.AppUtils.*
 import com.presidev.maos.utils.Constants.LEVEL_MITRA
 import com.presidev.maos.utils.Constants.LEVEL_USER
 import kotlinx.android.synthetic.main.activity_peminjaman.*
@@ -144,7 +142,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
         memberCardViewModel.memberCardListLiveData.observe(this) { result ->
             for (member in result) {
                 if (member.mitraId == book.mitraId) {
-                    txt_member_code.text = member.id
+                    txt_member_code.text = showMemberCardId(member.id)
                     onClickPinjam(member.id)
                     break
                 } else {
@@ -187,7 +185,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        AppUtils.showToast(applicationContext, "Gagal mengunggah kartu identitas")
+                        showToast(applicationContext, "Gagal mengunggah kartu identitas")
                         loadingDialog.dismiss()
                     }
                 }

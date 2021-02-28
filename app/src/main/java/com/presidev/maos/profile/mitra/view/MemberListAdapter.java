@@ -24,7 +24,6 @@ import com.presidev.maos.profile.user.view.UserViewModel;
 import com.presidev.maos.membership.model.MemberCard;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl;
 import static com.presidev.maos.utils.AppUtils.showMemberCardId;
@@ -86,12 +85,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         public void bind(MemberCard memberCard) {
             userViewModel.getReference().document(memberCard.getUserId()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
-                    user = Objects.requireNonNull(task.getResult()).toObject(User.class);
-                    Log.d(getClass().getSimpleName(), user.getEmail());
-                    loadProfilePicFromUrl(imgPhoto, user.getPhoto());
-                    tvName.setText(user.getName());
-                    tvEmail.setText(user.getEmail());
-                    tvAddress.setText(user.getRegency() + ", " + user.getProvince());
+                    if (task.getResult() != null){
+                        user = task.getResult().toObject(User.class);
+                        Log.d(getClass().getSimpleName(), user.getEmail());
+                        loadProfilePicFromUrl(imgPhoto, user.getPhoto());
+                        tvName.setText(user.getName());
+                        tvEmail.setText(user.getEmail());
+                        tvAddress.setText(user.getRegency() + ", " + user.getProvince());
+                    }
                 }
             });
 

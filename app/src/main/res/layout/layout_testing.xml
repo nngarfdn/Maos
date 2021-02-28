@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rv_bookpopuler"
-        android:text="Populer"
+        android:text="@string/populer"
         android:textSize="14sp"
         android:textStyle="bold"/>
 

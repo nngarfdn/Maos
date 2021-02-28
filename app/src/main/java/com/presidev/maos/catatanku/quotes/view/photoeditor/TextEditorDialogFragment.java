@@ -86,7 +86,7 @@ public class TextEditorDialogFragment extends DialogFragment {
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAddTextEditText = view.findViewById(R.id.add_text_edit_text);
-        mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         TextView mAddTextDoneTextView = view.findViewById(R.id.add_text_done_tv);
 
         //Setup the color picker for text color
@@ -94,15 +94,17 @@ public class TextEditorDialogFragment extends DialogFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         addTextColorPickerRecyclerView.setLayoutManager(layoutManager);
         addTextColorPickerRecyclerView.setHasFixedSize(true);
-        ColorPickerAdapter colorPickerAdapter = new ColorPickerAdapter(getActivity());
+        ColorPickerAdapter colorPickerAdapter = new ColorPickerAdapter(requireActivity());
         //This listener will change the text color when clicked on any color from picker
         colorPickerAdapter.setOnColorPickerClickListener(colorCode -> {
             mColorCode = colorCode;
             mAddTextEditText.setTextColor(colorCode);
         });
         addTextColorPickerRecyclerView.setAdapter(colorPickerAdapter);
-        mAddTextEditText.setText(getArguments().getString(EXTRA_INPUT_TEXT));
-        mColorCode = getArguments().getInt(EXTRA_COLOR_CODE);
+        if (getArguments() != null) {
+            mAddTextEditText.setText(getArguments().getString(EXTRA_INPUT_TEXT));
+            mColorCode = getArguments().getInt(EXTRA_COLOR_CODE);
+        }
         mAddTextEditText.setTextColor(mColorCode);
         mInputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 

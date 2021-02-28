@@ -10,8 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
-import com.presidev.maos.utils.AppUtils
-import com.presidev.maos.utils.AppUtils.loadImageFromUrl
+import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.activity_edit_book.*
 import kotlinx.android.synthetic.main.layout_add_update_buku.*
 import java.util.*
@@ -72,10 +71,10 @@ class EditBookActivity : AppCompatActivity() {
             book.penulis = sinopsis
 
             if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
-                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+                showToast(applicationContext, "Pastikan semua data lengkap")
             }else {
                 bookViewModel.update(book)
-                AppUtils.showToast(applicationContext, "Berhasil")
+                showToast(applicationContext, "Berhasil")
                 finish()
             }
 
@@ -93,7 +92,7 @@ class EditBookActivity : AppCompatActivity() {
                     }.create().show()
         }
 
-        edt_description.setOnTouchListener(AppUtils.scrollableListener)
+        edt_description.setOnTouchListener(scrollableListener)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -114,7 +113,7 @@ class EditBookActivity : AppCompatActivity() {
 
                         bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
                             if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty() || fileName.isEmpty()){
-                                AppUtils.showToast(applicationContext, "Pastikan semua data lengkap")
+                                showToast(applicationContext, "Pastikan semua data lengkap")
                             }else {
                                 book.photo = imageUrl
                                 book.bookId = id
@@ -128,7 +127,7 @@ class EditBookActivity : AppCompatActivity() {
 //                intentResult.putExtra(EXTRA_PAYMENT, payment)
                                 setResult(RC_ADD_PAYMENT, intentResult)
 //                loadingDialog.dismiss()
-                                AppUtils.showToast(applicationContext, "Berhasil")
+                                showToast(applicationContext, "Berhasil")
                                 finish()
                             }
 

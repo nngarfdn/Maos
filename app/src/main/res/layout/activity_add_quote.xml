@@ -61,7 +61,7 @@
                 android:id="@+id/tv_select_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pilih Latar Belakang"
+                android:text="@string/pilih_latar_belakang"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="32dp"
                 android:layout_below="@id/imgRedo"/>
@@ -78,7 +78,7 @@
                 android:id="@+id/quote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Masukkan Kutipan"
+                android:text="@string/masukkan_kutipan"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="32dp"
                 android:layout_below="@id/rv_background"/>
@@ -91,15 +91,16 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:layout_below="@id/quote"
-                android:hint="Kutipan Favorit"
-                android:layout_marginHorizontal="32dp"/>
+                android:hint="@string/kutipan_favorit"
+                android:layout_marginHorizontal="32dp"
+                tools:ignore="Autofill" />
 
             <Button
                 android:id="@+id/btn_simpan_quote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Simpan"
+                android:text="@string/simpan"
                 style="@style/Button.Primary"
                 android:textColor="@color/white"
                 android:textAllCaps="false"

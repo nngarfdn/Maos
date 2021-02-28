@@ -27,9 +27,11 @@ public class DeveloperRepository {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        ArrayList<String> quoteBackgrounds =
-                                (ArrayList<String>) task.getResult().get("backgrounds");
-                        quoteBackgroundListLiveData.postValue(quoteBackgrounds);
+                        if (task.getResult() != null){
+                            ArrayList<String> quoteBackgrounds =
+                                    (ArrayList<String>) task.getResult().get("backgrounds");
+                            quoteBackgroundListLiveData.postValue(quoteBackgrounds);
+                        }
                         Log.d(TAG, "Document was queried");
                     } else Log.w(TAG, "Error querying document", task.getException());
                 });

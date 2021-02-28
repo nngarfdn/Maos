@@ -69,8 +69,10 @@ public class QuotesFragment extends Fragment {
             if (result.isEmpty()) binding.imgEmpty.setVisibility(View.VISIBLE);
             else binding.imgEmpty.setVisibility(View.INVISIBLE);
         });
-        quoteViewModel.query(firebaseUser.getUid());
-        quoteViewModel.addSnapshotListener(firebaseUser.getUid());
+        if (firebaseUser != null){
+            quoteViewModel.query(firebaseUser.getUid());
+            quoteViewModel.addSnapshotListener(firebaseUser.getUid());
+        }
 
         new MySwipeHelper(requireContext(), binding.rvQuotes, 240) {
             @Override

@@ -5,12 +5,9 @@
     android:background="@color/orange"
     android:layout_height="match_parent"
     tools:context=".welcome.intro.FragmentIntroc"
-    tools:ignore="ContentDescription">
+    tools:ignore="ContentDescription"
+    android:gravity="center">
 
-    <RelativeLayout
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/imga"
         android:layout_width="wrap_content"
@@ -29,7 +26,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:fontFamily="@font/inter_medium"
-        android:text="BOOKMARK"/>
+        android:text="@string/bookmark"
+        android:textAllCaps="true"/>
 
     <TextView
         android:id="@+id/desc"
@@ -43,9 +41,5 @@
         android:fontFamily="@font/inter_medium"
         android:textAlignment="center"
         android:layout_marginHorizontal="32dp"
-        android:text="Simpan buku kesukaan untuk
-pinjam nanti"/>
-
-
-</RelativeLayout>
+        android:text="@string/simpan_buku_kesukaan_untuk_pinjam_nanti"/>
 </RelativeLayout>

@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.profile.mitra.model.Mitra
 import java.util.ArrayList
 
@@ -18,15 +16,14 @@ class DashboardRepository {
     private var resultMitra: MutableLiveData<List<Mitra>> = MutableLiveData()
     fun getResultsMitra(): LiveData<List<Mitra>> = resultMitra
 
-    private var resultBook: MutableLiveData<List<Book>> = MutableLiveData()
-    fun getResultsBook(): LiveData<List<Book>> = resultBook
+    //private var resultBook: MutableLiveData<List<Book>> = MutableLiveData()
+    //fun getResultsBook(): LiveData<List<Book>> = resultBook
 
     fun getMitra() {
         val produkData: MutableList<Mitra> = ArrayList()
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Mitra>()
         db.collection("mitra")
-//                .orderBy("namaProyek")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -44,7 +41,7 @@ class DashboardRepository {
                 }
     }
 
-    fun getBook() {
+    /*fun getBook() {
         val produkData: MutableList<Book> = ArrayList()
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Book>()
@@ -65,7 +62,7 @@ class DashboardRepository {
                 .addOnFailureListener { exception ->
                     Log.e(TAG, "Error getting documents.", exception)
                 }
-    }
+    }*/
 
 
 }

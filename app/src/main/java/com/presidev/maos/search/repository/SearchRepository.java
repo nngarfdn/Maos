@@ -44,16 +44,19 @@ public class SearchRepository {
                 ArrayList<Mitra> listMitra = new ArrayList<>();
                 QuerySnapshot querySnapshot = task.getResult();
 
-                for (DocumentSnapshot snapshot : querySnapshot) {
-                    Mitra mitra = snapshot.toObject(Mitra.class);
-                    if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                            (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
-                        if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
-                        if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
-                        listMitra.add(mitra);
-                    }
-                    Log.d(TAG, "mitra.getName(): " + mitra.getName());
+                if (querySnapshot != null){
+                    for (DocumentSnapshot snapshot : querySnapshot) {
+                        Mitra mitra = snapshot.toObject(Mitra.class);
+                        if (mitra == null) continue;
+                        if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
+                                (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
+                            if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
+                            if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
+                            listMitra.add(mitra);
+                        }
+                        Log.d(TAG, "mitra.getName(): " + mitra.getName());
                 }
+            }
 
                 mitraLiveData.postValue(listMitra);
                 Log.d(TAG, "Document was queried");
@@ -69,15 +72,18 @@ public class SearchRepository {
                     ArrayList<Mitra> listMitra = new ArrayList<>();
                     QuerySnapshot querySnapshot = task.getResult();
 
-                    for (DocumentSnapshot snapshot : querySnapshot) {
-                        Mitra mitra = snapshot.toObject(Mitra.class);
-                        if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                                (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
-                            if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
-                            if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
-                            listMitra.add(mitra);
+                    if (querySnapshot != null){
+                        for (DocumentSnapshot snapshot : querySnapshot) {
+                            Mitra mitra = snapshot.toObject(Mitra.class);
+                            if (mitra == null) continue;
+                            if (mitra.getName().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
+                                    (!(mitra.getDescription() == null) && mitra.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
+                                if (filter.isOnlyCOD()) if (!mitra.isCOD()) continue;
+                                if (filter.isOnlyKirimLuarKota()) if (!mitra.isKirimLuarKota()) continue;
+                                listMitra.add(mitra);
+                            }
+                            Log.d(TAG, "mitra.getName(): " + mitra.getName());
                         }
-                        Log.d(TAG, "mitra.getName(): " + mitra.getName());
                     }
 
                     mitraLiveData.postValue(listMitra);
@@ -98,13 +104,16 @@ public class SearchRepository {
                 ArrayList<Book> listBook = new ArrayList<>();
                 QuerySnapshot querySnapshot = task.getResult();
 
-                for (DocumentSnapshot snapshot : querySnapshot) {
-                    Book book = snapshot.toObject(Book.class);
-                    if (book.getTitle().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
-                            (!(book.getDescription() == null) && book.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
-                        listBook.add(book);
+                if (querySnapshot != null){
+                    for (DocumentSnapshot snapshot : querySnapshot) {
+                        Book book = snapshot.toObject(Book.class);
+                        if (book == null || book.getTitle() == null) continue;
+                        if (book.getTitle().toLowerCase().contains(filter.getKeyword().toLowerCase()) ||
+                                (!(book.getDescription() == null) && book.getDescription().toLowerCase().contains(filter.getKeyword().toLowerCase()))){
+                            listBook.add(book);
+                        }
+                        Log.d(TAG, "book.getTitle(): " + book.getTitle());
                     }
-                    Log.d(TAG, "book.getTitle(): " + book.getTitle());
                 }
 
                 bookLiveData.postValue(listBook);

@@ -107,9 +107,11 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
 
     private synchronized void recoverSwipedItem() {
         while (!removerQueue.isEmpty()){
-            int pos = removerQueue.poll();
+            @SuppressWarnings("ConstantConditions") int pos = removerQueue.poll();
             if (pos > -1){
-                recyclerView.getAdapter().notifyItemChanged(pos);
+                if (recyclerView.getAdapter() != null){
+                    recyclerView.getAdapter().notifyItemChanged(pos);
+                }
             }
         }
     }
@@ -234,8 +236,11 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
                 } else{
                     buffer = buttonBuffer.get(pos);
                 }
-                translationX = dX * buffer.size() * buttonWidth / itemView.getWidth();
-                drawButton(c, itemView, buffer, pos, translationX);
+
+                if (buffer != null) {
+                    translationX = dX * buffer.size() * buttonWidth / itemView.getWidth();
+                    drawButton(c, itemView, buffer, pos, translationX);
+                }
             }
         }
         super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive);

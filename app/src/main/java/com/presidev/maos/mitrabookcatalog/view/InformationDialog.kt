@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.presidev.maos.R
 import com.presidev.maos.profile.mitra.model.Mitra
-import com.presidev.maos.utils.AppUtils
+import com.presidev.maos.utils.AppUtils.loadProfilePicFromUrl
 import kotlinx.android.synthetic.main.fragment_information_dialog.view.*
 
 class InformationDialog : BottomSheetDialogFragment() {
@@ -28,7 +28,7 @@ class InformationDialog : BottomSheetDialogFragment() {
 
         mitra = arguments?.getParcelable(MitraBookCatalogActivity.EXTRA_MITRA)
 
-        AppUtils.loadProfilePicFromUrl(view.img_book_info, mitra?.logo)
+        loadProfilePicFromUrl(view.img_book_info, mitra?.logo)
 
         view.txt_book_title_info.text = mitra?.name
         view.txt_description_info.text = mitra?.description

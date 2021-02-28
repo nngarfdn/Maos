@@ -12,11 +12,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +31,7 @@ import com.presidev.maos.developer.view.DeveloperViewModel;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.File;
+import java.util.Objects;
 
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener;
 import ja.burhanrashid52.photoeditor.OnSaveBitmap;
@@ -46,7 +43,6 @@ import ja.burhanrashid52.photoeditor.ViewType;
 import static com.presidev.maos.utils.AppUtils.showToast;
 
 public class AddQuoteActivity extends AppCompatActivity implements View.OnClickListener, EditingToolsAdapter.OnItemSelected, OnPhotoEditorListener, BackgroundQuoteAdapter.OnQuoteBackgroundSelectCallback {
-    public static final String FILE_PROVIDER_AUTHORITY = "com.presidev.maos.fileprovider";
     private static final int RC_BACKGROUND_IMAGE = 100;
 
     private ActivityAddQuoteBinding binding;
@@ -57,8 +53,6 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
     private PhotoEditor mPhotoEditor;
     private QuoteViewModel quoteViewModel;
 
-    @Nullable @VisibleForTesting private Uri mSaveImageUri;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +60,7 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         loadingDialog = new LoadingDialog(this, false);
@@ -140,12 +134,6 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
                 .setPositiveButton("Oke", null).create().show();
     }
 
-    private Uri buildFileProviderUri(@NonNull Uri uri) {
-        return FileProvider.getUriForFile(this,
-                FILE_PROVIDER_AUTHORITY,
-                new File(uri.getPath()));
-    }
-
     @Override
     public void onToolSelected(ToolType toolType) {
         if (toolType == ToolType.TEXT) {
@@ -154,7 +142,8 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
                 final TextStyleBuilder styleBuilder = new TextStyleBuilder();
                 styleBuilder.withTextColor(colorCode);
                 styleBuilder.withGravity(Gravity.CENTER);
-                styleBuilder.withTextFont(ResourcesCompat.getFont(this, R.font.creteround_italic));
+                styleBuilder.withTextFont(Objects.requireNonNull(
+                        ResourcesCompat.getFont(this, R.font.creteround_italic)));
 
                 mPhotoEditor.addText(inputText, styleBuilder);
             });

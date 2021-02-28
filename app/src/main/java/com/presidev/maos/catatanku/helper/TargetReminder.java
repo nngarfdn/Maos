@@ -53,6 +53,7 @@ public class TargetReminder extends BroadcastReceiver {
         intent.putExtra(EXTRA_MESSAGE, message);
 
         int[] timeArray = getArrayTime(target.getReminderTime());
+        if (timeArray == null) return;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, timeArray[0]);
         calendar.set(Calendar.MINUTE, timeArray[1]);

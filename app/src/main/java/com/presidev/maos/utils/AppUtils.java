@@ -23,7 +23,6 @@ import java.util.UUID;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-@SuppressWarnings("ALL")
 public class AppUtils {
     public static final Locale LOCALE = new Locale("in", "ID");
 
@@ -78,7 +77,8 @@ public class AppUtils {
     }
 
     public static String setFullAddress(String address, String province, String regency, String district){
-        if (address == null) return district + ", " + regency + ", " + province;
+        if (province == null && regency == null && district == null) return "";
+        else if (address == null) return district + ", " + regency + ", " + province;
         else return address + ", " + district + ", " + regency + ", " + province;
     }
 

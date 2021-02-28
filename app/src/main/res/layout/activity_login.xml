@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.view.LoginActivity">
+    tools:context=".auth.view.LoginActivity"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/img_background_login"
@@ -150,7 +151,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_google_login"
                 style="@style/Button.Secondary"
                 android:layout_width="match_parent"
@@ -158,8 +159,6 @@
                 android:layout_marginBottom="24dp"
                 android:text="@string/masuk_dengan_google"
                 app:icon="@drawable/ic_google"
-                app:iconGravity="textStart"
-                android:iconTint="@color/orange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

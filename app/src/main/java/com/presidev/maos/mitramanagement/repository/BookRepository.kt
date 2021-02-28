@@ -107,13 +107,13 @@ class BookRepository {
         }.addOnFailureListener { e: Exception? -> Log.w(TAG, "Error uploading image", e) }
     }
 
-    fun deleteImage(imageUrl: String?) { // Investor
+    /*fun deleteImage(imageUrl: String?) {
         if (imageUrl != null) {
             storage.getReferenceFromUrl(imageUrl).delete()
                     .addOnSuccessListener { Log.d(TAG, "Image was deleted") }
                     .addOnFailureListener { e: Exception? -> Log.w(TAG, "Error deleting image", e) }
         }
-    }
+    }*/
 
 
 

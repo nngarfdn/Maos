@@ -42,10 +42,6 @@ public class MitraViewModel extends ViewModel {
         repository.uploadImage(context, uri, folderName, fileName, callback);
     }
 
-//    public void deleteImage(String imageUrl){
-//        repository.deleteImage(imageUrl);
-//    }
-
     public void addSnapshotListener(String userId){
         repository.addSnapshotListener(userId);
     }

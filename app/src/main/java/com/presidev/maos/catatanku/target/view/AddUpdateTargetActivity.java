@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.presidev.maos.R;
 import com.presidev.maos.catatanku.UserPreference;
 import com.presidev.maos.catatanku.helper.TargetReminder;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import static com.presidev.maos.catatanku.helper.ReminderHelper.cancelReminder;
 import static com.presidev.maos.utils.AppUtils.getFixText;
@@ -52,7 +54,7 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         preference = new UserPreference(this);
 
@@ -204,7 +206,9 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
                 }
 
                 if (!isUpdate){
-                    target.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser == null) return;
+                    target.setUserId(firebaseUser.getUid());
                     target.setId(targetViewModel.getReference().document(target.getUserId())
                             .collection("target").document().getId());
                 }

@@ -19,8 +19,6 @@ import com.presidev.maos.catatanku.UserPreference;
 import com.presidev.maos.auth.model.Account;
 import com.presidev.maos.auth.preference.AuthPreference;
 
-import java.util.Objects;
-
 import static com.presidev.maos.utils.AppUtils.showToast;
 import static com.presidev.maos.utils.Constants.LEVEL_USER;
 
@@ -53,7 +51,11 @@ public class AuthRepository {
                 if (firebaseUser != null){
                     String id = firebaseUser.getUid();
                     String email = firebaseUser.getEmail();
-                    boolean isNewAccount = Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getAdditionalUserInfo())).isNewUser();
+
+                    boolean isNewAccount = true;
+                    if (task.getResult() != null && task.getResult().getAdditionalUserInfo() != null){
+                        isNewAccount = task.getResult().getAdditionalUserInfo().isNewUser();
+                    }
 
                     if (isNewAccount){
                         // Hanya level user yang bisa mendaftar via Google
@@ -151,8 +153,10 @@ public class AuthRepository {
         DocumentReference uidReference = usersReference.document(userId);
         uidReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                callback.onSuccess(Objects.requireNonNull(task.getResult()).getString("level"));
-                Log.d(TAG, "setDefaultAccountSettings: success");
+                if (task.getResult() != null){
+                    callback.onSuccess(task.getResult().getString("level"));
+                    Log.d(TAG, "setDefaultAccountSettings: success");
+                }
             }
             else Log.w(TAG, "setDefaultAccountSettings: failure", task.getException());
         });
