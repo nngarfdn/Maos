@@ -1,6 +1,8 @@
 package com.presidev.maos.catatanku.quotes.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -45,6 +47,7 @@ import static com.presidev.maos.utils.AppUtils.showToast;
 
 public class AddQuoteActivity extends AppCompatActivity implements View.OnClickListener, EditingToolsAdapter.OnItemSelected, OnPhotoEditorListener, BackgroundQuoteAdapter.OnQuoteBackgroundSelectCallback {
     public static final String FILE_PROVIDER_AUTHORITY = "com.presidev.maos.fileprovider";
+    private static final int RC_BACKGROUND_IMAGE = 100;
 
     private ActivityAddQuoteBinding binding;
     private BackgroundQuoteAdapter adapter;
@@ -96,14 +99,17 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setQuoteBackground(String url){
+        //binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
+        //binding.photoEditorView.getSource().setAdjustViewBounds(true);
         Picasso.get()
                 .load(url)
-                .placeholder(R.drawable.ic_no_pic)
-                .error(R.drawable.ic_no_pic)
+                //.fit().centerCrop()
+                //.into(binding.photoEditorView.getSource());
                 .into(new Target() {
                     @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}
                     @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
                     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        //binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
                         binding.photoEditorView.setBackground(new BitmapDrawable(getResources(), bitmap));
                     }
                 });
@@ -123,19 +129,15 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_simpan_quote: saveImage(); break;
             case R.id.imgUndo: mPhotoEditor.undo(); break;
             case R.id.imgRedo: mPhotoEditor.redo(); break;
-            //case R.id.imgShare: shareImage(); break;
+            case R.id.imgShare: shareImage(); break;
         }
     }
 
     private void shareImage() {
-        if (mSaveImageUri == null) {
-            showToast(this, "Simpan gambar dulu");
-            return;
-        }
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_STREAM, buildFileProviderUri(mSaveImageUri));
-        startActivity(Intent.createChooser(intent, "Bagikan Quote"));
+        new AlertDialog.Builder(this)
+                .setTitle("Simpan gambar dulu")
+                .setMessage("Setelah klik simpan, kamu bisa swipe kutipan yang sudah kamu simpan untuk dibagikan.")
+                .setPositiveButton("Oke", null).create().show();
     }
 
     private Uri buildFileProviderUri(@NonNull Uri uri) {
@@ -217,5 +219,26 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onSelected(String bgUrl) {
         setQuoteBackground(bgUrl);
+    }
+
+    @Override
+    public void onPickFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Pilih latar belakang"), RC_BACKGROUND_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_BACKGROUND_IMAGE){
+            if (resultCode == Activity.RESULT_OK){
+                if (data != null) if (data.getData() != null){
+                    Uri uriImage = data.getData();
+                    adapter.addData(uriImage.toString());
+                    setQuoteBackground(uriImage.toString());
+                }
+            }
+        }
     }
 }

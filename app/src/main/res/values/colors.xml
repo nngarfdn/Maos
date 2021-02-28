@@ -16,7 +16,7 @@
 
     <color name="green">#008C41</color>
     <color name="red">#FF0000</color>
-    <color name="backgron">#F8F8F8</color>
+    <color name="background">#F8F8F8</color>
 
     <color name="blue_color_picker">#0066FF</color>
     <color name="brown_color_picker">#AF593E</color>
