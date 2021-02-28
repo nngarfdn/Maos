@@ -59,7 +59,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
             Point point = new Point((int) motionEvent.getRawX(), (int) motionEvent.getRawY());
 
             RecyclerView.ViewHolder swipeViewHolder = recyclerView.findViewHolderForAdapterPosition(swipePosition);
-            if (swipeViewHolder.itemView == null) return false;
+            if (swipeViewHolder == null) return false;
             View swipedItem = swipeViewHolder.itemView;
             Rect rect = new Rect();
             swipedItem.getGlobalVisibleRect(rect);
