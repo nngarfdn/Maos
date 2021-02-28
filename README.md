@@ -1,2 +1,1 @@
-
-<h2><center>Maos</center></h2>
+<h2 style="text-align:center"></h2>
