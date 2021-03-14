@@ -1,6 +1,5 @@
 package com.presidev.maos.catatanku.quotes.view;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -115,15 +114,19 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
         return super.onSupportNavigateUp();
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.edt_quote: onToolSelected(ToolType.TEXT); break;
-            case R.id.btn_simpan_quote: saveImage(); break;
-            case R.id.imgUndo: mPhotoEditor.undo(); break;
-            case R.id.imgRedo: mPhotoEditor.redo(); break;
-            case R.id.imgShare: shareImage(); break;
+        int id = v.getId();
+        if (id == R.id.edt_quote) {
+            onToolSelected(ToolType.TEXT);
+        } else if (id == R.id.btn_simpan_quote) {
+            saveImage();
+        } else if (id == R.id.imgUndo) {
+            mPhotoEditor.undo();
+        } else if (id == R.id.imgRedo) {
+            mPhotoEditor.redo();
+        } else if (id == R.id.imgShare) {
+            shareImage();
         }
     }
 
@@ -150,7 +153,6 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    @SuppressLint("MissingPermission")
     private void saveImage() {
         loadingDialog.show();
 

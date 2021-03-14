@@ -25,6 +25,14 @@
             android:padding="24dp">
 
             <TextView
+                android:id="@+id/tv_membership_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tidak terdaftar dalam program membership"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/foto_profil"

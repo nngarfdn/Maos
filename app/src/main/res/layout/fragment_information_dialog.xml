@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="32dp"
-    android:paddingBottom="32dp"
     tools:context=".mitrabookcatalog.view.InformationDialog">
 
-
-    <ImageView
-        android:id="@+id/img_top"
-        android:src="@drawable/ic_pull"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:ignore="ContentDescription" />
-    <TextView
-        android:id="@+id/txt_info_peminjam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/informasi_peminjaman"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/img_top"
-        android:layout_centerHorizontal="true"
-        />
+        android:paddingTop="16dp"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="32dp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/img_book_info"
-        style="@style/ImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/txt_info_peminjam"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/img_top"
+            android:src="@drawable/ic_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/txt_book_title_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/buku_jogja"
-        android:textStyle="bold"
-        android:layout_below="@+id/img_book_info"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        />
+        <TextView
+            android:id="@+id/txt_info_peminjam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/informasi_peminjaman"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/img_top"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/txt_description_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_book_title_info"
-        android:layout_marginTop="16dp"
-        android:text="@string/buku_jogja_sudah_berdiri_sejak_2017_yang_dimulai_dengan_membentuk_komunitas_untuk_umum_dengan_agenda_peprustakaan_keliling_untuk_sekolah_dasar_dan_taman_kanak_kanak"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_book_info"
+            style="@style/ImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/txt_info_peminjam"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/txt_peraturan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/green"
-        android:text="@string/peraturan_peminjaman"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/txt_description_info"
-        />
+        <TextView
+            android:id="@+id/txt_book_title_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buku_jogja"
+            android:textStyle="bold"
+            android:layout_below="@+id/img_book_info"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/txt_rules"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_peraturan"
-        android:layout_marginTop="8dp"
-        android:text="@string/sed_ut_perspiciatis_unde_omnis_iste_natus_error_sit_voluptatem_accusantium_doloremque_laudantium_totam_rem_aperiam_eaque_ipsa_quae_ab_illo_inventore_veritatis_et_quasi_architecto_beatae_vitae_dicta_sunt_explicabo"/>
+        <TextView
+            android:id="@+id/txt_description_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_book_title_info"
+            android:layout_marginTop="16dp"
+            android:text="@string/buku_jogja_sudah_berdiri_sejak_2017_yang_dimulai_dengan_membentuk_komunitas_untuk_umum_dengan_agenda_peprustakaan_keliling_untuk_sekolah_dasar_dan_taman_kanak_kanak"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/txt_peraturan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            android:text="@string/peraturan_peminjaman"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/txt_description_info" />
+
+        <TextView
+            android:id="@+id/txt_rules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_peraturan"
+            android:layout_marginTop="8dp"
+            android:text="@string/sed_ut_perspiciatis_unde_omnis_iste_natus_error_sit_voluptatem_accusantium_doloremque_laudantium_totam_rem_aperiam_eaque_ipsa_quae_ab_illo_inventore_veritatis_et_quasi_architecto_beatae_vitae_dicta_sunt_explicabo"/>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

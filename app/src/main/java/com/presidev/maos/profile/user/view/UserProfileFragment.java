@@ -1,6 +1,5 @@
 package com.presidev.maos.profile.user.view;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -92,57 +91,45 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_catatanku_up:
-                Intent intentCatatanKu = new Intent(getContext(), CatatanKuActivity.class);
-                startActivity(intentCatatanKu);
-                break;
-
-            case R.id.btn_update_up:
-                if (user == null) return;
-                Intent intent = new Intent(getContext(), UpdateUserProfileActivity.class);
-                intent.putExtra(EXTRA_USER, user);
-                startActivity(intent);
-                break;
-
-            case R.id.btn_subscribe_up:
-                Intent intentSubscribe = new Intent(getContext(), MembershipIntroActivity.class);
-                startActivity(intentSubscribe);
-                break;
-
-            case R.id.btn_reset_password_up:
-                if (user == null) return;
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Ganti kata sandi")
-                        .setMessage("Kirim tautan ganti kata sandi ke email-mu?")
-                        .setNegativeButton("Tidak", null)
-                        .setPositiveButton("Ya", (dialogInterface, i) ->
-                                authViewModel.sendPasswordReset(user.getEmail())).create().show();
-                break;
-
-            case R.id.btn_about_up:
-                Intent intentAbout = new Intent(getContext(), AboutActivity.class);
-                startActivity(intentAbout);
-                break;
-
-            case R.id.btn_logout_up:
-                authViewModel.getUserLiveData().observe(this, account -> {
-                    if (account.getFirebaseUser() == null){
-                        Intent intentRestart = new Intent(getContext(), SplashActivity.class);
-                        startActivity(intentRestart);
-                        requireActivity().finish();
-                    }
-                });
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Keluar akun")
-                        .setMessage("Apakah kamu yakin ingin keluar?")
-                        .setNegativeButton("Tidak", null)
-                        .setPositiveButton("Ya", (dialogInterface, i) -> authViewModel.logout())
-                        .create().show();
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_catatanku_up) {
+            Intent intentCatatanKu = new Intent(getContext(), CatatanKuActivity.class);
+            startActivity(intentCatatanKu);
+        } else if (id == R.id.btn_update_up) {
+            if (user == null) return;
+            Intent intent = new Intent(getContext(), UpdateUserProfileActivity.class);
+            intent.putExtra(EXTRA_USER, user);
+            startActivity(intent);
+        } else if (id == R.id.btn_subscribe_up) {
+            Intent intentSubscribe = new Intent(getContext(), MembershipIntroActivity.class);
+            startActivity(intentSubscribe);
+        } else if (id == R.id.btn_reset_password_up) {
+            if (user == null) return;
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Ganti kata sandi")
+                    .setMessage("Kirim tautan ganti kata sandi ke email-mu?")
+                    .setNegativeButton("Tidak", null)
+                    .setPositiveButton("Ya", (dialogInterface, i) ->
+                            authViewModel.sendPasswordReset(user.getEmail())).create().show();
+        } else if (id == R.id.btn_about_up) {
+            Intent intentAbout = new Intent(getContext(), AboutActivity.class);
+            startActivity(intentAbout);
+        } else if (id == R.id.btn_logout_up) {
+            authViewModel.getUserLiveData().observe(this, account -> {
+                if (account.getFirebaseUser() == null) {
+                    Intent intentRestart = new Intent(getContext(), SplashActivity.class);
+                    startActivity(intentRestart);
+                    requireActivity().finish();
+                }
+            });
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Keluar akun")
+                    .setMessage("Apakah kamu yakin ingin keluar?")
+                    .setNegativeButton("Tidak", null)
+                    .setPositiveButton("Ya", (dialogInterface, i) -> authViewModel.logout())
+                    .create().show();
         }
     }
 }

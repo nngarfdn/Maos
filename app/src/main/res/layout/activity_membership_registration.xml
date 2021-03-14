@@ -116,7 +116,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/pilih_penyedia_buku"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/font_md" />
+                                android:textSize="@dimen/font_md"
+                                android:maxLines="2"
+                                android:ellipsize="end"/>
 
                             <TextView
                                 android:id="@+id/tv_mitra_address_mr"

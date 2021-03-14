@@ -5,8 +5,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -35,6 +35,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        SwipeRefreshLayout swipeMitra = findViewById(R.id.swipe_mitra_search);
         recyclerView = findViewById(R.id.rv_mitra_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -50,6 +51,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             if (mitraList.isEmpty()) imgEmpty.setVisibility(View.VISIBLE);
             else imgEmpty.setVisibility(View.GONE);
             shimmer.hide();
+            swipeMitra.setRefreshing(false);
         });
 
         filter = new MitraFilter();
@@ -75,6 +77,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         ImageButton ibMitraFilter = findViewById(R.id.ib_mitra_filter_search);
         ibMitraFilter.setOnClickListener(this);
 
+        swipeMitra.setOnRefreshListener(() -> searchViewModel.query(filter));
+
         // Atur nilai default lokasi filter sama dengan lokasi pengguna
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(this, user -> {
@@ -95,10 +99,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.ib_mitra_filter_search) {
+        int id = view.getId();
+        if (id == R.id.ib_mitra_filter_search) {
             Bundle bundle = new Bundle();
             bundle.putParcelable(EXTRA_MITRA_FILTER, filter);
             MitraFilterFragment bottomSheet = new MitraFilterFragment();

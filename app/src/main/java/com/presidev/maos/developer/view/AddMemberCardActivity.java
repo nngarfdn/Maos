@@ -112,59 +112,54 @@ public class AddMemberCardActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_mitra_validation_amc:
-                String mitraEmail = getFixText(edtMitraEmail);
-                if (mitraEmail.isEmpty()|| !Patterns.EMAIL_ADDRESS.matcher(mitraEmail).matches()){
-                    edtMitraEmail.setError("Masukkan email mitra yang valid");
-                    return;
-                }
-                mitraViewModel.queryByEmail(mitraEmail);
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_mitra_validation_amc) {
+            String mitraEmail = getFixText(edtMitraEmail);
+            if (mitraEmail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(mitraEmail).matches()) {
+                edtMitraEmail.setError("Masukkan email mitra yang valid");
+                return;
+            }
+            mitraViewModel.queryByEmail(mitraEmail);
+        } else if (id == R.id.btn_user_validation_amc) {
+            String userMail = getFixText(edtUserEmail);
+            if (userMail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userMail).matches()) {
+                edtUserEmail.setError("Masukkan email pengguna yang valid");
+                return;
+            }
+            userViewModel.queryByEmail(userMail);
+        } else if (id == R.id.btn_add_amc) {
+            if (!(isMitraValid && isUserValid)) {
+                showToast(this, "Validasi email mitra dan pengguna terlebih dahulu");
+                return;
+            }
 
-            case R.id.btn_user_validation_amc:
-                String userMail = getFixText(edtUserEmail);
-                if (userMail.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(userMail).matches()){
-                    edtUserEmail.setError("Masukkan email pengguna yang valid");
-                    return;
-                }
-                userViewModel.queryByEmail(userMail);
-                break;
+            memberCard = new MemberCard(
+                    getMemberCardId(mitra.getId(), user.getId()),
+                    user.getId(),
+                    mitra.getId(),
+                    getCurrentDate(),
+                    addDay(getCurrentDate(), 30)
+            );
 
-            case R.id.btn_add_amc:
-                if (!(isMitraValid && isUserValid)) {
-                    showToast(this, "Validasi email mitra dan pengguna terlebih dahulu");
-                    return;
-                }
-
-                memberCard = new MemberCard(
-                        getMemberCardId(mitra.getId(), user.getId()),
-                        user.getId(),
-                        mitra.getId(),
-                        getCurrentDate(),
-                        addDay(getCurrentDate(), 30)
-                );
-
-                memberCardViewModel.queryByCardId(getMemberCardId(mitra.getId(), user.getId()));
-                memberCardViewModel.getMemberCardLiveData().observe(this, oldMemberCard -> {
-                    if (oldMemberCard != null){
-                        Log.d(getClass().getSimpleName(), "Sisa hari: " + differenceOfDates(oldMemberCard.getExpDate(), getCurrentDate()));
-                        if (differenceOfDates(oldMemberCard.getExpDate(), getCurrentDate()) >= 0){
-                            showToast(this, "Kartu member sudah ada dan masih berlaku");
-                        } else{
-                            memberCardViewModel.update(memberCard);
-                            showToast(this, "Kartu member dengan id " + memberCard.getId() + " berhasil diperbarui");
-                            onBackPressed();
-                        }
+            memberCardViewModel.queryByCardId(getMemberCardId(mitra.getId(), user.getId()));
+            memberCardViewModel.getMemberCardLiveData().observe(this, oldMemberCard -> {
+                if (oldMemberCard != null) {
+                    Log.d(getClass().getSimpleName(), "Sisa hari: " + differenceOfDates(oldMemberCard.getExpDate(), getCurrentDate()));
+                    if (differenceOfDates(oldMemberCard.getExpDate(), getCurrentDate()) >= 0) {
+                        showToast(this, "Kartu member sudah ada dan masih berlaku");
                     } else {
-                        memberCardViewModel.insert(memberCard);
-                        showToast(this, "Kartu member dengan id " + memberCard.getId() + " berhasil dibuat");
+                        memberCardViewModel.update(memberCard);
+                        showToast(this, "Kartu member dengan id " + memberCard.getId() + " berhasil diperbarui");
                         onBackPressed();
                     }
-                });
+                } else {
+                    memberCardViewModel.insert(memberCard);
+                    showToast(this, "Kartu member dengan id " + memberCard.getId() + " berhasil dibuat");
+                    onBackPressed();
+                }
+            });
         }
     }
 

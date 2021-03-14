@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.presidev.maos.R;
@@ -77,6 +78,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         btnSave.setOnClickListener(this);
         btnSave.setEnabled(false);
 
+        TextView tvMembershipStatus = findViewById(R.id.tv_membership_status);
         chipCOD = findViewById(R.id.chip_cod_ump);
         chipKirimLuarKota = findViewById(R.id.chip_kirim_luar_kota_ump);
         imgLogo = findViewById(R.id.img_logo_ump);
@@ -111,6 +113,7 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
             edtRules.setText(mitra.getRules());
             chipCOD.setChecked(mitra.isCOD());
             chipKirimLuarKota.setChecked(mitra.isKirimLuarKota());
+            if (mitra.isMembership()) tvMembershipStatus.setVisibility(View.GONE);
         }
 
         mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
@@ -120,62 +123,57 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         locationViewModel.queryProvinces();
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_logo_ump:
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto profil"), RC_PROFILE_IMAGE);
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_logo_ump) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "Pilih foto profil"), RC_PROFILE_IMAGE);
+        } else if (id == R.id.btn_banner_ump) {
+            Intent intentBanner = new Intent(Intent.ACTION_PICK);
+            intentBanner.setType("image/*");
+            startActivityForResult(Intent.createChooser(intentBanner, "Pilih latar belakang"), RC_BANNER_IMAGE);
+        } else if (id == R.id.btn_save_ump) {
+            String name = getFixText(edtName);
+            String description = edtDescription.getText().toString().trim();
+            String whatsApp = getFixText(edtWhatsApp);
+            String address = getFixText(edtAddress);
+            String rules = edtRules.getText().toString().trim();
 
-            case R.id.btn_banner_ump:
-                Intent intentBanner = new Intent(Intent.ACTION_PICK);
-                intentBanner.setType("image/*");
-                startActivityForResult(Intent.createChooser(intentBanner, "Pilih latar belakang"), RC_BANNER_IMAGE);
-                break;
+            if (name.isEmpty() || description.isEmpty() || whatsApp.isEmpty() ||
+                    address.isEmpty() || rules.isEmpty()) {
+                if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
+                if (description.isEmpty()) edtDescription.setError("Masukkan deskripsi");
+                if (whatsApp.isEmpty())
+                    edtWhatsApp.setError("Masukkan nomor WhatsApp/nama pengguna Instagram");
+                if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
+                if (rules.isEmpty()) edtRules.setError("Masukkan peraturan peminjaman");
+                showToast(this, "Pastikan data yang diisi lengkap");
+                return;
+            }
 
-            case R.id.btn_save_ump:
-                String name = getFixText(edtName);
-                String description = edtDescription.getText().toString().trim();
-                String whatsApp = getFixText(edtWhatsApp);
-                String address = getFixText(edtAddress);
-                String rules = edtRules.getText().toString().trim();
+            boolean isWA = TextUtils.isDigitsOnly(whatsApp);
+            if (isWA && isValidPhone(whatsApp)) {
+                edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
+                showToast(this, "Awali nomor WhatsApp dengan 62");
+                return;
+            }
 
-                if (name.isEmpty() || description.isEmpty() || whatsApp.isEmpty() ||
-                        address.isEmpty() || rules.isEmpty()){
-                    if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
-                    if (description.isEmpty()) edtDescription.setError("Masukkan deskripsi");
-                    if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp/nama pengguna Instagram");
-                    if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
-                    if (rules.isEmpty()) edtRules.setError("Masukkan peraturan peminjaman");
-                    showToast(this, "Pastikan data yang diisi lengkap");
-                    return;
-                }
+            mitra.setName(name);
+            mitra.setDescription(description);
+            mitra.setWhatsApp(whatsApp);
+            mitra.setAddress(address);
+            mitra.setRules(rules);
 
-                boolean isWA = TextUtils.isDigitsOnly(whatsApp);
-                if (isWA && isValidPhone(whatsApp)){
-                    edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
-                    showToast(this, "Awali nomor WhatsApp dengan 62");
-                    return;
-                }
+            mitra.setProvince(spProvinces.getSelectedItem().toString());
+            mitra.setRegency(spRegencies.getSelectedItem().toString());
+            mitra.setDistrict(spDistricts.getSelectedItem().toString());
+            mitra.setCOD(chipCOD.isChecked());
+            mitra.setKirimLuarKota(chipKirimLuarKota.isChecked());
 
-                mitra.setName(name);
-                mitra.setDescription(description);
-                mitra.setWhatsApp(whatsApp);
-                mitra.setAddress(address);
-                mitra.setRules(rules);
-
-                mitra.setProvince(spProvinces.getSelectedItem().toString());
-                mitra.setRegency(spRegencies.getSelectedItem().toString());
-                mitra.setDistrict(spDistricts.getSelectedItem().toString());
-                mitra.setCOD(chipCOD.isChecked());
-                mitra.setKirimLuarKota(chipKirimLuarKota.isChecked());
-
-                mitraViewModel.update(mitra);
-                onBackPressed();
-                break;
+            mitraViewModel.update(mitra);
+            onBackPressed();
         }
     }
 
@@ -215,30 +213,23 @@ public class UpdateMitraProfileActivity extends AppCompatActivity implements Vie
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        switch (adapterView.getId()){
-            case R.id.sp_provinces_ump:
-                btnSave.setEnabled(false);
-                spRegencies.setAdapter(null);
-                spDistricts.setAdapter(null);
+        int id = adapterView.getId();
+        if (id == R.id.sp_provinces_ump) {
+            btnSave.setEnabled(false);
+            spRegencies.setAdapter(null);
+            spDistricts.setAdapter(null);
 
-                int idProvince = provinceList.get(position).getId();
-                locationViewModel.queryRegencies(idProvince);
-                break;
+            int idProvince = provinceList.get(position).getId();
+            locationViewModel.queryRegencies(idProvince);
+        } else if (id == R.id.sp_regencies_ump) {
+            btnSave.setEnabled(false);
+            spDistricts.setAdapter(null);
 
-            case R.id.sp_regencies_ump:
-                btnSave.setEnabled(false);
-                spDistricts.setAdapter(null);
-
-                int idRegency = regencyList.get(position).getId();
-                locationViewModel.queryDistricts(idRegency);
-                break;
-
-            case R.id.sp_districts_ump:
-                //int idDistrict = districtList.get(position).getId();
-                break;
+            int idRegency = regencyList.get(position).getId();
+            locationViewModel.queryDistricts(idRegency);
+        } else if (id == R.id.sp_districts_ump) {//int idDistrict = districtList.get(position).getId();
         }
     }
 

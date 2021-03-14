@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
+import kotlinx.android.synthetic.main.activity_katalog_mitra.*
 
 class KatalogMitraActivity : AppCompatActivity() {
 
@@ -51,7 +52,10 @@ class KatalogMitraActivity : AppCompatActivity() {
             rvBookCatalog.layoutManager = layoutManager
             val adapter = BookAdapter(result)
             rvBookCatalog.adapter = adapter
+            swipe_bookcatalog.isRefreshing = false
         })
+
+        swipe_bookcatalog.setOnRefreshListener { onStart() }
     }
 
     override fun onStart() {

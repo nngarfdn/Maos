@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,30 +112,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_email_login:
-                loginWithEmail(edtEmail.getText().toString(), edtPassword.getText().toString());
-                break;
-
-            case R.id.btn_google_login:
-                Intent intentGoogle = googleSignInClient.getSignInIntent();
-                startActivityForResult(intentGoogle, RC_SIGN_IN);
-                break;
-
-            case R.id.tv_reset_password_login:
-                Intent intent = new Intent(this, ResetPasswordActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.tv_register_login:
-                Intent intentRegister = new Intent(this, RegisterActivity.class);
-                intentRegister.putExtra(EXTRA_BOOK, book);
-                startActivity(intentRegister);
-                finish();
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_email_login) {
+            loginWithEmail(edtEmail.getText().toString(), edtPassword.getText().toString());
+        } else if (id == R.id.btn_google_login) {
+            Intent intentGoogle = googleSignInClient.getSignInIntent();
+            startActivityForResult(intentGoogle, RC_SIGN_IN);
+        } else if (id == R.id.tv_reset_password_login) {
+            Intent intent = new Intent(this, ResetPasswordActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_register_login) {
+            Intent intentRegister = new Intent(this, RegisterActivity.class);
+            intentRegister.putExtra(EXTRA_BOOK, book);
+            startActivity(intentRegister);
+            finish();
         }
     }
 

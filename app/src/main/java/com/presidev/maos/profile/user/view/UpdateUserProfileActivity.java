@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -127,64 +126,58 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         locationViewModel.queryProvinces();
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_photo_uup:
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Pilih foto profil"), RC_PROFILE_IMAGE);
-                break;
-
-            case R.id.btn_id_card_uup:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        showToast(this, "Maos tidak punya izin untuk menyimpan foto");
-                        return;
-                    }
-                }
-
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "Ambil foto identitas");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Menggunakan kamera");
-                uriIdCard = getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                Intent intentIdCard = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intentIdCard.putExtra(MediaStore.EXTRA_OUTPUT, uriIdCard);
-                startActivityForResult(intentIdCard, RC_ID_CARD_IMAGE);
-                break;
-
-            case R.id.btn_save_uup:
-                String name = getFixText(edtName);
-                String whatsApp = getFixText(edtWhatsApp);
-                String address = getFixText(edtAddress);
-
-                if (name.isEmpty() || whatsApp.isEmpty() || address.isEmpty()){
-                    if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
-                    if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
-                    if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
-                    showToast(this, "Pastikan data yang diisi lengkap");
+        int id = view.getId();
+        if (id == R.id.btn_photo_uup) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "Pilih foto profil"), RC_PROFILE_IMAGE);
+        } else if (id == R.id.btn_id_card_uup) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    showToast(this, "Maos tidak punya izin untuk menyimpan foto");
                     return;
                 }
+            }
 
-                if (isValidPhone(whatsApp)){
-                    edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
-                    showToast(this, "Awali nomor WhatsApp dengan 62");
-                    return;
-                }
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, "Ambil foto identitas");
+            values.put(MediaStore.Images.Media.DESCRIPTION, "Menggunakan kamera");
+            uriIdCard = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Intent intentIdCard = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intentIdCard.putExtra(MediaStore.EXTRA_OUTPUT, uriIdCard);
+            startActivityForResult(intentIdCard, RC_ID_CARD_IMAGE);
+        } else if (id == R.id.btn_save_uup) {
+            String name = getFixText(edtName);
+            String whatsApp = getFixText(edtWhatsApp);
+            String address = getFixText(edtAddress);
 
-                user.setName(name);
-                user.setWhatsApp(whatsApp);
-                user.setAddress(address);
+            if (name.isEmpty() || whatsApp.isEmpty() || address.isEmpty()) {
+                if (name.isEmpty()) edtName.setError("Masukkan nama lengkapmu");
+                if (whatsApp.isEmpty()) edtWhatsApp.setError("Masukkan nomor WhatsApp");
+                if (address.isEmpty()) edtAddress.setError("Masukkan alamat");
+                showToast(this, "Pastikan data yang diisi lengkap");
+                return;
+            }
 
-                user.setProvince(spProvinces.getSelectedItem().toString());
-                user.setRegency(spRegencies.getSelectedItem().toString());
-                user.setDistrict(spDistricts.getSelectedItem().toString());
+            if (isValidPhone(whatsApp)) {
+                edtWhatsApp.setError("Awali nomor WhatsApp dengan 62");
+                showToast(this, "Awali nomor WhatsApp dengan 62");
+                return;
+            }
 
-                userViewModel.update(user);
-                onBackPressed();
-                break;
+            user.setName(name);
+            user.setWhatsApp(whatsApp);
+            user.setAddress(address);
+
+            user.setProvince(spProvinces.getSelectedItem().toString());
+            user.setRegency(spRegencies.getSelectedItem().toString());
+            user.setDistrict(spDistricts.getSelectedItem().toString());
+
+            userViewModel.update(user);
+            onBackPressed();
         }
     }
 
@@ -227,30 +220,23 @@ public class UpdateUserProfileActivity extends AppCompatActivity implements View
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        switch (adapterView.getId()){
-            case R.id.sp_provinces_uup:
-                btnSave.setEnabled(false);
-                spRegencies.setAdapter(null);
-                spDistricts.setAdapter(null);
+        int id = adapterView.getId();
+        if (id == R.id.sp_provinces_uup) {
+            btnSave.setEnabled(false);
+            spRegencies.setAdapter(null);
+            spDistricts.setAdapter(null);
 
-                int idProvince = provinceList.get(position).getId();
-                locationViewModel.queryRegencies(idProvince);
-                break;
+            int idProvince = provinceList.get(position).getId();
+            locationViewModel.queryRegencies(idProvince);
+        } else if (id == R.id.sp_regencies_uup) {
+            btnSave.setEnabled(false);
+            spDistricts.setAdapter(null);
 
-            case R.id.sp_regencies_uup:
-                btnSave.setEnabled(false);
-                spDistricts.setAdapter(null);
-
-                int idRegency = regencyList.get(position).getId();
-                locationViewModel.queryDistricts(idRegency);
-                break;
-
-            case R.id.sp_districts_uup:
-                //int idDistrict = districtList.get(position).getId();
-                break;
+            int idRegency = regencyList.get(position).getId();
+            locationViewModel.queryDistricts(idRegency);
+        } else if (id == R.id.sp_districts_uup) {//int idDistrict = districtList.get(position).getId();
         }
     }
 

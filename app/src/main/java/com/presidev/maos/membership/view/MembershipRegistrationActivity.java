@@ -81,90 +81,81 @@ public class MembershipRegistrationActivity extends AppCompatActivity implements
         userViewModel.query(firebaseUser.getUid());
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.cv_package_mr:
-                new AlertDialog.Builder(this)
-                        .setTitle("Info paket")
-                        .setMessage("Paket berlangganan 30 hari Rp10.000 per penyedia buku berlaku setelah pembayaran dikonfirmasi oleh admin melalui WhatsApp.")
-                        .setPositiveButton("Oke", null)
-                        .create().show();
-                break;
+        int id = view.getId();
+        if (id == R.id.cv_package_mr) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Info paket")
+                    .setMessage("Paket berlangganan 30 hari Rp10.000 per penyedia buku berlaku setelah pembayaran dikonfirmasi oleh admin melalui WhatsApp.")
+                    .setPositiveButton("Oke", null)
+                    .create().show();
+        } else if (id == R.id.cv_mitra_mr) {
+            if (mitra == null) {
+                launchSelectMitra();
+            } else {
+                PopupMenu menu = new PopupMenu(this, view);
+                MenuInflater inflater = menu.getMenuInflater();
+                inflater.inflate(R.menu.menu_select_mitra, menu.getMenu());
+                menu.show();
 
-            case R.id.cv_mitra_mr:
-                if (mitra == null){
-                     launchSelectMitra();
-                } else {
-                    PopupMenu menu = new PopupMenu(this, view);
-                    MenuInflater inflater = menu.getMenuInflater();
-                    inflater.inflate(R.menu.menu_select_mitra, menu.getMenu());
-                    menu.show();
+                menu.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.menu_open_mitra) {
+                        Intent intent;
+                        intent = new Intent(this, MitraBookCatalogActivity.class);
+                        intent.putExtra(EXTRA_MITRA, mitra);
+                        startActivity(intent);
+                    } else if (itemId == R.id.menu_select_mitra) {
+                        launchSelectMitra();
+                    }
+                    return false;
+                });
+            }
+        } else if (id == R.id.btn_submit_mr) {
+            if (mitra == null) {
+                showToast(this, "Silakan pilih penyedia buku terlebih dahulu");
+                return;
+            }
 
-                    menu.setOnMenuItemClickListener(item -> {
-                        switch (item.getItemId()){
-                            case R.id.menu_open_mitra:
-                                Intent intent;
-                                intent = new Intent(this, MitraBookCatalogActivity.class);
-                                intent.putExtra(EXTRA_MITRA, mitra);
-                                startActivity(intent);
-                                break;
+            String name = getFixText(edtName);
+            String email = getFixText(edtEmail);
+            String mitraName = mitra.getName();
+            String mitraEmail = mitra.getEmail();
 
-                            case R.id.menu_select_mitra:
-                                launchSelectMitra();
-                                break;
-                        }
-                        return false;
-                    });
-                }
-                break;
+            if (name.isEmpty()) {
+                edtName.setError("Masukkan nama lengkapmu");
+                showToast(this, "Pastikan kamu sudah mengisi namamu");
+                return;
+            }
 
-            case R.id.btn_submit_mr:
-                if (mitra == null){
-                    showToast(this, "Silakan pilih penyedia buku terlebih dahulu");
-                    return;
-                }
-
-                String name = getFixText(edtName);
-                String email = getFixText(edtEmail);
-                String mitraName = mitra.getName();
-                String mitraEmail = mitra.getEmail();
-
-                if (name.isEmpty()){
-                    edtName.setError("Masukkan nama lengkapmu");
-                    showToast(this, "Pastikan kamu sudah mengisi namamu");
-                    return;
-                }
-
-                new AlertDialog.Builder(this)
-                        .setTitle("Ajukan pendaftaran")
-                        .setMessage("Ajukan pendaftaran berlangganan member selama 30 hari?")
-                        .setNegativeButton("Batal", null)
-                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    Intent whatsappIntent = new Intent("android.intent.action.SEND");
-                                    whatsappIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.ContactPicker"));
-                                    whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(ADMIN_PHONE_NUMBER) + "@s.whatsapp.net");
-                                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
-                                            "Halo kak, saya ingin *berlangganan 30 hari*\n\n" +
-                                                    "Berikut data saya\n" +
-                                                    "Nama: " + name + "\n" +
-                                                    "Email: " + email + "\n\n" +
-                                                    "Dan data penyedia buku\n" +
-                                                    "Nama: " + mitraName + "\n" +
-                                                    "Email: " + mitraEmail + "\n\n" +
-                                                    "Terima kasih kak");
-                                    startActivity(whatsappIntent);
-                                } catch (Exception e) {
-                                    Log.e(getClass().getSimpleName(), "Error on sharing: " + e);
-                                    showToast(view.getContext(), "Kamu belum punya aplikasi WhatsApp");
-                                }
+            new AlertDialog.Builder(this)
+                    .setTitle("Ajukan pendaftaran")
+                    .setMessage("Ajukan pendaftaran berlangganan member selama 30 hari?")
+                    .setNegativeButton("Batal", null)
+                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            try {
+                                Intent whatsappIntent = new Intent("android.intent.action.SEND");
+                                whatsappIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.ContactPicker"));
+                                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(ADMIN_PHONE_NUMBER) + "@s.whatsapp.net");
+                                whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                                        "Halo kak, saya ingin *berlangganan 30 hari*\n\n" +
+                                                "Berikut data saya\n" +
+                                                "Nama: " + name + "\n" +
+                                                "Email: " + email + "\n\n" +
+                                                "Dan data penyedia buku\n" +
+                                                "Nama: " + mitraName + "\n" +
+                                                "Email: " + mitraEmail + "\n\n" +
+                                                "Terima kasih kak");
+                                startActivity(whatsappIntent);
+                            } catch (Exception e) {
+                                Log.e(getClass().getSimpleName(), "Error on sharing: " + e);
+                                showToast(view.getContext(), "Kamu belum punya aplikasi WhatsApp");
                             }
-                        }).create().show();
-                break;
+                        }
+                    }).create().show();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.presidev.maos.search.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -56,20 +55,16 @@ public class BookFilterFragment extends BottomSheetDialogFragment implements Vie
         chipOnlyAvailable.setChecked(filter.isOnlyAvailable());
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_apply_bf:
-                filter.setOnlyAvailable(chipOnlyAvailable.isChecked());
-                listener.receiveData(filter);
-                dismiss();
-                break;
-
-            case R.id.tv_reset_bf:
-                filter = new BookFilter();
-                setView(filter);
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_apply_bf) {
+            filter.setOnlyAvailable(chipOnlyAvailable.isChecked());
+            listener.receiveData(filter);
+            dismiss();
+        } else if (id == R.id.tv_reset_bf) {
+            filter = new BookFilter();
+            setView(filter);
         }
     }
 

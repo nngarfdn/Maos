@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -165,115 +164,108 @@ public class AddUpdateTargetActivity extends AppCompatActivity implements View.O
         });
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_add:
-                binding.edtPagesRead.setText(String.valueOf(getPagesReadFromEditText() + 1));
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_add) {
+            binding.edtPagesRead.setText(String.valueOf(getPagesReadFromEditText() + 1));
+        } else if (id == R.id.btn_remove) {
+            if (getPagesReadFromEditText() > 0) {
+                binding.edtPagesRead.setText(String.valueOf(getPagesReadFromEditText() - 1));
+            }
+        } else if (id == R.id.edt_time) {
+            TimePickerFragment timePicker = new TimePickerFragment();
+            timePicker.show(getSupportFragmentManager(), TIME_PICKER_REPEAT_TAG);
+        } else if (id == R.id.btn_save) {
+            String bookTitle = getFixText(binding.edtBookTitle);
+            String totalPages = getFixText(binding.edtTotalPages);
+            String dailyPages = getFixText(binding.edtDailyPages);
 
-            case R.id.btn_remove:
-                if (getPagesReadFromEditText() > 0){
-                    binding.edtPagesRead.setText(String.valueOf(getPagesReadFromEditText() - 1));
-                }
-                break;
+            if (bookTitle.isEmpty() || totalPages.isEmpty() || dailyPages.isEmpty()) {
+                if (bookTitle.isEmpty()) binding.edtBookTitle.setError("Masukkan judul buku");
+                if (totalPages.isEmpty())
+                    binding.edtTotalPages.setError("Masukkan jumlah halaman buku");
+                if (dailyPages.isEmpty())
+                    binding.edtDailyPages.setError("Masukkan target halaman per hari");
+                showToast(this, "Pastikan data yang diisi lengkap");
+                return;
+            }
 
-            case R.id.edt_time:
-                TimePickerFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), TIME_PICKER_REPEAT_TAG);
-                break;
-
-            case R.id.btn_save:
-                String bookTitle = getFixText(binding.edtBookTitle);
-                String totalPages = getFixText(binding.edtTotalPages);
-                String dailyPages = getFixText(binding.edtDailyPages);
-
-                if (bookTitle.isEmpty() || totalPages.isEmpty() || dailyPages.isEmpty()){
-                    if (bookTitle.isEmpty()) binding.edtBookTitle.setError("Masukkan judul buku");
-                    if (totalPages.isEmpty()) binding.edtTotalPages.setError("Masukkan jumlah halaman buku");
-                    if (dailyPages.isEmpty()) binding.edtDailyPages.setError("Masukkan target halaman per hari");
-                    showToast(this, "Pastikan data yang diisi lengkap");
+            String time = getFixText(binding.edtTime);
+            if (binding.switchReminder.isChecked()) {
+                if (time.isEmpty()) {
+                    showToast(this, "Kamu belum mengatur waktu untuk pengingat");
                     return;
                 }
+            }
 
-                String time = getFixText(binding.edtTime);
-                if (binding.switchReminder.isChecked()){
-                    if (time.isEmpty()){
-                        showToast(this, "Kamu belum mengatur waktu untuk pengingat");
-                        return;
-                    }
-                }
+            if (!isUpdate) {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser == null) return;
+                target.setUserId(firebaseUser.getUid());
+                target.setId(targetViewModel.getReference().document(target.getUserId())
+                        .collection("target").document().getId());
+            }
 
-                if (!isUpdate){
-                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (firebaseUser == null) return;
-                    target.setUserId(firebaseUser.getUid());
-                    target.setId(targetViewModel.getReference().document(target.getUserId())
-                            .collection("target").document().getId());
-                }
+            target.setBookTitle(bookTitle);
+            target.setTotalPages(Integer.parseInt(totalPages));
+            target.setDailyPages(Integer.parseInt(dailyPages));
 
-                target.setBookTitle(bookTitle);
-                target.setTotalPages(Integer.parseInt(totalPages));
-                target.setDailyPages(Integer.parseInt(dailyPages));
+            int pagesRead = getPagesReadFromEditText();
+            target.setPagesRead(pagesRead);
+            target.setProgress(((double) pagesRead / (double) target.getTotalPages()) * 100);
 
-                int pagesRead = getPagesReadFromEditText();
-                target.setPagesRead(pagesRead);
-                target.setProgress(((double) pagesRead/(double) target.getTotalPages()) * 100);
+            target.setIsReminderEnabled(binding.switchReminder.isChecked());
+            target.setReminderTime(time);
 
-                target.setIsReminderEnabled(binding.switchReminder.isChecked());
-                target.setReminderTime(time);
+            List<Integer> dayOfWeekList = new ArrayList<>();
+            if (binding.chipMonday.isChecked()) dayOfWeekList.add(Calendar.MONDAY);
+            if (binding.chipTuesday.isChecked()) dayOfWeekList.add(Calendar.TUESDAY);
+            if (binding.chipWednesday.isChecked()) dayOfWeekList.add(Calendar.WEDNESDAY);
+            if (binding.chipThursday.isChecked()) dayOfWeekList.add(Calendar.THURSDAY);
+            if (binding.chipFriday.isChecked()) dayOfWeekList.add(Calendar.FRIDAY);
+            if (binding.chipSaturday.isChecked()) dayOfWeekList.add(Calendar.SATURDAY);
+            if (binding.chipSunday.isChecked()) dayOfWeekList.add(Calendar.SUNDAY);
+            target.setReminderDayOfWeeks(dayOfWeekList);
 
-                List<Integer> dayOfWeekList = new ArrayList<>();
-                if (binding.chipMonday.isChecked()) dayOfWeekList.add(Calendar.MONDAY);
-                if (binding.chipTuesday.isChecked()) dayOfWeekList.add(Calendar.TUESDAY);
-                if (binding.chipWednesday.isChecked()) dayOfWeekList.add(Calendar.WEDNESDAY);
-                if (binding.chipThursday.isChecked()) dayOfWeekList.add(Calendar.THURSDAY);
-                if (binding.chipFriday.isChecked()) dayOfWeekList.add(Calendar.FRIDAY);
-                if (binding.chipSaturday.isChecked()) dayOfWeekList.add(Calendar.SATURDAY);
-                if (binding.chipSunday.isChecked()) dayOfWeekList.add(Calendar.SUNDAY);
-                target.setReminderDayOfWeeks(dayOfWeekList);
+            preference.setData(target.getId(), lastUpdatePagesRead, todayPagesRead);
 
-                preference.setData(target.getId(), lastUpdatePagesRead, todayPagesRead);
-
-                if (target.getIsReminderEnabled() && target.getProgress() != 100){
-                    TargetReminder targetReminder = new TargetReminder();
-                    targetReminder.setReminder(this, target); // Atur yang dicentang, dan
-                    for (int i = 1; i <= 7; i++){ // cancel yang tidak dicentang
-                        if (!target.getReminderDayOfWeeks().contains(i)){
-                            cancelReminder(this, target.getId().hashCode() + i);
-                        }
-                    }
-                } else {
-                    for (int i = 1; i <= 7; i++){ // Cancel semua: SUN-MON -> 1-7
+            if (target.getIsReminderEnabled() && target.getProgress() != 100) {
+                TargetReminder targetReminder = new TargetReminder();
+                targetReminder.setReminder(this, target); // Atur yang dicentang, dan
+                for (int i = 1; i <= 7; i++) { // cancel yang tidak dicentang
+                    if (!target.getReminderDayOfWeeks().contains(i)) {
                         cancelReminder(this, target.getId().hashCode() + i);
                     }
                 }
-
-                if (isUpdate){
-                    targetViewModel.update(target);
-                    showToast(this, "Target berhasil diedit");
-                } else {
-                    targetViewModel.insert(target);
-                    showToast(this, "Target berhasil ditambah");
+            } else {
+                for (int i = 1; i <= 7; i++) { // Cancel semua: SUN-MON -> 1-7
+                    cancelReminder(this, target.getId().hashCode() + i);
                 }
+            }
 
-                onBackPressed();
-                break;
+            if (isUpdate) {
+                targetViewModel.update(target);
+                showToast(this, "Target berhasil diedit");
+            } else {
+                targetViewModel.insert(target);
+                showToast(this, "Target berhasil ditambah");
+            }
 
-            case R.id.btn_delete:
-                new AlertDialog.Builder(this)
-                        .setTitle("Hapus target")
-                        .setMessage("Apakah kamu yakin ingin menghapusnya?")
-                        .setNegativeButton("Batal", null)
-                        .setPositiveButton("Ya", (dialogInterface, i) -> {
-                            targetViewModel.delete(target);
-                            preference.removeData(target.getId());
-                            for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) cancelReminder(this, target.getId().hashCode() + dayOfWeek);
-                            showToast(view.getContext(), "Target berhasil dihapus");
-                            onBackPressed();
-                        }).create().show();
-                break;
+            onBackPressed();
+        } else if (id == R.id.btn_delete) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Hapus target")
+                    .setMessage("Apakah kamu yakin ingin menghapusnya?")
+                    .setNegativeButton("Batal", null)
+                    .setPositiveButton("Ya", (dialogInterface, i) -> {
+                        targetViewModel.delete(target);
+                        preference.removeData(target.getId());
+                        for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++)
+                            cancelReminder(this, target.getId().hashCode() + dayOfWeek);
+                        showToast(view.getContext(), "Target berhasil dihapus");
+                        onBackPressed();
+                    }).create().show();
         }
     }
 

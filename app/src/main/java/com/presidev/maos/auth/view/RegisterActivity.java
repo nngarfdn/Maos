@@ -3,7 +3,6 @@ package com.presidev.maos.auth.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,20 +61,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (intent.hasExtra(EXTRA_BOOK)) book = getIntent().getParcelableExtra(BookDetailActivity.EXTRA_BOOK);
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_email_register:
-                registerWithEmail(edtName.getText().toString(),
-                        edtEmail.getText().toString(),
-                        edtPassword.getText().toString(),
-                        edtPasswordConfirmation.getText().toString());
-                break;
-
-            case R.id.tv_login_register:
-                onBackPressed();
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_email_register) {
+            registerWithEmail(edtName.getText().toString(),
+                    edtEmail.getText().toString(),
+                    edtPassword.getText().toString(),
+                    edtPasswordConfirmation.getText().toString());
+        } else if (id == R.id.tv_login_register) {
+            onBackPressed();
         }
     }
 

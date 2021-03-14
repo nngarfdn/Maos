@@ -107,7 +107,7 @@ public abstract class MySwipeHelper extends ItemTouchHelper.SimpleCallback {
 
     private synchronized void recoverSwipedItem() {
         while (!removerQueue.isEmpty()){
-            @SuppressWarnings("ConstantConditions") int pos = removerQueue.poll();
+            int pos = removerQueue.poll();
             if (pos > -1){
                 if (recyclerView.getAdapter() != null){
                     recyclerView.getAdapter().notifyItemChanged(pos);

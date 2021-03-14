@@ -1,6 +1,5 @@
 package com.presidev.maos.developer.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,31 +47,25 @@ public class DeveloperFragment extends Fragment implements View.OnClickListener 
         btnLogout.setOnClickListener(this);
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_register_mitra_dev:
-                Intent intentRegisterMitra = new Intent(requireActivity(), MitraRegistrationActivity.class);
-                startActivity(intentRegisterMitra);
-                break;
-
-            case R.id.btn_add_member_card_dev:
-                Intent intent = new Intent(requireActivity(), AddMemberCardActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.btn_logout_dev:
-                authViewModel.logout();
-                authViewModel.getUserLiveData().observe(this, account -> {
-                    this.firebaseUser = account.getFirebaseUser();
-                    if (firebaseUser == null) {
-                        Intent intentRestart = new Intent(getContext(), SplashActivity.class);
-                        startActivity(intentRestart);
-                        requireActivity().finish();
-                    }
-                });
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_register_mitra_dev) {
+            Intent intentRegisterMitra = new Intent(requireActivity(), MitraRegistrationActivity.class);
+            startActivity(intentRegisterMitra);
+        } else if (id == R.id.btn_add_member_card_dev) {
+            Intent intent = new Intent(requireActivity(), AddMemberCardActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.btn_logout_dev) {
+            authViewModel.logout();
+            authViewModel.getUserLiveData().observe(this, account -> {
+                this.firebaseUser = account.getFirebaseUser();
+                if (firebaseUser == null) {
+                    Intent intentRestart = new Intent(getContext(), SplashActivity.class);
+                    startActivity(intentRestart);
+                    requireActivity().finish();
+                }
+            });
         }
     }
 }

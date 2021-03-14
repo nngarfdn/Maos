@@ -1,10 +1,10 @@
 package com.presidev.maos.developer.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +31,7 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
     private LoadingDialog loadingDialog;
 
     private EditText edtName, edtEmail, edtPassword, edtPasswordConfirmation;
+    private SwitchCompat swtMembership;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +50,16 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
         edtEmail = findViewById(R.id.edt_email_register);
         edtPassword = findViewById(R.id.edt_password_register);
         edtPasswordConfirmation = findViewById(R.id.edt_password_confirmation_register);
+        swtMembership = findViewById(R.id.swt_membership);
 
         Button btnEmail = findViewById(R.id.btn_email_register);
         btnEmail.setOnClickListener(this);
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_email_register) {
+        int id = view.getId();
+        if (id == R.id.btn_email_register) {
             registerWithEmail(edtName.getText().toString(),
                     edtEmail.getText().toString(),
                     edtPassword.getText().toString(),
@@ -76,12 +78,14 @@ public class MitraRegistrationActivity extends AppCompatActivity implements View
             mitra.setId(account.getId());
             mitra.setName(name);
             mitra.setEmail(account.getEmail());
-            mitra.setMembership(true);
+            mitra.setMembership(swtMembership.isChecked());
+            mitra.setBanner("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8bGlicmFyeXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=512&q=50");
             MitraViewModel mitraViewModel = new ViewModelProvider(this).get(MitraViewModel.class);
             mitraViewModel.insert(mitra);
 
             loadingDialog.dismiss();
             showToast(this, "Akun mitra berhasil dibuat");
+            onBackPressed();
         });
     }
 

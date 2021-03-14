@@ -103,7 +103,7 @@
     <string name="saya_belum_punya_akun">Saya belum punya akun,</string>
     <string name="selamat_ndatang">Selamat\nDatang</string>
     <string name="ayo_jadi_member">Ayo Jadi Member</string>
-    <string name="member_merupakan_layanan_untuk_mendapatkan_akses_lebih_saat_melakukan_peminjaman_kepada_penyedia_buku">Member merupakan layanan untuk mendapatkan akses lebih saat melakukan peminjaman kepada penyedia buku.</string>
+    <string name="member_merupakan_layanan_untuk_mendapatkan_akses_lebih_saat_melakukan_peminjaman_kepada_penyedia_buku">Member merupakan layanan untuk mendapatkan akses lebih saat melakukan peminjaman kepada penyedia buku yang terdaftar dalam program membership.</string>
     <string name="dengan_menjadi_member_kamu_bisa_mendapatkan_beberapa_keuntungan_sesuai_dengan_ketentuan_penyedia_buku_seperti_melakukan_peminjaman_dengan_waktu_yang_lebih_lama_ataupun_melakukan_peminjaman_untuk_lebih_dari_1_buku">Dengan menjadi member, kamu bisa mendapatkan beberapa keuntungan sesuai dengan ketentuan penyedia buku, seperti melakukan peminjaman dengan waktu yang lebih lama ataupun melakukan peminjaman untuk lebih dari 1 buku.</string>
     <string name="keuntungan">Keuntungan</string>
     <string name="daftar_sekarang">Daftar Sekarang</string>
@@ -157,4 +157,5 @@
     <string name="pilih_dari_galeri">Pilih dari galeri</string>
     <string name="lihat_katalog">Lihat katalog</string>
     <string name="ganti_penyedia">Ganti penyedia</string>
+    <string name="ikut_membership">Ikut membership</string>
 </resources>

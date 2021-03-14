@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.presidev.maos.R
+import com.presidev.maos.customview.LoadingDialog
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.activity_edit_book.*
@@ -19,15 +20,14 @@ class EditBookActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_BOOK = "extra_book"
-        private const val RC_PAYMENT_IMAGE = 100
-        private const val RC_ADD_PAYMENT = 200
+        private const val RC_PICK_IMAGE = 100
     }
 
-
-    private var uriPaymentImage: Uri? = null
+    private var uriImage: Uri? = null
 
     private lateinit var book: Book
     private lateinit var bookViewModel: BookViewModel
+    private var loadingDialog: LoadingDialog? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +38,7 @@ class EditBookActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        loadingDialog = LoadingDialog(this, false)
         bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
 
         val intent = intent?.extras
@@ -53,32 +54,46 @@ class EditBookActivity : AppCompatActivity() {
         btn_choose_image.setOnClickListener {
             val i = Intent(Intent.ACTION_PICK)
             i.type = "image/*"
-            startActivityForResult(Intent.createChooser(i, "Unggah bukti pembayaran"), RC_PAYMENT_IMAGE)
+            startActivityForResult(Intent.createChooser(i, "Unggah foto"), RC_PICK_IMAGE)
         }
 
         btn_simpan.setOnClickListener {
             val id = book.bookId
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
-            val sinopsis = edt_penulis.text.toString()
+            val penulis = edt_penulis.text.toString()
             val switchState = swtKetersediaan.isChecked
+            val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
+
+            if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty()){
+                showToast(applicationContext, "Pastikan semua data lengkap")
+                return@setOnClickListener
+            }
 
             book.bookId = id
             book.mitraId = book.mitraId
             book.title = judul
             book.ketersediaan = switchState
             book.description = deskripsi
-            book.penulis = sinopsis
+            book.penulis = penulis
 
-            if (judul.isEmpty() || deskripsi.isEmpty() || sinopsis.isEmpty()){
-                showToast(applicationContext, "Pastikan semua data lengkap")
-            }else {
+            if (uriImage == null){
                 bookViewModel.update(book)
+                loadingDialog?.dismiss()
                 showToast(applicationContext, "Berhasil")
                 finish()
+            } else{
+                loadingDialog?.show()
+                bookViewModel.uploadImage(this, book.bookId, uriImage, fileName) { imageUrl ->
+                    book.photo = imageUrl
+                    bookViewModel.update(book)
+                    loadingDialog?.dismiss()
+                    showToast(applicationContext, "Berhasil")
+                    finish()
+                }
             }
-
         }
+
         btn_delete.text = "Hapus"
 
         btn_delete.setOnClickListener {
@@ -97,43 +112,11 @@ class EditBookActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_PAYMENT_IMAGE) {
+        if (requestCode == RC_PICK_IMAGE) {
             if (resultCode == RESULT_OK) {
                 if (data != null) if (data.data != null) {
-                    uriPaymentImage = data.data
-                    loadImageFromUrl(imgUpload, uriPaymentImage.toString())
-
-                    btn_simpan.setOnClickListener {
-                        val id = book.bookId
-                        val judul = edt_title.text.toString()
-                        val deskripsi = edt_description.text.toString()
-                        val penulis = edt_penulis.text.toString()
-                        val switchState = swtKetersediaan.isChecked
-                        val fileName: String = book.title + Calendar.getInstance().time + ".jpeg"
-
-                        bookViewModel.uploadImage(this, book.bookId, uriPaymentImage, fileName) { imageUrl ->
-                            if (judul.isEmpty() || deskripsi.isEmpty() || penulis.isEmpty() || fileName.isEmpty()){
-                                showToast(applicationContext, "Pastikan semua data lengkap")
-                            }else {
-                                book.photo = imageUrl
-                                book.bookId = id
-                                book.mitraId = book.mitraId
-                                book.title = judul
-                                book.ketersediaan = switchState
-                                book.description = deskripsi
-                                book.penulis = penulis
-                                bookViewModel.update(book)
-                                val intentResult = Intent()
-//                intentResult.putExtra(EXTRA_PAYMENT, payment)
-                                setResult(RC_ADD_PAYMENT, intentResult)
-//                loadingDialog.dismiss()
-                                showToast(applicationContext, "Berhasil")
-                                finish()
-                            }
-
-                    }
-
-                    }
+                    uriImage = data.data
+                    loadImageFromUrl(imgUpload, uriImage.toString())
                 }
             }
         }

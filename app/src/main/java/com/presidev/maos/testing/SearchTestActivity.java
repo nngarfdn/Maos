@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -85,25 +84,21 @@ public class SearchTestActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_mitra_filter_search:
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(EXTRA_MITRA_FILTER, mitraFilter);
-                MitraFilterFragment bottomSheet = new MitraFilterFragment();
-                bottomSheet.setArguments(bundle);
-                bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
-                break;
-
-            case R.id.btn_book_filter_search:
-                Bundle bundleBook = new Bundle();
-                bundleBook.putParcelable(EXTRA_BOOK_FILTER, bookFilter);
-                BookFilterFragment bottomSheetBook = new BookFilterFragment();
-                bottomSheetBook.setArguments(bundleBook);
-                bottomSheetBook.show(getSupportFragmentManager(), bottomSheetBook.getTag());
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_mitra_filter_search) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(EXTRA_MITRA_FILTER, mitraFilter);
+            MitraFilterFragment bottomSheet = new MitraFilterFragment();
+            bottomSheet.setArguments(bundle);
+            bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
+        } else if (id == R.id.btn_book_filter_search) {
+            Bundle bundleBook = new Bundle();
+            bundleBook.putParcelable(EXTRA_BOOK_FILTER, bookFilter);
+            BookFilterFragment bottomSheetBook = new BookFilterFragment();
+            bottomSheetBook.setArguments(bundleBook);
+            bottomSheetBook.show(getSupportFragmentManager(), bottomSheetBook.getTag());
         }
     }
 
