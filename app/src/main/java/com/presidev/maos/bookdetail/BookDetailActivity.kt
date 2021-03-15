@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
@@ -24,6 +25,7 @@ import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_book_detail.*
+
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -51,9 +53,17 @@ class BookDetailActivity : AppCompatActivity() {
         val intent = intent?.extras
         book = intent?.getParcelable(EditBookActivity.EXTRA_BOOK)!!
 
-        setSupportActionBar(toolbar)
+        /*setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
+
+        app_bar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) { // Collapsed
+                txt_detail.text = book.title
+            } else { //Expanded
+                txt_detail.text = resources.getString(R.string.detail_buku)
+            }
+        })
 
         val accountPreference = AuthPreference(this)
         if (accountPreference.level != null){
@@ -82,6 +92,7 @@ class BookDetailActivity : AppCompatActivity() {
                     toolbar.setBackgroundColor(dominantColor)
                     img_btn.setBackgroundColor(dominantColor)
                     toolbar_layout.setBackgroundColor(dominantColor)
+                    app_bar.setBackgroundColor(dominantColor)
                 }
             }
         } catch (e: ClassCastException) {

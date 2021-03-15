@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:text="Tidak terdaftar dalam program membership"
                 android:textColor="@color/gray"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="wrap_content"

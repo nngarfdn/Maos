@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +75,7 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
             setQuoteBackground(result.get(0));
         });
 
+        binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
         mPhotoEditor = new PhotoEditor.Builder(this, binding.photoEditorView)
                 .setPinchTextScalable(true) // set flag to make text scalable when pinch
                 //.setDefaultTextTypeface(mTextRobotoTf)
@@ -92,8 +93,6 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setQuoteBackground(String url){
-        //binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
-        //binding.photoEditorView.getSource().setAdjustViewBounds(true);
         Picasso.get()
                 .load(url)
                 //.fit().centerCrop()
@@ -102,8 +101,8 @@ public class AddQuoteActivity extends AppCompatActivity implements View.OnClickL
                     @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}
                     @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
                     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        //binding.photoEditorView.getSource().setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        binding.photoEditorView.getSource().setBackground(new BitmapDrawable(getResources(), bitmap));
+                        binding.photoEditorView.getSource().setImageBitmap(bitmap);
+                        binding.tvHintBackground.setVisibility(View.GONE);
                     }
                 });
     }

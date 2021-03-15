@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "334879101308",
+    "firebase_url": "https://maos-79ddb-default-rtdb.firebaseio.com",
     "project_id": "maos-79ddb",
     "storage_bucket": "maos-79ddb.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "334879101308-artecn12p6oqh5br7cu6qpod21ongsp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "87de428cefef44522640ed355e720891eab95503"
+          }
+        },
         {
           "client_id": "334879101308-dkup8silgm4bb96n1kuq3ib151hiegov.apps.googleusercontent.com",
           "client_type": 1,

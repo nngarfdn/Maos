@@ -16,6 +16,7 @@ import com.presidev.maos.R
 import com.presidev.maos.dashboard.model.Slider
 import com.presidev.maos.search.view.SearchActivity
 import com.presidev.maos.utils.AppUtils.showToast
+import com.presidev.maos.utils.ShimmerHelper
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -40,20 +41,27 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        dashboardViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel::class.java)
+        return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val shimmer = ShimmerHelper(shimmer_mitra, rv_mitra)
+        btn_daftar_penyedia.visibility = View.INVISIBLE
+        shimmer.show()
+
+        dashboardViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel::class.java)
         dashboardViewModel.getResultMitra().observe(viewLifecycleOwner, { result ->
+            shimmer.hide()
             Log.d(TAG, "onCreate: $result")
-//            imgLaporanKosong.visibility = View.INVISIBLE
             val layoutManager = GridLayoutManager(context, 2)
             rv_mitra.layoutManager = layoutManager
             val adapter = DashboardMitraAdapter(result)
             rv_mitra.adapter = adapter
+            btn_daftar_penyedia.visibility = View.VISIBLE
         })
 
         sliderView = view.findViewById(R.id.imageSlider)
@@ -91,7 +99,6 @@ class DashboardFragment : Fragment() {
                 showToast(view.context, "Kamu belum punya aplikasi WhatsApp")
             }
         }
-        return view
     }
 
     override fun onStart() {

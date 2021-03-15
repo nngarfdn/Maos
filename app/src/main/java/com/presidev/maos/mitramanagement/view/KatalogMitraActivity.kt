@@ -47,7 +47,6 @@ class KatalogMitraActivity : AppCompatActivity() {
 
         bookViewModel.getResultByMitraId().observe(this, { result ->
             Log.d(TAG, "onCreate: $result")
-//            imgLaporanKosong.visibility = View.INVISIBLE
             val layoutManager = GridLayoutManager(this,2)
             rvBookCatalog.layoutManager = layoutManager
             val adapter = BookAdapter(result)
