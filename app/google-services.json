@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "334879101308-02vsndot21a8bklik36eeo10p8e8jgkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presidev.maos",
+            "certificate_hash": "a6cf90a1029d87494d6b241c78a3a44fddc98957"
+          }
+        },
+        {
           "client_id": "334879101308-artecn12p6oqh5br7cu6qpod21ongsp1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
