@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.auth.view.LoginActivity
+import com.presidev.maos.bookdetail.healthtips.HealthTipsFragment
 import com.presidev.maos.bookmark.view.BookmarkViewModel
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookViewModel
@@ -114,17 +116,23 @@ class BookDetailActivity : AppCompatActivity() {
         img_btn.setOnClickListener { onBackPressed() }
         btn_peminjaman.setOnClickListener {
 
-            if (firebaseUser != null) {
-                val i = Intent(this, PeminjamanActivity::class.java)
-                book.waCount = book.waCount?.plus(1)
-                bookViewModel.update(book)
-                i.putExtra(EXTRA_BOOK, book)
-                startActivity(i)
-            } else {
-                val i = Intent(this, LoginActivity::class.java)
-                i.putExtra(EXTRA_BOOK, book)
-                startActivity(i)
-            }
+            val args = Bundle()
+//            args.putParcelable("proyek", list[position])
+            val bottomSheet = HealthTipsFragment()
+//            bottomSheet.arguments = args
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+
+//            if (firebaseUser != null) {
+//                val i = Intent(this, PeminjamanActivity::class.java)
+//                book.waCount = book.waCount?.plus(1)
+//                bookViewModel.update(book)
+//                i.putExtra(EXTRA_BOOK, book)
+//                startActivity(i)
+//            } else {
+//                val i = Intent(this, LoginActivity::class.java)
+//                i.putExtra(EXTRA_BOOK, book)
+//                startActivity(i)
+//            }
         }
 
         if (firebaseUser != null) {
