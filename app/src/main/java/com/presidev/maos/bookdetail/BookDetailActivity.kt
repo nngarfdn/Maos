@@ -3,6 +3,7 @@ package com.presidev.maos.bookdetail
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -113,26 +114,33 @@ class BookDetailActivity : AppCompatActivity() {
         txt_penulis.text = book.penulis
         txt_desc_book.text = book.description
 
+        txt_save_contact.setOnClickListener {
+            bookViewModel.loadResultBymitraId()
+            val intent = Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel:" + "${book.waCount}"))
+            startActivity(intent)
+        }
+
         img_btn.setOnClickListener { onBackPressed() }
         btn_peminjaman.setOnClickListener {
 
-            val args = Bundle()
-//            args.putParcelable("proyek", list[position])
-            val bottomSheet = HealthTipsFragment()
-//            bottomSheet.arguments = args
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+//            val args = Bundle()
+////            args.putParcelable("proyek", list[position])
+//            val bottomSheet = HealthTipsFragment()
+////            bottomSheet.arguments = args
+//            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
 
-//            if (firebaseUser != null) {
-//                val i = Intent(this, PeminjamanActivity::class.java)
-//                book.waCount = book.waCount?.plus(1)
-//                bookViewModel.update(book)
-//                i.putExtra(EXTRA_BOOK, book)
-//                startActivity(i)
-//            } else {
-//                val i = Intent(this, LoginActivity::class.java)
-//                i.putExtra(EXTRA_BOOK, book)
-//                startActivity(i)
-//            }
+            if (firebaseUser != null) {
+                val i = Intent(this, PeminjamanActivity::class.java)
+                book.waCount = book.waCount?.plus(1)
+                bookViewModel.update(book)
+                i.putExtra(EXTRA_BOOK, book)
+                startActivity(i)
+            } else {
+                val i = Intent(this, LoginActivity::class.java)
+                i.putExtra(EXTRA_BOOK, book)
+                startActivity(i)
+            }
         }
 
         if (firebaseUser != null) {

@@ -148,9 +148,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/txt_tentang"
-                android:layout_marginTop="4dp"
                 android:layout_marginHorizontal="@dimen/text_margin"
+                android:layout_marginTop="4dp"
                 android:text="@string/loading" />
+
+            <TextView
+                android:id="@+id/txt_save_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txt_desc_book"
+                android:layout_marginHorizontal="@dimen/text_margin"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:text="@string/simpan_kontak" />
+
+
 
             <Button
                 android:id="@+id/btn_peminjaman"
@@ -160,7 +174,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="16dp"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/txt_desc_book"
+                android:layout_below="@+id/txt_save_contact"
                 android:text="@string/peminjaman"
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/img_bookmark" />
@@ -169,13 +183,13 @@
                 android:id="@+id/img_bookmark"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/txt_desc_book"
-                android:src="@drawable/ic_bookmark_outline"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_below="@+id/txt_save_contact"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_bookmark_outline"
+                android:textColor="@color/white"
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

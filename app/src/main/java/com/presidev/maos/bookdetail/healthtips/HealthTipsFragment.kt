@@ -48,7 +48,7 @@ class HealthTipsFragment : BottomSheetDialogFragment() {
         // add few more layouts if you want
         layouts = arrayListOf(
                 R.layout.fragment_a,
-                R.layout.fragment_b,
+//                R.layout.fragment_b,
                 R.layout.fragment_c)
 
         // tombol dots (lingkaran kecil perpindahan slide)
