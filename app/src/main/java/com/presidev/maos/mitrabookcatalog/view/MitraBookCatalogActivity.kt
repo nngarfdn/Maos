@@ -44,7 +44,7 @@ class MitraBookCatalogActivity : AppCompatActivity(){
             Log.d(TAG, "onCreate: $result")
             val layoutManager = GridLayoutManager(this, 2)
             rv_bookcatalognew.layoutManager = layoutManager
-            val adapter = MitraBookCatalogAdapter(result)
+            val adapter = MitraBookCatalogAdapter(result,mitra)
             rv_bookcatalognew.adapter = adapter
         }
 
@@ -52,7 +52,7 @@ class MitraBookCatalogActivity : AppCompatActivity(){
             Log.d(TAG, "onCreate: $result")
             val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
             rv_bookpopuler.layoutManager = layoutManager
-            val adapter = MitraBookCatalogAdapter(result)
+            val adapter = MitraBookCatalogAdapter(result,mitra)
             rv_bookpopuler.adapter = adapter
         }
 

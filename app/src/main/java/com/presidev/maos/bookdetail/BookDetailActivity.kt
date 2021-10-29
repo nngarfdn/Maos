@@ -21,9 +21,11 @@ import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.auth.view.LoginActivity
 import com.presidev.maos.bookdetail.healthtips.HealthTipsFragment
 import com.presidev.maos.bookmark.view.BookmarkViewModel
+import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.mitramanagement.view.BookViewModel
 import com.presidev.maos.mitramanagement.view.EditBookActivity
+import com.presidev.maos.profile.mitra.model.Mitra
 import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.Constants
@@ -53,8 +55,9 @@ class BookDetailActivity : AppCompatActivity() {
         val firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = firebaseAuth.currentUser
 
-        val intent = intent?.extras
-        book = intent?.getParcelable(EditBookActivity.EXTRA_BOOK)!!
+        val ii = intent?.extras
+        book = ii?.getParcelable(EditBookActivity.EXTRA_BOOK)!!
+        val mitra = ii.getParcelable<Mitra>(MitraBookCatalogActivity.EXTRA_MITRA)
 
         /*setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -115,9 +118,9 @@ class BookDetailActivity : AppCompatActivity() {
         txt_desc_book.text = book.description
 
         txt_save_contact.setOnClickListener {
-            bookViewModel.loadResultBymitraId()
+
             val intent = Intent(Intent.ACTION_DIAL,
-                Uri.parse("tel:" + "${book.waCount}"))
+                Uri.parse("tel:" + "${mitra?.whatsApp}"))
             startActivity(intent)
         }
 

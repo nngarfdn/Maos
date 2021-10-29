@@ -10,9 +10,10 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.presidev.maos.R
 import com.presidev.maos.bookdetail.BookDetailActivity
 import com.presidev.maos.mitramanagement.model.Book
+import com.presidev.maos.profile.mitra.model.Mitra
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 
-class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapter<MitraBookCatalogAdapter.ViewHolder>() {
+class MitraBookCatalogAdapter(private val list: List<Book>, private val mitra: Mitra) : RecyclerView.Adapter<MitraBookCatalogAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -32,6 +33,7 @@ class MitraBookCatalogAdapter(private val list: List<Book>) : RecyclerView.Adapt
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, BookDetailActivity::class.java)
             intent.putExtra(BookDetailActivity.EXTRA_BOOK, list[position])
+            intent.putExtra(MitraBookCatalogActivity.EXTRA_MITRA, mitra)
             holder.itemView.context.startActivity(intent)
         }
     }
