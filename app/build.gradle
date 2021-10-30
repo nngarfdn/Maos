@@ -6,17 +6,19 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.presidev.maos"
         minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0.0"
+        targetSdkVersion 31
+        versionCode 2
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -24,10 +26,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    defaultConfig {
-        multiDexEnabled true
     }
 
     compileOptions {
@@ -41,51 +39,56 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    // Android support
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation "androidx.core:core-ktx:1.6.0"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
+    // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation platform('com.google.firebase:firebase-bom:28.2.0')
+    // Google services
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-firestore'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-storage'
 
-    //PICASSO
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
+    // Networking
     //noinspection GradleDependency
     implementation 'com.squareup.retrofit2:retrofit:2.6.4'
+
+    // Parsing the JSON format
     //noinspection GradleDependency
     implementation 'com.squareup.retrofit2:converter-gson:2.6.4'
 
-    //bottom
-    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
-
-    //photoEditor
-    implementation 'ja.burhanrashid52:photoeditor:1.1.0'
-
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // Auto image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
-}
 
-repositories {
-    mavenCentral()
+    // Circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Photo editor
+    implementation 'com.burhanrashid52:photoeditor:1.1.4'
+
+    // Image loading and caching
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+
+    // Rounded image view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // Shimmer effect on loading screen
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Bottom navbar
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
 }
