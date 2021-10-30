@@ -82,11 +82,11 @@
     </style>
 
     <style name="FloatingActionButton">
-        <item name="borderWidth">0dp</item>
-        <item name="pressedTranslationZ">0dp</item>
-        <item name="fabSize">normal</item>
-        <item name="elevation">3dp</item>
         <item name="backgroundTint">@color/orange</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">3dp</item>
+        <item name="fabSize">normal</item>
+        <item name="pressedTranslationZ">0dp</item>
         <item name="tint">@color/white</item>
     </style>
 

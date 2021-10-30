@@ -3,28 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.presidev.maos">
 
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Maos"
         tools:ignore="AllowBackup">
-        <activity android:name=".welcome.WelcomeActivity"/>
-        <activity android:name=".catatanku.quotes.view.AddQuoteActivity" />
 
         <receiver
             android:name=".catatanku.helper.ReturnReminder"
             android:enabled="true"
             android:exported="false" />
+
         <receiver
             android:name=".catatanku.helper.TargetReminder"
             android:enabled="true"
@@ -35,42 +38,128 @@
             android:authorities="com.codepath.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
+
         </provider>
 
-        <activity android:name=".catatanku.target.view.AddUpdateTargetActivity" />
-        <activity android:name=".catatanku.CatatanKuActivity" />
-        <activity android:name=".developer.view.MitraRegistrationActivity" />
-        <activity android:name=".about.AboutActivity" />
-        <activity android:name=".testing.SearchTestActivity" />
-        <activity android:name=".profile.mitra.view.MemberListActivity" />
-        <activity android:name=".developer.view.AddMemberCardActivity" />
-        <activity android:name=".membership.view.MembershipIntroActivity" />
-        <activity android:name=".membership.view.MembershipRegistrationActivity" />
-        <activity android:name=".bookdetail.PeminjamanActivity" />
-        <activity android:name=".home.App" />
-        <activity android:name=".profile.user.view.UpdateUserProfileActivity" />
-        <activity android:name=".profile.mitra.view.UpdateMitraProfileActivity" />
-        <activity android:name=".search.view.SearchActivity" />
-        <activity android:name=".welcome.SplashActivity">
+        <activity
+            android:name=".welcome.WelcomeActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".catatanku.quotes.view.AddQuoteActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".catatanku.target.view.AddUpdateTargetActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".catatanku.CatatanKuActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".developer.view.MitraRegistrationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".about.AboutActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".testing.SearchTestActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".profile.mitra.view.MemberListActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".developer.view.AddMemberCardActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".membership.view.MembershipIntroActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".membership.view.MembershipRegistrationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".bookdetail.PeminjamanActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".home.App"
+            android:exported="true" />
+
+        <activity
+            android:name=".profile.user.view.UpdateUserProfileActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".profile.mitra.view.UpdateMitraProfileActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".search.view.SearchActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".welcome.SplashActivity"
+            android:exported="true">
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
-        <activity android:name=".auth.view.ResetPasswordActivity" />
-        <activity android:name=".auth.view.RegisterActivity" />
-        <activity android:name=".auth.view.LoginActivity" />
-        <activity android:name=".mitramanagement.view.AddBookActivity" />
-        <activity android:name=".mitramanagement.view.EditBookActivity" />
-        <activity android:name=".mitrabookcatalog.view.MitraBookCatalogActivity" />
-        <activity android:name=".mitramanagement.view.KatalogMitraActivity" />
-        <activity android:name=".bookdetail.BookDetailActivity" />
-        <activity android:name=".catatanku.reminder.view.AddEditReminderActivity" />
+
+        <activity
+            android:name=".auth.view.ResetPasswordActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".auth.view.RegisterActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".auth.view.LoginActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".mitramanagement.view.AddBookActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".mitramanagement.view.EditBookActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".mitrabookcatalog.view.MitraBookCatalogActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".mitramanagement.view.KatalogMitraActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".bookdetail.BookDetailActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".catatanku.reminder.view.AddEditReminderActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

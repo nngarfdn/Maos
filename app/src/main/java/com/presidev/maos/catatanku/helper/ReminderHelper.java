@@ -23,7 +23,7 @@ public class ReminderHelper {
 
     public static void cancelReminder(Context context, int notifId){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, TargetReminder.class);
+        Intent intent = new Intent(context, TargetReminder.class); // Ini SALAH
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, intent, 0);
         pendingIntent.cancel();
         if (alarmManager != null) alarmManager.cancel(pendingIntent);
