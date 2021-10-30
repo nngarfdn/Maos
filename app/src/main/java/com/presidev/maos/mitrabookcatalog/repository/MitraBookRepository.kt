@@ -10,7 +10,7 @@ import java.util.*
 
 class MitraBookRepository {
 
-    companion object{
+    companion object {
         private const val TAG = "MitraBookRepository"
     }
 
@@ -26,25 +26,28 @@ class MitraBookRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Book>()
         db.collection("book")
-                .orderBy("dateCreated" , Query.Direction.DESCENDING )
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val kategoriDocument = document.data["mitraId"] as String
-                        if (kategoriDocument == id) {
-                            val pp = document.toObject(Book::class.java)
-                            pp.bookId = document.id
-                            savedProdukList.add(pp)
-                            produkData.add(pp)
-                            Log.d(TAG, "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp")
-                        }
+            .orderBy("dateCreated", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val kategoriDocument = document.data["mitraId"] as String
+                    if (kategoriDocument == id) {
+                        val pp = document.toObject(Book::class.java)
+                        pp.bookId = document.id
+                        savedProdukList.add(pp)
+                        produkData.add(pp)
+                        Log.d(
+                            TAG,
+                            "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp"
+                        )
                     }
-                    resultBookByMitraId.value = produkData
-                    Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
                 }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error getting documents.", exception)
-                }
+                resultBookByMitraId.value = produkData
+                Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
     }
 
     fun getProyekByMitraIDPopuler(id: String) {
@@ -52,24 +55,27 @@ class MitraBookRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Book>()
         db.collection("book")
-                .orderBy("waCount" , Query.Direction.DESCENDING )
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val kategoriDocument = document.data["mitraId"] as String
-                        if (kategoriDocument == id) {
-                            val pp = document.toObject(Book::class.java)
-                            pp.bookId = document.id
-                            savedProdukList.add(pp)
-                            produkData.add(pp)
-                            Log.d(TAG, "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp")
-                        }
+            .orderBy("waCount", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val kategoriDocument = document.data["mitraId"] as String
+                    if (kategoriDocument == id) {
+                        val pp = document.toObject(Book::class.java)
+                        pp.bookId = document.id
+                        savedProdukList.add(pp)
+                        produkData.add(pp)
+                        Log.d(
+                            TAG,
+                            "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp"
+                        )
                     }
-                    resultBookByMitraIdPopuler.value = produkData
-                    Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
                 }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error getting documents.", exception)
-                }
+                resultBookByMitraIdPopuler.value = produkData
+                Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
     }
 }

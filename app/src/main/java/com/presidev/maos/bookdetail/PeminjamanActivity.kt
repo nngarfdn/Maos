@@ -48,34 +48,39 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
     private var uriIdCard: Uri? = null
     private lateinit var loadingDialog: LoadingDialog
     private var waNumber: String? = null
-    private var authPreference : AuthPreference? = null
+    private var authPreference: AuthPreference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_peminjaman)
 
         authPreference = AuthPreference(this)
-        if (authPreference!!.level == LEVEL_MITRA){
+        if (authPreference!!.level == LEVEL_MITRA) {
             AlertDialog.Builder(this)
-                    .setTitle("Tidak bisa meminjam buku")
-                    .setMessage("Penyedia buku tidak bisa meminjam buku")
-                    .setPositiveButton("Kembali") { _: DialogInterface?, _: Int -> onBackPressed() }
-                    .setCancelable(false)
-                    .create().show()
+                .setTitle("Tidak bisa meminjam buku")
+                .setMessage("Penyedia buku tidak bisa meminjam buku")
+                .setPositiveButton("Kembali") { _: DialogInterface?, _: Int -> onBackPressed() }
+                .setCancelable(false)
+                .create().show()
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
 
                 // Should we show an explanation?
                 if (shouldShowRequestPermissionRationale(
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                ) {
                     // Explain to the user why we need to read the contacts
                     Toast.makeText(this, "Perlu akses", Toast.LENGTH_SHORT).show()
                 }
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+                requestPermissions(
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                )
                 // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
                 // app-defined int constant that should be quite unique
             }
@@ -93,10 +98,17 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
         userViewModel.userLiveData.observe(this) { result ->
             edt_nama.setText(result.name)
-            edt_alamat.setText(setFullAddress(result.address, result.province, result.regency, result.district))
+            edt_alamat.setText(
+                setFullAddress(
+                    result.address,
+                    result.province,
+                    result.regency,
+                    result.district
+                )
+            )
             if (uriIdCard != null) {
                 loadImageFromUrl(imgUpload, uriIdCard.toString())
-            }else{
+            } else {
                 loadImageFromUrl(imgUpload, result.idCard)
             }
 
@@ -105,14 +117,19 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
         mitraViewModel.mitraLiveData.observe(this) { result ->
             waNumber = result.whatsApp
-            if (!TextUtils.isDigitsOnly(waNumber)){
+            if (!TextUtils.isDigitsOnly(waNumber)) {
                 val uri = Uri.parse("http://instagram.com/_u/$waNumber")
                 val likeIng = Intent(Intent.ACTION_VIEW, uri)
                 likeIng.setPackage("com.instagram.android")
                 try {
                     startActivity(likeIng)
                 } catch (e: ActivityNotFoundException) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/$waNumber")))
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("http://instagram.com/$waNumber")
+                        )
+                    )
                 }
                 finish()
             }
@@ -156,7 +173,7 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
 
     override fun onStart() {
         super.onStart()
-        if (authPreference!!.level == LEVEL_USER){
+        if (authPreference!!.level == LEVEL_USER) {
             userViewModel.query(firebaseUser.uid)
             memberCardViewModel.queryByUserId(firebaseUser.uid)
             mitraViewModel.query(book.mitraId)
@@ -207,36 +224,46 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
             if (edt_nama.text.toString().isEmpty() || edt_alamat.text.toString().isEmpty()) {
                 Toast.makeText(this, "Lengkapi data dulu", Toast.LENGTH_SHORT).show()
             } else
-            try {
-                val imgBitmap = (imgUpload.drawable as BitmapDrawable).bitmap
-                val bytes = ByteArrayOutputStream()
-                imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                val imgBitmapPath = MediaStore.Images.Media.insertImage(
-                        applicationContext.contentResolver, imgBitmap, "IMG_" + System.currentTimeMillis(), null
-                )
-                val imgBitmapUri = Uri.parse(imgBitmapPath)
-                val whatsappIntent = Intent(Intent.ACTION_SEND)
-                whatsappIntent.type = "text/plain"
-                whatsappIntent.setPackage("com.whatsapp")
-                if (code == "-") {
-                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                try {
+                    val imgBitmap = (imgUpload.drawable as BitmapDrawable).bitmap
+                    val bytes = ByteArrayOutputStream()
+                    imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                    val imgBitmapPath = MediaStore.Images.Media.insertImage(
+                        applicationContext.contentResolver,
+                        imgBitmap,
+                        "IMG_" + System.currentTimeMillis(),
+                        null
+                    )
+                    val imgBitmapUri = Uri.parse(imgBitmapPath)
+                    val whatsappIntent = Intent(Intent.ACTION_SEND)
+                    whatsappIntent.type = "text/plain"
+                    whatsappIntent.setPackage("com.whatsapp")
+                    if (code == "-") {
+                        whatsappIntent.putExtra(
+                            Intent.EXTRA_TEXT,
                             "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
                                     "Nama   : $nama \n" +
                                     "Alamat : $alamat \n" +
-                                    "Terima kasih kak \n")
-                } else if (code.isNotEmpty()) {
-                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,
+                                    "Terima kasih kak \n"
+                        )
+                    } else if (code.isNotEmpty()) {
+                        whatsappIntent.putExtra(
+                            Intent.EXTRA_TEXT,
                             "Halo kak saya ingin pinjam buku yang berjudul *${book.title}* berikut data saya \n" +
                                     "Nama        : $nama \n" +
                                     "Alamat      : $alamat \n" +
                                     "Kode Member : *${code}* \n" +
-                                    "Terima kasih kak \n")
-                }
+                                    "Terima kasih kak \n"
+                        )
+                    }
 
-                whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
-                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net")
-                whatsappIntent.type = "image/jpeg"
-                whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgBitmapUri)
+                    whatsappIntent.putExtra(
+                        "jid",
+                        PhoneNumberUtils.stripSeparators(waNumber) + "@s.whatsapp.net"
+                    )
+                    whatsappIntent.type = "image/jpeg"
+                    whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
                     try {
                         startActivity(whatsappIntent)
@@ -246,10 +273,10 @@ class PeminjamanActivity : AppCompatActivity(), PeminjamanCallback {
                         Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
                     }
 
-            }catch (e: ClassCastException) {
-                Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: $e")
-                Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
-            }
+                } catch (e: ClassCastException) {
+                    Log.e("BookDetailActivity", "Crash gambar blm selesai dimuat: $e")
+                    Toast.makeText(this, "Kartu identitas belum ada", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

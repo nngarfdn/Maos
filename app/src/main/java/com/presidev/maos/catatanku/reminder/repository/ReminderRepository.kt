@@ -16,7 +16,7 @@ class ReminderRepository {
     private var resultReminder: MutableLiveData<List<Reminder>> = MutableLiveData()
     fun getResultsReminder(): LiveData<List<Reminder>> = resultReminder
 
-    companion object{
+    companion object {
         private const val TAG = "ReminderRepository"
     }
 
@@ -26,26 +26,26 @@ class ReminderRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Reminder>()
         db.collection("reminder")
-                .orderBy("isKembali", Query.Direction.ASCENDING)
-                .orderBy("returnDate", Query.Direction.ASCENDING)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val kategoriDocument = document.data["uuid"] as String
-                        if (kategoriDocument == id) {
-                            val pp = document.toObject(Reminder::class.java)
-                            pp.id = document.id
-                            savedProdukList.add(pp)
-                            produkData.add(pp)
-                            Log.d(TAG, "Reminder size : ${savedProdukList.size} Reminder: $pp")
-                        }
+            .orderBy("isKembali", Query.Direction.ASCENDING)
+            .orderBy("returnDate", Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val kategoriDocument = document.data["uuid"] as String
+                    if (kategoriDocument == id) {
+                        val pp = document.toObject(Reminder::class.java)
+                        pp.id = document.id
+                        savedProdukList.add(pp)
+                        produkData.add(pp)
+                        Log.d(TAG, "Reminder size : ${savedProdukList.size} Reminder: $pp")
                     }
-                    resultReminder.value = produkData
-                    Log.d(TAG, "readProduk size final Reminder : ${savedProdukList.size}")
                 }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error getting documents.", exception)
-                }
+                resultReminder.value = produkData
+                Log.d(TAG, "readProduk size final Reminder : ${savedProdukList.size}")
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
     }
 
     fun update(reminder: Reminder) {
@@ -54,13 +54,13 @@ class ReminderRepository {
 
         if (idProduk != null) {
             database.collection("reminder").document(idProduk)
-                    .set(item)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "Succes update")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e(TAG, "Error adding document", e)
-                    }
+                .set(item)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Succes update")
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "Error adding document", e)
+                }
         }
     }
 
@@ -68,23 +68,24 @@ class ReminderRepository {
         val ref = database.collection("reminder").document()
         reminder.id = ref.id
         ref.set(hashMapBook(reminder))
-                .addOnCompleteListener { task: Task<Void?> ->
-                    if (task.isSuccessful) Log.d(TAG, "Document was added") else
-                        Log.w(TAG, "Error adding document", task.exception) }
+            .addOnCompleteListener { task: Task<Void?> ->
+                if (task.isSuccessful) Log.d(TAG, "Document was added") else
+                    Log.w(TAG, "Error adding document", task.exception)
+            }
     }
 
     fun delete(bookId: String) {
         database.collection("reminder").document(bookId)
-                .delete()
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot successfully deleted!")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error deleting document", e)
-                }
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+            }
     }
 
-    private fun hashMapBook(reminder : Reminder): Map<String, Any?> {
+    private fun hashMapBook(reminder: Reminder): Map<String, Any?> {
         val document: MutableMap<String, Any?> = HashMap()
         document["id"] = reminder.id
         document["uuid"] = reminder.uuid

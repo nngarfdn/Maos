@@ -7,25 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.presidev.maos.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HealthTipsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HealthTipsFragment : BottomSheetDialogFragment() {
 
     private var dotsLayout: LinearLayout? = null
-    private var layouts:  ArrayList<Int> = arrayListOf()
+    private var layouts: ArrayList<Int> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +22,15 @@ class HealthTipsFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_health_tips, container, false)
-        val viewPager: ViewPager = view.findViewById<ViewPager>(R.id.view_pager)
-        dotsLayout = view.findViewById<LinearLayout>(R.id.layoutDots)
+        val viewPager: ViewPager = view.findViewById(R.id.view_pager)
+        dotsLayout = view.findViewById(R.id.layoutDots)
 
         // layout xml slide 1 sampai 4
         // add few more layouts if you want
@@ -47,9 +38,10 @@ class HealthTipsFragment : BottomSheetDialogFragment() {
         // layout xml slide 1 sampai 4
         // add few more layouts if you want
         layouts = arrayListOf(
-                R.layout.fragment_a,
+            R.layout.fragment_a,
 //                R.layout.fragment_b,
-                R.layout.fragment_c)
+            R.layout.fragment_c
+        )
 
         // tombol dots (lingkaran kecil perpindahan slide)
 
@@ -70,7 +62,6 @@ class HealthTipsFragment : BottomSheetDialogFragment() {
             dots[i]!!.setTextColor(colorsInactive[currentPage])
             dotsLayout!!.addView(dots[i])
         }
-        if (dots.size > 0) dots[currentPage]!!.setTextColor(colorsActive[currentPage])
+        if (dots.isNotEmpty()) dots[currentPage]!!.setTextColor(colorsActive[currentPage])
     }
-
 }

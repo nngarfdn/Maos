@@ -12,23 +12,30 @@ import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
 import com.presidev.maos.profile.mitra.model.Mitra
 import com.presidev.maos.utils.AppUtils.*
 
-class DashboardMitraAdapter(private val list: List<Mitra>) : RecyclerView.Adapter<DashboardMitraAdapter.ViewHolder>() {
+class DashboardMitraAdapter(private val list: List<Mitra>) :
+    RecyclerView.Adapter<DashboardMitraAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_mitra_dashboard, parent, false))
+        LayoutInflater.from(parent.context).inflate(R.layout.item_mitra_dashboard, parent, false)
+    )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val image : ImageView = holder.itemView.findViewById(R.id.img_item_book_dashboard)
-        val namaMitra : TextView = holder.itemView.findViewById(R.id.txt_title_book)
-        val alamatMitra : TextView = holder.itemView.findViewById(R.id.txt_address_book)
+        val image: ImageView = holder.itemView.findViewById(R.id.img_item_book_dashboard)
+        val namaMitra: TextView = holder.itemView.findViewById(R.id.txt_title_book)
+        val alamatMitra: TextView = holder.itemView.findViewById(R.id.txt_address_book)
         loadImageFromUrl(image, list[position].logo)
 
         namaMitra.text = list[position].name
-        alamatMitra.text = setFullAddress(null, list[position].province, getSimpleRegency(list[position].regency), list[position].district)
+        alamatMitra.text = setFullAddress(
+            null,
+            list[position].province,
+            getSimpleRegency(list[position].regency),
+            list[position].district
+        )
 
         holder.itemView.setOnClickListener {
             val c = holder.itemView.context

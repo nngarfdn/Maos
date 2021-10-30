@@ -9,7 +9,7 @@ import java.util.ArrayList
 
 class DashboardRepository {
 
-    companion object{
+    companion object {
         private const val TAG = "DashboardRepository"
     }
 
@@ -24,21 +24,21 @@ class DashboardRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Mitra>()
         db.collection("mitra")
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val pp = document.toObject(Mitra::class.java)
-                        pp.id = document.id
-                        savedProdukList.add(pp)
-                        produkData.add(pp)
-                        Log.d(TAG, "getData size : ${savedProdukList.size} getData: $pp")
-                    }
-                    resultMitra.value = produkData
-                    Log.d(TAG, "readProduk size final getData : ${savedProdukList.size}")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val pp = document.toObject(Mitra::class.java)
+                    pp.id = document.id
+                    savedProdukList.add(pp)
+                    produkData.add(pp)
+                    Log.d(TAG, "getData size : ${savedProdukList.size} getData: $pp")
                 }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error getting documents.", exception)
-                }
+                resultMitra.value = produkData
+                Log.d(TAG, "readProduk size final getData : ${savedProdukList.size}")
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
     }
 
     /*fun getBook() {

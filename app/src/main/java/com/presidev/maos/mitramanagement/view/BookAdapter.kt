@@ -10,17 +10,18 @@ import com.presidev.maos.R
 import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 
-class BookAdapter (private val list: List<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val list: List<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false))
+        LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
+    )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val image : ImageView = holder.itemView.findViewById(R.id.imgBookAdapter)
+        val image: ImageView = holder.itemView.findViewById(R.id.imgBookAdapter)
         loadImageFromUrl(image, list[position].photo)
 
         holder.itemView.setOnClickListener {

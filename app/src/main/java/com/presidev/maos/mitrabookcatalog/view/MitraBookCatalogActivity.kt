@@ -12,11 +12,12 @@ import com.presidev.maos.utils.AppUtils.*
 import kotlinx.android.synthetic.main.activity_mitra_book_catalog.*
 
 
-class MitraBookCatalogActivity : AppCompatActivity(){
+class MitraBookCatalogActivity : AppCompatActivity() {
 
     private lateinit var mitraBookViewModel: MitraBookViewModel
-    private lateinit var mitra : Mitra
-    companion object{
+    private lateinit var mitra: Mitra
+
+    companion object {
         const val EXTRA_MITRA = "extra_mitra"
         private const val TAG = "MitraBookCatalogActivit"
     }
@@ -36,23 +37,27 @@ class MitraBookCatalogActivity : AppCompatActivity(){
 
         txt_mitra_name.text = mitra.name
         txt_mitra_description.text = mitra.description
-        txt_address_mitra.text = setFullAddress(mitra.address, mitra.province, mitra.regency, mitra.district)
+        txt_address_mitra.text =
+            setFullAddress(mitra.address, mitra.province, mitra.regency, mitra.district)
 
-        mitraBookViewModel =  ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MitraBookViewModel::class.java)
+        mitraBookViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(MitraBookViewModel::class.java)
 
         mitraBookViewModel.getResultByMitraId().observe(this) { result ->
             Log.d(TAG, "onCreate: $result")
             val layoutManager = GridLayoutManager(this, 2)
             rv_bookcatalognew.layoutManager = layoutManager
-            val adapter = MitraBookCatalogAdapter(result,mitra)
+            val adapter = MitraBookCatalogAdapter(result, mitra)
             rv_bookcatalognew.adapter = adapter
         }
 
         mitraBookViewModel.getResultByMitraIdPopuler().observe(this) { result ->
             Log.d(TAG, "onCreate: $result")
-            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+            val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rv_bookpopuler.layoutManager = layoutManager
-            val adapter = MitraBookCatalogAdapter(result,mitra)
+            val adapter = MitraBookCatalogAdapter(result, mitra)
             rv_bookpopuler.adapter = adapter
         }
 
@@ -65,7 +70,6 @@ class MitraBookCatalogActivity : AppCompatActivity(){
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
     }
-
 
 
     override fun onStart() {

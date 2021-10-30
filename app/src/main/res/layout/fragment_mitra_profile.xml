@@ -33,10 +33,10 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_view"
-            android:tint="@color/white"
             android:background="@android:color/transparent"
             android:layout_alignParentEnd="true"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            app:tint="@color/white" />
     </RelativeLayout>
 
     <ScrollView

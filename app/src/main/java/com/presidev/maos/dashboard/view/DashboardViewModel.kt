@@ -7,7 +7,7 @@ class DashboardViewModel : ViewModel() {
 
     val repository = DashboardRepository()
 
-    fun getResultMitra()  = repository.getResultsMitra()
+    fun getResultMitra() = repository.getResultsMitra()
     fun loadResultMitra() = repository.getMitra()
 
 

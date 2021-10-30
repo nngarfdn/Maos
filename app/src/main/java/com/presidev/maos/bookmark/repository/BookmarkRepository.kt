@@ -15,7 +15,7 @@ class BookmarkRepository {
     private val database = FirebaseFirestore.getInstance()
     private val resultData = MutableLiveData<Bookmark>()
 
-    companion object{
+    companion object {
         private const val TAG = "BookmarkRepository"
     }
 
@@ -24,35 +24,50 @@ class BookmarkRepository {
 
     fun query(userId: String) {
         database.collection("bookmark").document(userId)
-                .get()
-                .addOnCompleteListener { task: Task<DocumentSnapshot> ->
-                    if (task.isSuccessful) {
-                        var favorite = task.result?.toObject(Bookmark::class.java)
-                        // Pengguna yang belum pernah tambah favorit
-                        if (favorite == null) {
-                            favorite = Bookmark(ArrayList())
-                            insert(userId, favorite) // Sekalian bikin dokumennya
-                        }
-                        resultData.postValue(favorite)
-                    } else Log.w(TAG, "Error querying document", task.exception)
-                }
+            .get()
+            .addOnCompleteListener { task: Task<DocumentSnapshot> ->
+                if (task.isSuccessful) {
+                    var favorite = task.result?.toObject(Bookmark::class.java)
+                    // Pengguna yang belum pernah tambah favorit
+                    if (favorite == null) {
+                        favorite = Bookmark(ArrayList())
+                        insert(userId, favorite) // Sekalian bikin dokumennya
+                    }
+                    resultData.postValue(favorite)
+                } else Log.w(TAG, "Error querying document", task.exception)
+            }
     }
 
     private fun insert(userId: String, favorite: Bookmark) {
         database.collection("bookmark").document(userId)
-                .set(favorite)
-                .addOnCompleteListener { task: Task<Void?> -> if (task.isSuccessful) Log.d(TAG, "Document was added") else Log.w(TAG, "Error adding document", task.exception) }
+            .set(favorite)
+            .addOnCompleteListener { task: Task<Void?> ->
+                if (task.isSuccessful) Log.d(
+                    TAG,
+                    "Document was added"
+                ) else Log.w(TAG, "Error adding document", task.exception)
+            }
     }
 
     fun add(userId: String?, productId: String?) {
         database.collection("bookmark").document(userId!!)
-                .update("listBookId", FieldValue.arrayUnion(productId))
-                .addOnCompleteListener { task: Task<Void?> -> if (task.isSuccessful) Log.d(TAG, "Document was updated") else Log.w(TAG, "Error updating document", task.exception) }
+            .update("listBookId", FieldValue.arrayUnion(productId))
+            .addOnCompleteListener { task: Task<Void?> ->
+                if (task.isSuccessful) Log.d(
+                    TAG,
+                    "Document was updated"
+                ) else Log.w(TAG, "Error updating document", task.exception)
+            }
     }
 
     fun remove(userId: String?, productId: String?) {
         database.collection("bookmark").document(userId!!)
-                .update("listBookId", FieldValue.arrayRemove(productId))
-                .addOnCompleteListener { task: Task<Void?> -> if (task.isSuccessful) Log.d(TAG, "Document was updated") else Log.w(TAG, "Error updating document", task.exception) }
+            .update("listBookId", FieldValue.arrayRemove(productId))
+            .addOnCompleteListener { task: Task<Void?> ->
+                if (task.isSuccessful) Log.d(
+                    TAG,
+                    "Document was updated"
+                ) else Log.w(TAG, "Error updating document", task.exception)
+            }
     }
 }

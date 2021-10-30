@@ -25,7 +25,7 @@ class AddEditReminderActivity : AppCompatActivity() {
     private var toDatePickerDialog: DatePickerDialog? = null
     private var dateFormatter: SimpleDateFormat? = null
 
-    private var pref : AuthPreference? = null
+    private var pref: AuthPreference? = null
 
 
     companion object {
@@ -41,7 +41,10 @@ class AddEditReminderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         pref = AuthPreference(this)
-        reminderViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(ReminderViewModel::class.java)
+        reminderViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(ReminderViewModel::class.java)
 
 
         dateFormatter = SimpleDateFormat(DATE_FORMAT, Locale.US)
@@ -71,10 +74,11 @@ class AddEditReminderActivity : AppCompatActivity() {
                 if (title.isEmpty() || borrowDate.isEmpty() || returnDate.isEmpty()) {
                     Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show()
                 } else {
-                    val reminder = Reminder(reminder?.id, pref?.id , title, borrowDate, returnDate, isReturned)
+                    val reminder =
+                        Reminder(reminder?.id, pref?.id, title, borrowDate, returnDate, isReturned)
                     reminderViewModel.update(reminder)
 
-                    if (reminder.isKembali.equals("false")){
+                    if (reminder.isKembali.equals("false")) {
                         val returnReminder = ReturnReminder()
                         returnReminder.setReminder(this, reminder)
                     } else cancelReminder(this, reminder.id.hashCode())
@@ -86,14 +90,16 @@ class AddEditReminderActivity : AppCompatActivity() {
 
             btn_delete_reminder.setOnClickListener {
                 AlertDialog.Builder(this)
-                        .setTitle("Hapus pengingat")
-                        .setMessage("Apakah kamu yakin ingin menghapusnya?")
-                        .setNegativeButton("Batal", null)
-                        .setPositiveButton("Ya") { _: DialogInterface?, i: Int ->
-                            reminder?.let { it1 -> reminderViewModel.delete(it1.id)
-                                cancelReminder(this, it1.id.hashCode()) }
-                            finish()
-                        }.create().show()
+                    .setTitle("Hapus pengingat")
+                    .setMessage("Apakah kamu yakin ingin menghapusnya?")
+                    .setNegativeButton("Batal", null)
+                    .setPositiveButton("Ya") { _: DialogInterface?, i: Int ->
+                        reminder?.let { it1 ->
+                            reminderViewModel.delete(it1.id)
+                            cancelReminder(this, it1.id.hashCode())
+                        }
+                        finish()
+                    }.create().show()
             }
         } else {
 
@@ -106,10 +112,10 @@ class AddEditReminderActivity : AppCompatActivity() {
                 if (title.isEmpty() || borrowDate.isEmpty() || returnDate.isEmpty()) {
                     Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show()
                 } else {
-                    val reminder = Reminder("", pref?.id ,title, borrowDate, returnDate, isReturned)
+                    val reminder = Reminder("", pref?.id, title, borrowDate, returnDate, isReturned)
                     reminderViewModel.insert(reminder)
 
-                    if (reminder.isKembali.equals("false")){
+                    if (reminder.isKembali.equals("false")) {
                         val returnReminder = ReturnReminder()
                         returnReminder.setReminder(this, reminder)
                     } else cancelReminder(this, reminder.id.hashCode())
@@ -124,11 +130,17 @@ class AddEditReminderActivity : AppCompatActivity() {
     private fun setDateTimeField() {
         val newCalendar: Calendar = Calendar.getInstance()
 
-        toDatePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
-            val newDate: Calendar = Calendar.getInstance()
-            newDate.set(year, monthOfYear, dayOfMonth)
-            edt_return_date.setText(dateFormatter!!.format(newDate.time))
-        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH))
+        toDatePickerDialog = DatePickerDialog(
+            this,
+            { _, year, monthOfYear, dayOfMonth ->
+                val newDate: Calendar = Calendar.getInstance()
+                newDate.set(year, monthOfYear, dayOfMonth)
+                edt_return_date.setText(dateFormatter!!.format(newDate.time))
+            },
+            newCalendar.get(Calendar.YEAR),
+            newCalendar.get(Calendar.MONTH),
+            newCalendar.get(Calendar.DAY_OF_MONTH)
+        )
 
         edt_return_date.setOnClickListener { toDatePickerDialog?.show() }
     }

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -19,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.presidev.maos.R
 import com.presidev.maos.auth.preference.AuthPreference
 import com.presidev.maos.auth.view.LoginActivity
-import com.presidev.maos.bookdetail.healthtips.HealthTipsFragment
 import com.presidev.maos.bookmark.view.BookmarkViewModel
 import com.presidev.maos.mitrabookcatalog.view.MitraBookCatalogActivity
 import com.presidev.maos.mitramanagement.model.Book
@@ -30,6 +28,7 @@ import com.presidev.maos.profile.user.view.UserViewModel
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import com.presidev.maos.utils.Constants
 import kotlinx.android.synthetic.main.activity_book_detail.*
+import kotlin.math.abs
 
 
 class BookDetailActivity : AppCompatActivity() {
@@ -40,6 +39,7 @@ class BookDetailActivity : AppCompatActivity() {
     private lateinit var favoriteViewModel: BookmarkViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var bookViewModel: BookViewModel
+
     companion object {
         const val EXTRA_BOOK = "extra_book"
     }
@@ -64,7 +64,7 @@ class BookDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
 
         app_bar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) { // Collapsed
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) { // Collapsed
                 txt_detail.text = book.title
             } else { //Expanded
                 txt_detail.text = resources.getString(R.string.detail_buku)
@@ -72,17 +72,17 @@ class BookDetailActivity : AppCompatActivity() {
         })
 
         val accountPreference = AuthPreference(this)
-        if (accountPreference.level != null){
-            if (accountPreference.level == Constants.LEVEL_MITRA || book.ketersediaan == false ) {
+        if (accountPreference.level != null) {
+            if (accountPreference.level == Constants.LEVEL_MITRA || book.ketersediaan == false) {
                 btn_peminjaman.isEnabled = false
 
-            } else if (accountPreference.level == Constants.LEVEL_USER || book.ketersediaan == true){
+            } else if (accountPreference.level == Constants.LEVEL_USER || book.ketersediaan == true) {
                 btn_peminjaman.isEnabled = true
             }
         } else {
-            if (book.ketersediaan == false ) {
+            if (book.ketersediaan == false) {
                 btn_peminjaman.isEnabled = false
-            } else if ( book.ketersediaan == true){
+            } else if (book.ketersediaan == true) {
                 btn_peminjaman.isEnabled = true
             }
         }
@@ -93,7 +93,8 @@ class BookDetailActivity : AppCompatActivity() {
             val bitmap = (imageView.drawable as BitmapDrawable).bitmap
             Palette.Builder(bitmap).generate {
                 it?.let { palette ->
-                    val dominantColor = palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
+                    val dominantColor =
+                        palette.getDominantColor(ContextCompat.getColor(this, R.color.gray))
                     relative_detail.setBackgroundColor(dominantColor)
                     toolbar.setBackgroundColor(dominantColor)
                     img_btn.setBackgroundColor(dominantColor)
@@ -119,8 +120,10 @@ class BookDetailActivity : AppCompatActivity() {
 
         txt_save_contact.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_DIAL,
-                Uri.parse("tel:" + "${mitra?.whatsApp}"))
+            val intent = Intent(
+                Intent.ACTION_DIAL,
+                Uri.parse("tel:" + "${mitra?.whatsApp}")
+            )
             startActivity(intent)
         }
 
@@ -157,7 +160,7 @@ class BookDetailActivity : AppCompatActivity() {
                 }
             })
             img_bookmark.setOnClickListener {
-                val userId = firebaseUser!!.uid
+                val userId = firebaseUser?.uid ?: "-1"
                 if (isFavorite) {
                     favoriteViewModel.remove(userId, book.bookId)
                     img_bookmark.setImageResource(R.drawable.ic_bookmark_outline)
@@ -180,8 +183,8 @@ class BookDetailActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (firebaseUser != null) {
-            favoriteViewModel.loadData(firebaseUser!!.uid)
-            userViewModel.query(firebaseUser!!.uid)
+            favoriteViewModel.loadData(firebaseUser?.uid ?: "-1")
+            userViewModel.query(firebaseUser?.uid ?: "-1")
         }
     }
 

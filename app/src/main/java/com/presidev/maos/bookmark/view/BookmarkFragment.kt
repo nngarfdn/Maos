@@ -39,7 +39,11 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
         database = FirebaseFirestore.getInstance()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_bookmark, container, false)
     }
 
@@ -54,7 +58,7 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
         imgBookmark = view.findViewById(R.id.img_bookmark)
         txtEmptyBookmark = view.findViewById(R.id.txt_bookmark_empty)
 
-        favoriteViewModel!!.data.observe(viewLifecycleOwner, { favorite: Bookmark ->
+        favoriteViewModel?.data?.observe(viewLifecycleOwner, { favorite: Bookmark ->
             // Kalo daftar favorit masih sama, jangan dimuat lagi
             if (listBookId != favorite.listBookId) {
                 listBookId = favorite.listBookId
@@ -63,10 +67,11 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
             }
         })
 
-        view.sv_mitra_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        view.sv_mitra_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter!!.filter.filter(newText)
                 return false
@@ -82,18 +87,18 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
     private fun loadBookById() {
         val listItem = ArrayList<Book>()
         if (listBookId.isEmpty()) onFinish(listItem)
-        else{
+        else {
             val iterator = listBookId.iterator()
             while (iterator.hasNext()) {
                 database!!.collection("book").document(iterator.next())
-                        .get()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val product = task.result!!.toObject(Book::class.java)
-                                if (product != null) listItem.add(product)
-                                if (!iterator.hasNext()) onFinish(listItem) // Pemuatan id terakhir
-                            }
+                    .get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val product = task.result!!.toObject(Book::class.java)
+                            if (product != null) listItem.add(product)
+                            if (!iterator.hasNext()) onFinish(listItem) // Pemuatan id terakhir
                         }
+                    }
             }
         }
     }
@@ -112,12 +117,12 @@ class BookmarkFragment : Fragment(), BookmarkCallback {
 
     override fun onStart() {
         super.onStart()
-        favoriteViewModel!!.loadData(firebaseUser!!.uid)
+        favoriteViewModel?.loadData(firebaseUser?.uid ?: "-1")
     }
 
     override fun onResume() {
         super.onResume()
-        favoriteViewModel!!.loadData(firebaseUser!!.uid)
+        favoriteViewModel?.loadData(firebaseUser?.uid ?: "-1")
     }
 
     companion object {

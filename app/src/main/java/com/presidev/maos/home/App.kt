@@ -22,15 +22,25 @@ class App : AppCompatActivity() {
         hideStatusBar(this, supportActionBar)
         setContentView(R.layout.activity_app)
 
-        val pagerAdapter : MainPagerAdapter = if (intent.hasExtra(EXTRA_LEVEL)) MainPagerAdapter(intent.getStringExtra(EXTRA_LEVEL), supportFragmentManager)
+        val pagerAdapter: MainPagerAdapter = if (intent.hasExtra(EXTRA_LEVEL)) MainPagerAdapter(
+            intent.getStringExtra(EXTRA_LEVEL),
+            supportFragmentManager
+        )
         else MainPagerAdapter(AuthPreference(this).level, supportFragmentManager)
         viewPager = findViewById(R.id.view_pager)
         viewPager?.adapter = pagerAdapter
 
-        findViewById<SmoothBottomBar>(R.id.bottom_bar).onItemSelected = { i: Int -> viewPager?.currentItem = i }
+        findViewById<SmoothBottomBar>(R.id.bottom_bar).onItemSelected =
+            { i: Int -> viewPager?.currentItem = i }
 
         viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageSelected(position: Int) {
                 findViewById<SmoothBottomBar>(R.id.bottom_bar).itemActiveIndex = position
@@ -42,9 +52,9 @@ class App : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (firebaseUser == null){
+        if (firebaseUser == null) {
             val currentUser = FirebaseAuth.getInstance().currentUser
-            if (currentUser != null){
+            if (currentUser != null) {
                 Log.d("App onResume", "Terdeteksi login: " + currentUser.email)
                 firebaseUser = currentUser
                 /*viewPager!!.adapter = null

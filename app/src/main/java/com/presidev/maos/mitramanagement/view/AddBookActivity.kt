@@ -53,7 +53,7 @@ class AddBookActivity : AppCompatActivity() {
 
         btn_simpan.setOnClickListener {
             val book = Book()
-            val id = firebaseUser?.uid
+            val id = firebaseUser?.uid ?: "-1"
             val judul = edt_title.text.toString()
             val deskripsi = edt_description.text.toString()
             val penulis = edt_penulis.text.toString()

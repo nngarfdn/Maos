@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.activity_katalog_mitra.*
 class KatalogMitraActivity : AppCompatActivity() {
 
     private lateinit var bookViewModel: BookViewModel
-    private lateinit var rvBookCatalog : RecyclerView
+    private lateinit var rvBookCatalog: RecyclerView
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseUser: FirebaseUser? = null
 
-    companion object{
+    companion object {
         private const val TAG = "KatalogMitraActivity"
     }
 
@@ -33,12 +33,15 @@ class KatalogMitraActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        bookViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BookViewModel::class.java)
+        bookViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(BookViewModel::class.java)
 
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = firebaseAuth!!.currentUser
 
-        val fab : FloatingActionButton = findViewById(R.id.floatingActionButton)
+        val fab: FloatingActionButton = findViewById(R.id.floatingActionButton)
         rvBookCatalog = findViewById(R.id.rv_bookcatalog)
         fab.setOnClickListener {
             val intent = Intent(this, AddBookActivity::class.java)
@@ -47,7 +50,7 @@ class KatalogMitraActivity : AppCompatActivity() {
 
         bookViewModel.getResultByMitraId().observe(this, { result ->
             Log.d(TAG, "onCreate: $result")
-            val layoutManager = GridLayoutManager(this,2)
+            val layoutManager = GridLayoutManager(this, 2)
             rvBookCatalog.layoutManager = layoutManager
             val adapter = BookAdapter(result)
             rvBookCatalog.adapter = adapter
@@ -58,11 +61,12 @@ class KatalogMitraActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        bookViewModel.loadResultBymitraId(firebaseUser?.uid!!)
+        bookViewModel.loadResultBymitraId(firebaseUser?.uid ?: "-1")
         super.onStart()
     }
+
     override fun onResume() {
-        bookViewModel.loadResultBymitraId(firebaseUser?.uid!!)
+        bookViewModel.loadResultBymitraId(firebaseUser?.uid ?: "-1")
         super.onResume()
     }
 

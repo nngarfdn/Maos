@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_information_dialog.view.*
 
 class InformationDialog : BottomSheetDialogFragment() {
 
-    private var mitra : Mitra? = null
+    private var mitra: Mitra? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +21,12 @@ class InformationDialog : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_information_dialog, container, false)
+        val view = inflater.inflate(R.layout.fragment_information_dialog, container, false)
 
         mitra = arguments?.getParcelable(MitraBookCatalogActivity.EXTRA_MITRA)
 

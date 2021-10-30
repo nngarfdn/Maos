@@ -13,11 +13,13 @@ import com.presidev.maos.utils.DateUtils.DATE_FORMAT
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
+class ReminderAdapter(private val list: List<Reminder>) :
+    RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_target, parent, false))
+        LayoutInflater.from(parent.context).inflate(R.layout.item_target, parent, false)
+    )
 
     override fun getItemCount(): Int = list.size
 
@@ -54,14 +56,14 @@ class ReminderAdapter(private val list: List<Reminder>) : RecyclerView.Adapter<R
                 status.text = "$dayLeft Hari lagi"
                 status.setTextColor(holder.itemView.context.resources.getColor(R.color.orange))
             }
-    }
+        }
 
 
-    holder.itemView.setOnClickListener{
-        val c = holder.itemView.context
-        val intent = Intent(c, AddEditReminderActivity::class.java)
-        intent.putExtra(AddEditReminderActivity.EXTRA_REMINDER, list[position])
-        c.startActivity(intent)
+        holder.itemView.setOnClickListener {
+            val c = holder.itemView.context
+            val intent = Intent(c, AddEditReminderActivity::class.java)
+            intent.putExtra(AddEditReminderActivity.EXTRA_REMINDER, list[position])
+            c.startActivity(intent)
+        }
     }
-}
 }

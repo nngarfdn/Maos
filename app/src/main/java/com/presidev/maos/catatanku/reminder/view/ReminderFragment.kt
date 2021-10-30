@@ -18,17 +18,21 @@ import com.presidev.maos.catatanku.helper.ReturnReminder
 import kotlinx.android.synthetic.main.fragment_reminder.*
 import kotlinx.android.synthetic.main.fragment_reminder.view.*
 
-class ReminderFragment : Fragment(){
+class ReminderFragment : Fragment() {
     private val TAG = javaClass.simpleName
-    private lateinit var  reminderViewModel : ReminderViewModel
-    private var pref : AuthPreference? = null
+    private lateinit var reminderViewModel: ReminderViewModel
+    private var pref: AuthPreference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_reminder, container, false)
     }
 
@@ -37,7 +41,10 @@ class ReminderFragment : Fragment(){
 
         val userPreference = UserPreference(context)
         pref = AuthPreference(context)
-        reminderViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(ReminderViewModel::class.java)
+        reminderViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(ReminderViewModel::class.java)
         reminderViewModel.getResultReminder().observe(viewLifecycleOwner, { result ->
             Log.d("ReminderFragment", "onViewCreated: $result")
             rv_reminder.layoutManager = LinearLayoutManager(context)

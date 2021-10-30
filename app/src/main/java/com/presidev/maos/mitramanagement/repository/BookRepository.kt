@@ -36,26 +36,26 @@ class BookRepository {
 
         if (idProduk != null) {
             database.collection("book").document(idProduk)
-                    .set(item)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "Succes update")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e(TAG, "Error adding document", e)
-                    }
+                .set(item)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Succes update")
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "Error adding document", e)
+                }
         }
     }
 
 
     fun delete(bookId: String) {
         database.collection("book").document(bookId)
-                .delete()
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot successfully deleted!")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error deleting document", e)
-                }
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+            }
     }
 
 
@@ -63,9 +63,10 @@ class BookRepository {
         val ref = database.collection("book").document()
         book.bookId = ref.id
         ref.set(hashMapBook(book))
-                .addOnCompleteListener { task: Task<Void?> ->
-                    if (task.isSuccessful) Log.d(TAG, "Document was added") else
-                        Log.w(TAG, "Error adding document", task.exception) }
+            .addOnCompleteListener { task: Task<Void?> ->
+                if (task.isSuccessful) Log.d(TAG, "Document was added") else
+                    Log.w(TAG, "Error adding document", task.exception)
+            }
     }
 
     fun getProyekByMitraID(id: String) {
@@ -73,31 +74,41 @@ class BookRepository {
         val db = FirebaseFirestore.getInstance()
         val savedProdukList = ArrayList<Book>()
         db.collection("book")
-                .orderBy("dateCreated" , Query.Direction.DESCENDING )
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val kategoriDocument = document.data["mitraId"] as String
-                        if (kategoriDocument == id) {
-                            val pp = document.toObject(Book::class.java)
-                            pp.bookId = document.id
-                            savedProdukList.add(pp)
-                            produkData.add(pp)
-                            Log.d(TAG, "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp")
-                        }
+            .orderBy("dateCreated", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val kategoriDocument = document.data["mitraId"] as String
+                    if (kategoriDocument == id) {
+                        val pp = document.toObject(Book::class.java)
+                        pp.bookId = document.id
+                        savedProdukList.add(pp)
+                        produkData.add(pp)
+                        Log.d(
+                            TAG,
+                            "getDataByUUID size : ${savedProdukList.size} getDataByUUID: $pp"
+                        )
                     }
-                    resultBookByMitraId.value = produkData
-                    Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
                 }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error getting documents.", exception)
-                }
+                resultBookByMitraId.value = produkData
+                Log.d(TAG, "readProduk size final getDataByUUID : ${savedProdukList.size}")
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting documents.", exception)
+            }
     }
 
-    fun uploadImage(context: Context?, portfolioId: String, uri: Uri?, fileName: String, callback: OnImageUploadCallback) { // Investor
+    fun uploadImage(
+        context: Context?,
+        portfolioId: String,
+        uri: Uri?,
+        fileName: String,
+        callback: OnImageUploadCallback
+    ) { // Investor
         var image: ByteArray? = convertUriToByteArray(context, uri)
         image = getCompressedByteArray(image, true)
-        val reference: StorageReference = storage.reference.child("$FOLDER_BUKU/$portfolioId/$fileName")
+        val reference: StorageReference =
+            storage.reference.child("$FOLDER_BUKU/$portfolioId/$fileName")
         val uploadTask = reference.putBytes(image!!)
         uploadTask.addOnSuccessListener {
             reference.downloadUrl.addOnSuccessListener { uri1: Uri ->
@@ -114,8 +125,6 @@ class BookRepository {
                     .addOnFailureListener { e: Exception? -> Log.w(TAG, "Error deleting image", e) }
         }
     }*/
-
-
 
 
     private fun hashMapBook(book: Book): Map<String, Any?> {

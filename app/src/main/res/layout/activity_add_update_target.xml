@@ -57,9 +57,9 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add"
                     android:padding="8dp"
-                    android:tint="@color/white"
                     android:layout_marginHorizontal="4dp"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    app:tint="@color/white" />
 
                 <ImageButton
                     android:id="@+id/btn_remove"
@@ -68,9 +68,9 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_remove"
                     android:padding="8dp"
-                    android:tint="@color/orange"
                     android:layout_marginHorizontal="4dp"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    app:tint="@color/orange" />
             </LinearLayout>
 
             <TextView

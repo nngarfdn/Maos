@@ -25,11 +25,11 @@ import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
 class DashboardFragment : Fragment() {
 
-    private lateinit var  dashboardViewModel: DashboardViewModel
+    private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var sliderView: SliderView
     private lateinit var adapter: SliderAdapter
 
-    companion object{
+    companion object {
         private const val TAG = "DashboardFragment"
         private const val ADMIN_PHONE_NUMBER = "6287838804270"
     }
@@ -41,9 +41,12 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +56,10 @@ class DashboardFragment : Fragment() {
         btn_daftar_penyedia.visibility = View.INVISIBLE
         shimmer.show()
 
-        dashboardViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel::class.java)
+        dashboardViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(DashboardViewModel::class.java)
         dashboardViewModel.getResultMitra().observe(viewLifecycleOwner, { result ->
             shimmer.hide()
             Log.d(TAG, "onCreate: $result")
@@ -80,7 +86,7 @@ class DashboardFragment : Fragment() {
         sliderView.isAutoCycle = true
         sliderView.startAutoCycle()
 
-        view.edt_search.setOnClickListener{
+        view.edt_search.setOnClickListener {
             val intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
         }
@@ -88,11 +94,17 @@ class DashboardFragment : Fragment() {
         view.btn_daftar_penyedia.setOnClickListener {
             try {
                 val whatsappIntent = Intent("android.intent.action.SEND")
-                whatsappIntent.component = ComponentName("com.whatsapp", "com.whatsapp.ContactPicker")
-                whatsappIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(ADMIN_PHONE_NUMBER) + "@s.whatsapp.net")
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, """
+                whatsappIntent.component =
+                    ComponentName("com.whatsapp", "com.whatsapp.ContactPicker")
+                whatsappIntent.putExtra(
+                    "jid",
+                    PhoneNumberUtils.stripSeparators(ADMIN_PHONE_NUMBER) + "@s.whatsapp.net"
+                )
+                whatsappIntent.putExtra(
+                    Intent.EXTRA_TEXT, """
                 Halo kak, saya ingin mendaftar sebagai penyedia buku di aplikasi *Maos*, apakah bisa kak ?
-                """.trimIndent())
+                """.trimIndent()
+                )
                 startActivity(whatsappIntent)
             } catch (e: Exception) {
                 Log.e(javaClass.simpleName, "Error on sharing: $e")

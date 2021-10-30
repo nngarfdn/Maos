@@ -17,26 +17,29 @@ import com.presidev.maos.mitramanagement.model.Book
 import com.presidev.maos.utils.AppUtils.loadImageFromUrl
 import java.util.*
 
-class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<FavoriteViewHolder>(), Filterable {
+class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<FavoriteViewHolder>(),
+    Filterable {
     private val listItem = ArrayList<Book>()
     private val listItemFiltered = ArrayList<Book>()
     var data: ArrayList<Book>?
         get() = listItem
         set(listItem) {
             this.listItem.clear()
-            this.listItem.addAll(listItem!!)
+            this.listItem.addAll(listItem ?: listOf())
             listItemFiltered.clear()
-            listItemFiltered.addAll(listItem)
+            listItemFiltered.addAll(listItem ?: listOf())
             notifyDataSetChanged()
         }
 
     var countryFilterList = ArrayList<Book>()
+
     init {
         countryFilterList = data!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mitra_book_catalog, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_mitra_book_catalog, parent, false)
         return FavoriteViewHolder(view)
     }
 
@@ -73,7 +76,9 @@ class BookmarkAdapter(private val activity: Activity) : RecyclerView.Adapter<Fav
                 } else {
                     val resultList = ArrayList<Book>()
                     for (row in data!!) {
-                        if (row.title!!.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                        if (row.title!!.lowercase(Locale.ROOT)
+                                .contains(charSearch.lowercase(Locale.ROOT))
+                        ) {
                             resultList.add(row)
                         }
                     }
