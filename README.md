@@ -1,18 +1,18 @@
-<img src="https://i.imgur.com/qZUqkDw.png"  width="200" height="200" alt="Maos logo"/>
 <h2>Maos</h2>
+<img src="https://i.imgur.com/NUKx190.png" alt="Maos preview"/>
 
-**Maos** adalah aplikasi untuk mempertemukan antara penyedia buku dan peminjam buku. Melalui aplikasi Maos peminjam dapat menemukan penyedia buku dari berbagai macam daerah di Indonesia.Melalui aplikasi Maos diharapkan mempermudah orang untuk menemukan peminjam buku terutama di daerah terdekatnya serta mampu meningkatkan minat baca masyarakat Indonesia.
+**Maos** adalah aplikasi untuk mempertemukan antara penyedia buku dan peminjam buku. Melalui aplikasi Maos, peminjam dapat menemukan penyedia buku dari berbagai macam daerah di Indonesia. Aplikasi Maos diharapkan dapat mempermudah orang untuk menemukan peminjam buku, terutama di daerah terdekatnya, serta mampu meningkatkan minat baca masyarakat Indonesia.
 
 #### Link APK
 ### [Maos.apk](https://drive.google.com/file/d/1YzoT4t5O3HMTXdS1dWz2bHA4z2Ax97Qh/view?usp=sharing)
 
-#### Video Demo Aplikasi Maos
-[<img src="https://i.imgur.com/ZSdxLth.jpeg"  width="360" height="720" alt="Maos logo"/> ](http://www.youtube.com/watch?v=-QP9G_aX8qY "")
+#### Video Demo
+[<img src="https://i.imgur.com/ZSdxLth.jpeg" width="360" height="720" alt="Maos logo"/>](http://www.youtube.com/watch?v=-QP9G_aX8qY "")
 
 #### Fitur Aplikasi
 - Splashscreen
 - Intro
-- Authentifikasi
+- Autentikasi
     1. Masuk
     2. Daftar
     3. Lupa Katasandi
@@ -66,9 +66,9 @@
 - [FacebookShimmer](https://github.com/facebook/shimmer-android)
 
 #### Jenis User Aplikasi
-- :person_with_blond_hair: Admin
-- :woman: Penyedia Buku <br>
-  **demo akun** <br>
-  email : ariefbook@gmail.com <br>
-  password : katasandi123 
+- 👱 Admin
+- :woman: Penyedia Buku<br>
+  **Akun Demo**<br>
+  Email: ariefbook@gmail.com<br>
+  Password: katasandi123
 - :girl: Pengguna atau Peminjam 
