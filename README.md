@@ -1,57 +1,57 @@
 <h2>Maos</h2>
 <img src="https://i.imgur.com/NUKx190.png" alt="Maos preview"/>
 
-**Maos** adalah aplikasi untuk mempertemukan antara penyedia buku dan peminjam buku. Melalui aplikasi Maos, peminjam dapat menemukan penyedia buku dari berbagai macam daerah di Indonesia. Aplikasi Maos diharapkan dapat mempermudah orang untuk menemukan peminjam buku, terutama di daerah terdekatnya, serta mampu meningkatkan minat baca masyarakat Indonesia.
+**Maos** Maos is an application designed to connect book providers and borrowers. Through the Maos application, borrowers can find book providers from various regions in Indonesia. Maos is expected to make it easier for people to find book borrowers, especially in their local area, and increase the interest in reading among the Indonesian community.
 
-#### Link APK
+#### APK Link
 ### [Maos.apk](https://drive.google.com/file/d/1YzoT4t5O3HMTXdS1dWz2bHA4z2Ax97Qh/view?usp=sharing)
 
 #### Video Demo
 [<img src="https://i.imgur.com/ZSdxLth.jpeg" width="360" height="720" alt="Maos logo"/>](http://www.youtube.com/watch?v=-QP9G_aX8qY "")
 
-#### Fitur Aplikasi
+#### Application Features
 - Splashscreen
 - Intro
-- Autentikasi
-    1. Masuk
-    2. Daftar
-    3. Lupa Katasandi
+- Authentication
+    1. Login
+    2. Register
+    3. Forgot Password
 - Dashboard
-    1. Kutipan Motivasi
-    2. Daftar Penyedia Buka
-- Cari Penyedia Buku
+    1. Motivational Quotes
+    2. List of Book Providers
+- Find a Book Provider
 - Filter Penyedia Buku
 - Informasi Penyedia Buku
 - Katalog Buku Penyedia
-    1. Buku Populer
-    2. Buku Terbaru
-- Detail Buku
-- Peminjaman Buku
-- Bookmark
-    1. Tambah Bookmark
-    2. Hapus Bookmark
-    3. Cari Bookmark
-- Profil
-    1. Edit Profil
-    2. Lupa Katasandi
-    3. Lihat Kartu Member
-    4. Tentang Aplikasi
+    1. Popular Books
+    2. Recent Books
+- Book Details
+- Book Loans
+- Bookmarks
+    1. Add Bookmarks
+    2. Delete Bookmarks
+    3. Find Bookmarks
+- Profile
+    1. Edit Profile
+    2. Forgot Password
+    3. See Member Card
+    4. About the Application
 - CatatanKu
-    1. Target Baca
-    2. Pengingat Pengembalian Buku
-    3. Kutipan Favorit
-    4. Notifikasi Target Baca dan Pengembalian Buku
-- Membership
-- Kelola Buku (Penyedia)
-- Daftar Anggota Member (Penyedia)
-- Kelola Member (Admin)
-- Kelola Penyedia (Admin)
+    1. Reading Target
+    2. Book Return 
+    3. Favorite Quotes
+    4. Notification of Reading Targets and Book Returns
+- Memberships
+- Manage Books (Provider)
+- List of Members (Providers)
+- Manage Members (Admin)
+- Manage Providers (Admin)
 
-#### Bahasa Pemrograman
+#### Programming Language
 - Java
 - Kotlin
 
-#### Teknologi
+#### Tech Stack
 - [Material Design](https://material.io/design)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore)
@@ -65,7 +65,7 @@
 - [AutoImageSlide](https://github.com/smarteist/Android-Image-Slider)
 - [FacebookShimmer](https://github.com/facebook/shimmer-android)
 
-#### Jenis User Aplikasi
+#### Application User Type
 - 👱 Admin
 - :woman: Penyedia Buku<br>
   **Akun Demo**<br>
